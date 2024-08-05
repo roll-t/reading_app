@@ -1,17 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/configs/strings/messages/app_errors.dart';
-import 'package:reading_app/core/configs/strings/messages/app_success.dart';
-import 'package:reading_app/core/data/firebase/firebae_auth/firebase_auth.dart';
-import 'package:reading_app/core/data/firebase/firestore_database/firestore_user.dart';
-import 'package:reading_app/core/data/firebase/model/result.dart';
-import 'package:reading_app/core/data/firebase/model/user_model.dart';
-import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/ui/snackbar/snackbar.dart';
 import 'package:reading_app/core/utils/validator.dart';
 import 'package:reading_app/features/auth/user/domain/use_case/remember_user_case.dart';
 import 'package:reading_app/features/auth/user/domain/use_case/save_user_use_case.dart';
+import 'package:reading_app/features/auth/user/model/user_model.dart';
 
 class LogInController extends GetxController {
   final SaveUserUseCase _saveUserUseCase;
@@ -53,7 +45,7 @@ class LogInController extends GetxController {
 
     if (userRemember != null) {
       emailController.text = userRemember!.email;
-      passwordController.text = userRemember!.password;
+      // passwordController.text = userRemember!.password;
     }
   }
 
@@ -82,53 +74,53 @@ class LogInController extends GetxController {
 
     isLoading.value = true;
 
-    Result result = await FirebaseAuthentication.logIn(
-        email: emailController.text.trim(),
-        password: passwordController.text.trim());
+  //   Result result = await FirebaseAuthentication.logIn(
+  //       email: emailController.text.trim(),
+  //       password: passwordController.text.trim());
     
-    isLoading.value = false;
+  //   isLoading.value = false;
 
-    if (result.status == Status.success) {
-      UserModel userLogin = UserModel(
-          displayName: result.data.displayName,
-          email: result.data.email,
-          password: passwordController.text,
-          creationTime: "");
-      await _saveUserUseCase.saveUser(userLogin);
-      await rememberUser(rememberCheck: isCheckRememberAccount.value);
-      SnackbarUtil.showSuccess(AppSuccess.loginSuccess);
-      Get.offAndToNamed(Routes.main);
-    } else {
-      SnackbarUtil.showError(AppErrors.loginFail);
-    }
-  }
+  //   if (result.status == Status.success) {
+  //     UserModel userLogin = UserModel(
+  //         displayName: result.data.displayName,
+  //         email: result.data.email,
+  //         password: passwordController.text,
+  //         creationTime: "");
+  //     await _saveUserUseCase.saveUser(userLogin);
+  //     await rememberUser(rememberCheck: isCheckRememberAccount.value);
+  //     SnackbarUtil.showSuccess(AppSuccess.loginSuccess);
+  //     Get.offAndToNamed(Routes.main);
+  //   } else {
+  //     SnackbarUtil.showError(AppErrors.loginFail);
+  //   }
+  // }
 
-  Future<void> logInWithGoogle() async {
-    errorMessage.value = ''; // Reset error message
+  // Future<void> logInWithGoogle() async {
+  //   errorMessage.value = ''; // Reset error message
 
-    Result<UserModel> result = await FirebaseAuthentication.signInWithGoogle();
+  //   Result<UserModel> result = await FirebaseAuthentication.signInWithGoogle();
 
-    if (result.status == Status.success) {
-      isLoading.value = true;
-      UserModel user = result.data!;
-      await FirestoreUser.createUser(user);
-      await _saveUserUseCase.saveUser(user);
-      isLoading.value = false;
-      SnackbarUtil.showSuccess(AppSuccess.loginSuccess);
-      Get.offAndToNamed(Routes.main);
-    } else {
-      errorMessage.value = 'An unknown error occurred';
-      SnackbarUtil.showError(AppErrors.loginFail);
-    }
-  }
+  //   if (result.status == Status.success) {
+  //     isLoading.value = true;
+  //     UserModel user = result.data!;
+  //     await FirestoreUser.createUser(user);
+  //     await _saveUserUseCase.saveUser(user);
+  //     isLoading.value = false;
+  //     SnackbarUtil.showSuccess(AppSuccess.loginSuccess);
+  //     Get.offAndToNamed(Routes.main);
+  //   } else {
+  //     errorMessage.value = 'An unknown error occurred';
+  //     SnackbarUtil.showError(AppErrors.loginFail);
+  //   }
+  // }
 
-  Future<void> rememberUser({bool rememberCheck = false}) async {
-    if (rememberCheck) {
-      UserModel userRemember = UserModel(
-          email: emailController.text.trim(),
-          password: passwordController.text.trim(),
-          creationTime: DateTime.now().toString());
-      await _rememberUserCase.set(userRemember);
-    }
+  // Future<void> rememberUser({bool rememberCheck = false}) async {
+  //   if (rememberCheck) {
+  //     UserModel userRemember = UserModel(
+  //         email: emailController.text.trim(),
+  //         password: passwordController.text.trim(),
+  //         creationTime: DateTime.now().toString());
+  //     await _rememberUserCase.set(userRemember);
+  //   }
   }
 }

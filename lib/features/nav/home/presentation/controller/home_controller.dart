@@ -5,6 +5,12 @@ import 'package:reading_app/core/data/models/book_model.dart';
 class HomeController extends GetxController {
   var currentIndex = 0.obs;
 
+  var currentIndexCategory = 0.obs;
+
+  changeIndexCategory(){
+    
+  }
+
   List<String> listIntroduceSlide =[
     'https://th.bing.com/th?id=OIF.0%2fWnli1m6RI9xpaB9Aq3Zw&rs=1&pid=ImgDetMain',
     'https://th.bing.com/th/id/R.37302ba5edd92ca748129e6017fbe582?rik=tLKP4Onjp9Bc4g&riu=http%3a%2f%2fimg.faloo.com%2fNovel%2f498x705%2f0%2f336%2f000336647.jpg&ehk=%2bRaxtlEw1F7kLAs84IbXhj8kSlw9QjnVXpde7oUbZU8%3d&risl=&pid=ImgRaw&r=0',
@@ -17,53 +23,51 @@ class HomeController extends GetxController {
 List<BookModel> listValueCardContinue = [
   BookModel.fromJson({
     "bid": "1",
-    "title": "Tiểu Lão cát",
-    "chapter": "chapter 6",
-    "imageUrl": "https://th.bing.com/th/id/OIP.Xx-IjpBOnDVwMAwdX0xeWgHaEa?rs=1&pid=ImgDetMain"
+    "title": "Thần cấp đại ma đầu",
+    "imageUrl": "https://img.faloo.com/Novel/498x705/0/336/000336647.jpg",
   }),
   BookModel.fromJson({
     "bid": "2",
-    "title": "Tiểu Lão cát",
-    "chapter": "chapter 6",
-    "imageUrl": "https://th.bing.com/th/id/OIP.Xx-IjpBOnDVwMAwdX0xeWgHaEa?rs=1&pid=ImgDetMain"
+    "title": "Thư viện huyền bí",
+    "imageUrl": "https://img.faloo.com/Novel/498x705/0/357/000357913.jpg",
   }),
   BookModel.fromJson({
     "bid": "3",
-    "title": "Tiểu Lão cát",
-    "chapter": "chapter 6",
-    "imageUrl": "https://th.bing.com/th/id/OIP.Xx-IjpBOnDVwMAwdX0xeWgHaEa?rs=1&pid=ImgDetMain"
+    "title": "Ma đạo tổ sư",
+    "imageUrl": "https://ngontinh.org/wp-content/uploads/2021/11/Len-Nham-Kieu-Hoa-Truyen-Ngan-Tinh-Yeu.jpg",
   }),
   BookModel.fromJson({
     "bid": "4",
-    "title": "Tiểu Lão cát",
-    "chapter": "chapter 6",
-    "imageUrl": "https://th.bing.com/th/id/OIP.Xx-IjpBOnDVwMAwdX0xeWgHaEa?rs=1&pid=ImgDetMain"
+    "title": "Tuyệt thế vô song",
+    "imageUrl": "https://truyenaudio.org/upload/pro/Le-Tinh-Truyen-Ngan-Tinh-Yeu.jpg",
   }),
   BookModel.fromJson({
     "bid": "5",
-    "title": "Tiểu Lão cát",
-    "chapter": "chapter 6",
-    "imageUrl": "https://th.bing.com/th/id/OIP.Xx-IjpBOnDVwMAwdX0xeWgHaEa?rs=1&pid=ImgDetMain"
+    "title": "Vũ trụ siêu cấp",
+    "imageUrl": "https://tiengtrungtoancauhc.vn/wp-content/uploads/2024/01/Truyen-tranh-Trung-Quoc-1-566x800.jpg",
   }),
   BookModel.fromJson({
     "bid": "6",
-    "title": "Tiểu Lão cát",
-    "chapter": "chapter 6",
-    "imageUrl": "https://th.bing.com/th/id/OIP.Xx-IjpBOnDVwMAwdX0xeWgHaEa?rs=1&pid=ImgDetMain"
+    "title": "Thần long chi địa",
+    "imageUrl": "https://i.pinimg.com/originals/36/4c/dc/364cdcef24987a1be511d76497ec4555.jpg",
   }),
   BookModel.fromJson({
-    "bid": "6",
-    "title": "Tiểu Lão cát",
-    "chapter": "chapter 6",
-    "imageUrl": "https://th.bing.com/th/id/OIP.Xx-IjpBOnDVwMAwdX0xeWgHaEa?rs=1&pid=ImgDetMain"
+    "bid": "7",
+    "title": "Ngạo thị thiên hạ",
+    "imageUrl": "https://th.bing.com/th/id/OIP.YEROt88zBh0qodtCZIoKfgHaMu?w=1280&h=2200&rs=1&pid=ImgDetMain",
   }),
   BookModel.fromJson({
-    "bid": "6",
-    "title": "Tiểu Lão cát",
-    "chapter": "chapter 6",
-    "imageUrl": "https://th.bing.com/th/id/OIP.Xx-IjpBOnDVwMAwdX0xeWgHaEa?rs=1&pid=ImgDetMain"
+    "bid": "8",
+    "title": "Huyễn tưởng chi lữ",
+    "imageUrl": "https://th.bing.com/th/id/OIP.W8tb3IOT_OT9-YAJn1y_sAHaNV?w=690&h=1242&rs=1&pid=ImgDetMain",
+  }),
+  BookModel.fromJson({
+    "bid": "8",
+    "title": "Huyễn tưởng chi lữ",
+    "imageUrl": "https://th.bing.com/th/id/OIP.rU0sYjJtSbfZcRayv2DwpAHaJ0?rs=1&pid=ImgDetMain",
   }),
 ];
+
 
 
 List<BookModel> listValueCardBTVRecoment= [

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:reading_app/core/configs/app_dimens.dart';
-import 'package:reading_app/core/configs/app_colors.dart';
+import 'package:reading_app/core/configs/dimens/text_dimens.dart';
+import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 
 // ignore: must_be_immutable
@@ -31,9 +31,9 @@ class ButtonWidget extends StatelessWidget {
     this.backgroundColor = AppColors.primary,
     this.leadingIcon,
     this.child,
-    this.borderRadius = AppDimens.radius10, 
+    this.borderRadius = 10, 
     this.padding = const EdgeInsets.symmetric(horizontal: 6.0), 
-    this.textSize = AppDimens.textSize18,
+    this.textSize = TextDimens.textSize18,
   });
 
   @override

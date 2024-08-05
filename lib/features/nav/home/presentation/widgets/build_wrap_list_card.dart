@@ -48,10 +48,10 @@ class BuildWrapListCard extends StatelessWidget {
                   child: TextLargeSemiBold(textChild: titleList!),
                 ),
                 if(seeMore!=null)
-                const Padding(
-                  padding: EdgeInsets.only(
+                Padding(
+                  padding: const EdgeInsets.only(
                       right: SpaceDimens.spaceStandard, bottom: SpaceDimens.space10),
-                  child: InkWell(child: TextNormalBold(textChild: AppContents.seeMore,colorChild: AppColors.accentColor,)),
+                  child: InkWell( onTap:seeMore,child: TextNormalBold(textChild: AppContents.seeMore,colorChild: AppColors.accentColor,)),
                 ),
               ],
             ),

@@ -22,6 +22,7 @@ class AppColors{
 
   // config theme color
   static const Color primary = Color(0xFF5d050f);
+  static const Color headerBackground = Color.fromARGB(255, 33, 7, 9);
   static const Color secondaryColor=Color(0xffa42133);
   static const Color accentColor=Color(0xffbd3745);
   static const Color primaryLight=Color.fromARGB(255, 234, 118, 130);

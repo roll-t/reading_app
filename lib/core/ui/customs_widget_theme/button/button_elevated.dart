@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:reading_app/core/configs/app_dimens.dart';
-import 'package:reading_app/core/configs/app_colors.dart';
+import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/button/elevated_button_widget.dart';
 
 class ButtonElevated extends ElevatedButtonWidget {

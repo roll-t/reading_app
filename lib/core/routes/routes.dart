@@ -8,4 +8,5 @@ abstract class Routes {
   static const emailVerify = "/emailVerify";
   static const forgotPassword = "/forgotPassword";
   static const profile = "/profile";
+  static const category = "/category";
 }

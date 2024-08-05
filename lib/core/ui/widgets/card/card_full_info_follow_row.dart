@@ -17,11 +17,13 @@ class CardFullInfoFollowRow extends StatelessWidget {
   final int currentIndex;
   final double heightImage;
   final BookModel bookModel;
+  final bool last;
   const CardFullInfoFollowRow({
     super.key, 
     required this.heightImage,
     required this.bookModel, 
     required this.currentIndex,
+    this.last = false,
   });
 
   @override
@@ -31,7 +33,7 @@ class CardFullInfoFollowRow extends StatelessWidget {
       width: Get.width,
       margin: currentIndex!=0? const EdgeInsets.only(top: SpaceDimens.space25):null,
       padding: const EdgeInsets.only(bottom: SpaceDimens.space25),
-      decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: AppColors.gray3, width: 1))),
+      decoration: BoxDecoration(border: !last? const Border(bottom: BorderSide(color: AppColors.gray3, width: 1)):null),
       child: Row(
         children: [
           SizedBox(
