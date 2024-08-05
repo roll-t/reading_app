@@ -1,15 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/configs/const/prefs_constants.dart';
-import 'package:reading_app/core/configs/strings/app_contents.dart';
-import 'package:reading_app/core/configs/strings/messages/app_errors.dart';
-import 'package:reading_app/core/configs/strings/messages/app_success.dart';
-import 'package:reading_app/core/data/firebase/firebae_auth/firebase_auth.dart'; // Thay đổi đường dẫn nếu cần
-import 'package:reading_app/core/data/firebase/model/result.dart';
-import 'package:reading_app/core/data/firebase/model/user_model.dart';
 import 'package:reading_app/core/data/prefs/prefs.dart';
-import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/utils/validator.dart';
 
 class RegisterController extends GetxController {
@@ -91,40 +82,40 @@ class RegisterController extends GetxController {
 
     isLoading.value = true; // Bắt đầu loading
 
-    // Gọi API để đăng ký
-    Result<UserModel> result = await FirebaseAuthentication.signUp(
-      email: emailController.text,
-      password: passwordController.text,
-    );
+  //   // Gọi API để đăng ký
+  //   Result<UserModel> result = await FirebaseAuthentication.signUp(
+  //     email: emailController.text,
+  //     password: passwordController.text,
+  //   );
 
-    isLoading.value = false; // Kết thúc loading
+  //   isLoading.value = false; // Kết thúc loading
 
-    if (result.status == Status.success) {
-      await prefs.set(PrefsConstants.idAccountwaitingVerify, result.data!.uid);
+  //   if (result.status == Status.success) {
+  //     await prefs.set(PrefsConstants.idAccountwaitingVerify, result.data!.uid);
 
-      // Đăng ký thành công
-      Get.snackbar(AppContents.successTag, AppSuccess.requestVerify);
-      UserModel user = UserModel(
-          uid: result.data!.uid,
-          displayName: nameController.text,
-          email: emailController.text,
-          password: passwordController.text,
-          creationTime: DateTime.now().toString());
-      // Chuyển hướng hoặc thông báo thành công
+  //     // Đăng ký thành công
+  //     Get.snackbar(AppContents.successTag, AppSuccess.requestVerify);
+  //     UserModel user = UserModel(
+  //         uid: result.data!.uid,
+  //         displayName: nameController.text,
+  //         email: emailController.text,
+  //         password: passwordController.text,
+  //         creationTime: DateTime.now().toString());
+  //     // Chuyển hướng hoặc thông báo thành công
 
-      Get.toNamed(Routes.emailVerify, arguments: user);
-    } else {
-      Get.snackbar(AppContents.errorTag, AppErrors.emailAlready);
-    }
-  }
+  //     Get.toNamed(Routes.emailVerify, arguments: user);
+  //   } else {
+  //     Get.snackbar(AppContents.errorTag, AppErrors.emailAlready);
+  //   }
+  // }
 
-  @override
-  void onClose() {
-    // Đảm bảo các controllers được giải phóng khi controller bị hủy
-    nameController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
-    passwordConfirmController.dispose();
-    super.onClose();
+  // @override
+  // void onClose() {
+  //   // Đảm bảo các controllers được giải phóng khi controller bị hủy
+  //   nameController.dispose();
+  //   emailController.dispose();
+  //   passwordController.dispose();
+  //   passwordConfirmController.dispose();
+  //   super.onClose();
   }
 }

@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
+import 'package:reading_app/core/configs/themes/app_colors.dart';
+import 'package:reading_app/core/routes/routes.dart';
+import 'package:reading_app/core/ui/customs_widget_theme/button/button_normal.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/custom_backgound/background_gradient.dart';
+import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
 import 'package:reading_app/core/ui/widgets/card/btv_recoment_card.dart';
 import 'package:reading_app/core/ui/widgets/card/card_by_category.dart';
 import 'package:reading_app/core/ui/widgets/card/card_full_info_follow_row.dart';
@@ -61,7 +65,7 @@ class HomePage extends GetView<HomeController> {
                 titleList: AppContents.btvRecomment,
                 heightWrapList: 270,
                 widthCard: 150,
-                seeMore: () {},
+                seeMore: () {Get.toNamed(Routes.category,arguments: {"titleCategory": AppContents.btvRecomment});},
                 cardBuilder: (double widthCard, bookModel) {
                   return BTVRecomentCard(
                     widthCard: widthCard,
@@ -75,11 +79,12 @@ class HomePage extends GetView<HomeController> {
             // build list newest update
             SliverToBoxAdapter(
               child: BuildWrapGridCard(
-                heightCardItem: 200,
+                heightCardItem: 205,
+                maxLength: 8,
                 title: AppContents.newestUpdate,
-                seeMore: () {},
+                seeMore: () {Get.toNamed(Routes.category,arguments: {"titleCategory": AppContents.newestUpdate});},
                 columns: 4,
-                childAspectRatio: 1 /
+                childAspectRatio: 0.95 /
                     2, // tỉ lệ giữa chiều rộng với chiều cao của phần tử trong Grid 1/2 có nghĩa là chiểu cao bằng 2 lần chiều rộng
                 heightImage: 120,
                 listBookData: controller.listValueCardContinue,
@@ -103,7 +108,7 @@ class HomePage extends GetView<HomeController> {
             SliverToBoxAdapter(
               child: BuildWrapListCard(
                 titleList: "Tiểu thuyết mới",
-                seeMore: () {},
+                seeMore:  () {Get.toNamed(Routes.category,arguments: {"titleCategory": "Tiểu thuyết mới"});},
                 heightWrapList: 280,
                 listBookData: controller.listValueCardByCategory,
                 widthCard: 150,
@@ -121,7 +126,7 @@ class HomePage extends GetView<HomeController> {
               child: BuildWrapListCard(
                 margin: const EdgeInsets.only(top: SpaceDimens.space50),
                 titleList: "Truyện tranh mới",
-                seeMore: () {},
+                seeMore: () {Get.toNamed(Routes.category,arguments: {"titleCategory": "Truyện tranh mới"});},
                 heightWrapList: 280,
                 listBookData: controller.listValueCardByCategory,
                 widthCard: 150,
@@ -136,31 +141,152 @@ class HomePage extends GetView<HomeController> {
             ),
 
             SliverToBoxAdapter(
-                child: Container(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: SpaceDimens.spaceStandard),
-              child: Column(
-                children: [
-                  BuildListSelectCategory(
-                    currentIndex: 1,
-                    listCategory: controller.listCategory,
-                  ),
-                  FittedBox(
-                    child: Column(
-                      children: [
-                        for(var i=0;i<controller.listCardFullInfo.length;i++)
-                          CardFullInfoFollowRow(heightImage: 120, bookModel: controller.listCardFullInfo[i], currentIndex: i,)
-                      ],
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: SpaceDimens.spaceStandard),
+                child: Column(
+                  children: [
+                    Obx(() {
+                      return BuildListSelectCategory(
+                        currentIndex: controller.currentIndexCategory.value,
+                        listCategory: controller.listCategory,
+                        onTap: (index) {
+                          controller.currentIndexCategory.value =
+                              index; // Update the currentIndex
+                        },
+                      );
+                    }),
+                    FittedBox(
+                      child: Column(
+                        children: [
+                          for (var i = 0;
+                              i < controller.listCardFullInfo.length;
+                              i++)
+                            CardFullInfoFollowRow(
+                              heightImage: 120,
+                              bookModel: controller.listCardFullInfo[i],
+                              currentIndex: i,
+                              last: i == controller.listCardFullInfo.length - 1,
+                            ),
+                        ],
+                      ),
                     ),
-                  )
-                ],
+                    ButtonNormal(
+                      textChild: AppContents.seeMore,
+                      onTap: () {},
+                      rounder: true,
+                      paddingChild: const EdgeInsets.symmetric(
+                          vertical: SpaceDimens.space10),
+                    ),
+                  ],
+                ),
               ),
-            )),
+            ),
+
+            // build list newest update
+            SliverToBoxAdapter(
+              child: BuildWrapGridCard(
+                margin: const EdgeInsets.only(top: SpaceDimens.space40),
+                heightCardItem: 330,
+                title: "Xuyên không",
+                maxLength: 9,
+                seeMore:  () {Get.toNamed(Routes.category,arguments: {"titleCategory": "Xuyên không"});},
+                columns: 3,
+                childAspectRatio: 1.7 /
+                    3, // tỉ lệ giữa chiều rộng với chiều cao của phần tử trong Grid 1/2 có nghĩa là chiểu cao bằng 2 lần chiều rộng
+                heightImage: 150,
+                listBookData: controller.listValueCardContinue,
+                spacingCol: 10,
+                spacingRow: 10,
+                cardChild: (double heightImage, bookModel) {
+                  return CardNewestUpdate(
+                    heightImage: heightImage,
+                    bookModel: bookModel,
+                  );
+                },
+              ),
+            ),
+            // build list newest update
+            SliverToBoxAdapter(
+              child: BuildWrapGridCard(
+                margin: const EdgeInsets.only(top: SpaceDimens.space40),
+                heightCardItem: 330,
+                title: "Cổ trang",
+                maxLength: 9,
+                seeMore:  () {Get.toNamed(Routes.category,arguments: {"titleCategory": "Cổ trang"});},
+                columns: 3,
+                childAspectRatio: 1.7 / 3,
+                heightImage: 150,
+                listBookData: controller.listValueCardContinue,
+                spacingCol: 10,
+                spacingRow: 10,
+                cardChild: (double heightImage, bookModel) {
+                  return CardNewestUpdate(
+                    heightImage: heightImage,
+                    bookModel: bookModel,
+                  );
+                },
+              ),
+            ),
+            // build list newest update
+            SliverToBoxAdapter(
+              child: BuildWrapGridCard(
+                margin: const EdgeInsets.only(top: SpaceDimens.space40),
+                heightCardItem: 330,
+                title: "Ngôn tình",
+                maxLength: 9,
+                seeMore:  () {Get.toNamed(Routes.category,arguments: {"titleCategory":  "Ngôn tình"});},
+                columns: 3,
+                childAspectRatio: 1.7 /
+                    3, // tỉ lệ giữa chiều rộng với chiều cao của phần tử trong Grid 1/2 có nghĩa là chiểu cao bằng 2 lần chiều rộng
+                heightImage: 150,
+                listBookData: controller.listValueCardContinue,
+                spacingCol: 10,
+                spacingRow: 10,
+                cardChild: (double heightImage, bookModel) {
+                  return CardNewestUpdate(
+                    heightImage: heightImage,
+                    bookModel: bookModel,
+                  );
+                },
+              ),
+            ),
+
+            // create bottom space
+            SliverToBoxAdapter(
+              child: Container(
+                  margin: const EdgeInsets.only(top: SpaceDimens.space40),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: SpaceDimens.space50),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: SpaceDimens.space10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: AppColors.secondaryColor,
+                    ),
+                    child: const InkWell(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(Icons.menu_book),
+                          SizedBox(
+                            width: SpaceDimens.space5,
+                          ),
+                          TextNormal(
+                            textChild: AppContents.exploreMore,
+                          )
+                        ],
+                      ),
+                    ),
+                  )),
+            ),
 
             // create bottom space
             const SliverToBoxAdapter(
               child: SizedBox(
-                height: 150,
+                height: 100,
               ),
             ),
           ],
@@ -169,4 +295,3 @@ class HomePage extends GetView<HomeController> {
     );
   }
 }
-

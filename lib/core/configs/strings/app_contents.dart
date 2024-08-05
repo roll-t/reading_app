@@ -71,5 +71,6 @@ class AppContents {
   static const String trending= "Thịnh hành";
   static const String updating= "Đang cập nhật";
   static const String views= "lượt xem";
+  static const String exploreMore= "Khám phá thêm truyện";
 
 }

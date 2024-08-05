@@ -119,7 +119,7 @@ class LoginPage extends GetView<LogInController> {
         ButtonElevated(
           iconChild: AppImages.iGoogle,
           onTap: () async {
-            await controller.logInWithGoogle();
+            // await controller.logInWithGoogle();
           },
           textChild: AppContents.loginWithGoogle,
         ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reading_app/core/configs/app_dimens.dart';
-import 'package:reading_app/core/configs/app_colors.dart';
+import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/button/button_widget.dart';
 
 // ignore: must_be_immutable

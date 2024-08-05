@@ -36,15 +36,21 @@ class CarouselSliderUtils {
         options: CarouselOptions(
           height: 200.0,
           viewportFraction: 0.8,
+          autoPlay: true,
+          autoPlayInterval: const Duration(seconds: 3), // Thay đổi mỗi giây
+          autoPlayAnimationDuration: const Duration(milliseconds: 800), // Thời gian chuyển tiếp
           onPageChanged: (index, reason) {
-          indexValue.value = index;
+            indexValue.value = index;
           },
         ),
       ),
     );
   }
 
-  static Widget buildListDots({required RxInt indexValue,required int lengthList}) {
+  static Widget buildListDots({
+    required RxInt indexValue,
+    required int lengthList,
+  }) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Obx(() {

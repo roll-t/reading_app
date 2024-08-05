@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
@@ -19,6 +17,8 @@ class BuildWrapGridCard extends StatelessWidget {
   final List<BookModel> listBookData;
   final double spacingCol;
   final double spacingRow;
+  final EdgeInsetsGeometry? margin;
+  final int? maxLength;
 
   const BuildWrapGridCard({
     super.key,
@@ -32,13 +32,16 @@ class BuildWrapGridCard extends StatelessWidget {
     this.spacingCol = 0,
     this.spacingRow = 0,
     required this.cardChild,
+    this.margin = const EdgeInsets.only(top: SpaceDimens.space20),
+    this.maxLength,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: SpaceDimens.spaceStandard),
-      margin: const EdgeInsets.only(top: SpaceDimens.space20),
+      padding:
+          const EdgeInsets.symmetric(horizontal: SpaceDimens.spaceStandard),
+      margin: margin,
       height: heightCardItem * 2,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,9 +54,12 @@ class BuildWrapGridCard extends StatelessWidget {
                 children: [
                   TextLargeSemiBold(textChild: title!),
                   if (seeMore != null)
-                    const TextNormalBold(
-                      textChild: AppContents.seeMore,
-                      colorChild: AppColors.accentColor,
+                    InkWell(
+                      onTap: seeMore,
+                      child: const TextNormalBold(
+                        textChild: AppContents.seeMore,
+                        colorChild: AppColors.accentColor,
+                      ),
                     ),
                 ],
               ),
@@ -62,7 +68,7 @@ class BuildWrapGridCard extends StatelessWidget {
             child: GridView.builder(
               padding: EdgeInsets.zero,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: listBookData.length,
+              itemCount: maxLength ?? listBookData.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: columns,
                 mainAxisSpacing: spacingCol,
@@ -70,6 +76,10 @@ class BuildWrapGridCard extends StatelessWidget {
                 childAspectRatio: childAspectRatio,
               ),
               itemBuilder: (context, index) {
+                if (index >= listBookData.length) {
+                  return const SizedBox
+                      .shrink(); // Prevents accessing out-of-range index
+                }
                 return cardChild(heightImage, listBookData[index]);
               },
             ),

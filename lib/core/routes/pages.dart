@@ -6,8 +6,8 @@ import 'package:reading_app/features/auth/login/di/login_binding.dart';
 import 'package:reading_app/features/auth/login/presentation/page/login_page.dart';
 import 'package:reading_app/features/auth/register/di/register_binding.dart';
 import 'package:reading_app/features/auth/register/presentation/page/register_page.dart';
-import 'package:reading_app/features/auth/verifiction/di/verification_binding.dart';
-import 'package:reading_app/features/auth/verifiction/presentation/page/verification_page.dart';
+import 'package:reading_app/features/category/di/category_binding.dart';
+import 'package:reading_app/features/category/presentation/page/category_page.dart';
 import 'package:reading_app/features/main/di/main_binding.dart';
 import 'package:reading_app/features/main/presentation/page/main_page.dart';
 import 'package:reading_app/features/nav/profile/di/profile_binding.dart';
@@ -34,11 +34,6 @@ class Pages {
       binding: RegisterBindding(),
     ),
     GetPage(
-      name: Routes.emailVerify,
-      page: () => const VerificationPage(),
-      binding: VerificationBinding(),
-    ),
-    GetPage(
       name: Routes.forgotPassword,
       page: () => const ForgotPasswordPage(),
       binding: ForgotPasswordBinding(),
@@ -52,6 +47,11 @@ class Pages {
       name: Routes.splash,
       page: () => const SplashPage(),
       binding: SplashBinding(),
+    ),
+    GetPage(
+      name: Routes.category,
+      page: () => const CategoryPage(),
+      binding: CategoryBinding(),
     ),
   ];
 }
