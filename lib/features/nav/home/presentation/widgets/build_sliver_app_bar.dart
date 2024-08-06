@@ -1,8 +1,10 @@
 // Home App Bar
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
+import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_medium_bold.dart';
 
 class BuildSliverAppBar extends StatelessWidget {
@@ -31,11 +33,15 @@ class BuildSliverAppBar extends StatelessWidget {
                 textChild: AppContents.login,
               ),
             ),
-      actions: const [
-        Icon(Icons.search),
-        SizedBox(width: SpaceDimens.spaceStandard),
-        Icon(Icons.notifications),
-        SizedBox(width: SpaceDimens.spaceStandard)
+      actions: [
+        InkWell(
+            onTap: () {
+              Get.toNamed(Routes.search);
+            },
+            child: const Icon(Icons.search)),
+        const SizedBox(width: SpaceDimens.spaceStandard),
+        const Icon(Icons.notifications),
+        const SizedBox(width: SpaceDimens.spaceStandard)
       ],
       expandedHeight: 60.0,
     );

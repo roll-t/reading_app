@@ -28,4 +28,11 @@ class BackgroundGradient {
       AppColors.accentColor,
     ], end: Alignment.bottomCenter, begin: Alignment.topCenter);
   }
+
+  static Container backgroundBox({required Widget childBuilder }){
+    return Container(
+      decoration: BoxDecoration(color: AppColors.secondaryDarkBg,borderRadius: BorderRadius.circular(10)),
+      child: childBuilder,
+    );
+  }
 }

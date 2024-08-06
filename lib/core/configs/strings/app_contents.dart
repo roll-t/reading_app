@@ -72,5 +72,10 @@ class AppContents {
   static const String updating= "Đang cập nhật";
   static const String views= "lượt xem";
   static const String exploreMore= "Khám phá thêm truyện";
+  static const String commic= "Truyện tranh";
+  static const String chapter= "Chương";
+  static const String hottestOfWeek= "Hot nhất tuần";
+  static const String searchPlaceholder= "Nhập từ khóa để tìm kiếm ....";
+  static const String selectCategory= "Chọn danh mục";
 
 }

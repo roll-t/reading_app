@@ -7,6 +7,7 @@ import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/button/button_normal.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/custom_backgound/background_gradient.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
+import 'package:reading_app/core/ui/shared/build_wrap_list_card.dart';
 import 'package:reading_app/core/ui/widgets/card/btv_recoment_card.dart';
 import 'package:reading_app/core/ui/widgets/card/card_by_category.dart';
 import 'package:reading_app/core/ui/widgets/card/card_full_info_follow_row.dart';
@@ -19,7 +20,6 @@ import 'package:reading_app/features/nav/home/presentation/widgets/build_list_ta
 import 'package:reading_app/features/nav/home/presentation/widgets/build_slider.dart';
 import 'package:reading_app/features/nav/home/presentation/widgets/build_sliver_app_bar.dart';
 import 'package:reading_app/features/nav/home/presentation/widgets/build_wrap_grid_card.dart';
-import 'package:reading_app/features/nav/home/presentation/widgets/build_wrap_list_card.dart';
 
 class HomePage extends GetView<HomeController> {
   const HomePage({super.key});

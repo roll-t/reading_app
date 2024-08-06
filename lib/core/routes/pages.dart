@@ -8,6 +8,8 @@ import 'package:reading_app/features/auth/register/di/register_binding.dart';
 import 'package:reading_app/features/auth/register/presentation/page/register_page.dart';
 import 'package:reading_app/features/category/di/category_binding.dart';
 import 'package:reading_app/features/category/presentation/page/category_page.dart';
+import 'package:reading_app/features/explores/search_book/di/search_book_binding.dart';
+import 'package:reading_app/features/explores/search_book/presentation/page/search_book_page.dart';
 import 'package:reading_app/features/main/di/main_binding.dart';
 import 'package:reading_app/features/main/presentation/page/main_page.dart';
 import 'package:reading_app/features/nav/profile/di/profile_binding.dart';
@@ -52,6 +54,11 @@ class Pages {
       name: Routes.category,
       page: () => const CategoryPage(),
       binding: CategoryBinding(),
+    ),
+    GetPage(
+      name: Routes.search,
+      page: () => const SearchBookPage(),
+      binding: SearchBookBinding(),
     ),
   ];
 }
