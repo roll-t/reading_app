@@ -7,19 +7,22 @@ import 'package:reading_app/core/extensions/text_format.dart';
 import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_medium_bold.dart';
 
-class BuildSliverCommicAppBar extends StatelessWidget {
+class BuildSliverAudioAppBar extends StatelessWidget {
   final String? userName;
-  const BuildSliverCommicAppBar({super.key, this.userName});
+  const BuildSliverAudioAppBar({super.key, this.userName});
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
       floating: true, // Hiển thị lại AppBar khi nhích lên
       snap: true, // Đảm bảo AppBar sẽ ẩn hoặc hiện hoàn toàn
-      title: TextMediumBold(textChild:TextFormat.capitalizeEachWord(AppContents.commic)),
+      title: TextMediumBold(
+          textChild: TextFormat.capitalizeEachWord(AppContents.audio)),
       actions: [
         InkWell(
-          onTap:(){Get.toNamed(Routes.search);},
-          child: const Icon(Icons.search)),
+            onTap: () {
+              Get.toNamed(Routes.search);
+            },
+            child: const Icon(Icons.search)),
         const SizedBox(width: SpaceDimens.spaceStandard),
       ],
       expandedHeight: 60.0,
