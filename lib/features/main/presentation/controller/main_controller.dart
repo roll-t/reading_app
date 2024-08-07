@@ -2,14 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reading_app/features/nav/audio/di/audio_binding.dart';
+import 'package:reading_app/features/nav/audio/presentation/page/audio_page.dart';
+import 'package:reading_app/features/nav/book_case/di/book_case_binding.dart';
+import 'package:reading_app/features/nav/book_case/presentation/page/book_case_page.dart';
 import 'package:reading_app/features/nav/commic/di/commic_binding.dart';
 import 'package:reading_app/features/nav/commic/presentation/page/commic_page.dart';
-import 'package:reading_app/features/nav/explore/di/explore_binding.dart';
-import 'package:reading_app/features/nav/explore/presentation/page/explore_page.dart';
 import 'package:reading_app/features/nav/home/di/home_binding.dart';
 import 'package:reading_app/features/nav/home/presentation/page/home_page.dart';
-import 'package:reading_app/features/nav/notification/di/notification_binding.dart';
-import 'package:reading_app/features/nav/notification/presentation/page/notification_page.dart';
 import 'package:reading_app/features/nav/profile/di/profile_binding.dart';
 import 'package:reading_app/features/nav/profile/presentation/page/profile_page.dart';
 
@@ -55,15 +55,15 @@ class MainController extends GetxController {
       case '/post':
         return GetPageRoute(
           settings: settings,
-          page: () => const ExplorePage(),
-          binding: ExploreBinding(),
+          page: () => const AudioPage(),
+          binding: AudioBinding(),
           transition: Transition.fadeIn,
         );
       case '/notify':
         return GetPageRoute(
           settings: settings,
-          page: () => const NotificationPage(),
-          binding: NotificationBinding(),
+          page: () => const BookCasePage(),
+          binding: BookCaseBinding(),
           transition: Transition.fadeIn,
         );
       case '/profile':

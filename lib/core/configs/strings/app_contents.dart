@@ -78,4 +78,11 @@ class AppContents {
   static const String searchPlaceholder= "Nhập từ khóa để tìm kiếm ....";
   static const String selectCategory= "Chọn danh mục";
 
+  // book case base
+  static const String audio= "Audio";
+  static const String book= "Tiểu thuyết";
+  static const String reading= "Đang đọc";
+  static const String liked= "Đã thích";
+  static const String downloaded= "Đã tải";
+
 }
