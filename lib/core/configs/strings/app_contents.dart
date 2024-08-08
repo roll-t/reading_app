@@ -76,6 +76,7 @@ class AppContents {
   static const String chapter= "Chương";
   static const String hottestOfWeek= "Hot nhất tuần";
   static const String searchPlaceholder= "Nhập từ khóa để tìm kiếm ....";
+  static const String searchPlaceholderChapter= "Nhập số chương để tìm kiếm ...";
   static const String selectCategory= "Chọn danh mục";
 
   // book case base
@@ -84,5 +85,28 @@ class AppContents {
   static const String reading= "Đang đọc";
   static const String liked= "Đã thích";
   static const String downloaded= "Đã tải";
+  static const String list= "Danh sách";
+  static const String newest= "Mới nhất";
+  static const String comment= "Bình luận";
+
+
+  // profile page
+  static const String notification= "Thông báo";
+  static const String referFriend= "Giới thiệu bạn bè";
+  static const String ratingApp= "Đánh giá App";
+  static const String setting= "Cài đặt";
+
+  static const String logout= "Đăng xuất";
+  static const String myInfo= "Thông tin cá nhân";
+
+  
+  static const String read= "Đã đọc";
+  static const String rating= "Đánh giá";
+
+  static const String info = "Thông tin";
+  static const String description = "Mô tả";
+  static const String readLess = "Thu gọn";
+
+  static const String type = "Thể loại";
 
 }

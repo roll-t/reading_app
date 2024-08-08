@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 
 class BackgroundGradient {
@@ -35,4 +36,5 @@ class BackgroundGradient {
       child: childBuilder,
     );
   }
+
 }
