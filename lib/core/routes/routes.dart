@@ -10,4 +10,8 @@ abstract class Routes {
   static const profile = "/profile";
   static const category = "/category";
   static const search = "/search";
+  static const myInfo = "/myInfo";
+  static const notification = "/notification";
+  static const find = "/find";
+  static const bookDetail = "/bookDetail";
 }

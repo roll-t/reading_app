@@ -24,6 +24,7 @@ class CardByCategory extends StatelessWidget {
       margin: const EdgeInsets.only(right: SpaceDimens.space10),
       width: widthCard,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
             height: heightImage,

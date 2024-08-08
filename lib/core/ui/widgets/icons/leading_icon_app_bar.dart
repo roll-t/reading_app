@@ -20,8 +20,8 @@ class leadingIconAppBar extends StatelessWidget {
         height: 35,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(1000),
-          border: Border.all(color: AppColors.white.withOpacity(.7),width: .6),
-          color: AppColors.white.withOpacity(.3)),
+          border: Border.all(color: AppColors.white.withOpacity(.4),width: .6),
+          color: AppColors.white.withOpacity(.2)),
         child: IconButton(
           onPressed: (){Get.back();}, icon: const Icon(Icons.arrow_back_ios_new_rounded,size: IconsDimens.iconsSize18,)),
       ),
