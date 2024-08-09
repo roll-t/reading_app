@@ -7,9 +7,13 @@ import 'package:reading_app/features/auth/login/presentation/page/login_page.dar
 import 'package:reading_app/features/auth/register/di/register_binding.dart';
 import 'package:reading_app/features/auth/register/presentation/page/register_page.dart';
 import 'package:reading_app/features/expanded/book/di/book_detail_binding.dart';
+import 'package:reading_app/features/expanded/book/di/book_read_binding.dart';
 import 'package:reading_app/features/expanded/book/presentation/pages/book_detail_page.dart';
+import 'package:reading_app/features/expanded/book/presentation/pages/book_read_page.dart';
 import 'package:reading_app/features/expanded/category/di/category_binding.dart';
 import 'package:reading_app/features/expanded/category/presentation/page/category_page.dart';
+import 'package:reading_app/features/expanded/comment/di/comment_binding.dart';
+import 'package:reading_app/features/expanded/comment/presentation/page/comment_page.dart';
 import 'package:reading_app/features/expanded/explores/find/di/find_binding.dart';
 import 'package:reading_app/features/expanded/explores/find/page/find_page.dart';
 import 'package:reading_app/features/expanded/explores/search_book/di/search_book_binding.dart';
@@ -87,6 +91,16 @@ class Pages {
       name: Routes.bookDetail,
       page: () => const BookDetailPage(),
       binding: BookDetailBinding(),
+    ),
+    GetPage(
+      name: Routes.comment,
+      page: () => const CommentPage(),
+      binding: CommentBinding(),
+    ),
+    GetPage(
+      name: Routes.readBook,
+      page: () => const BookReadPage(),
+      binding: BookReadBinding(),
     ),
   ];
 }

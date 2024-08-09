@@ -1,5 +1,7 @@
 import 'package:flutter/widgets.dart';
-import 'package:reading_app/core/configs/app_dimens.dart';
+import 'package:reading_app/core/configs/dimens/icons_dimens.dart';
+import 'package:reading_app/core/configs/dimens/radius_dimens.dart';
+import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/button/elevated_button_widget.dart';
 
@@ -17,11 +19,11 @@ class ButtonElevated extends ElevatedButtonWidget {
             ontap: onTap,
             icon: iconChild,
             text: textChild,
-            padding: const EdgeInsets.all(AppDimens.paddingSpace15),
+            padding: const EdgeInsets.all(SpaceDimens.space15),
             fontWeight: FontWeight.w500,
-            textSize: AppDimens.iconsSize20,
+            textSize: IconsDimens.iconsSize20,
             backgroundcolor: AppColors.light,
             textColor: AppColors.textNormal,
-            borderRadius: AppDimens.radius30
+            borderRadius: RadiusDimens.radiusLarge2
             );
 }

@@ -8,8 +8,8 @@ import 'package:reading_app/core/ui/customs_widget_theme/texts/text_medium_semi_
 import 'package:reading_app/core/ui/widgets/card/card_by_category.dart';
 import 'package:reading_app/core/ui/widgets/tags/tag_category.dart';
 import 'package:reading_app/features/expanded/book/presentation/controller/book_detail_controller.dart';
+import 'package:reading_app/features/expanded/book/presentation/widgets/book_details/build_wrap_list_comment.dart';
 import 'package:reading_app/features/expanded/book/presentation/widgets/shared/build_wrap_list_card.dart';
-import 'package:reading_app/features/expanded/book/presentation/widgets/shared/build_wrap_list_comment.dart';
 import 'package:reading_app/features/expanded/book/presentation/widgets/shared/expandable_text.dart';
 
 class BuildContentBookDetail extends GetView<BookDetailController> {
@@ -80,8 +80,7 @@ class BuildContentBookDetail extends GetView<BookDetailController> {
             heightWrapList: 200,
             widthCard: 150,
             toDetail: () {
-              Get.toNamed(Routes.category,
-                  arguments: {"titleCategory": "Có thể bạn sẽ thích"});
+              Get.toNamed(Routes.comment,);
             },
           ),
         ),

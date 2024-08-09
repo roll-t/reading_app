@@ -1,12 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/app_colors.dart';
+import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/appbar/appbar_widget.dart';
 import 'package:reading_app/core/ui/widgets/button/button_widget.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 import 'package:reading_app/features/expanded/book/presentation/controller/book_detail_author_controller.dart';
 import 'package:reading_app/features/expanded/book/presentation/pages/podcast_detail_page.dart';
+
 class BookDetailAuthorPage extends StatelessWidget {
   const BookDetailAuthorPage({super.key});
 
@@ -33,8 +34,7 @@ class BookDetailAuthorBody extends StatelessWidget {
     return Scaffold(
       appBar: AppBarWidget(
         title: 'Author',
-
-        backgroundColor: AppColors.transparent,
+        backgroundColor: AppColors.transparentColor,
         callbackLeading: Get.back,
       ),
       body: buildBody(context),
@@ -112,7 +112,7 @@ class BookDetailAuthorBody extends StatelessWidget {
                     ontap: () {},
                     text: 'Follow',
                     borderRadius: 25,
-                    backgroundColor: AppColors.colorPink,
+                    backgroundColor: AppColors.accentColor,
                     fontWeight: FontWeight.w600,
                     width: 120.0,
                   )
@@ -127,7 +127,7 @@ class BookDetailAuthorBody extends StatelessWidget {
             size: 16,
           ),
           const SizedBox(height: 5.0),
-          TextWidget(
+          const TextWidget(
             text: 'About',
             size: 12,
           ),
@@ -150,12 +150,12 @@ class BookDetailAuthorBody extends StatelessWidget {
                 const TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
             unselectedLabelStyle:
                 const TextStyle(fontWeight: FontWeight.normal),
-            labelColor: AppColors.colorPink,
+            labelColor: AppColors.accentColor,
             unselectedLabelColor: AppColors.black.withOpacity(0.5),
-            indicatorColor: AppColors.colorPink,
+            indicatorColor: AppColors.accentColor,
             indicatorSize: TabBarIndicatorSize.tab,
-            indicator: UnderlineTabIndicator(
-              borderSide: BorderSide(color: AppColors.colorPink, width: 2.0),
+            indicator: const UnderlineTabIndicator(
+              borderSide: BorderSide(color: AppColors.accentColor, width: 2.0),
               insets: EdgeInsets.only(bottom: 0.0),
             ),
             tabs: [
@@ -199,7 +199,7 @@ class BookDetailAuthorBody extends StatelessWidget {
         // Get.toNamed();
       },
       child: Card(
-        color: AppColors.gray,
+        color: AppColors.gray3,
         child: Padding(
           padding: const EdgeInsets.only(right: 3.0),
           child: Row(
@@ -253,18 +253,18 @@ class BookDetailAuthorBody extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextWidget(
+                    const TextWidget(
                       text: 'A Find Balance',
                       fontWeight: FontWeight.w600,
                       size: 16,
                     ),
-                    Row(
+                    const Row(
                       children: [
                         Icon(
                           Icons.star,
                           color: AppColors.primary,
                         ),
-                        const SizedBox(width: 5.0),
+                        SizedBox(width: 5.0),
                         TextWidget(
                           text: '4.1',
                           fontWeight: FontWeight.w400,

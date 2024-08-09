@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/app_dimens.dart';
-import 'package:reading_app/core/configs/app_colors.dart';
+import 'package:reading_app/core/configs/dimens/text_dimens.dart';
+import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
@@ -40,7 +40,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
           ? TextWidget(
               text: title!,
               fontWeight: FontWeight.w600,
-              size: AppDimens.textSize18,
+              size: TextDimens.textSize18,
               color: titleColor,
             )
           : const SizedBox.shrink(),

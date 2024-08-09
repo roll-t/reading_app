@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:reading_app/core/configs/app_colors.dart';
+import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ImageProviderSquareWidget extends StatelessWidget {

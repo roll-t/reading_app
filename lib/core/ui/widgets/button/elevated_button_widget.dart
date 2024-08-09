@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:reading_app/core/configs/app_dimens.dart';
+import 'package:reading_app/core/configs/dimens/radius_dimens.dart';
+import 'package:reading_app/core/configs/dimens/text_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 
@@ -28,8 +29,8 @@ class ElevatedButtonWidget extends StatelessWidget {
     this.textColor = AppColors.white,
     this.backgroundcolor = AppColors.primary, 
     this.padding, 
-    this.textSize = AppDimens.textSize16,
-    this.borderRadius = AppDimens.radius15,
+    this.textSize = TextDimens.textNormal,
+    this.borderRadius = RadiusDimens.radiusMedium1,
   });
 
   @override

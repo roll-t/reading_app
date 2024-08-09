@@ -2,8 +2,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/app_colors.dart';
+import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
+
 // ignore: camel_case_types
 class ItemPodCast extends StatelessWidget {
   const ItemPodCast({
@@ -71,14 +72,14 @@ class ItemPodCast extends StatelessWidget {
                       ),
                       padding: const EdgeInsets.symmetric(
                           vertical: 3.0, horizontal: 3.0),
-                      child: Row(
+                      child: const Row(
                         children: [
                           Icon(
                             Icons.star,
                             size: 12.0,
                             color: AppColors.primary,
                           ),
-                          const TextWidget(
+                          TextWidget(
                             text: '4.6',
                             fontWeight: FontWeight.normal,
                             size: 11,
@@ -113,16 +114,15 @@ class ItemPodCast extends StatelessWidget {
             bottom: 10.0,
             right: 10.0,
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: AppColors.primary, shape: BoxShape.circle),
+              height: 25.0,
+              width: 25.0,
               child: const Icon(
                 Icons.play_arrow,
                 color: AppColors.white,
                 size: 18.0,
               ),
-              // padding: const EdgeInsets.all(10.0),
-              height: 25.0,
-              width: 25.0,
             ),
           )
         ],

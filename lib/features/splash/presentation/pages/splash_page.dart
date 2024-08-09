@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/app_colors.dart';
+import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/features/splash/presentation/controller/splash_controller.dart';
 
 class SplashPage extends GetView<SplashController> {
@@ -16,7 +16,7 @@ class SplashPage extends GetView<SplashController> {
           height: 6.0,
           child: LinearProgressIndicator(
             color: AppColors.primary,
-            backgroundColor: AppColors.gray,
+            backgroundColor: AppColors.gray3,
             value: controller.loadingProgress.value,
             borderRadius: BorderRadius.circular(10.0),
             // You can customize the appearance of the progress indicator
