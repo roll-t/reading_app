@@ -109,4 +109,8 @@ class AppContents {
 
   static const String type = "Thể loại";
 
+  static const String readNow= "Đọc ngay";
+  static const String ratingBook= "Đánh giá";
+  static const String send= "Gửi";
+
 }

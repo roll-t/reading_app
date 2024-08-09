@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/app_colors.dart';
+import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/appbar/appbar_widget.dart';
 import 'package:reading_app/core/ui/widgets/button/button_widget.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
@@ -39,22 +39,6 @@ class PodcastDetailAuthorBody extends StatelessWidget {
 
         backgroundColor: AppColors.primary.withOpacity(0.5),
         callbackLeading: Get.back,
-        // menuItem: [
-        //   Container(
-        //     padding: const EdgeInsets.symmetric(horizontal: 3.0, vertical: 3.0),
-        //     margin: const EdgeInsets.only(right: 10.0),
-        //     decoration: BoxDecoration(
-        //       color: AppColors.blue3,
-        //       borderRadius: BorderRadius.circular(15),
-        //     ),
-        //     child: TextWidget(
-        //       text: 'Author',
-        //       color: AppColors.white,
-        //       size: 10,
-        //       fontWeight: FontWeight.bold,
-        //     ),
-        //   )
-        // ],
       ),
       body: buildBody(context),
     );
@@ -78,7 +62,7 @@ class PodcastDetailAuthorBody extends StatelessWidget {
           const EdgeInsets.only(left: 15, right: 15.0, top: 10.0, bottom: 60),
       child: Column(
         children: [
-          TextWidget(
+          const TextWidget(
             text: 'Follow us on:',
             color: AppColors.primary,
             size: 14,
@@ -144,7 +128,7 @@ class PodcastDetailAuthorBody extends StatelessWidget {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  TextWidget(
+                  const TextWidget(
                     text: 'Robinton Misty',
                     fontWeight: FontWeight.bold,
                     size: 17,
@@ -157,7 +141,7 @@ class PodcastDetailAuthorBody extends StatelessWidget {
                     "assets/icons/verify.png",
                     height: 20,
                     width: 20,
-                    color: AppColors.black4,
+                    color: AppColors.black,
                   )
                 ],
               ),
@@ -175,30 +159,30 @@ class PodcastDetailAuthorBody extends StatelessWidget {
               const SizedBox(
                 height: 5,
               ),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Column(
+                  const Column(
                     children: [
-                      TextWidget(
+                      const TextWidget(
                         text: '1',
                         fontWeight: FontWeight.w500,
                         size: 16,
                       ),
-                      TextWidget(
+                      const TextWidget(
                         text: 'Audio Series',
                         size: 11,
                       ),
                     ],
                   ),
-                  Column(
+                  const Column(
                     children: [
-                      TextWidget(
+                      const TextWidget(
                         text: '1',
                         fontWeight: FontWeight.w500,
                         size: 16,
                       ),
-                      TextWidget(
+                      const TextWidget(
                         text: 'Followers',
                         size: 11,
                       ),
@@ -209,7 +193,7 @@ class PodcastDetailAuthorBody extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 20.0),
-          TextWidget(
+          const TextWidget(
             text: 'About',
             size: 12,
           ),
@@ -236,9 +220,9 @@ class PodcastDetailAuthorBody extends StatelessWidget {
             unselectedLabelColor: AppColors.black.withOpacity(0.5),
             indicatorColor: AppColors.primary,
             indicatorSize: TabBarIndicatorSize.tab,
-            indicator: UnderlineTabIndicator(
-              borderSide: BorderSide(color: AppColors.primary, width: 2.0),
-              insets: EdgeInsets.only(bottom: 0.0),
+            indicator: const UnderlineTabIndicator(
+              borderSide: const BorderSide(color: AppColors.primary, width: 2.0),
+              insets: const EdgeInsets.only(bottom: 0.0),
             ),
             tabs: [
               Tab(text: "Books".tr),
@@ -269,7 +253,7 @@ class PodcastDetailAuthorBody extends StatelessWidget {
         childAspectRatio: 0.90, // Aspect ratio of the grid items
       ),
       itemBuilder: (_, index) {
-        return ItemBookPodCast();
+        return const ItemBookPodCast();
       },
     );
   }
@@ -286,14 +270,14 @@ class PodcastDetailAuthorBody extends StatelessWidget {
         childAspectRatio: 0.90, // Aspect ratio of the grid items
       ),
       itemBuilder: (_, index) {
-        return ItemPodCast();
+        return const ItemPodCast();
       },
     );
   }
 
   Widget buildItem() {
     return Card(
-      color: AppColors.gray,
+      color: AppColors.gray3,
       child: Padding(
         padding: const EdgeInsets.only(right: 3.0),
         child: Row(
@@ -346,19 +330,19 @@ class PodcastDetailAuthorBody extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextWidget(
+                  const TextWidget(
                     text: 'A Find Balance',
                     fontWeight: FontWeight.w600,
                     size: 16,
                   ),
-                  Row(
+                  const Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.star,
                         color: AppColors.primary,
                       ),
                       const SizedBox(width: 5.0),
-                      TextWidget(
+                      const TextWidget(
                         text: '4.1',
                         fontWeight: FontWeight.w400,
                         size: 15,

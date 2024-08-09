@@ -7,7 +7,7 @@ import 'package:reading_app/core/extensions/text_format.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_medium.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small.dart';
-import 'package:reading_app/core/ui/widgets/images/image_widget.dart';
+import 'package:reading_app/core/ui/widgets/avatar/avatar.dart';
 import 'package:reading_app/features/nav/profile/presentation/controller/my_info_controller.dart';
 
 class MyInfoPage extends GetView<MyInfoController> {
@@ -34,7 +34,7 @@ class MyInfoPage extends GetView<MyInfoController> {
             _BuildItemSetting(
                 title: "Ảnh đại diện",
                 info:
-                    "https://th.bing.com/th/id/R.7c0985982d01910e15155653b42383fe?rik=ztlbiol8pb1R1w&pid=ImgRaw&r=0"),
+                    "https://anhdephd.vn/wp-content/uploads/2022/04/hinh-nen-gai-xinh.jpg"),
             _BuildItemSetting(title: "Tên", info: "Phuoc Truong"),
             _BuildItemSetting(title: "Email", info: "phuoc.truong@example.com"),
           ],
@@ -83,15 +83,7 @@ class MyInfoPage extends GetView<MyInfoController> {
                       );
                     } else if (snapshot.hasData && snapshot.data!) {
                       // Nếu URL là hình ảnh, hiển thị ảnh
-                      return SizedBox(
-                        width: 40,
-                        height: 40,
-                        child: ClipOval(
-                          child: ImageWidget(
-                            imageUrl: info,
-                          ),
-                        ),
-                      );
+                      return Avatar(radius: 40,url: info,);
                     } else {
                       // Nếu không phải là hình ảnh, hiển thị văn bản
                       return TextSmall(

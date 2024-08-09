@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/app_colors.dart';
+import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/carousel_slider/slider_image.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 import 'package:reading_app/core/ui/widgets/text_input/simple_input_textfield.dart';
@@ -171,7 +171,7 @@ class BookBody extends GetView<BookController> {
       padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 25.0),
       child: Column(
         children: [
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const TextWidget(
@@ -179,7 +179,7 @@ class BookBody extends GetView<BookController> {
                 size: 16.0,
                 fontWeight: FontWeight.w500,
               ),
-              TextWidget(
+              const TextWidget(
                 text: 'See All',
                 size: 12.0,
                 fontWeight: FontWeight.w500,
@@ -257,9 +257,9 @@ class BookBody extends GetView<BookController> {
                                   ),
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 3.0, horizontal: 3.0),
-                                  child: Row(
+                                  child: const Row(
                                     children: [
-                                      Icon(
+                                      const Icon(
                                         Icons.star,
                                         size: 12.0,
                                         color: AppColors.primary,
@@ -328,7 +328,7 @@ class BookBody extends GetView<BookController> {
       padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 25.0),
       child: Column(
         children: [
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const TextWidget(
@@ -336,7 +336,7 @@ class BookBody extends GetView<BookController> {
                 size: 16.0,
                 fontWeight: FontWeight.w500,
               ),
-              TextWidget(
+              const TextWidget(
                 text: 'See All',
                 size: 12.0,
                 fontWeight: FontWeight.w500,
@@ -414,9 +414,9 @@ class BookBody extends GetView<BookController> {
                                   ),
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 3.0, horizontal: 3.0),
-                                  child: Row(
+                                  child: const Row(
                                     children: [
-                                      Icon(
+                                      const Icon(
                                         Icons.star,
                                         size: 12.0,
                                         color: AppColors.primary,
@@ -456,7 +456,7 @@ class BookBody extends GetView<BookController> {
                         bottom: 10.0,
                         right: 10.0,
                         child: Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                               color: AppColors.primary, shape: BoxShape.circle),
                           child: const Icon(
                             Icons.play_arrow,

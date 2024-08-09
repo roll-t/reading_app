@@ -7,6 +7,7 @@ import 'package:reading_app/core/ui/customs_widget_theme/texts/text_medium_semi_
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
 import 'package:reading_app/core/ui/widgets/textfield/custom_search_field.dart';
 import 'package:reading_app/features/expanded/book/presentation/controller/book_detail_controller.dart';
+import 'package:reading_app/features/expanded/book/presentation/widgets/book_details/build_bottom_book_detail.dart';
 import 'package:reading_app/features/expanded/book/presentation/widgets/book_details/build_chapter_body.dart';
 import 'package:reading_app/features/expanded/book/presentation/widgets/book_details/build_content_book_detail.dart';
 import 'package:reading_app/features/expanded/book/presentation/widgets/book_details/build_header_tab_bar.dart';
@@ -22,9 +23,11 @@ class BookDetailPage extends GetView<BookDetailController> {
         tag: tag,
         controller: controller,
       ),
+      bottomNavigationBar: const BuildBottomNavBookDetail(),
     );
   }
 }
+
 
 class BookDetailBody extends StatelessWidget {
   const BookDetailBody({

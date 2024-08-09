@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:reading_app/core/configs/app_dimens.dart';
+import 'package:reading_app/core/configs/dimens/icons_dimens.dart';
+import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/button/button_widget.dart';
 
@@ -17,8 +18,8 @@ class ButtonNormal extends ButtonWidget {
   required this.onTap,
   this.rounder=false, 
   this.backgroundChild = AppColors.secondaryColor, 
-  this.textSizeChild=AppDimens.iconsSize20,
-  this.paddingChild= const EdgeInsets.all(AppDimens.paddingSpace15),
+  this.textSizeChild=IconsDimens.iconsSize20,
+  this.paddingChild= const EdgeInsets.all(SpaceDimens.space15),
   })
       : super(
             text: textChild,

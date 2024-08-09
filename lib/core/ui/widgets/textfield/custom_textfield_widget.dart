@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:reading_app/core/configs/app_dimens.dart';
-import 'package:reading_app/core/configs/app_colors.dart';
+import 'package:reading_app/core/configs/dimens/text_dimens.dart';
+import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 
 
@@ -47,8 +47,8 @@ class CustomTextFieldWidget extends StatefulWidget {
     this.controller,
     this.hintText,
     this.hintColor,
-    this.focusedColor = AppColors.gray,
-    this.enableColor = AppColors.gray,
+    this.focusedColor = AppColors.gray3,
+    this.enableColor = AppColors.gray3,
     this.onTap,
     this.focusNode,
     this.labelText,
@@ -81,11 +81,7 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
           autovalidateMode: AutovalidateMode.onUserInteraction,
           onChanged: (String valueOnChanged) {
             if (widget.onChanged != null) widget.onChanged!(valueOnChanged);
-            // if (isFormFieldValid && valueOnChanged.isNotEmpty) {
-            //   setState(() {
-            //     isFormFieldValid = false;
-            //   });
-            // }
+
           },
           onFieldSubmitted: (String value) {
             if (widget.onCompleted != null) widget.onCompleted!(value);
@@ -103,7 +99,7 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
             }
           },
           style: TextStyle(
-              fontSize: AppDimens.textSize16,
+              fontSize: TextDimens.textNormal,
               color: widget.textColor ?? AppColors.black),
           decoration: InputDecoration(
             border: OutlineInputBorder(
@@ -114,14 +110,14 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
             contentPadding: const EdgeInsets.only(left: 15.0),
             labelText: widget.labelText,
             labelStyle: const TextStyle(
-                color: AppColors.primary, fontSize: AppDimens.textSize16),
+                color: AppColors.primary, fontSize: TextDimens.textNormal),
             suffixIcon: widget.suffixIcon,
             prefixIcon: widget.prefixIcon,
             filled: widget.backgroundColor == null ? false : true,
             fillColor: widget.backgroundColor,
             hintText: widget.hintText,
             hintStyle: TextStyle(
-                fontSize: AppDimens.textSize16, color: widget.hintColor),
+                fontSize: TextDimens.textNormal, color: widget.hintColor),
             enabledBorder: widget.isShowBorder
                 ? OutlineInputBorder(
                     borderSide: BorderSide(
@@ -152,7 +148,7 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
         isError
             ? TextWidget(
                 text: widget.errorText ?? "",
-                size: AppDimens.textSize14,
+                size: TextDimens.textSize14,
                 color: AppColors.error,
               )
             : const SizedBox.shrink()

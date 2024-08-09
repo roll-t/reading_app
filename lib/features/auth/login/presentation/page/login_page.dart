@@ -1,16 +1,16 @@
 import 'package:custom_check_box/custom_check_box.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/app_colors.dart';
-import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/assets/app_images.dart';
+import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
+import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/button/button_elevated.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/button/button_normal.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/inputs/input_app_normal.dart';
-import 'package:reading_app/core/ui/widgets/texts/text_light.dart';
-import 'package:reading_app/core/ui/widgets/texts/text_normal.dart';
+import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
+import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal_light.dart';
 import 'package:reading_app/features/auth/login/presentation/controller/login_controller.dart';
 import 'package:reading_app/features/auth/shared/build_share_auth.dart';
 
@@ -35,7 +35,7 @@ class LoginPage extends GetView<LogInController> {
   Widget _BuildBody() {
     return BuildShareAuth.buildBackgoundForm(
       childContent: Wrap(
-        runSpacing: AppDimens.paddingSpace20,
+        runSpacing:SpaceDimens.space20,
         children: [
           Obx(
             () => InputAppNormal(
@@ -63,21 +63,21 @@ class LoginPage extends GetView<LogInController> {
                     controller.toggleCheck();
                   },
                   value: controller.isCheckRememberAccount.value,
-                  borderColor: AppColors.textNormal,
-                  checkBoxSize: AppDimens.iconsSize16,
+                  borderColor: AppColors.gray3,
+                  checkBoxSize:SpaceDimens.space25,
                   checkedFillColor: AppColors.primary,
                 ),
               ),
-              const TextLight(
-                  contentChild: AppContents.rememberMe,
+              const TextNormalLight(
+                  textChild: AppContents.rememberMe,
                   colorChild: AppColors.textLightActive),
               const Spacer(),
               InkWell(
                   onTap: () {
                     Get.toNamed(Routes.forgotPassword);
                   },
-                  child: const TextLight(
-                      contentChild: AppContents.forgotPassword,
+                  child: const TextNormalLight(
+                      textChild: AppContents.forgotPassword,
                       colorChild: AppColors.primaryHover)),
             ],
           ),
@@ -99,22 +99,22 @@ class LoginPage extends GetView<LogInController> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const TextNormal(contentChild: AppContents.dontHaveAnAccount),
+            const TextNormal(textChild: AppContents.dontHaveAnAccount),
             InkWell(
               onTap: () => Get.toNamed(Routes.register),
               child: const TextNormal(
-                contentChild: AppContents.createHere,
+                textChild: AppContents.createHere,
                 colorChild: AppColors.primary,
               ),
             ),
           ],
         ),
         const SizedBox(
-          height: AppDimens.paddingSpace10,
+          height: SpaceDimens.space10,
         ),
-        const TextNormal(contentChild: AppContents.or),
+        const TextNormal(textChild: AppContents.or),
         const SizedBox(
-          height: AppDimens.paddingSpace10,
+          height: SpaceDimens.space10,
         ),
         ButtonElevated(
           iconChild: AppImages.iGoogle,

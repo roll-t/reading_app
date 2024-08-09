@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/app_colors.dart';
+import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/button/button_widget.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 import 'package:reading_app/core/ui/widgets/text_input/simple_input_textfield.dart';
@@ -259,7 +259,7 @@ class PodcastDetailBody extends StatelessWidget {
               InkWell(
                 onTap: () {
                   Scaffold.of(context).showBottomSheet(
-                    backgroundColor: AppColors.transparent,
+                    backgroundColor: AppColors.transparentColor,
                     (BuildContext context) {
                       return buildBottomAudio();
                     },

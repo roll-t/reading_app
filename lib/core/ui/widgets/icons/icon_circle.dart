@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:reading_app/core/configs/app_dimens.dart';
-import 'package:reading_app/core/configs/app_colors.dart';
+import 'package:reading_app/core/configs/dimens/icons_dimens.dart';
+import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/themes/app_colors.dart';
 
 class IconCircle extends StatelessWidget {
   final double paddingWithChild;
@@ -12,10 +13,10 @@ class IconCircle extends StatelessWidget {
 
   const IconCircle({
     super.key,
-    this.paddingWithChild = AppDimens.paddingSpace5,
+    this.paddingWithChild = SpaceDimens.space5,
     this.iconChild, // Make iconChild optional
     this.imageChild, // Make imageChild optional
-    this.iconSize = AppDimens.iconsSize25,
+    this.iconSize = IconsDimens.iconsSize25,
     this.iconColor = AppColors.black,
     required this.onTap,  
   });

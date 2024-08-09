@@ -14,4 +14,6 @@ abstract class Routes {
   static const notification = "/notification";
   static const find = "/find";
   static const bookDetail = "/bookDetail";
+  static const comment = "/comment";
+  static const readBook = "/readBook";
 }

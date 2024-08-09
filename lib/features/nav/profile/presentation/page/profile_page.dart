@@ -9,7 +9,7 @@ import 'package:reading_app/core/ui/customs_widget_theme/custom_backgound/custom
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_medium.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small.dart';
-import 'package:reading_app/core/ui/widgets/images/image_widget.dart';
+import 'package:reading_app/core/ui/widgets/avatar/avatar.dart';
 import 'package:reading_app/features/nav/profile/presentation/controller/profile_controller.dart';
 
 class ProfilePage extends GetView<ProfileController> {
@@ -43,26 +43,11 @@ class ProfilePage extends GetView<ProfileController> {
       child: CustomContainer.customBackgroudBox(
         childBuilder: Row(
           children: [
-            _buildProfileImage(),
+            const Avatar(radius: 70,url: "https://anhdephd.vn/wp-content/uploads/2022/04/hinh-nen-gai-xinh.jpg",),
             const SizedBox(width: SpaceDimens.spaceStandard),
             _buildProfileInfo(),
             const Icon(Icons.arrow_forward_ios_rounded, color: AppColors.gray2),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildProfileImage() {
-    return Container(
-      width: 70,
-      height: 70,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(1000),
-      ),
-      child: const ClipOval(
-        child: ImageWidget(
-          imageUrl: "https://th.bing.com/th/id/R.7c0985982d01910e15155653b42383fe?rik=ztlbiol8pb1R1w&pid=ImgRaw&r=0",
         ),
       ),
     );
