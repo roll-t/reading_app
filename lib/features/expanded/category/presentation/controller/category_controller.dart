@@ -1,70 +1,102 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/data/models/book_model.dart';
+import 'package:reading_app/core/configs/enum.dart';
+import 'package:reading_app/core/data/models/list_comic_model.dart';
+import 'package:reading_app/core/data/models/result.dart';
+import 'package:reading_app/core/extensions/text_format.dart';
+import 'package:reading_app/core/services/data/api/comic_api.dart';
 
 class CategoryController extends GetxController {
   Map<String, dynamic> dataArgument = Get.arguments;
 
   var title = "".obs;
+  var isLoading = false.obs;
+  var hasMore = true.obs;
+  var currentPage = 2.obs;
+
+  var typeOfList = ["truyen-moi", "sap-ra-mat", "dang-phat-hanh", "hoan-thanh"];
+
+  Rx<ListComicModel> listDataChangeCategory = ListComicModel(
+    domainImage: "",
+    titlePage: '',
+    items: [],
+  ).obs;
+
+  final ScrollController scrollController = ScrollController();
+
   @override
-  onInit() {
+  void onInit() async {
     super.onInit();
-    if (dataArgument["titleCategory"] != null) {
-      title.value = dataArgument["titleCategory"];
+    isLoading.value = true;
+    scrollController.addListener(_scrollListener);
+    if (dataArgument["slugQuery"] != null) {
+      await fetchDataComicCategoryByChange(slug: dataArgument["slugQuery"]);
+    }
+    isLoading.value = false;
+    update(["titleID", "ListCategoryID"]);
+  }
+
+  @override
+  void onClose() {
+    scrollController.dispose(); // Dispose of ScrollController
+    super.onClose();
+  }
+
+  void _scrollListener() {
+    if (scrollController.position.pixels ==
+        scrollController.position.maxScrollExtent) {
+      if (!isLoading.value && hasMore.value) {
+        fetchData();
+        update(["loadMoreID"]);
+      }
     }
   }
 
-  List<BookModel> listValueCardContinue = [
-    BookModel.fromJson({
-      "bid": "1",
-      "title": "Thần cấp đại ma đầu",
-      "imageUrl": "https://img.faloo.com/Novel/498x705/0/336/000336647.jpg",
-    }),
-    BookModel.fromJson({
-      "bid": "2",
-      "title": "Thư viện huyền bí",
-      "imageUrl": "https://img.faloo.com/Novel/498x705/0/357/000357913.jpg",
-    }),
-    BookModel.fromJson({
-      "bid": "3",
-      "title": "Ma đạo tổ sư",
-      "imageUrl":
-          "https://ngontinh.org/wp-content/uploads/2021/11/Len-Nham-Kieu-Hoa-Truyen-Ngan-Tinh-Yeu.jpg",
-    }),
-    BookModel.fromJson({
-      "bid": "4",
-      "title": "Tuyệt thế vô song",
-      "imageUrl":
-          "https://truyenaudio.org/upload/pro/Le-Tinh-Truyen-Ngan-Tinh-Yeu.jpg",
-    }),
-    BookModel.fromJson({
-      "bid": "5",
-      "title": "Vũ trụ siêu cấp",
-      "imageUrl":
-          "https://tiengtrungtoancauhc.vn/wp-content/uploads/2024/01/Truyen-tranh-Trung-Quoc-1-566x800.jpg",
-    }),
-    BookModel.fromJson({
-      "bid": "6",
-      "title": "Thần long chi địa",
-      "imageUrl":
-          "https://i.pinimg.com/originals/36/4c/dc/364cdcef24987a1be511d76497ec4555.jpg",
-    }),
-    BookModel.fromJson({
-      "bid": "7",
-      "title": "Ngạo thị thiên hạ",
-      "imageUrl":
-          "https://th.bing.com/th/id/OIP.YEROt88zBh0qodtCZIoKfgHaMu?w=1280&h=2200&rs=1&pid=ImgDetMain",
-    }),
-    BookModel.fromJson({
-      "bid": "8",
-      "title": "Huyễn tưởng chi lữ",
-      "imageUrl":
-          "https://th.bing.com/th/id/OIP.W8tb3IOT_OT9-YAJn1y_sAHaNV?w=690&h=1242&rs=1&pid=ImgDetMain",
-    }),
-    BookModel.fromJson({
-      "bid": "8",
-      "title": "Huyễn tưởng chi lữ",
-      "imageUrl":
-          "https://th.bing.com/th/id/OIP.rU0sYjJtSbfZcRayv2DwpAHaJ0?rs=1&pid=ImgDetMain",
-    }),
-  ];
+  Future<Result<ListComicModel>> _routeRenderData(
+      {required String slug, required page}) async {
+    if (typeOfList.contains(slug)) {
+      return await ComicApi.getListBySlug(slug: slug, page: page);
+    }
+    return await ComicApi.getListComicCategoryBySlug(slug: slug, page: page);
+  }
+
+  Future<void> fetchDataComicCategoryByChange({required String slug}) async {
+    final result = await _routeRenderData(slug: slug, page: 1);
+    if (result.status == Status.success) {
+      final apiResponse = result.data;
+      if (apiResponse != null) {
+        listDataChangeCategory.value = apiResponse;
+        listDataChangeCategory.value.titlePage = TextFormat.capitalizeEachWord(
+            listDataChangeCategory.value.titlePage);
+      }
+    }
+    update(["loadMoreID"]);
+  }
+
+  Future<void> fetchData() async {
+    if (isLoading.value || !hasMore.value) return;
+
+    isLoading.value = true;
+
+    try {
+      final result = await _routeRenderData(
+        slug: dataArgument["slugQuery"],
+        page: currentPage.value,
+      );
+
+      if (result.status == Status.success) {
+        final apiResponse = result.data;
+        if (apiResponse != null && apiResponse.items.isNotEmpty) {
+          listDataChangeCategory.value.items.addAll(apiResponse.items);
+          currentPage.value++;
+        } else {
+          hasMore.value = false; // No more items to fetch
+        }
+      }
+    } catch (e) {
+      print("Error fetching data: $e");
+    } finally {
+      isLoading.value = false;
+    }
+  }
 }

@@ -6,6 +6,9 @@ class AppErrors {
   static const String formatEmail = "Wrong-formatted emails";
   static const String checkMatch = "Passwords don't match";
   static const String loginFail = "Incorrect email or password !!!";
+  static const String loginSuccess = "Đăng nhập thành công!";
+  static const String loginError = "Lỗi đăng nhập!";
+  static const String failLoginProcess = "Lỗi trong quá trình đăng nhập!";
   static String minLength({required int minLength}) {
      return "Must not be less than $minLength characters";
   }

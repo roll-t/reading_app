@@ -14,15 +14,22 @@ import 'package:reading_app/features/nav/profile/di/profile_binding.dart';
 import 'package:reading_app/features/nav/profile/presentation/page/profile_page.dart';
 
 class MainController extends GetxController {
-
   RxInt currentIndex = 0.obs;
 
+  // Opacity for the bottom navigation bar
   var navbarOpacity = 1.0.obs;
 
-  final pages = <String>['/home', '/commic', '/post', '/notify', '/profile'];
-  
-  Timer? _timer;
+  // Route names for bottom navigation
+  final List<String> pages = [
+    '/home',
+    '/commic',
+    '/post',
+    '/notify',
+    '/profile'
+  ];
 
+  Timer? _timer;
+  
   @override
   void onInit() {
     super.onInit();
@@ -36,7 +43,6 @@ class MainController extends GetxController {
   }
 
   Route? onGenerateRoute(RouteSettings settings) {
-
     switch (settings.name) {
       case '/home':
         return GetPageRoute(
@@ -73,22 +79,21 @@ class MainController extends GetxController {
           binding: ProfileBinding(),
           transition: Transition.fadeIn,
         );
-      default:
-        return null;
     }
+    return null;
   }
 
   void onChangeItemBottomBar(int index) {
-    if (currentIndex.value == index) return;
+    if (currentIndex.value == index) return; // Avoid redundant navigation
     currentIndex.value = index;
-    Get.offAndToNamed(pages[index], id: 10);
+    Get.offAndToNamed(pages[index], id: 10); // Navigate to the selected page
   }
 
-    void resetOpacityTimer() {
+  void resetOpacityTimer() {
     navbarOpacity.value = 1.0;
     _timer?.cancel();
     _timer = Timer(const Duration(seconds: 3), () {
-      navbarOpacity.value = 0.5;
+      navbarOpacity.value = 0.5; // Reduce opacity after 3 seconds
     });
   }
 }

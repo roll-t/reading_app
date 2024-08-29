@@ -22,6 +22,7 @@ class CommicTypePage extends GetView<SearchBookController> {
                 SliverToBoxAdapter(
                   child: BuildCategoryFilter(
                     currentIndex: controller.currentIndexCategory,
+                    categories: controller.categories!,
                   ),
                 ),
                 const SliverPadding(
@@ -39,34 +40,41 @@ class CommicTypePage extends GetView<SearchBookController> {
                       ),
                       tabs: [
                         TextNormal(textChild: "Tất cả"),
-                        TextNormal(textChild: "Truyện hot"),
                         TextNormal(textChild: "Hoàn thành"),
+                        TextNormal(textChild: "Truyện hot"),
                       ],
                     ),
                   ),
                 ),
               ],
             ),
-            Expanded(
-                child: TabBarView(
-              children: [
-                CustomScrollView(
-                  slivers: [
-                    BuildListBook(listBookData: controller.listBookData)
-                  ],
-                ),
-                CustomScrollView(
-                  slivers: [
-                    BuildListBook(listBookData: controller.listBookData)
-                  ],
-                ),
-                CustomScrollView(
-                  slivers: [
-                    BuildListBook(listBookData: controller.listBookData)
-                  ],
-                ),
-              ],
-            ))
+            GetBuilder<SearchBookController>(
+              id: "UpdateListByCategory",
+              builder: (_) {
+              return Expanded(
+                  child: TabBarView(
+                children: [
+                  CustomScrollView(
+                    slivers: [
+                      BuildListBook(
+                          listBookData: controller.dataComicCategoryByType.value)
+                    ],
+                  ),
+                  CustomScrollView(
+                    slivers: [
+                      BuildListBook(
+                          listBookData: controller.dataComicCategoryByType.value)
+                    ],
+                  ),
+                  CustomScrollView(
+                    slivers: [
+                      BuildListBook(
+                          listBookData: controller.dataComicCategoryByType.value)
+                    ],
+                  ),
+                ],
+              ));
+            }),
           ],
         ),
       ),

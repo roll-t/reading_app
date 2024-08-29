@@ -3,22 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
+import 'package:reading_app/core/data/models/list_comic_model.dart';
+import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/ui/widgets/images/image_widget.dart';
 
 class CarouselSliderUtils {
-  static Widget buildCarouselSlider({
-    required RxInt indexValue,
-    required List<String> listImage,
-  }) {
+
+  static Widget buildCarouselSlider(
+      {required RxInt indexValue,
+      required ListComicModel listImage}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: SpaceDimens.space10),
       child: CarouselSlider.builder(
-        itemCount: listImage.length,
+        itemCount: listImage.items.length,
         itemBuilder: (context, index, realIndex) {
           return Obx(() {
             final currentIndex = indexValue.value;
             final isCurrent = index == currentIndex;
             final double scale = isCurrent ? 1 : .9;
+            
             return Transform(
               transform: Matrix4.identity()..scale(scale),
               alignment: Alignment.center,
@@ -26,19 +29,26 @@ class CarouselSliderUtils {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: ImageWidget(
-                  imageUrl: listImage[index],
+                child: InkWell(
+                  onTap: () {
+                    Get.toNamed(Routes.bookDetail,arguments: {"slug":listImage.items[index].slug});
+                  },
+                  child: ImageWidget(
+                    imageUrl: listImage.domainImage + listImage.items[index].thumbUrl,
+                  ),
                 ),
               ),
             );
           });
         },
+        
         options: CarouselOptions(
-          height: 200.0,
-          viewportFraction: 0.8,
+          height: 330.0,
+          viewportFraction: 0.6,
           autoPlay: true,
           autoPlayInterval: const Duration(seconds: 3), // Thay đổi mỗi giây
-          autoPlayAnimationDuration: const Duration(milliseconds: 800), // Thời gian chuyển tiếp
+          autoPlayAnimationDuration:
+              const Duration(milliseconds: 800), // Thời gian chuyển tiếp
           onPageChanged: (index, reason) {
             indexValue.value = index;
           },
