@@ -27,6 +27,7 @@ import 'package:reading_app/features/nav/profile/di/profile_binding.dart';
 import 'package:reading_app/features/nav/profile/presentation/page/my_info_page.dart';
 import 'package:reading_app/features/nav/profile/presentation/page/profile_page.dart';
 import 'package:reading_app/features/splash/di/splash_binding.dart';
+import 'package:reading_app/features/splash/presentation/pages/login_request_splash_page.dart';
 import 'package:reading_app/features/splash/presentation/pages/splash_page.dart';
 
 class Pages {
@@ -37,6 +38,11 @@ class Pages {
       name: Routes.login,
       page: () => const LoginPage(),
       binding: LoginBindding(),
+    ),
+    GetPage(
+      name: Routes.splash,
+      page: () => const SplashPage(),
+      binding: SplashBinding(),
     ),
     GetPage(
         name: Routes.profile,
@@ -101,6 +107,11 @@ class Pages {
       name: Routes.readBook,
       page: () => const BookReadPage(),
       binding: BookReadBinding(),
+    ),
+    GetPage(
+      name: Routes.loginRequestSplash,
+      page: () => const LoginRequestSplashPage(),
+      binding: SplashBinding()
     ),
   ];
 }

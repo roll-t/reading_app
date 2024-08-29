@@ -6,6 +6,6 @@ class MainBindding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => Prefs(), fenix: true);
-    Get.lazyPut(() => MainController());
+    Get.lazyPut(()=>MainController());
   }
 }

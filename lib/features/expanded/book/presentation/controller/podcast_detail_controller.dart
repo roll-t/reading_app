@@ -21,9 +21,6 @@ class PodcastDetailController extends GetxController
     if (!scrollController.hasClients) return;
     if (scrollController.offset >= scrollController.position.maxScrollExtent &&
         !scrollController.position.outOfRange) {
-      // limit += _limitIncrement;
-      // currentPage++;
-      print("scroll");
     }
   }
 

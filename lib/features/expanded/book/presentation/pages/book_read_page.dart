@@ -1,117 +1,117 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/ui/widgets/appbar/appbar_widget.dart';
+import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
+import 'package:reading_app/core/ui/widgets/icons/icon_circle.dart';
 import 'package:reading_app/core/ui/widgets/icons/leading_icon_app_bar.dart';
-import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 import 'package:reading_app/features/expanded/book/presentation/controller/book_read_controller.dart';
 
 class BookReadPage extends GetView<BookReadController> {
   const BookReadPage({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarWidget(
-        leading: leadingIconAppBar(),
-        backgroundColor: AppColors.transparentColor,
-      ),
-      body: Stack(
-        children: [
-          PageView.builder(
-            scrollDirection: Axis.vertical,
-            controller: controller.pageController,
-            itemCount: controller.imageUrls.length,
-            itemBuilder: (context, index) {
-              return KeepAlivePage(
-                imageUrl: controller.imageUrls[index],
-                onTap: () {
-                  // Chuyển sang trang kế tiếp
-                  if (index < controller.imageUrls.length - 1) {
-                    controller.pageController.nextPage(
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-                  }
+      drawer: Drawer(
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                itemCount: 30,
+                itemBuilder: (context, index) {
+                  return SizedBox(
+                    width: double.infinity,
+                    child: TextNormal(textChild: "chuong ${index + 1}"),
+                  );
                 },
-              );
-            },
-          ),
-          AnimatedBuilder(
-            animation: controller.pageController,
-            builder: (context, child) {
-              final page = controller.pageController.hasClients
-                  ? controller.pageController.page
-                  : 0;
-              double indicatorTop = page != null
-                  ? (MediaQuery.of(context).size.height /
-                          (controller.imageUrls.length - 1)) *
-                      page
-                  : 0;
-
-              return Positioned(
-                right: 0,
-                top: indicatorTop.clamp(
-                    20.0, MediaQuery.of(context).size.height - 130),
-                child: Container(
-                  width: 33,
-                  height: 35,
-                  decoration: const BoxDecoration(
-                    color: AppColors.gray3,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(25.0),
-                      bottomLeft: Radius.circular(25.0),
-                    ),
-                  ),
-                  child: Center(
-                    child: TextWidget(
-                      text: '${controller.currentPage.value + 1}',
-                      size: 12,
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class KeepAlivePage extends StatefulWidget {
-  final String imageUrl;
-  final VoidCallback onTap;
-
-  const KeepAlivePage({super.key, required this.imageUrl, required this.onTap});
-
-  @override
-  // ignore: library_private_types_in_public_api
-  _KeepAlivePageState createState() => _KeepAlivePageState();
-}
-
-class _KeepAlivePageState extends State<KeepAlivePage>
-    with AutomaticKeepAliveClientMixin {
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    return GestureDetector(
-      onTap: widget.onTap, // Lắng nghe sự kiện click
-      child: ClipRRect(
-        child: CachedNetworkImage(
-          imageUrl: widget.imageUrl,
-          fit: BoxFit.contain,
-          width: double.infinity,
-          placeholder: (context, url) => const Center(
-            child: CircularProgressIndicator(),
-          ),
-          errorWidget: (context, url, error) => const Icon(Icons.error),
+              ),
+            ),
+          ],
         ),
       ),
+      body: Obx(
+        () {
+          return Stack(
+            children: [
+              CustomScrollView(
+                controller: controller.scrollController,
+                slivers: [
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        return InkWell(
+                          onTap: controller.scrollDown,
+                          child: CachedNetworkImage(
+                            imageUrl: controller.imageUrls[index],
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            placeholder: (context, url) => const Center(
+                              child: CircularProgressIndicator(
+                                valueColor:
+                                    AlwaysStoppedAnimation(AppColors.primary),
+                              ),
+                            ),
+                            errorWidget: (context, url, error) => const Center(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(Icons.error, color: AppColors.error),
+                                  SizedBox(height: 8),
+                                  Text('Failed to load image',
+                                      style: TextStyle(color: AppColors.error)),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                      childCount: controller.imageUrls.length,
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: Obx(() => controller.loading.value
+                        ? const Center(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(vertical: 16),
+                              child: CircularProgressIndicator(
+                                valueColor:
+                                    AlwaysStoppedAnimation(AppColors.primary),
+                              ),
+                            ),
+                          )
+                        : const SizedBox.shrink()),
+                  ),
+                ],
+              ),
+              Positioned(
+                top: SpaceDimens.spaceStandard + SpaceDimens.space15,
+                left: SpaceDimens.spaceStandard,
+                right: SpaceDimens.spaceStandard,
+                child: Builder(
+                  builder: (context) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const leadingIconAppBar(),
+                        IconCircle(
+                          onTap: () {
+                            Scaffold.of(context).openDrawer();
+                          },
+                          iconChild: Icons.menu,
+                          iconColor: AppColors.white,
+                          background: AppColors.white.withOpacity(.2),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              )
+            ],
+          );
+        },
+      ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

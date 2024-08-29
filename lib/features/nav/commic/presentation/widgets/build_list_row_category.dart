@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/data/models/book_model.dart';
-import 'package:reading_app/core/ui/widgets/card/card_explore.dart';
 import 'package:reading_app/features/nav/commic/presentation/widgets/build_body_list.dart';
 
 class BuildListRowCategory extends StatelessWidget {
@@ -28,15 +26,15 @@ class BuildListRowCategory extends StatelessWidget {
       child: BuildBodyList(
         titleList: titleList,
         seeMore: seeMore,
-        childBuilder: Row(
+        childBuilder: const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            for (var i = 0; i < maxLength; i++)
-              CardExplore(
-                bookModel: listBookData[i],
-                widthCard: Get.width * 0.2,
-                heightCard: 160,
-              )
+            // for (var i = 0; i < maxLength; i++)
+            //   CardExplore(
+            //     bookModel: "listBookData[i]",
+            //     widthCard: Get.width * 0.2,
+            //     heightCard: 160,
+            //   )
           ],
         ),
       ),

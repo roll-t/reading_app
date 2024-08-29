@@ -1,76 +1,93 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/data/models/book_model.dart';
-import 'package:reading_app/features/expanded/explores/search_book/presentation/page/type/audio_book_type_page.dart';
+import 'package:reading_app/core/configs/enum.dart';
+import 'package:reading_app/core/data/models/list_category_model.dart';
+import 'package:reading_app/core/data/models/list_comic_model.dart';
+import 'package:reading_app/core/services/data/api/comic_api.dart';
 import 'package:reading_app/features/expanded/explores/search_book/presentation/page/type/book_type_page.dart';
 import 'package:reading_app/features/expanded/explores/search_book/presentation/page/type/commic_type_page.dart';
 
-class SearchBookController extends GetxController{
-
+class SearchBookController extends GetxController {
   var currentIndexCategory = 0.obs;
 
-  List<Widget> listPage=[
-    const BookTypePage(),
-    const AudioBookTypePage(),
+  var currentCategoryModal=0.obs;
+
+  var isLoading = false.obs;
+  var hasMore = true.obs;
+  var currentPage = 2.obs;
+
+  List<Widget> listPage = [
     const CommicTypePage(),
+    const BookTypePage(),
   ];
 
+  List<ListCategoryModel>? categories;
 
-  List<BookModel> listBookData = [
-    BookModel.fromJson({
-      "bid": "1",
-      "title": "Thần cấp đại ma đầu",
-      "imageUrl": "https://img.faloo.com/Novel/498x705/0/336/000336647.jpg",
-    }),
-    BookModel.fromJson({
-      "bid": "2",
-      "title": "Thư viện huyền bí",
-      "imageUrl": "https://img.faloo.com/Novel/498x705/0/357/000357913.jpg",
-    }),
-    BookModel.fromJson({
-      "bid": "3",
-      "title": "Ma đạo tổ sư",
-      "imageUrl":
-          "https://ngontinh.org/wp-content/uploads/2021/11/Len-Nham-Kieu-Hoa-Truyen-Ngan-Tinh-Yeu.jpg",
-    }),
-    BookModel.fromJson({
-      "bid": "4",
-      "title": "Tuyệt thế vô song",
-      "imageUrl":
-          "https://truyenaudio.org/upload/pro/Le-Tinh-Truyen-Ngan-Tinh-Yeu.jpg",
-    }),
-    BookModel.fromJson({
-      "bid": "5",
-      "title": "Vũ trụ siêu cấp",
-      "imageUrl":
-          "https://tiengtrungtoancauhc.vn/wp-content/uploads/2024/01/Truyen-tranh-Trung-Quoc-1-566x800.jpg",
-    }),
-    BookModel.fromJson({
-      "bid": "6",
-      "title": "Thần long chi địa",
-      "imageUrl":
-          "https://i.pinimg.com/originals/36/4c/dc/364cdcef24987a1be511d76497ec4555.jpg",
-    }),
-    BookModel.fromJson({
-      "bid": "7",
-      "title": "Ngạo thị thiên hạ",
-      "imageUrl":
-          "https://th.bing.com/th/id/OIP.YEROt88zBh0qodtCZIoKfgHaMu?w=1280&h=2200&rs=1&pid=ImgDetMain",
-    }),
-    BookModel.fromJson({
-      "bid": "8",
-      "title": "Huyễn tưởng chi lữ",
-      "imageUrl":
-          "https://th.bing.com/th/id/OIP.W8tb3IOT_OT9-YAJn1y_sAHaNV?w=690&h=1242&rs=1&pid=ImgDetMain",
-    }),
-    BookModel.fromJson({
-      "bid": "8",
-      "title": "Huyễn tưởng chi lữ",
-      "imageUrl":
-          "https://th.bing.com/th/id/OIP.rU0sYjJtSbfZcRayv2DwpAHaJ0?rs=1&pid=ImgDetMain",
-    }),
-  ];
+  Rx<ListComicModel> dataComicCategoryByType =
+      ListComicModel(titlePage: '', domainImage: "", items: []).obs;
+
+  final ScrollController scrollController = ScrollController();
+
+  @override
+  onInit() async {
+    super.onInit();
+    isLoading.value = true;
+    scrollController.addListener(_scrollListener);
+    await setCategoryCache();
+    await fetchDataComicCategoryBySlug(slug: categories![0].slug);
+    isLoading.value = false;
+    update(["IDSeach"]);
+  }
+
+  void _scrollListener() {
+    if (scrollController.position.pixels ==
+        scrollController.position.maxScrollExtent) {
+      if (!isLoading.value && hasMore.value) {
+        loadMoreData();
+        update(["UpdateListByCategory"]);
+      }
+    }
+  }
+
+  @override
+  void onClose() {
+    scrollController.dispose(); // Dispose of ScrollController
+    super.onClose();
+  }
+
+  Future<void> setCategoryCache() async {
+    await ComicApi.setCategoryCache();
+    categories = await ComicApi.getCategoryCache();
+  }
+
+  Future<void> fetchDataComicCategoryBySlug({required String slug}) async {
+    final result = await ComicApi.getListComicCategoryBySlug(slug: slug,page: 1);
+    if (result.status == Status.success) {
+      final apiResponse = result.data;
+      if (apiResponse != null) {
+        dataComicCategoryByType.value = apiResponse;
+      }
+    }
+  }
+
+  Future<void> changeCategoryList({required String slug}) async {
+    await fetchDataComicCategoryBySlug(slug: slug);
+    update(["UpdateListByCategory"]);
+  }
+
+  Future<void> loadMoreData() async {
+    final result = await ComicApi.getListComicCategoryBySlug(
+        slug: categories![currentIndexCategory.value].slug,
+        page: currentPage.value);
+    if (result.status == Status.success) {
+      final apiResponse = result.data;
+      if (apiResponse != null) {
+        dataComicCategoryByType.value.items.addAll(apiResponse.items);
+        currentPage.value++;
+      } else {
+        hasMore.value = false;
+      }
+    }
+  }
 
 }

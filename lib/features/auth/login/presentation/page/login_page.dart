@@ -19,76 +19,77 @@ class LoginPage extends GetView<LogInController> {
   @override
   Widget build(BuildContext context) {
     return BuildShareAuth.buildMainBodyPage(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          BuildShareAuth.buildTitle(
-              title: AppContents.login, subTitle: AppContents.subLogin),
-          _BuildBody()
-        ],
-      ),
+      appbar: BuildShareAuth.buildAppbar(),
+      body: _BuildBody(),
       isLoading: controller.isLoading,
     );
   }
 
   // ignore: non_constant_identifier_names
-  Widget _BuildBody() {
-    return BuildShareAuth.buildBackgoundForm(
-      childContent: Wrap(
-        runSpacing:SpaceDimens.space20,
-        children: [
-          Obx(
-            () => InputAppNormal(
-              lable: AppContents.email,
-              placeholder: AppContents.placeholderEmail,
-              controller: controller.emailController, // Cung cấp controller
-              errorMess: controller.errorMessageEmail.value,
-            ),
-          ),
-          Obx(
-            () => InputAppNormal(
-              lable: AppContents.password,
-              placeholder: AppContents.placeholderPassword,
-              isPassword: true,
-              controller: controller.passwordController,
-              errorMess: controller.errorMessagePassword.value,
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+  Column _BuildBody() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        BuildShareAuth.buildTitle(
+            title: AppContents.login, subTitle: AppContents.subLogin),
+        BuildShareAuth.buildBackgoundForm(
+          childContent: Wrap(
+            runSpacing: SpaceDimens.space20,
             children: [
               Obx(
-                () => CustomCheckBox(
-                  onChanged: (value) {
-                    controller.toggleCheck();
-                  },
-                  value: controller.isCheckRememberAccount.value,
-                  borderColor: AppColors.gray3,
-                  checkBoxSize:SpaceDimens.space25,
-                  checkedFillColor: AppColors.primary,
+                () => InputAppNormal(
+                  lable: AppContents.email,
+                  placeholder: AppContents.placeholderEmail,
+                  controller: controller.emailController, // Cung cấp controller
+                  errorMess: controller.errorMessageEmail.value,
                 ),
               ),
-              const TextNormalLight(
-                  textChild: AppContents.rememberMe,
-                  colorChild: AppColors.textLightActive),
-              const Spacer(),
-              InkWell(
-                  onTap: () {
-                    Get.toNamed(Routes.forgotPassword);
-                  },
-                  child: const TextNormalLight(
-                      textChild: AppContents.forgotPassword,
-                      colorChild: AppColors.primaryHover)),
+              Obx(
+                () => InputAppNormal(
+                  lable: AppContents.password,
+                  placeholder: AppContents.placeholderPassword,
+                  isPassword: true,
+                  controller: controller.passwordController,
+                  errorMess: controller.errorMessagePassword.value,
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Obx(
+                    () => CustomCheckBox(
+                      onChanged: (value) {
+                        controller.toggleCheck();
+                      },
+                      value: controller.isCheckRememberAccount.value,
+                      borderColor: AppColors.gray3,
+                      checkBoxSize: SpaceDimens.space25,
+                      checkedFillColor: AppColors.accentColor,
+                    ),
+                  ),
+                  const TextNormalLight(
+                      textChild: AppContents.rememberMe,
+                      colorChild: AppColors.textLightActive),
+                  const Spacer(),
+                  InkWell(
+                      onTap: () {
+                        Get.toNamed(Routes.forgotPassword);
+                      },
+                      child: const TextNormalLight(
+                          textChild: AppContents.forgotPassword,
+                          colorChild: AppColors.accentColor)),
+                ],
+              ),
+              ButtonNormal(
+                  textChild: AppContents.login,
+                  onTap: () async {
+                    await controller.handleLogin();
+                  }),
+              _BuildLoginMethod()
             ],
           ),
-          ButtonNormal(
-              textChild: AppContents.login,
-              onTap: () async {
-                await controller.handleLogin();
-              }),
-          _BuildLoginMethod()
-        ],
-      ),
+        )
+      ],
     );
   }
 
@@ -104,7 +105,7 @@ class LoginPage extends GetView<LogInController> {
               onTap: () => Get.toNamed(Routes.register),
               child: const TextNormal(
                 textChild: AppContents.createHere,
-                colorChild: AppColors.primary,
+                colorChild: AppColors.accentColor,
               ),
             ),
           ],
@@ -119,7 +120,7 @@ class LoginPage extends GetView<LogInController> {
         ButtonElevated(
           iconChild: AppImages.iGoogle,
           onTap: () async {
-            // await controller.logInWithGoogle();
+            await controller.handleSignInWithGoogle();
           },
           textChild: AppContents.loginWithGoogle,
         ),

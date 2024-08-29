@@ -1,29 +1,36 @@
 // Home slider
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:reading_app/core/data/models/list_comic_model.dart';
 import 'package:reading_app/core/ui/widgets/carousel_slider/carousel_slider_utils.dart';
-import 'package:reading_app/features/nav/home/presentation/controller/home_controller.dart';
 
 class BuildSlider extends StatelessWidget {
-  final HomeController controller;
+  final ListComicModel listImage;
+  final RxInt currentIndex ;
+
   const BuildSlider({
-    super.key,
-    required this.controller,
+    super.key, 
+    required this.listImage, 
+    required this.currentIndex, 
   });
+
   @override
   Widget build(BuildContext context) {
-    return Column(
+
+    return listImage.items.isNotEmpty? Column(  
       children: [
         // build slide control
         CarouselSliderUtils.buildCarouselSlider(
-            indexValue: controller.currentIndex,
-            listImage: controller.listIntroduceSlide),
+            indexValue: currentIndex,
+            listImage: listImage,
+            ),
             
             // build dots control
         CarouselSliderUtils.buildListDots(
-          indexValue: controller.currentIndex,
-          lengthList: controller.listIntroduceSlide.length,
+          indexValue: currentIndex,
+          lengthList: listImage.items.length,
         ),
       ],
-    );
+    ):const SizedBox();
   }
 }

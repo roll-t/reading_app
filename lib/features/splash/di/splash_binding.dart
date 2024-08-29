@@ -8,6 +8,6 @@ class SplashBinding extends Bindings {
   void dependencies() {
     Get.lazyPut(() => Prefs(), fenix: true);
     Get.lazyPut(() => GetuserUseCase(Get.find()));
-    Get.lazyPut(() => SplashController(Get.find(),Get.find()));
+    Get.lazyPut(() => SplashController());
   }
 }

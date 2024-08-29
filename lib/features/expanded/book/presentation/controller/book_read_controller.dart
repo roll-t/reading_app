@@ -1,41 +1,84 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reading_app/core/configs/enum.dart';
+import 'package:reading_app/core/data/models/chapter_model.dart';
+import 'package:reading_app/core/services/data/api/comic_api.dart';
 
 class BookReadController extends GetxController {
-  var currentPage = 0.obs;
-  var pageOffset = 0.0.obs;
-  List<String> imageUrls = [
-    "https://i.pinimg.com/736x/fd/0b/69/fd0b699a3dc5e888ef3726b0d10d4c37.jpg",
-    "https://file.vfo.vn/hinh/2018/05/top-nhung-hinh-quynh-aka-dep-nhat-de-thuong-hai-huoc-de-chem-gio-1.jpg",
-    "https://i.pinimg.com/474x/0b/ee/be/0beebe5dd21273e01cec42bfe4e1b935.jpg",
-    "https://i.pinimg.com/736x/50/1f/e4/501fe4a8f2e0290af51738c0c5b6b174.jpg",
-    "https://i.pinimg.com/736x/2f/ef/03/2fef03d7ad21e880f0380e551600dbb4.jpg",
-    "https://i.pinimg.com/originals/54/c7/13/54c713a6d31ed7fee4b7c7c4c5a9266d.png",
-    "https://i.pinimg.com/originals/91/02/75/9102752592c03a2375324f69a120318c.jpg"
-  ];
-  final PageController pageController = PageController();
+  
+  ChapterModel? chapterModel;
+
+  List<dynamic> listChapterImage = [];
+  var imageUrls = <String>[].obs;
+  var loading = false.obs;
+  var page = 0.obs;
+  final int pageSize = 5;
+  final ScrollController scrollController = ScrollController();
+
+  dynamic arguments;
+
   @override
-  void onInit() {
-    if (Get.arguments is List<String>) {
-      imageUrls = Get.arguments;
-    }
-    pageController.addListener(() {
-      int nextPage = pageController.page!.round();
-      double offset = pageController.page!;
-      if (currentPage.value != nextPage) {
-        updatePage(nextPage);
+  void onInit() async {
+    super.onInit();
+    arguments = Get.arguments;
+    loading.value = true;
+    await fetchBookImages();
+    loading.value = false;
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+          scrollController.position.maxScrollExtent) {
+        loadMoreImages();
       }
-      updatePageOffset(offset);
     });
   }
 
-  @override
-  void onClose() {}
-  void updatePage(int page) {
-    currentPage.value = page;
+  void scrollDown() {
+    scrollController.animateTo(
+      scrollController.offset + Get.height * .4, // Cuộn xuống 100 pixel
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
   }
 
-  void updatePageOffset(double offset) {
-    pageOffset.value = offset;
+  Future<void> fetchBookImages() async {
+    if (arguments != null) {
+      final result = await ComicApi.getChapterDataAPI(chapter: arguments);
+      if (result.status == Status.success) {
+        chapterModel = result.data;
+        loadMoreImages(); // Load initial set of images
+      }
+    }
+  }
+
+  void loadMoreImages() {
+    loading.value = true;
+    if(chapterModel==null) return;
+
+    int startIndex = page.value * pageSize;
+    int endIndex = (page.value + 1) * pageSize;
+    endIndex = endIndex > chapterModel!.chapterImages.length - 1
+        ? chapterModel!.chapterImages.length
+        : endIndex;
+    if (startIndex == 0 || startIndex == 1) {
+      startIndex = 1;
+    }
+
+    List<String> newImages = [];
+
+    for (int i = startIndex; i < endIndex; i++) {
+      var urlResult =
+          "${chapterModel!.domain}/${chapterModel!.chapterPath}/${chapterModel!.chapterImages[i].imageFile}";
+      newImages.add(urlResult);
+    }
+
+    imageUrls.addAll(newImages);
+    page.value++;
+    loading.value = false;
+  }
+
+  @override
+  void onClose() {
+    scrollController.dispose();
+    super.onClose();
   }
 }

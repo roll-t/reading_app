@@ -9,7 +9,6 @@ class SliderImage extends StatefulWidget {
 }
 
 class _SliderImageState extends State<SliderImage> {
-  int _currentIndex = 0;
   final PageController _pageController = PageController();
   @override
   void initState() {
@@ -32,7 +31,6 @@ class _SliderImageState extends State<SliderImage> {
             itemCount: widget.imgList.length,
             onPageChanged: (index) {
               setState(() {
-                _currentIndex = index;
               });
             },
             itemBuilder: (context, index) {
@@ -50,9 +48,10 @@ class _SliderImageState extends State<SliderImage> {
 class KeepAlivePage extends StatefulWidget {
   final String imageUrl;
 
-  const KeepAlivePage({Key? key, required this.imageUrl}) : super(key: key);
+  const KeepAlivePage({super.key, required this.imageUrl});
 
   @override
+  // ignore: library_private_types_in_public_api
   _KeepAlivePageState createState() => _KeepAlivePageState();
 }
 
@@ -62,17 +61,17 @@ class _KeepAlivePageState extends State<KeepAlivePage>
   Widget build(BuildContext context) {
     super.build(context);
     return Container(
-      margin: EdgeInsets.all(10.0),
+      margin: const EdgeInsets.all(10.0),
       child: ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+        borderRadius: const BorderRadius.all(Radius.circular(10.0)),
         child: CachedNetworkImage(
           imageUrl: widget.imageUrl,
           fit: BoxFit.cover,
           width: double.infinity,
-          placeholder: (context, url) => Center(
+          placeholder: (context, url) => const Center(
             child: CircularProgressIndicator(),
           ),
-          errorWidget: (context, url, error) => Icon(Icons.error),
+          errorWidget: (context, url, error) => const Icon(Icons.error),
         ),
       ),
     );

@@ -6,6 +6,6 @@ class ProfileBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => Prefs(), fenix: true);
-    Get.lazyPut(() => ProfileController());
+    Get.put(ProfileController());
   }
 }

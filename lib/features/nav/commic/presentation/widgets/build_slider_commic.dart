@@ -1,6 +1,5 @@
 // Home slider
 import 'package:flutter/material.dart';
-import 'package:reading_app/core/ui/widgets/carousel_slider/carousel_slider_utils.dart';
 import 'package:reading_app/features/nav/commic/presentation/controller/commic_controller.dart';
 
 class BuildSliderCommic extends StatelessWidget {
@@ -11,12 +10,13 @@ class BuildSliderCommic extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: [
         // build slide control
-        CarouselSliderUtils.buildCarouselSlider(
-            indexValue: controller.currentIndex,
-            listImage: controller.listIntroduceSlide),
+        // CarouselSliderUtils.buildCarouselSlider(
+        //     indexValue: controller.currentIndex,
+        //     listImage: controller.listIntroduceSlide,
+        //     ),
       ],
     );
   }

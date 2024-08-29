@@ -1,87 +1,134 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/data/models/book_model.dart';
+import 'package:reading_app/core/configs/enum.dart';
+import 'package:reading_app/core/routes/routes.dart';
+import 'package:reading_app/core/services/data/api/comic_api.dart';
+import 'package:reading_app/core/services/data/model/authentication_model.dart';
+import 'package:reading_app/core/services/data/model/comic_model.dart';
+import 'package:reading_app/core/ui/snackbar/snackbar.dart';
 
 class BookDetailController extends GetxController
     with GetSingleTickerProviderStateMixin {
   TextEditingController searchController = TextEditingController();
+
   late TabController tabController;
   var tabIndex = 0.obs;
+  var opacity = 0.0.obs;
+  var isLoading = false.obs;
+
+  var isAuth = false.obs;
+
+  ComicModel? comicModel;
+  String title = "";
+  String thumb = "";
+  String description = "";
+
+  List<dynamic> chapters = [];
+  List<dynamic> category = [];
+
+
+  List<String> listIntroduceSlide = [];
+
+  List<dynamic> listComicNewest = [];
+
+  String titleListComplete ="";
+
+  String domainImage ="";
+
+  dynamic slugArgument;
+
   ScrollController scrollController = ScrollController();
+
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
+    isLoading.value = true;
+    if (Get.arguments != null && Get.arguments is Map<String, dynamic>) {
+      if (Get.arguments["slug"] != null) {
+        slugArgument = Get.arguments["slug"];
+      }
+    }
+
+    await initial();
+    isLoading.value = false;
+    scrollController.addListener(_scrollListening);
+  }
+
+  initial() async {
     tabController = TabController(length: 2, vsync: this);
+    await fetchDataAPI();
     tabController.addListener(() {
       tabIndex.value = tabController.index;
     });
-    scrollController.addListener(_scrollListening);
+  }
+
+
+  Future<void> fetchDataAPI() async {
+    try {
+      final result = await ComicApi.getBookDetailDataAPI(slug: slugArgument);
+      if (result.status == Status.success) {
+        comicModel = result.data;
+        title = comicModel!.title;
+        thumb = comicModel!.thumb;
+        description = comicModel!.description;
+        chapters = comicModel!.chapters ?? [];
+        category = comicModel?.category ?? [];
+        isAuth.value = true;
+      } else {
+        switch (result.error) {
+          case ApiError.badRequest:
+            SnackbarUtil.showError("Lỗi không tìm thấy dữ liệu");
+            break;
+          case ApiError.unauthorized:
+            isAuth.value = false;
+            break;
+          case ApiError.notFound:
+            SnackbarUtil.showError("Không tìm thấy dữ liệu");
+            break;
+          case ApiError.serverError:
+            SnackbarUtil.showError("Lỗi kết nối máy chủ");
+            break;
+          case ApiError.unknown:
+            SnackbarUtil.showError("Lỗi mạng");
+            break;
+          case null:
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> handleLogin() async {
+    isLoading.value = true;
+    var result = await Get.toNamed(Routes.login);
+    if (result != null && result is AuthenticationModel) {
+      if (result.authenticated) {
+        isAuth.value = result.authenticated;
+        await fetchDataAPI();
+        isLoading.value = false;
+      }
+    }
   }
 
   void _scrollListening() {
     if (!scrollController.hasClients) return;
-    if (scrollController.offset >= scrollController.position.maxScrollExtent &&
-        !scrollController.position.outOfRange) {
-      // limit += _limitIncrement;
-      // currentPage++;
-      print("scroll");
+    double offset = scrollController.offset;
+    double threshold = 350.0 / 2;
+    if (offset >= threshold) {
+      opacity.value = 1.0;
+    } else if (offset < threshold && offset > 0) {
+      opacity.value = offset / threshold;
+    } else {
+      opacity.value = 0.0;
     }
   }
 
-
-  List<BookModel> listValueCardContinue = [
-  BookModel.fromJson({
-    "bid": "1",
-    "title": "Thần cấp đại ma đầu",
-    "imageUrl": "https://img.faloo.com/Novel/498x705/0/336/000336647.jpg",
-  }),
-  BookModel.fromJson({
-    "bid": "2",
-    "title": "Thư viện huyền bí",
-    "imageUrl": "https://img.faloo.com/Novel/498x705/0/357/000357913.jpg",
-  }),
-  BookModel.fromJson({
-    "bid": "3",
-    "title": "Ma đạo tổ sư",
-    "imageUrl": "https://ngontinh.org/wp-content/uploads/2021/11/Len-Nham-Kieu-Hoa-Truyen-Ngan-Tinh-Yeu.jpg",
-  }),
-  BookModel.fromJson({
-    "bid": "4",
-    "title": "Tuyệt thế vô song",
-    "imageUrl": "https://truyenaudio.org/upload/pro/Le-Tinh-Truyen-Ngan-Tinh-Yeu.jpg",
-  }),
-  BookModel.fromJson({
-    "bid": "5",
-    "title": "Vũ trụ siêu cấp",
-    "imageUrl": "https://tiengtrungtoancauhc.vn/wp-content/uploads/2024/01/Truyen-tranh-Trung-Quoc-1-566x800.jpg",
-  }),
-  BookModel.fromJson({
-    "bid": "6",
-    "title": "Thần long chi địa",
-    "imageUrl": "https://i.pinimg.com/originals/36/4c/dc/364cdcef24987a1be511d76497ec4555.jpg",
-  }),
-  BookModel.fromJson({
-    "bid": "7",
-    "title": "Ngạo thị thiên hạ",
-    "imageUrl": "https://th.bing.com/th/id/OIP.YEROt88zBh0qodtCZIoKfgHaMu?w=1280&h=2200&rs=1&pid=ImgDetMain",
-  }),
-  BookModel.fromJson({
-    "bid": "8",
-    "title": "Huyễn tưởng chi lữ",
-    "imageUrl": "https://th.bing.com/th/id/OIP.W8tb3IOT_OT9-YAJn1y_sAHaNV?w=690&h=1242&rs=1&pid=ImgDetMain",
-  }),
-  BookModel.fromJson({
-    "bid": "8",
-    "title": "Huyễn tưởng chi lữ",
-    "imageUrl": "https://th.bing.com/th/id/OIP.rU0sYjJtSbfZcRayv2DwpAHaJ0?rs=1&pid=ImgDetMain",
-  }),
-];
-
-
   @override
   void onClose() {
-    tabController.dispose();
+    scrollController.removeListener(_scrollListening);
     scrollController.dispose();
     super.onClose();
   }
+
 }

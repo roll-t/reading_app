@@ -10,32 +10,60 @@ import 'package:reading_app/core/ui/customs_widget_theme/texts/text_medium.dart'
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small.dart';
 import 'package:reading_app/core/ui/widgets/avatar/avatar.dart';
+import 'package:reading_app/core/utils/loading.dart';
 import 'package:reading_app/features/nav/profile/presentation/controller/profile_controller.dart';
 
 class ProfilePage extends GetView<ProfileController> {
   const ProfilePage({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: SpaceDimens.spaceStandard),
-        child: CustomScrollView(
-          slivers: [
-            _buildSpacer(),
-            _buildProfileHeader(),
-            _buildSpacer(),
-            _buildResearchStatus(),
-            _buildSpacer(),
-            _buildResearchStatus(),
-            _buildSpacer(),
-            _buildSettings(),
-            _buildSpacer(),
-            _buildLogoutButton(),
-          ],
-        ),
-      ),
-    );
+    return Scaffold(body: Obx(() {
+      return controller.isLogin.value ? _BuildBodyAccount() : _LoginRequest();
+    }));
+  }
+
+  // ignore: non_constant_identifier_names
+  Widget _LoginRequest() {
+    return Loading(
+        isLoading: controller.isLoading,
+        bodyBuilder: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: SpaceDimens.space30),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ButtonNormal(
+                textChild: AppContents.login,
+                onTap: () async {
+                  await controller.handleLogin();
+                },
+              ),
+            ],
+          ),
+        ));
+  }
+
+  // ignore: non_constant_identifier_names
+  Widget _BuildBodyAccount() {
+    return Loading(
+        isLoading: controller.isLoading,
+        bodyBuilder: Padding(
+          padding:
+              const EdgeInsets.symmetric(horizontal: SpaceDimens.spaceStandard),
+          child: CustomScrollView(
+            slivers: [
+              _buildSpacer(),
+              _buildProfileHeader(),
+              _buildSpacer(),
+              _buildResearchStatus(),
+              _buildSpacer(),
+              _buildResearchStatus(),
+              _buildSpacer(),
+              _buildSettings(),
+              _buildSpacer(),
+              _buildLogoutButton(),
+            ],
+          ),
+        ));
   }
 
   Widget _buildProfileHeader() {
@@ -43,7 +71,10 @@ class ProfilePage extends GetView<ProfileController> {
       child: CustomContainer.customBackgroudBox(
         childBuilder: Row(
           children: [
-            const Avatar(radius: 70,url: "https://anhdephd.vn/wp-content/uploads/2022/04/hinh-nen-gai-xinh.jpg",),
+            Avatar(
+              radius: 70,
+              url: controller.userModel.value.photoURL,
+            ),
             const SizedBox(width: SpaceDimens.spaceStandard),
             _buildProfileInfo(),
             const Icon(Icons.arrow_forward_ios_rounded, color: AppColors.gray2),
@@ -56,13 +87,16 @@ class ProfilePage extends GetView<ProfileController> {
   Widget _buildProfileInfo() {
     return Expanded(
       child: InkWell(
-        onTap: (){Get.toNamed(Routes.myInfo);},
-        child: const Column(
+        onTap: () {
+          Get.toNamed(Routes.myInfo);
+        },
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextMedium(textChild: "P T"),
+            TextMedium(
+                textChild: controller.userModel.value.displayName ?? "no name"),
             TextSmall(
-              textChild: "phuoctruong727@gmail.com",
+              textChild: controller.userModel.value.email,
               maxLinesChild: 1,
               colorChild: AppColors.gray2,
             ),
@@ -75,7 +109,8 @@ class ProfilePage extends GetView<ProfileController> {
   Widget _buildResearchStatus() {
     return SliverToBoxAdapter(
       child: CustomContainer.customBackgroudBox(
-        childBuilder: const TextNormal(textChild: "Đang nghiên cứu", colorChild: AppColors.gray2),
+        childBuilder: const TextNormal(
+            textChild: "Đang nghiên cứu", colorChild: AppColors.gray2),
       ),
     );
   }
@@ -97,9 +132,12 @@ class ProfilePage extends GetView<ProfileController> {
 
   Widget _buildSettingItem(String title, IconData icon) {
     return InkWell(
-      onTap: (){Get.toNamed(Routes.notification);},
+      onTap: () {
+        Get.toNamed(Routes.notification);
+      },
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: SpaceDimens.spaceStandard),
+        padding:
+            const EdgeInsets.symmetric(vertical: SpaceDimens.spaceStandard),
         decoration: const BoxDecoration(
           border: Border(bottom: BorderSide(color: AppColors.gray3, width: 1)),
         ),
@@ -119,7 +157,9 @@ class ProfilePage extends GetView<ProfileController> {
     return SliverToBoxAdapter(
       child: ButtonNormal(
         textChild: AppContents.logout,
-        onTap: () {},
+        onTap: () async {
+          await controller.logout();
+        },
         rounder: true,
         paddingChild: const EdgeInsets.symmetric(vertical: SpaceDimens.space10),
       ),

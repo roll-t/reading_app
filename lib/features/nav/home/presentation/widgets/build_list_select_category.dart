@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/dimens/text_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
+import 'package:reading_app/core/data/models/list_category_model.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/custom_backgound/background_gradient.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal_semi_bold.dart';
 
 class BuildListSelectCategory extends StatelessWidget {
   final int currentIndex;
-  final List<String> listCategory;
+  final List<ListCategoryModel> listCategory;
   final Function(int) onTap; // Change VoidCallback to Function(int)
   const BuildListSelectCategory({
     super.key,
@@ -43,7 +44,7 @@ class BuildListSelectCategory extends StatelessWidget {
                         : null,
                   ),
                   child: TextNormalSemiBold(
-                    textChild: listCategory[index],
+                    textChild: listCategory[index].name,
                     colorChild: currentIndex != index
                         ? AppColors.gray2
                         : AppColors.white,

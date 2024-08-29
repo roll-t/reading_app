@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:reading_app/core/configs/const/prefs_constants.dart';
-import 'package:reading_app/features/auth/user/model/user_model.dart';
+import 'package:reading_app/core/services/data/model/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Prefs {
@@ -60,6 +60,8 @@ class Prefs {
   Future logout() async {
     final SharedPreferences prefs = await _prefs;
     prefs.remove(PrefsConstants.user);
+    prefs.remove(PrefsConstants.authentication);
+    prefs.remove(PrefsConstants.categoryCache);
   }
 
   Future setTempUser(UserModel? value) async {

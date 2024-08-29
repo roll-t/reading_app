@@ -7,4 +7,3 @@ void main() async {
   appConfig();
   runApp(const App());
 }
-

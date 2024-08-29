@@ -21,7 +21,7 @@ class BookTypePage extends GetView<SearchBookController> {
               slivers: [
                 SliverToBoxAdapter(
                   child: BuildCategoryFilter(
-                    currentIndex: controller.currentIndexCategory,
+                    currentIndex: controller.currentIndexCategory, categories: controller.categories!,
                   ),
                 ),
                 const SliverPadding(
@@ -39,8 +39,8 @@ class BookTypePage extends GetView<SearchBookController> {
                       ),
                       tabs: [
                         TextNormal(textChild: "Tất cả"),
-                        TextNormal(textChild: "Truyện hot"),
                         TextNormal(textChild: "Hoàn thành"),
+                        TextNormal(textChild: "Truyện hot"),
                       ],
                     ),
                   ),
@@ -52,17 +52,17 @@ class BookTypePage extends GetView<SearchBookController> {
               children: [
                 CustomScrollView(
                   slivers: [
-                    BuildListBook(listBookData: controller.listBookData)
+                    BuildListBook(listBookData: controller.dataComicCategoryByType.value)
                   ],
                 ),
                 CustomScrollView(
                   slivers: [
-                    BuildListBook(listBookData: controller.listBookData)
+                    BuildListBook(listBookData: controller.dataComicCategoryByType.value)
                   ],
                 ),
                 CustomScrollView(
                   slivers: [
-                    BuildListBook(listBookData: controller.listBookData)
+                    BuildListBook(listBookData: controller.dataComicCategoryByType.value)
                   ],
                 ),
               ],

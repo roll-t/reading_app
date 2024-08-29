@@ -10,7 +10,7 @@ import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal_semi_
 import 'package:reading_app/core/ui/widgets/avatar/avatar.dart';
 import 'package:reading_app/core/ui/widgets/icons/leading_icon_app_bar.dart';
 import 'package:reading_app/core/ui/widgets/textfield/comment_text_field.dart';
-import 'package:reading_app/features/expanded/book/presentation/widgets/shared/expandable_text.dart';
+import 'package:reading_app/features/expanded/book/widgets/shared/expandable_text.dart';
 import 'package:reading_app/features/expanded/comment/presentation/controller/comment_controller.dart';
 
 class CommentPage extends GetView<CommentController> {

@@ -41,13 +41,12 @@ class _InputAppNormalState extends State<InputAppNormal> {
             ? TextSmall(textChild: widget.lable)
             : const SizedBox(),
         Container(
-          padding: const EdgeInsets.symmetric(
-              horizontal: SpaceDimens.space20,
-              vertical: SpaceDimens.space5),
+          padding: const EdgeInsets.all(SpaceDimens.space5),
           margin: const EdgeInsets.only(top: SpaceDimens.space5),
           decoration: BoxDecoration(
+            border: Border.all(color: AppColors.white,width: 2),
               borderRadius: BorderRadius.circular(RadiusDimens.radiusSmall1),
-              color: AppColors.accentColor),
+              color: AppColors.black),
           child: TextField(
             controller: widget.controller, // Sử dụng widget.controller
             focusNode: _focusNode,
@@ -62,18 +61,19 @@ class _InputAppNormalState extends State<InputAppNormal> {
                     LengthLimitingTextInputFormatter(1)
                   ]
                 : null, // Hạn chế chỉ cho phép một ký tự số
-            style: const TextStyle(color: AppColors.textNormal),
+            style: const TextStyle(color: AppColors.white),
             decoration: InputDecoration(
+              fillColor:AppColors.black,
               hintText: widget.placeholder,
               hintStyle: TextStyle(
                   fontWeight: FontWeight.w400,
-                  color: AppColors.textNormal.withOpacity(.5)),
+                  color: AppColors.white.withOpacity(.6)),
               border: InputBorder.none,
               suffixIcon: widget.isPassword
                   ? IconButton(
                       icon: Icon(
                         _obscureText ? Icons.visibility : Icons.visibility_off,
-                        color: AppColors.textNormal,
+                        color: AppColors.white,
                       ),
                       onPressed: () {
                         setState(() {
