@@ -73,6 +73,25 @@ class ComicApi extends EndPointSetting {
     }
   }
 
+  Future<Result<ListComicModel>> fetchListSearchBySlug({required String slug,required int page}) async {
+    try {
+      final response =
+          await _dio.get(EndPointSetting.searchBySlugEndpoint(slug: slug,page: page));
+      final apiResponse = response.data;
+      return ResponseApi.handleResponseData(response.statusCode ?? 500,
+          data: apiResponse);
+    } catch (e) {
+      if (e is DioException) {
+        if (e.response?.statusCode == 401) {
+          return Result.error(ApiError.unauthorized);
+        }
+      }
+      return Result.error(ApiError.unknown);
+    }
+  }
+
+
+
   Future<Result<List<ListCategoryModel>>> fetchCategories() async {
     try {
       final response = await _dio.get(EndPointSetting.categoriesEndpoint());
@@ -179,6 +198,11 @@ class ComicApi extends EndPointSetting {
   static Future<Result<ListComicModel>> getListNewUpdate({page=1}) async {
     final dataRemote = ComicApi(Dio());
     return await dataRemote.fetchListBySlug(slug: 'moi-cap-nhat',page: page);
+  }
+
+  static Future<Result<ListComicModel>> getListSearchBySlug({required String slug,page=1}) async {
+    final dataRemote = ComicApi(Dio());
+    return await dataRemote.fetchListSearchBySlug(slug: slug,page: page);
   }
 
   static Future<Result<List<ListCategoryModel>>> getListCategories() async {

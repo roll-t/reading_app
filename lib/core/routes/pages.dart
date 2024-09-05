@@ -15,7 +15,7 @@ import 'package:reading_app/features/expanded/category/presentation/page/categor
 import 'package:reading_app/features/expanded/comment/di/comment_binding.dart';
 import 'package:reading_app/features/expanded/comment/presentation/page/comment_page.dart';
 import 'package:reading_app/features/expanded/explores/find/di/find_binding.dart';
-import 'package:reading_app/features/expanded/explores/find/page/find_page.dart';
+import 'package:reading_app/features/expanded/explores/find/presentation/page/find_page.dart';
 import 'package:reading_app/features/expanded/explores/search_book/di/search_book_binding.dart';
 import 'package:reading_app/features/expanded/explores/search_book/presentation/page/search_book_page.dart';
 import 'package:reading_app/features/expanded/notification/di/notification_binding.dart';

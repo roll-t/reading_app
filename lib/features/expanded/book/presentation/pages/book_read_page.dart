@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
 import 'package:reading_app/core/ui/widgets/icons/icon_circle.dart';
@@ -23,7 +24,7 @@ class BookReadPage extends GetView<BookReadController> {
                 itemBuilder: (context, index) {
                   return SizedBox(
                     width: double.infinity,
-                    child: TextNormal(textChild: "chuong ${index + 1}"),
+                    child: TextNormal(textChild: "${AppContents.chapter} ${index + 1}"),
                   );
                 },
               ),
@@ -48,10 +49,7 @@ class BookReadPage extends GetView<BookReadController> {
                             fit: BoxFit.cover,
                             width: double.infinity,
                             placeholder: (context, url) => const Center(
-                              child: CircularProgressIndicator(
-                                valueColor:
-                                    AlwaysStoppedAnimation(AppColors.primary),
-                              ),
+                              child: SizedBox()
                             ),
                             errorWidget: (context, url, error) => const Center(
                               child: Column(

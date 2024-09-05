@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
+import 'package:reading_app/core/configs/enum.dart';
 import 'package:reading_app/core/data/models/result.dart';
 import 'package:reading_app/core/services/data/model/user_model.dart';
 import 'package:reading_app/core/services/server/end_point_setting.dart';
@@ -31,7 +34,7 @@ class UserApi {
           headers: {"Content-Type": "application/json"},
         ),
       );
-      if(response.statusCode==200){
+      if (response.statusCode == 200) {
         final data = response.data["result"];
         final userModel = UserModel.fromJson(data);
         return Result.success(userModel);
@@ -42,12 +45,32 @@ class UserApi {
     return null;
   }
 
+  Future<Result<bool>> fetchEmailExist({required String email}) async {
+    try {
+      final response = await _dio.get(EndPointSetting.emailExistEndpoint(email: email));
+      if (response.statusCode == 200) {
+        return Result.success(true);
+      }
+    } catch (e) {
+      print(e);
+    }
+    return Result.error(ApiError.badRequest);
+  }
+
+  
+
   static Future<Result<UserModel>?> getUser({required String uid}) async {
     final dataRemote = UserApi(Dio());
     return await dataRemote.fetchUser(uid: uid);
   }
 
-  static Future<Result<UserModel>?> signIn({required String userRequest})async{
+  static Future<Result<bool>> emailExist({required String email}) async{
+    final remote =UserApi(Dio());
+    return await remote.fetchEmailExist(email: email);
+  }
+
+  static Future<Result<UserModel>?> signIn(
+      {required String userRequest}) async {
     final dataRemote = UserApi(Dio());
     return await dataRemote.signInAPI(userRequest: userRequest);
   }

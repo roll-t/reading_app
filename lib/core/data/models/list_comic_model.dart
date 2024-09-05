@@ -29,7 +29,7 @@ class ListComicModel {
 }
 
 class ItemModel {
-  final String id;
+  String ? id;
   final String name;
   final String slug;
   final List<String> originName;
@@ -41,7 +41,7 @@ class ItemModel {
   final List<ChapterListModel> chaptersLatest;
 
   ItemModel({
-    required this.id,
+    this.id,
     required this.name,
     required this.slug,
     required this.originName,

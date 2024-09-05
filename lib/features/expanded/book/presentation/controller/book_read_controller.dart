@@ -9,10 +9,15 @@ class BookReadController extends GetxController {
   ChapterModel? chapterModel;
 
   List<dynamic> listChapterImage = [];
+
   var imageUrls = <String>[].obs;
+
   var loading = false.obs;
+
   var page = 0.obs;
+  
   final int pageSize = 5;
+
   final ScrollController scrollController = ScrollController();
 
   dynamic arguments;
@@ -34,7 +39,7 @@ class BookReadController extends GetxController {
 
   void scrollDown() {
     scrollController.animateTo(
-      scrollController.offset + Get.height * .4, // Cuộn xuống 100 pixel
+      scrollController.offset + Get.height * .4,
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
     );
@@ -45,33 +50,37 @@ class BookReadController extends GetxController {
       final result = await ComicApi.getChapterDataAPI(chapter: arguments);
       if (result.status == Status.success) {
         chapterModel = result.data;
-        loadMoreImages(); // Load initial set of images
+        loadMoreImages();
       }
     }
   }
 
   void loadMoreImages() {
+
     loading.value = true;
+
     if(chapterModel==null) return;
 
     int startIndex = page.value * pageSize;
+
     int endIndex = (page.value + 1) * pageSize;
+
     endIndex = endIndex > chapterModel!.chapterImages.length - 1
         ? chapterModel!.chapterImages.length
         : endIndex;
-    if (startIndex == 0 || startIndex == 1) {
-      startIndex = 1;
-    }
 
     List<String> newImages = [];
 
     for (int i = startIndex; i < endIndex; i++) {
-      var urlResult =
-          "${chapterModel!.domain}/${chapterModel!.chapterPath}/${chapterModel!.chapterImages[i].imageFile}";
+      var urlResult = "${chapterModel!.domain}/${chapterModel!.chapterPath}/${chapterModel!.chapterImages[i].imageFile}";
       newImages.add(urlResult);
     }
 
+
     imageUrls.addAll(newImages);
+    
+    print(imageUrls.length);
+
     page.value++;
     loading.value = false;
   }

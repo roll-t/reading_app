@@ -4,11 +4,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:intl/intl.dart';
 import 'package:reading_app/core/configs/enum.dart';
 import 'package:reading_app/core/configs/strings/messages/app_errors.dart';
 import 'package:reading_app/core/configs/strings/messages/app_success.dart';
 import 'package:reading_app/core/data/models/result.dart';
+import 'package:reading_app/core/data/models/user_request_model.dart';
+import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/services/data/api/auth_api.dart';
 import 'package:reading_app/core/services/data/api/user_api.dart';
 import 'package:reading_app/core/services/data/model/authentication_model.dart';
@@ -24,14 +25,11 @@ class LogInController extends GetxController {
 
   LogInController(this._saveUserUseCase, this._rememberUserCase);
 
-  // Controllers for input fields
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  // Loading state
   var isLoading = false.obs;
 
-  // Error messages
   var errorMessageEmail = ''.obs;
   var errorMessagePassword = ''.obs;
   var errorMessage = ''.obs;
@@ -45,8 +43,6 @@ class LogInController extends GetxController {
   final GoogleSignIn _googleSignIn = GoogleSignIn(
     scopes: ['email', 'profile'],
   );
-
-  GoogleSignInAccount? _currentUser;
 
   @override
   void onInit() async {
@@ -64,6 +60,16 @@ class LogInController extends GetxController {
 
     if (userRemember != null) {
       emailController.text = userRemember!.email;
+    }
+  }
+
+  Future<void> toSignUp() async {
+    final result = await Get.toNamed(Routes.register);
+    if (result != null && result is Result) {
+      final UserModel? userModel = result.data as UserModel?;
+      if (userModel != null) {
+        emailController.text = userModel.email;
+      }
     }
   }
 
@@ -92,10 +98,30 @@ class LogInController extends GetxController {
   }
 
   Future<void> handleLogin() async {
+    Result emailExits = await UserApi.emailExist(email: emailController.text.trim());
+
+    if (emailExits.data != true) {
+      errorMessageEmail.value = AppErrors.emailUncreated;
+      return;
+    } else {
+      errorMessageEmail.value = "";
+    }
+
+    if (passwordController.text.isEmpty) {
+      errorMessagePassword.value = AppErrors.errorEmpty;
+      return;
+    } else {
+      errorMessagePassword.value = "";
+    }
+
     isLoading.value = true;
     final AuthenticationModel? auth = await _initToken(
         email: emailController.text, password: passwordController.text);
+    if (isCheckRememberAccount.value) {
+      _rememberUserCase.set(UserModel(email: emailController.text.trim()));
+    }
     isLoading.value = false;
+
     if (auth != null && auth.authenticated) {
       Get.back(result: auth);
       SnackbarUtil.showSuccess(AppSuccess.loginSuccess);
@@ -133,17 +159,12 @@ class LogInController extends GetxController {
   }
 
   Map<String, dynamic> _createUserLoginMap(GoogleSignInAccount account) {
-    final now = DateTime.now();
-    final formatter = DateFormat('yyyy-MM-dd');
-    return {
-      "uid": account.id,
-      "displayName": account.displayName,
-      "email": account.email,
-      "password": "0123456",
-      "photoURL": account.photoUrl ?? " ",
-      "creationTime": formatter.format(now),
-      "roles": ["USER"]
-    };
+    UserRequestModel userRequestModel = UserRequestModel(
+        uid: account.id,
+        displayName: account.displayName,
+        email: account.email,
+        photoURL: account.photoUrl);
+    return userRequestModel.toJson();
   }
 
   Future<UserModel?> _handleUserSignIn(

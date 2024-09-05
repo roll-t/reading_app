@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 import 'package:reading_app/core/configs/dimens/radius_dimens.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_large_bold.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal_bold.dart';
 import 'package:reading_app/core/ui/widgets/icons/icon_circle.dart';
+import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 import 'package:reading_app/core/utils/loading.dart';
 
 class BuildShareAuth {
@@ -27,21 +27,19 @@ class BuildShareAuth {
   static Widget buildTitle({String title = "", String subTitle = ""}) {
     return Center(
       child: SizedBox(
-        height: Get.height * .26,
+        height: Get.height * .25,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            TextLargeBold(
-              textChild: title,
-            ),
+            TextWidget(text: title,fontWeight: FontWeight.w700,size: 35,),
             const SizedBox(
-              height: SpaceDimens.space10,
+              height: SpaceDimens.space15,
             ),
             TextNormalBold(
               textChild: subTitle,
             ),
             const SizedBox(
-              height: SpaceDimens.space30,
+              height: SpaceDimens.space40,
             )
           ],
         ),

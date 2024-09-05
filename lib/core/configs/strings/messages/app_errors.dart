@@ -1,7 +1,7 @@
 
 
 class AppErrors {
-  static const String errorEmpty="Cannot be empty !";
+  static const String errorEmpty="Không được bỏ trống !";
   static const String emailAlready ="Registration failed, Email may have already been used !";
   static const String formatEmail = "Wrong-formatted emails";
   static const String checkMatch = "Passwords don't match";
@@ -9,6 +9,8 @@ class AppErrors {
   static const String loginSuccess = "Đăng nhập thành công!";
   static const String loginError = "Lỗi đăng nhập!";
   static const String failLoginProcess = "Lỗi trong quá trình đăng nhập!";
+  static const String emailExistError = "Email đã được đăng ký!";
+  static const String emailUncreated = "Email chưa được tạo!";
   static String minLength({required int minLength}) {
      return "Must not be less than $minLength characters";
   }

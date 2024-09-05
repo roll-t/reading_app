@@ -10,69 +10,80 @@ import 'package:reading_app/features/nav/home/presentation/controller/home_contr
 
 class CategoryPage extends GetView<CategoryController> {
   const CategoryPage({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      body: GetBuilder<CategoryController>(
-        id: "loadMoreID",
-        builder: (_){
+        body: GetBuilder<CategoryController>(
+      id: "loadMoreID",
+      builder: (_) {
         return CustomScrollView(
-        controller: controller.scrollController,
-        slivers: [
-          SliverAppBar(
-            backgroundColor: AppColors.headerBackground,
-            floating: true,
-            snap: true,
-            title: GetBuilder<HomeController>(
-              id: "titleID",
-              builder: (_) => TextMediumSemiBold(
-                textChild: controller.listDataChangeCategory.value.titlePage,
+          controller: controller.scrollController,
+          slivers: [
+            SliverAppBar(
+              backgroundColor: AppColors.headerBackground,
+              floating: true,
+              snap: true,
+              title: GetBuilder<HomeController>(
+                id: "titleID",
+                builder: (_) => TextMediumSemiBold(
+                  textChild: controller.listDataChangeCategory.value.titlePage,
+                ),
+              ),
+              centerTitle: true,
+              expandedHeight: 60.0,
+              leading: const leadingIconAppBar(),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(
+                height: SpaceDimens.space25,
               ),
             ),
-            centerTitle: true,
-            expandedHeight: 60.0,
-            leading: const leadingIconAppBar(),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(
-              height: SpaceDimens.space25,
-            ),
-          ),
-          GetBuilder<HomeController>(
-            id: "ListCategoryID",
-            builder: (_) {
-              return SliverPadding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: SpaceDimens.spaceStandard,
-                ),
-                sliver: SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      if (index >= controller.listDataChangeCategory.value.items.length) {
-                        // Display loading indicator at the end
-                        return const Center(child: CircularProgressIndicator());
-                      }
-                      return CardFullInfoFollowRow(
-                        heightImage: 120,
-                        bookModel: controller.listDataChangeCategory.value.items[index],
-                        currentIndex: index,
-                        last: index == controller.listDataChangeCategory.value.items.length - 1,
-                        domain: controller.listDataChangeCategory.value.domainImage,
-                      );
-                    },
-                    childCount: controller.isLoading.value
-                        ? controller.listDataChangeCategory.value.items.length + 1
-                        : controller.listDataChangeCategory.value.items.length,
+            GetBuilder<HomeController>(
+              id: "ListCategoryID",
+              builder: (_) {
+                return SliverPadding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: SpaceDimens.spaceStandard,
                   ),
-                ),
-              );
-            },
-          ),
-        ],
-      );
-      },)
-    );
+                  sliver: SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        if (index >=
+                            controller
+                                .listDataChangeCategory.value.items.length) {
+                          // Display loading indicator at the end
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
+
+                        return CardFullInfoFollowRow(
+                          heightImage: 120,
+                          bookModel: controller
+                              .listDataChangeCategory.value.items[index],
+                          currentIndex: index,
+                          last: index ==
+                              controller.listDataChangeCategory.value.items
+                                      .length -
+                                  1,
+                          domain: controller
+                              .listDataChangeCategory.value.domainImage,
+                        );
+                      },
+                      childCount: controller.isLoading.value
+                          ? controller
+                                  .listDataChangeCategory.value.items.length +
+                              1
+                          : controller
+                              .listDataChangeCategory.value.items.length,
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
+        );
+      },
+    ));
   }
 }

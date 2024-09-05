@@ -4,7 +4,7 @@ import 'package:reading_app/core/configs/dimens/radius_dimens.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small.dart';
+import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal_light.dart';
 class InputAppNormal extends StatefulWidget {
   final String lable;
   final String placeholder;
@@ -38,7 +38,7 @@ class _InputAppNormalState extends State<InputAppNormal> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         widget.lable.isNotEmpty
-            ? TextSmall(textChild: widget.lable)
+            ? TextNormalLight(textChild: widget.lable)
             : const SizedBox(),
         Container(
           padding: const EdgeInsets.all(SpaceDimens.space5),

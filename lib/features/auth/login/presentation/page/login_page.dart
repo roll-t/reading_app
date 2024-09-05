@@ -102,7 +102,7 @@ class LoginPage extends GetView<LogInController> {
           children: [
             const TextNormal(textChild: AppContents.dontHaveAnAccount),
             InkWell(
-              onTap: () => Get.toNamed(Routes.register),
+              onTap:controller.toSignUp,
               child: const TextNormal(
                 textChild: AppContents.createHere,
                 colorChild: AppColors.accentColor,

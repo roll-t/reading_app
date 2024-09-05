@@ -40,6 +40,7 @@ class ResponseApi {
               return Result.error(ApiError.serverError);
             }
             List<String> emptyCategory = [
+              "adult",
               "action",
               "adventure",
               "comedy",
@@ -59,14 +60,12 @@ class ResponseApi {
               "supernatural",
               "truyen-mau",
               "webtoon",
-              // "tap-chi-truyen-tranh", // link ảnh hông hiển thị đc
-              // "trinh-tham", // link ảnh hông hiển thị đc
             ];
 
             List<ListCategoryModel> categories = <ListCategoryModel>[];
 
             data["data"]["items"].forEach((value) {
-              if (!emptyCategory.contains(value["slug"])){
+              if (!emptyCategory.contains(value["slug"])) {
                 categories.add(ListCategoryModel.fromJson(value));
               }
             });
@@ -92,6 +91,7 @@ class ResponseApi {
   static Result<ListComicModel> handleResponseData(int statusCode,
       {dynamic data}) {
     if (statusCode == 200) {
+
       if (data == null ||
           data["data"] == null ||
           data["data"]["items"] == null) {
@@ -103,7 +103,6 @@ class ResponseApi {
             data["data"]["APP_DOMAIN_CDN_IMAGE"] + "/uploads/comics/";
         String titlePage = data["data"]["titlePage"] ?? "";
         List<dynamic> listImage = data["data"]["items"];
-
         ListComicModel listDataModel = ListComicModel(
           domainImage: domainImage,
           titlePage: titlePage,
