@@ -2,25 +2,25 @@
 class AppContents {
   static const String appName = 'Quest';
   static const String login = 'Đăng nhập';
-  static const String subLogin = 'Please sign in to your existing account';
-  static const String email = 'EMAIL';
+  static const String subLogin = 'Vui lòng đăng nhập vào tài khoản hiện tại của bạn';
+  static const String email = 'Email';
   static const String placeholderEmail = 'exsample@gmail.com';
-  static const String password = 'PASSWORD';
+  static const String password = 'Mật Khẩu';
   static const String placeholderPassword = '*********';
-  static const String dontHaveAnAccount = 'Don’t have an account? ';
-  static const String createHere = ' Create here';
-  static const String rememberMe = 'Remember Me';
-  static const String forgotPassword = 'Forgot Password!';
-  static const String loginBtn = 'Log In';
-  static const String signUpHere = 'Sign up here!';
-  static const String or = 'Or';
-  static const String cancel ="Cancel";
+  static const String dontHaveAnAccount = 'Không có tài khoản? ';
+  static const String createHere = ' Tạo ngay';
+  static const String rememberMe = 'Nhớ tôi';
+  static const String forgotPassword = 'Quên mật khẩu!';
+  static const String loginBtn = 'Đăng nhập';
+  static const String signUpHere = 'Đăng ký!';
+  static const String or = 'Hoặc';
+  static const String cancel ="Hủy";
 
-  static const String signUp = 'Sign Up';
-  static const String name = 'NAME';
-  static const String subSignUp = 'Please sign up to get Started';
-  static const String placeholderName = 'Your name ...';
-  static const String passwordConfirm = 'CONFIRM PASSWORD';
+  static const String signUp = 'Đăng ký';
+  static const String name = 'Tên';
+  static const String subSignUp = 'Đăng ký tài khoản để bắt đầu';
+  static const String placeholderName = 'Tên hiển thị ...';
+  static const String passwordConfirm = 'Xác nhận mật khẩu';
 
   static const String verification = 'Verification';
   static const String btnResend = 'Resend';
@@ -34,12 +34,12 @@ class AppContents {
   static const String subForgotPasswordTitle ="Please enter email existed account";
   static const String sendCode ="Send Code";
 
-  static const String loginWithGoogle ="Login with google";
+  static const String loginWithGoogle ="Đăng nhập với google";
 
-  static const String successTag = "Success";
-  static const String errorTag = "Error";
-  static const String warningTag = "Warning";
-  static const String infoTag = "Info";
+  static const String successTag = "Thành công";
+  static const String errorTag = "Lỗi";
+  static const String warningTag = "Cảnh báo";
+  static const String infoTag = "Thông tin";
 
 
 
@@ -72,5 +72,45 @@ class AppContents {
   static const String updating= "Đang cập nhật";
   static const String views= "lượt xem";
   static const String exploreMore= "Khám phá thêm truyện";
+  static const String commic= "Truyện tranh";
+  static const String chapter= "Chương";
+  static const String hottestOfWeek= "Hot nhất tuần";
+  static const String searchPlaceholder= "Nhập từ khóa để tìm kiếm ....";
+  static const String searchPlaceholderChapter= "Nhập số chương để tìm kiếm ...";
+  static const String selectCategory= "Chọn danh mục";
+
+  // book case base
+  static const String audio= "Audio";
+  static const String book= "Tiểu thuyết";
+  static const String reading= "Đang đọc";
+  static const String liked= "Đã thích";
+  static const String downloaded= "Đã tải";
+  static const String list= "Danh sách";
+  static const String newest= "Mới nhất";
+  static const String comment= "Bình luận";
+
+
+  // profile page
+  static const String notification= "Thông báo";
+  static const String referFriend= "Giới thiệu bạn bè";
+  static const String ratingApp= "Đánh giá App";
+  static const String setting= "Cài đặt";
+
+  static const String logout= "Đăng xuất";
+  static const String myInfo= "Thông tin cá nhân";
+
+  
+  static const String read= "Đã đọc";
+  static const String rating= "Đánh giá";
+
+  static const String info = "Thông tin";
+  static const String description = "Mô tả";
+  static const String readLess = "Thu gọn";
+
+  static const String type = "Thể loại";
+
+  static const String readNow= "Đọc ngay";
+  static const String ratingBook= "Đánh giá";
+  static const String send= "Gửi";
 
 }

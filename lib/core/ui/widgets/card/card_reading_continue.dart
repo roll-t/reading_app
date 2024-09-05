@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/dimens/text_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/data/models/book_model.dart';
+import 'package:reading_app/core/data/models/list_comic_model.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
 import 'package:reading_app/core/ui/widgets/images/Image_widget.dart';
 
@@ -12,8 +12,8 @@ class CardReadingContinue extends StatelessWidget {
   final double widthCard;
   final String? chapter;
   final double heigthShadownContentChapter;
-
-  final BookModel bookModel;
+  final String domain;
+  final ItemModel bookModel;
 
 
   const CardReadingContinue({
@@ -21,7 +21,8 @@ class CardReadingContinue extends StatelessWidget {
     this.chapter,
     required this.widthCard,
     this.heigthShadownContentChapter = 60, 
-    required this.bookModel,
+    required this.bookModel, 
+    required this.domain,
   });
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class CardReadingContinue extends StatelessWidget {
         width: widthCard,
         child: Stack(
           children: [
-            SizedBox(child: ImageWidget(imageUrl: bookModel.imageUrl)),
+            SizedBox(child: ImageWidget(imageUrl:domain+bookModel.thumbUrl)),
             Positioned(
                 bottom: 0,
                 left: 0,
@@ -61,7 +62,7 @@ class CardReadingContinue extends StatelessWidget {
                         bottomLeft: Radius.circular(5))),
                 child: TextNormal(
                   maxLinesChild: 1,
-                  textChild: bookModel.title,
+                  textChild: bookModel.name,
                 ),
               ),
             ),

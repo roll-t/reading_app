@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:reading_app/core/configs/app_dimens.dart';
-import 'package:reading_app/core/configs/app_colors.dart';
-
+import 'package:reading_app/core/configs/dimens/text_dimens.dart';
+import 'package:reading_app/core/configs/themes/app_colors.dart';
 class SimpleInputTextField extends StatelessWidget {
   final double height;
   final Color? hintColor;
@@ -40,8 +39,8 @@ class SimpleInputTextField extends StatelessWidget {
     this.controller,
     this.hintText,
     this.hintColor,
-    this.focusedColor = AppColors.gray,
-    this.enableColor = AppColors.gray,
+    this.focusedColor = AppColors.gray3,
+    this.enableColor = AppColors.gray3,
     this.onTap,
     this.focusNode,
     this.labelText,
@@ -73,21 +72,21 @@ class SimpleInputTextField extends StatelessWidget {
         obscureText: obscureText,
         focusNode: focusNode,
         style: TextStyle(
-            fontSize: AppDimens.textSize16,
+            fontSize: TextDimens.textNormal,
             color: textColor ?? AppColors.black),
         decoration: InputDecoration(
           border: InputBorder.none,
           contentPadding: const EdgeInsets.only(left: 15.0),
           labelText: labelText,
           labelStyle: const TextStyle(
-              color: AppColors.colorPink, fontSize: AppDimens.textSize16),
+              color: AppColors.primaryHover, fontSize: TextDimens.textNormal),
           suffixIcon: suffixIcon,
           prefixIcon: prefixIcon,
           filled: backgroundColor == null ? false : true,
           fillColor: backgroundColor,
           hintText: hintText,
           hintStyle:
-              TextStyle(fontSize: AppDimens.textSize16, color: hintColor),
+              TextStyle(fontSize: TextDimens.textNormal, color: hintColor),
           enabledBorder: isShowBorder
               ? OutlineInputBorder(
                   borderSide:

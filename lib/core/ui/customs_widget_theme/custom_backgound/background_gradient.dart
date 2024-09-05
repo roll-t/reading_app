@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 
 class BackgroundGradient {
@@ -28,4 +29,12 @@ class BackgroundGradient {
       AppColors.accentColor,
     ], end: Alignment.bottomCenter, begin: Alignment.topCenter);
   }
+
+  static Container backgroundBox({required Widget childBuilder }){
+    return Container(
+      decoration: BoxDecoration(color: AppColors.secondaryDarkBg,borderRadius: BorderRadius.circular(10)),
+      child: childBuilder,
+    );
+  }
+
 }

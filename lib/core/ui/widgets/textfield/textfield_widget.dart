@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../../../configs/app_dimens.dart';
-import '../../../configs/app_colors.dart';
-
+import 'package:reading_app/core/configs/dimens/text_dimens.dart';
+import 'package:reading_app/core/configs/themes/app_colors.dart';
 class TextFieldWidget extends StatelessWidget {
   final double height;
   final Color? hintColor;
@@ -66,11 +64,6 @@ class TextFieldWidget extends StatelessWidget {
         enabled: true,
         cursorColor: AppColors.primary,
         keyboardType: keyboardType,
-        // style: GoogleFonts.poppins(
-        //   color: AppColors.blackColor,
-        //   fontWeight: FontWeight.w500,
-        //   fontSize: AppDimens.textSize16,
-        // ),
         decoration: InputDecoration(
           fillColor: backgroundColor ?? AppColors.primary.withOpacity(0.1),
           filled: true,
@@ -79,12 +72,12 @@ class TextFieldWidget extends StatelessWidget {
           ),
           labelText: labelText,
           labelStyle: const TextStyle(
-              color: AppColors.black, fontSize: AppDimens.textSize16),
+              color: AppColors.black, fontSize: TextDimens.textNormal),
           suffixIcon: suffixIcon,
           prefixIcon: prefixIcon,
           hintText: hintText,
           hintStyle: TextStyle(
-              fontSize: AppDimens.textSize16,
+              fontSize: TextDimens.textNormal,
               color: hintColor ?? AppColors.primary),
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(width: 1, color: AppColors.primary),

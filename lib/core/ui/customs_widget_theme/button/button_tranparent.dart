@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:reading_app/core/configs/app_dimens.dart';
+import 'package:reading_app/core/configs/dimens/icons_dimens.dart';
+import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/button/button_widget.dart';
 
@@ -12,9 +13,9 @@ class ButtonTranparent extends ButtonWidget {
       : super(
             text: textChild,
             ontap: onTap,
-            padding: const EdgeInsets.all(AppDimens.paddingSpace15),
+            padding: const EdgeInsets.all(SpaceDimens.space15),
             fontWeight: FontWeight.w900,
-            textSize: AppDimens.iconsSize20,
+            textSize: IconsDimens.iconsSize20,
             backgroundColor: AppColors.white.withOpacity(0),
             textColor: textColorChild
             );

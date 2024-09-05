@@ -9,4 +9,12 @@ abstract class Routes {
   static const forgotPassword = "/forgotPassword";
   static const profile = "/profile";
   static const category = "/category";
+  static const search = "/search";
+  static const myInfo = "/myInfo";
+  static const notification = "/notification";
+  static const find = "/find";
+  static const bookDetail = "/bookDetail";
+  static const comment = "/comment";
+  static const readBook = "/readBook";
+  static const loginRequestSplash = "/LoginRequestSplash";
 }

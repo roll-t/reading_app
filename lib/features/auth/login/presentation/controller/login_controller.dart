@@ -1,24 +1,35 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/utils/validator.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:reading_app/core/configs/enum.dart';
+import 'package:reading_app/core/configs/strings/messages/app_errors.dart';
+import 'package:reading_app/core/configs/strings/messages/app_success.dart';
+import 'package:reading_app/core/data/models/result.dart';
+import 'package:reading_app/core/data/models/user_request_model.dart';
+import 'package:reading_app/core/routes/routes.dart';
+import 'package:reading_app/core/services/data/api/auth_api.dart';
+import 'package:reading_app/core/services/data/api/user_api.dart';
+import 'package:reading_app/core/services/data/model/authentication_model.dart';
+import 'package:reading_app/core/services/data/model/user_model.dart';
+import 'package:reading_app/core/ui/snackbar/snackbar.dart';
 import 'package:reading_app/features/auth/user/domain/use_case/remember_user_case.dart';
 import 'package:reading_app/features/auth/user/domain/use_case/save_user_use_case.dart';
-import 'package:reading_app/features/auth/user/model/user_model.dart';
 
 class LogInController extends GetxController {
   final SaveUserUseCase _saveUserUseCase;
+
   final RememberUserCase _rememberUserCase;
 
   LogInController(this._saveUserUseCase, this._rememberUserCase);
 
-  // Controllers for input fields
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  // Loading state
   var isLoading = false.obs;
 
-  // Error messages
   var errorMessageEmail = ''.obs;
   var errorMessagePassword = ''.obs;
   var errorMessage = ''.obs;
@@ -29,10 +40,14 @@ class LogInController extends GetxController {
   dynamic dataArgument;
   UserModel? userRemember;
 
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: ['email', 'profile'],
+  );
+
   @override
   void onInit() async {
     super.onInit();
-
+    await _googleSignIn.signOut();
     dataArgument = Get.arguments;
 
     userRemember = await _rememberUserCase.get();
@@ -45,7 +60,16 @@ class LogInController extends GetxController {
 
     if (userRemember != null) {
       emailController.text = userRemember!.email;
-      // passwordController.text = userRemember!.password;
+    }
+  }
+
+  Future<void> toSignUp() async {
+    final result = await Get.toNamed(Routes.register);
+    if (result != null && result is Result) {
+      final UserModel? userModel = result.data as UserModel?;
+      if (userModel != null) {
+        emailController.text = userModel.email;
+      }
     }
   }
 
@@ -53,74 +77,103 @@ class LogInController extends GetxController {
     isCheckRememberAccount.value = !isCheckRememberAccount.value;
   }
 
-  Future<void> handleLogin() async {
-    errorMessageEmail.value = '';
-    errorMessagePassword.value = '';
-    
-    final emailError = Validators.checkErrorsLength(value: emailController.text, minLenth: 8, maxLength: 50) +
-        Validators.checkErrorEmail(value: emailController.text);
-    final passwordError = Validators.checkErrorsLength(value: passwordController.text, minLenth: 6, maxLength: 20);
-    
-    if (emailError.isNotEmpty) {
-      errorMessageEmail.value = emailError;
+  Future<AuthenticationModel?> _initToken(
+      {required String email, required String password}) async {
+    final authApi = AuthApi(Dio());
+    try {
+      final Result<AuthenticationModel>? auth = await authApi.token(
+        userModel: UserModel(
+          email: email.trim(),
+          password: password.trim(),
+        ),
+      );
+      if (auth != null && auth.status == Status.success) {
+        _saveUserUseCase.saveToken(auth.data!);
+        return auth.data;
+      }
+      return null;
+    } catch (e) {
+      return null;
     }
-    if (passwordError.isNotEmpty) {
-      errorMessagePassword.value = passwordError;
+  }
+
+  Future<void> handleLogin() async {
+    Result emailExits = await UserApi.emailExist(email: emailController.text.trim());
+
+    if (emailExits.data != true) {
+      errorMessageEmail.value = AppErrors.emailUncreated;
+      return;
+    } else {
+      errorMessageEmail.value = "";
     }
 
-    if (errorMessageEmail.value.isNotEmpty || errorMessagePassword.value.isNotEmpty) {
+    if (passwordController.text.isEmpty) {
+      errorMessagePassword.value = AppErrors.errorEmpty;
       return;
+    } else {
+      errorMessagePassword.value = "";
     }
 
     isLoading.value = true;
+    final AuthenticationModel? auth = await _initToken(
+        email: emailController.text, password: passwordController.text);
+    if (isCheckRememberAccount.value) {
+      _rememberUserCase.set(UserModel(email: emailController.text.trim()));
+    }
+    isLoading.value = false;
 
-  //   Result result = await FirebaseAuthentication.logIn(
-  //       email: emailController.text.trim(),
-  //       password: passwordController.text.trim());
-    
-  //   isLoading.value = false;
+    if (auth != null && auth.authenticated) {
+      Get.back(result: auth);
+      SnackbarUtil.showSuccess(AppSuccess.loginSuccess);
+    } else {
+      SnackbarUtil.showSuccess(AppErrors.loginError);
+    }
+  }
 
-  //   if (result.status == Status.success) {
-  //     UserModel userLogin = UserModel(
-  //         displayName: result.data.displayName,
-  //         email: result.data.email,
-  //         password: passwordController.text,
-  //         creationTime: "");
-  //     await _saveUserUseCase.saveUser(userLogin);
-  //     await rememberUser(rememberCheck: isCheckRememberAccount.value);
-  //     SnackbarUtil.showSuccess(AppSuccess.loginSuccess);
-  //     Get.offAndToNamed(Routes.main);
-  //   } else {
-  //     SnackbarUtil.showError(AppErrors.loginFail);
-  //   }
-  // }
+  Future<void> handleSignInWithGoogle() async {
+    try {
+      final account = await _googleSignIn.signIn();
+      if (account != null) {
+        final userLogin = _createUserLoginMap(account);
+        final userExists = await UserApi.getUser(uid: account.id);
+        isLoading.value = true;
+        final result = await _handleUserSignIn(userExists, userLogin);
+        if (result != null) {
+          final auth = await _initToken(
+            email: result.email,
+            password: result.password ?? "0123456",
+          );
+          if (auth != null && auth.authenticated) {
+            Get.back(result: auth);
+            SnackbarUtil.showSuccess(AppSuccess.loginSuccess);
+          } else {
+            SnackbarUtil.showError(AppErrors.loginError);
+          }
+        }
+      }
+    } catch (error) {
+      SnackbarUtil.showError(AppErrors.failLoginProcess);
+    } finally {
+      isLoading.value = false;
+    }
+  }
 
-  // Future<void> logInWithGoogle() async {
-  //   errorMessage.value = ''; // Reset error message
+  Map<String, dynamic> _createUserLoginMap(GoogleSignInAccount account) {
+    UserRequestModel userRequestModel = UserRequestModel(
+        uid: account.id,
+        displayName: account.displayName,
+        email: account.email,
+        photoURL: account.photoUrl);
+    return userRequestModel.toJson();
+  }
 
-  //   Result<UserModel> result = await FirebaseAuthentication.signInWithGoogle();
-
-  //   if (result.status == Status.success) {
-  //     isLoading.value = true;
-  //     UserModel user = result.data!;
-  //     await FirestoreUser.createUser(user);
-  //     await _saveUserUseCase.saveUser(user);
-  //     isLoading.value = false;
-  //     SnackbarUtil.showSuccess(AppSuccess.loginSuccess);
-  //     Get.offAndToNamed(Routes.main);
-  //   } else {
-  //     errorMessage.value = 'An unknown error occurred';
-  //     SnackbarUtil.showError(AppErrors.loginFail);
-  //   }
-  // }
-
-  // Future<void> rememberUser({bool rememberCheck = false}) async {
-  //   if (rememberCheck) {
-  //     UserModel userRemember = UserModel(
-  //         email: emailController.text.trim(),
-  //         password: passwordController.text.trim(),
-  //         creationTime: DateTime.now().toString());
-  //     await _rememberUserCase.set(userRemember);
-  //   }
+  Future<UserModel?> _handleUserSignIn(
+      Result? userExists, Map<String, dynamic> userLogin) async {
+    if (userExists == null) {
+      final response = await UserApi.signIn(userRequest: jsonEncode(userLogin));
+      return response?.data;
+    } else {
+      return userExists.data;
+    }
   }
 }

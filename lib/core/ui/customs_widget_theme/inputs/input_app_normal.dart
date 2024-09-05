@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // Thêm import này để sử dụng FilteringTextInputFormatter
-import 'package:reading_app/core/configs/app_colors.dart';
-import 'package:reading_app/core/configs/app_dimens.dart';
-import 'package:reading_app/core/ui/widgets/texts/lable.dart';
-import 'package:reading_app/core/ui/widgets/texts/text_normal.dart';
-
+import 'package:reading_app/core/configs/dimens/radius_dimens.dart';
+import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/themes/app_colors.dart';
+import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
+import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal_light.dart';
 class InputAppNormal extends StatefulWidget {
   final String lable;
   final String placeholder;
@@ -38,16 +38,15 @@ class _InputAppNormalState extends State<InputAppNormal> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         widget.lable.isNotEmpty
-            ? Lable(contentChild: widget.lable)
+            ? TextNormalLight(textChild: widget.lable)
             : const SizedBox(),
         Container(
-          padding: const EdgeInsets.symmetric(
-              horizontal: AppDimens.paddingSpace20,
-              vertical: AppDimens.paddingSpace5),
-          margin: const EdgeInsets.only(top: AppDimens.paddingSpace5),
+          padding: const EdgeInsets.all(SpaceDimens.space5),
+          margin: const EdgeInsets.only(top: SpaceDimens.space5),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(AppDimens.radius10),
-              color: AppColors.textLight),
+            border: Border.all(color: AppColors.white,width: 2),
+              borderRadius: BorderRadius.circular(RadiusDimens.radiusSmall1),
+              color: AppColors.black),
           child: TextField(
             controller: widget.controller, // Sử dụng widget.controller
             focusNode: _focusNode,
@@ -62,18 +61,19 @@ class _InputAppNormalState extends State<InputAppNormal> {
                     LengthLimitingTextInputFormatter(1)
                   ]
                 : null, // Hạn chế chỉ cho phép một ký tự số
-            style: const TextStyle(color: AppColors.textNormal),
+            style: const TextStyle(color: AppColors.white),
             decoration: InputDecoration(
+              fillColor:AppColors.black,
               hintText: widget.placeholder,
               hintStyle: TextStyle(
                   fontWeight: FontWeight.w400,
-                  color: AppColors.textNormal.withOpacity(.5)),
+                  color: AppColors.white.withOpacity(.6)),
               border: InputBorder.none,
               suffixIcon: widget.isPassword
                   ? IconButton(
                       icon: Icon(
                         _obscureText ? Icons.visibility : Icons.visibility_off,
-                        color: AppColors.textNormal,
+                        color: AppColors.white,
                       ),
                       onPressed: () {
                         setState(() {
@@ -89,7 +89,7 @@ class _InputAppNormalState extends State<InputAppNormal> {
             },
           ),
         ),
-        TextNormal(contentChild: widget.errorMess,colorChild: AppColors.red,)
+        TextNormal(textChild: widget.errorMess,colorChild: AppColors.error,)
       ],
     );
   }

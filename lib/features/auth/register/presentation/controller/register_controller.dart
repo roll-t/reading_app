@@ -1,6 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reading_app/core/configs/strings/messages/app_errors.dart';
+import 'package:reading_app/core/configs/strings/messages/app_success.dart';
+import 'package:reading_app/core/data/models/result.dart';
+import 'package:reading_app/core/data/models/user_request_model.dart';
 import 'package:reading_app/core/data/prefs/prefs.dart';
+import 'package:reading_app/core/services/data/api/user_api.dart';
+import 'package:reading_app/core/ui/snackbar/snackbar.dart';
 import 'package:reading_app/core/utils/validator.dart';
 
 class RegisterController extends GetxController {
@@ -72,6 +80,15 @@ class RegisterController extends GetxController {
       }
     }
 
+    Result emailExist = await UserApi.emailExist(email: emailController.text.trim());
+
+    if (emailExist.data == true) {
+      errorMessageEmail.value = AppErrors.emailExistError;
+      return;
+    } else {
+      errorMessageEmail.value = "";
+    }
+
     // Nếu có lỗi, không thực hiện đăng ký
     if (errorMessageName.value.isNotEmpty ||
         errorMessageEmail.value.isNotEmpty ||
@@ -80,42 +97,18 @@ class RegisterController extends GetxController {
       return;
     }
 
-    isLoading.value = true; // Bắt đầu loading
+    UserRequestModel userRequestModel = UserRequestModel(
+        displayName: nameController.text.trim(),
+        email: emailController.text.trim(),
+        password: passwordController.text.trim());
 
-  //   // Gọi API để đăng ký
-  //   Result<UserModel> result = await FirebaseAuthentication.signUp(
-  //     email: emailController.text,
-  //     password: passwordController.text,
-  //   );
+    String dataJson = jsonEncode(userRequestModel.toJson());
 
-  //   isLoading.value = false; // Kết thúc loading
+    Result? userModel = await UserApi.signIn(userRequest: dataJson);
 
-  //   if (result.status == Status.success) {
-  //     await prefs.set(PrefsConstants.idAccountwaitingVerify, result.data!.uid);
-
-  //     // Đăng ký thành công
-  //     Get.snackbar(AppContents.successTag, AppSuccess.requestVerify);
-  //     UserModel user = UserModel(
-  //         uid: result.data!.uid,
-  //         displayName: nameController.text,
-  //         email: emailController.text,
-  //         password: passwordController.text,
-  //         creationTime: DateTime.now().toString());
-  //     // Chuyển hướng hoặc thông báo thành công
-
-  //     Get.toNamed(Routes.emailVerify, arguments: user);
-  //   } else {
-  //     Get.snackbar(AppContents.errorTag, AppErrors.emailAlready);
-  //   }
-  // }
-
-  // @override
-  // void onClose() {
-  //   // Đảm bảo các controllers được giải phóng khi controller bị hủy
-  //   nameController.dispose();
-  //   emailController.dispose();
-  //   passwordController.dispose();
-  //   passwordConfirmController.dispose();
-  //   super.onClose();
+    if(userModel!=null){
+      Get.back(result:userModel);
+      SnackbarUtil.showSuccess(AppSuccess.registrationSuccess);
+    }
   }
 }

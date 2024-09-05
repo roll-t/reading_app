@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/data/models/book_model.dart';
+import 'package:reading_app/core/data/models/list_comic_model.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_large_semi_bold.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal_bold.dart';
+import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
 
 class BuildWrapGridCard extends StatelessWidget {
   final double heightCardItem;
   final String? title;
   final VoidCallback? seeMore;
-  final Widget Function(double heightImage, BookModel bookModel) cardChild;
+  final Widget Function(double heightImage, ItemModel bookModel) cardChild;
   final int columns;
   final double childAspectRatio;
   final double heightImage;
-  final List<BookModel> listBookData;
+  final List<ItemModel> listBookData;
   final double spacingCol;
   final double spacingRow;
   final EdgeInsetsGeometry? margin;
@@ -56,7 +56,7 @@ class BuildWrapGridCard extends StatelessWidget {
                   if (seeMore != null)
                     InkWell(
                       onTap: seeMore,
-                      child: const TextNormalBold(
+                      child: const TextNormal(
                         textChild: AppContents.seeMore,
                         colorChild: AppColors.accentColor,
                       ),
