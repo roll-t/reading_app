@@ -11,15 +11,17 @@ class SplashPage extends GetView<SplashController> {
     return Scaffold(
       backgroundColor: AppColors.white,
       body: Obx(
-        () => Container(
-          margin: const EdgeInsets.symmetric(horizontal: 80.0),
-          height: 6.0,
-          child: LinearProgressIndicator(
-            color: AppColors.primary,
-            backgroundColor: AppColors.gray3,
-            value: controller.loadingProgress.value,
-            borderRadius: BorderRadius.circular(10.0),
-            // You can customize the appearance of the progress indicator
+        () => Center(
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 80.0),
+            height: 6.0,
+            child: LinearProgressIndicator(
+              color: AppColors.primary,
+              backgroundColor: AppColors.gray3,
+              value: controller.loadingProgress.value,
+              borderRadius: BorderRadius.circular(10.0),
+              // You can customize the appearance of the progress indicator
+            ),
           ),
         ),
       ),

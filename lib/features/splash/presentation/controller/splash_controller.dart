@@ -15,7 +15,7 @@ class SplashController extends GetxController {
   }
 
   void simulateLoading() {
-    Timer.periodic(const Duration(milliseconds: 300), (timer) {
+    Timer.periodic(const Duration(milliseconds: 100), (timer) {
       if (loadingProgress.value >= 1.0) {
         timer.cancel();
         Get.offNamed(Routes.main); // Navigate to main screen when loading is complete

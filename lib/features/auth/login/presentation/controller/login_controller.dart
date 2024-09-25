@@ -7,16 +7,16 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:reading_app/core/configs/enum.dart';
 import 'package:reading_app/core/configs/strings/messages/app_errors.dart';
 import 'package:reading_app/core/configs/strings/messages/app_success.dart';
-import 'package:reading_app/core/data/models/result.dart';
-import 'package:reading_app/core/data/models/user_request_model.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/services/data/api/auth_api.dart';
-import 'package:reading_app/core/services/data/api/user_api.dart';
+import 'package:reading_app/core/services/api/auth_api.dart';
+import 'package:reading_app/core/services/api/user_api.dart';
 import 'package:reading_app/core/services/data/model/authentication_model.dart';
+import 'package:reading_app/core/services/data/model/result.dart';
 import 'package:reading_app/core/services/data/model/user_model.dart';
+import 'package:reading_app/core/services/data/model/user_request_model.dart';
+import 'package:reading_app/core/services/domain/user/remember_user_case.dart';
+import 'package:reading_app/core/services/domain/user/save_user_use_case.dart';
 import 'package:reading_app/core/ui/snackbar/snackbar.dart';
-import 'package:reading_app/features/auth/user/domain/use_case/remember_user_case.dart';
-import 'package:reading_app/features/auth/user/domain/use_case/save_user_use_case.dart';
 
 class LogInController extends GetxController {
   final SaveUserUseCase _saveUserUseCase;

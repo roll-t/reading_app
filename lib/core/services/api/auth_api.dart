@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:reading_app/core/data/models/result.dart';
+import 'package:reading_app/core/services/configs/end_point_setting.dart';
 import 'package:reading_app/core/services/data/model/authentication_model.dart';
+import 'package:reading_app/core/services/data/model/result.dart';
 import 'package:reading_app/core/services/data/model/user_model.dart';
-import 'package:reading_app/core/services/response/response_api.dart';
-import 'package:reading_app/core/services/server/end_point_setting.dart';
+import 'package:reading_app/core/services/dto/response/response_api.dart';
 
 class AuthApi extends EndPointSetting{
   final Dio _dio;

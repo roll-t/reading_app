@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/data/models/list_comic_model.dart';
 import 'package:reading_app/core/routes/routes.dart';
+import 'package:reading_app/core/services/data/model/list_comic_model.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small.dart';
 import 'package:reading_app/core/ui/widgets/images/image_widget.dart';
 

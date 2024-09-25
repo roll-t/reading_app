@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:reading_app/core/data/prefs/prefs.dart';
 import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/services/data/model/authentication_model.dart';
 import 'package:reading_app/core/services/data/model/user_model.dart';
 import 'package:reading_app/core/services/domain/auth_use_case.dart';
+import 'package:reading_app/core/services/prefs/prefs.dart';
 
 class ProfileController extends GetxController {
   final prefs = Prefs();

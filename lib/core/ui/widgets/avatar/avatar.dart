@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reading_app/core/configs/assets/app_images.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/services/expanded/images_service.dart';
+import 'package:reading_app/core/services/utils/images_service.dart';
 
 class Avatar extends StatelessWidget {
   final double ? padding;

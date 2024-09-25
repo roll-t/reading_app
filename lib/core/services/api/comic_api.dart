@@ -2,18 +2,18 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/data/models/chapter_model.dart';
-import 'package:reading_app/core/data/models/list_category_model.dart';
-import 'package:reading_app/core/data/models/list_comic_model.dart';
-import 'package:reading_app/core/data/models/result.dart';
+import 'package:reading_app/core/services/configs/end_point_setting.dart';
+import 'package:reading_app/core/services/data/model/chapter_model.dart';
 import 'package:reading_app/core/services/data/model/comic_model.dart';
+import 'package:reading_app/core/services/data/model/list_category_model.dart';
+import 'package:reading_app/core/services/data/model/list_comic_model.dart';
+import 'package:reading_app/core/services/data/model/result.dart';
 import 'package:reading_app/core/services/domain/auth_use_case.dart';
 import 'package:reading_app/core/services/domain/use_case_category.dart';
-import 'package:reading_app/core/services/response/response_api.dart';
-import 'package:reading_app/core/services/server/end_point_setting.dart';
+import 'package:reading_app/core/services/dto/response/response_api.dart';
 
 class ComicApi extends EndPointSetting {
-  final Dio _dio;
+  final Dio _dio; 
   ComicApi(this._dio);
 
   Future<void> _initializeHeaders() async {

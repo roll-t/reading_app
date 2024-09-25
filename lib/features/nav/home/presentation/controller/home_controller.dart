@@ -1,10 +1,13 @@
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/data/models/list_category_model.dart';
-import 'package:reading_app/core/data/models/list_comic_model.dart';
 import 'package:reading_app/core/extensions/text_format.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/services/data/api/comic_api.dart';
+import 'package:reading_app/core/services/api/comic_api.dart';
+import 'package:reading_app/core/services/data/model/list_category_model.dart';
+import 'package:reading_app/core/services/data/model/list_comic_model.dart';
+import 'package:reading_app/core/services/data/model/result.dart';
+import 'package:reading_app/core/services/data/novel_data.dart';
+import 'package:reading_app/core/services/dto/response/novel_response.dart';
 
 class HomeController extends GetxController {
   var currentIndex = 0.obs;
@@ -42,24 +45,25 @@ class HomeController extends GetxController {
 
   List<ListComicModel> listDataComicCategoryBySlug = <ListComicModel>[];
 
+  List<NovelResponse> listNovel = <NovelResponse>[];
+
   List<ListCategoryModel>? categories;
 
   @override
   onInit() async {
     super.onInit();
     isLoading.value = true;
-
     await fetchDataHomeApi();
+    await fetchListNovel();
     await fetchDataListNewest();
+    await setCategoryCache();
     await fetchDataListComplete();
     await fetchDataListNowRelease();
-    await setCategoryCache();
     await fetchDataComicCategoryBySlug();
     await fetchDataListNewUpdate();
     await fetchDataComicCategoryByChange(slug: categories![0].slug);
 
     isLoading.value = false;
-
     update([
       "listNewestID",
       "sliderID",
@@ -71,7 +75,6 @@ class HomeController extends GetxController {
       "ListNewUpdateID",
       "ReadContinue"
     ]);
-    
   }
 
   Future<void> setCategoryCache() async {
@@ -87,6 +90,13 @@ class HomeController extends GetxController {
         listDataSlider = apiResponse;
         listDataSlider.items = apiResponse.items.sublist(0, 6);
       }
+    }
+  }
+
+  Future<void> fetchListNovel() async {
+    Result result = await NovelData.getListNovel();
+    if (result.status == Status.success) {
+      listNovel = result.data;
     }
   }
 
@@ -123,7 +133,7 @@ class HomeController extends GetxController {
   }
 
   Future<void> fetchDataListNowRelease() async {
-    final result = await ComicApi.getListNowRelease(page:3);
+    final result = await ComicApi.getListNowRelease(page: 3);
     if (result.status == Status.success) {
       final apiResponse = result.data;
       if (apiResponse != null) {
@@ -178,7 +188,7 @@ class HomeController extends GetxController {
     ListCategoryModel? category = categories?.firstWhere(
       (category) => category.name == title,
     );
-    if(category?.slug==null){
+    if (category?.slug == null) {
       return "";
     }
     return category!.slug;
