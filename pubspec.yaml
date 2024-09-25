@@ -38,12 +38,13 @@ dependencies:
   shimmer: ^3.0.0
   firebase_storage: ^11.6.0
   image_picker: ^1.0.8
+  flutter_dotenv: ^5.1.0
   dropdown_button2: ^2.3.9
   custom_check_box: ^0.0.4
   flutter_rating_bar: ^4.0.0
   fluttertoast: ^8.2.6
   permission_handler: ^11.0.1
-  carousel_slider: ^4.2.1
+  carousel_slider: ^5.0.0
   jwt_decoder: ^2.0.1
   html_unescape: ^2.0.0
 dev_dependencies:
@@ -74,6 +75,7 @@ flutter:
     - assets/images/
     - assets/images/default/
     - assets/icons/
+    - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -1,9 +1,9 @@
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/data/models/list_category_model.dart';
-import 'package:reading_app/core/data/models/list_comic_model.dart';
-import 'package:reading_app/core/data/models/result.dart';
 import 'package:reading_app/core/services/data/model/authentication_model.dart';
 import 'package:reading_app/core/services/data/model/comic_model.dart';
+import 'package:reading_app/core/services/data/model/list_category_model.dart';
+import 'package:reading_app/core/services/data/model/list_comic_model.dart';
+import 'package:reading_app/core/services/data/model/result.dart';
 
 class ResponseApi {
   // trả về comic data

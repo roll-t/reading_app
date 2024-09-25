@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
-import 'package:reading_app/core/data/models/book_model.dart';
+import 'package:reading_app/core/services/data/model/book_model.dart';
 import 'package:reading_app/core/ui/widgets/card/card_commic_full_info.dart';
 import 'package:reading_app/features/nav/commic/presentation/controller/commic_controller.dart';
 import 'package:reading_app/features/nav/commic/presentation/widgets/build_body_list.dart';

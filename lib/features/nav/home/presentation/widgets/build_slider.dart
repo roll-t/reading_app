@@ -1,7 +1,7 @@
 // Home slider
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/data/models/list_comic_model.dart';
+import 'package:reading_app/core/services/data/model/list_comic_model.dart';
 import 'package:reading_app/core/ui/widgets/carousel_slider/carousel_slider_utils.dart';
 
 class BuildSlider extends StatelessWidget {

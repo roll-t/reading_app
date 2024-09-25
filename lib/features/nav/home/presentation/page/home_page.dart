@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
-import 'package:reading_app/core/data/models/list_type.dart';
 import 'package:reading_app/core/routes/routes.dart';
+import 'package:reading_app/core/services/data/model/list_type.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/button/button_normal.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/custom_backgound/background_gradient.dart';
 import 'package:reading_app/core/ui/widgets/card/btv_recoment_card.dart';
@@ -11,6 +11,7 @@ import 'package:reading_app/core/ui/widgets/card/card_by_category.dart';
 import 'package:reading_app/core/ui/widgets/card/card_full_info_follow_row.dart';
 import 'package:reading_app/core/ui/widgets/card/card_newest_update.dart';
 import 'package:reading_app/core/ui/widgets/card/card_reading_continue.dart';
+import 'package:reading_app/core/ui/widgets/card/novel_card.dart';
 import 'package:reading_app/core/utils/loading.dart';
 import 'package:reading_app/features/nav/home/presentation/controller/home_controller.dart';
 import 'package:reading_app/features/nav/home/presentation/widgets/build_buttom_to_explore.dart';
@@ -21,6 +22,7 @@ import 'package:reading_app/features/nav/home/presentation/widgets/build_slider.
 import 'package:reading_app/features/nav/home/presentation/widgets/build_sliver_app_bar.dart';
 import 'package:reading_app/features/nav/home/presentation/widgets/build_wrap_grid_card.dart';
 import 'package:reading_app/features/nav/home/presentation/widgets/build_wrap_list_card.dart';
+import 'package:reading_app/features/nav/home/presentation/widgets/build_wrap_novel.dart';
 
 class HomePage extends GetView<HomeController> {
   const HomePage({super.key});
@@ -93,6 +95,30 @@ class HomePage extends GetView<HomeController> {
                             heightImage: 180,
                             bookModel: bookModel,
                             domain: controller.listDataNowRelease.domainImage,
+                          );
+                        },
+                      );
+                    })),
+
+            // Build list BTV đề cử
+            SliverToBoxAdapter(
+                child: GetBuilder<HomeController>(
+                    id: "IDListNowRelease",
+                    builder: (_) {
+                      return BuildWrapNovel(
+                        listBookData: controller.listNovel,
+                        titleList: "Tiểu Thuyết",
+                        heightWrapList: 270,
+                        widthCard: 150,
+                        seeMore: () {
+                          Get.toNamed(Routes.category,
+                              arguments: {"slugQuery": ListType.ongoing});
+                        },
+                        cardBuilder: (double widthCard, bookModel) {
+                          return NovelCard(
+                            widthCard: widthCard,
+                            heightImage: 180,
+                            bookModel: bookModel,
                           );
                         },
                       );

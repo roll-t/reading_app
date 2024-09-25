@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/data/models/chapter_model.dart';
-import 'package:reading_app/core/services/data/api/comic_api.dart';
+import 'package:reading_app/core/services/api/comic_api.dart';
+import 'package:reading_app/core/services/data/model/chapter_model.dart';
 
 class BookReadController extends GetxController {
   

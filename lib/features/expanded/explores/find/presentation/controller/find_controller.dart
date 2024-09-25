@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
-import 'package:reading_app/core/data/models/list_comic_model.dart';
-import 'package:reading_app/core/data/models/result.dart';
-import 'package:reading_app/core/services/data/api/comic_api.dart';
+import 'package:reading_app/core/services/api/comic_api.dart';
+import 'package:reading_app/core/services/data/model/list_comic_model.dart';
+import 'package:reading_app/core/services/data/model/result.dart';
 
 class FindController extends GetxController {
   var isLoading = false.obs;
