@@ -1,13 +1,13 @@
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/enum.dart';
+import 'package:reading_app/core/database/data/model/list_category_model.dart';
+import 'package:reading_app/core/database/data/model/list_comic_model.dart';
+import 'package:reading_app/core/database/data/model/result.dart';
+import 'package:reading_app/core/database/data/novel_data.dart';
+import 'package:reading_app/core/database/dto/response/novel_response.dart';
+import 'package:reading_app/core/database/service/api/comic_api.dart';
 import 'package:reading_app/core/extensions/text_format.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/services/api/comic_api.dart';
-import 'package:reading_app/core/services/data/model/list_category_model.dart';
-import 'package:reading_app/core/services/data/model/list_comic_model.dart';
-import 'package:reading_app/core/services/data/model/result.dart';
-import 'package:reading_app/core/services/data/novel_data.dart';
-import 'package:reading_app/core/services/dto/response/novel_response.dart';
 
 class HomeController extends GetxController {
   var currentIndex = 0.obs;
@@ -53,17 +53,18 @@ class HomeController extends GetxController {
   onInit() async {
     super.onInit();
     isLoading.value = true;
-    await fetchDataHomeApi();
-    await fetchListNovel();
-    await fetchDataListNewest();
+    // await fetchDataHomeApi();
     await setCategoryCache();
+    // await fetchDataListNewest();
     await fetchDataListComplete();
-    await fetchDataListNowRelease();
-    await fetchDataComicCategoryBySlug();
-    await fetchDataListNewUpdate();
+    // await fetchDataListNowRelease();
+    // await fetchDataComicCategoryBySlug();
+    // await fetchDataListNewUpdate();
     await fetchDataComicCategoryByChange(slug: categories![0].slug);
+    await fetchListNovel();
 
     isLoading.value = false;
+
     update([
       "listNewestID",
       "sliderID",
@@ -73,7 +74,7 @@ class HomeController extends GetxController {
       "ListByCategoryID_2",
       "ListByCategoryID_3",
       "ListNewUpdateID",
-      "ReadContinue"
+      "ReadContinue",
     ]);
   }
 

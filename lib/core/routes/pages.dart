@@ -20,6 +20,10 @@ import 'package:reading_app/features/expanded/explores/search_book/di/search_boo
 import 'package:reading_app/features/expanded/explores/search_book/presentation/page/search_book_page.dart';
 import 'package:reading_app/features/expanded/notification/di/notification_binding.dart';
 import 'package:reading_app/features/expanded/notification/presentation/page/notification_page.dart';
+import 'package:reading_app/features/expanded/novel/di/novel_binding.dart';
+import 'package:reading_app/features/expanded/novel/di/read_novel_binding.dart';
+import 'package:reading_app/features/expanded/novel/presentation/page/novel_detail_page.dart';
+import 'package:reading_app/features/expanded/novel/presentation/page/read_novel_page.dart';
 import 'package:reading_app/features/main/di/main_binding.dart';
 import 'package:reading_app/features/main/presentation/page/main_page.dart';
 import 'package:reading_app/features/nav/profile/di/my_info_binding.dart';
@@ -109,9 +113,19 @@ class Pages {
       binding: BookReadBinding(),
     ),
     GetPage(
+      name: Routes.novelDetail,
+      page: () => const NovelDetailPage(),
+      binding: NovelBinding(),
+    ),
+    GetPage(
       name: Routes.loginRequestSplash,
       page: () => const LoginRequestSplashPage(),
       binding: SplashBinding()
+    ),
+    GetPage(
+      name: Routes.readNovel,
+      page: () => const ReadNovelPage(),
+      binding: ReadNovelBinding()
     ),
   ];
 }

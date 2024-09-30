@@ -74,6 +74,7 @@ flutter:
     - assets/jsons/
     - assets/images/
     - assets/images/default/
+    - assets/images/no_images/
     - assets/icons/
     - .env
 

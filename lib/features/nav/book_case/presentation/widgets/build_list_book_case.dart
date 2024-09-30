@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
-import 'package:reading_app/core/services/data/model/book_model.dart';
+import 'package:reading_app/core/database/data/model/book_model.dart';
 import 'package:reading_app/core/ui/widgets/card/card_book_case.dart';
 
 class BuildListBookCase extends StatelessWidget {

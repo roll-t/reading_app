@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:reading_app/core/services/domain/user/remember_user_case.dart';
-import 'package:reading_app/core/services/domain/user/save_user_use_case.dart';
-import 'package:reading_app/core/services/prefs/prefs.dart';
+import 'package:reading_app/core/database/domain/user/remember_user_case.dart';
+import 'package:reading_app/core/database/domain/user/save_user_use_case.dart';
+import 'package:reading_app/core/database/prefs/prefs.dart';
 import 'package:reading_app/features/auth/login/presentation/controller/login_controller.dart';
 
 class LoginBindding extends Bindings {

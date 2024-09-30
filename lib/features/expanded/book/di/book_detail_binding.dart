@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:reading_app/core/services/api/comic_api.dart';
+import 'package:reading_app/core/database/service/api/comic_api.dart';
 import 'package:reading_app/features/expanded/book/domain/use_case/book_use_case.dart';
 import 'package:reading_app/features/expanded/book/presentation/controller/book_detail_controller.dart';
 import 'package:reading_app/features/expanded/book/presentation/controller/widget_controller.dart';

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/dimens/text_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/services/data/model/list_comic_model.dart';
+import 'package:reading_app/core/database/data/model/list_comic_model.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
 import 'package:reading_app/core/ui/widgets/images/Image_widget.dart';
 
