@@ -1,10 +1,11 @@
 import 'package:get/get.dart';
+import 'package:reading_app/core/database/prefs/prefs.dart';
 import 'package:reading_app/features/expanded/novel/presentation/controller/read_novel_cotroller.dart';
 
-class ReadNovelBinding extends Bindings{
+class ReadNovelBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put(ReadNovelCotroller());
+    Get.lazyPut(() => Prefs(), fenix: true);
+    Get.lazyPut(()=>ReadNovelCotroller());
   }
-
 }

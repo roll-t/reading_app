@@ -17,6 +17,7 @@ class CustomBottomSheetWidget extends StatelessWidget {
   void show(BuildContext context) {
     showModalBottomSheet(
       context: context,
+      scrollControlDisabledMaxHeightRatio: BouncingScrollSimulation.maxSpringTransferVelocity,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(0), // Rounded top corners
@@ -25,7 +26,7 @@ class CustomBottomSheetWidget extends StatelessWidget {
       builder: (BuildContext context) {
         return Container(
           padding: paddingContent,
-          height:heightSheet ?? Get.height * 0.3,
+          height:heightSheet ?? Get.height * 0.5,
           width: Get.width,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

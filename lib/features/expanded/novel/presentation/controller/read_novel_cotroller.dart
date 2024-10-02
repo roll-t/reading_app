@@ -3,13 +3,16 @@ import 'dart:async'; // Import for Timer
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:reading_app/core/configs/const/app_constants.dart';
 import 'package:reading_app/core/configs/default_data.dart';
 import 'package:reading_app/core/database/data/model/chapter_novel_model.dart';
+import 'package:reading_app/core/database/domain/read_theme_use_case.dart';
 
 class ReadNovelCotroller extends GetxController {
   ChapterNovelModel chapterNovelModel = DefaultData.defaultChapter;
   List<ChapterNovelModel> listChapter = <ChapterNovelModel>[];
   ScrollController scrollController = ScrollController();
+
   var currentActiveList = 0.obs;
 
   var isControlsVisible = true.obs;
@@ -18,15 +21,18 @@ class ReadNovelCotroller extends GetxController {
 
   bool _hasScrolledToBottom = false;
 
+  RxInt themeControlIndex = 1.obs;
+
+  Map<String, dynamic>? currentReadTheme;
+
+  RxDouble ?textSizeReadTheme;
+
   @override
   void onInit() {
     super.onInit();
-    // Show controls for 2 seconds when the page is first loaded
     _startHideControlsTimer();
-
-    // Add a listener to the scroll controller
+    _intReadTheme();
     scrollController.addListener(_scrollListener);
-
     if (Get.arguments != null && Get.arguments is Map<String, dynamic>) {
       if (Get.arguments['chapterCurrent'] is ChapterNovelModel) {
         chapterNovelModel = Get.arguments['chapterCurrent'];
@@ -37,45 +43,69 @@ class ReadNovelCotroller extends GetxController {
     }
   }
 
+  _intReadTheme() async {
+    currentReadTheme = await ReadThemeUseCase.getReadTheme() ?? AppConstants.readThemeIds[0];
+    textSizeReadTheme?.value= await ReadThemeUseCase.getTextSizeReadTheme() ?? 16.0;
+    print(textSizeReadTheme?.value);
+    update(["ControlThemeId"]);
+  }
+
   @override
   void onClose() {
-    _hideControlsTimer?.cancel(); 
+    _hideControlsTimer?.cancel();
     scrollController.removeListener(_scrollListener);
     super.onClose();
   }
 
   void _startHideControlsTimer() {
     _hideControlsTimer = Timer(const Duration(seconds: 5), () {
-      isControlsVisible.value = false; // Hide controls after 2 seconds
+      isControlsVisible.value = false;
     });
   }
 
   void toggleControlVisibility() {
-    isControlsVisible.value = !isControlsVisible.value; // Toggle visibility
-    // Restart timer to hide controls after 2 seconds if they are shown
+    isControlsVisible.value = !isControlsVisible.value;
     if (isControlsVisible.value) {
-      _hideControlsTimer?.cancel(); // Cancel existing timer
+      _hideControlsTimer?.cancel();
       _hideControlsTimer = Timer(const Duration(seconds: 1000), () {
-        isControlsVisible.value = false; // Hide controls after 2 seconds
+        isControlsVisible.value = false;
       });
     } else {
-      // If controls are being hidden, cancel the timer
       _hideControlsTimer?.cancel();
     }
   }
 
+  void changeReadTheme({required Map<String, dynamic> readTheme}) {
+    currentReadTheme = readTheme;
+    ReadThemeUseCase.setReadTheme(
+        readThemSetting: currentReadTheme ?? AppConstants.readThemeIds[0]);
+    update(["ListThemeReadID", "ControlThemeId"]);
+  }
+
+  void changeTextSizeReadTheme({required double size}) {
+    if (size >= 13 && size <= 40) {
+      textSizeReadTheme?.value = size;
+    } else if (size < 13) {
+      textSizeReadTheme?.value = 13.0;
+    } else if (size > 40) {
+      textSizeReadTheme?.value = 40.0;
+    }
+    if (size != textSizeReadTheme?.value) {
+      ReadThemeUseCase.setTextSizeReadTheme(sizeText: size);
+    }
+  }
+
   void clickControl() {
-    // Called when a control is clicked
-    isControlsVisible.value = true; // Ensure controls remain visible
-    _hideControlsTimer?.cancel(); // Cancel the timer if visible
+    isControlsVisible.value = true;
+    _hideControlsTimer?.cancel();
     _hideControlsTimer = Timer(const Duration(seconds: 5), () {
-      isControlsVisible.value = false; // Hide controls after 2 seconds
+      isControlsVisible.value = false;
     });
   }
 
   void changChapter({required String chapterId}) {
     ChapterNovelModel? selectedChapter = listChapter.firstWhere(
-      (chapter) => chapter.chapterId == chapterId, // Condition to find chapter
+      (chapter) => chapter.chapterId == chapterId,
     );
     if (selectedChapter != null) {
       chapterNovelModel = selectedChapter;
@@ -133,7 +163,7 @@ class ReadNovelCotroller extends GetxController {
   // Scroll down
   void scrollDown() {
     scrollController.animateTo(
-      scrollController.position.pixels + 230, // Scroll down 230 pixels
+      scrollController.position.pixels + 230,
       duration: const Duration(milliseconds: 400),
       curve: Curves.easeOut,
     );
@@ -148,7 +178,6 @@ class ReadNovelCotroller extends GetxController {
   }
 
   void _scrollListener() {
-    // Check if scrolled close enough to the bottom
     if (scrollController.position.pixels >=
             scrollController.position.maxScrollExtent - 50 &&
         !_hasScrolledToBottom) {
@@ -159,7 +188,6 @@ class ReadNovelCotroller extends GetxController {
   void onScrolledToBottom() {
     _hasScrolledToBottom = true;
     nextChapter(chapterId: chapterNovelModel.chapterId);
-    _hasScrolledToBottom=false;
+    _hasScrolledToBottom = false;
   }
-
 }

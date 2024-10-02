@@ -1,6 +1,10 @@
+import 'dart:async';
+
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_balloon_slider/flutter_balloon_slider.dart';
 import 'package:get/get.dart';
+import 'package:reading_app/core/configs/const/app_constants.dart';
 import 'package:reading_app/core/configs/dimens/radius_dimens.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
@@ -16,10 +20,16 @@ class ReadNovelPage extends GetView<ReadNovelCotroller> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: _SideBar(),
-      body: _BuildBodyChapter(context),
-    );
+    return GetBuilder<ReadNovelCotroller>(
+        id: "ControlThemeId",
+        builder: (_) {
+          return Scaffold(
+            backgroundColor: controller.currentReadTheme?["backgroundColor"] ??
+                AppColors.primaryDarkBg,
+            drawer: _SideBar(),
+            body: _BuildBodyChapter(context),
+          );
+        });
   }
 
   // ignore: non_constant_identifier_names
@@ -35,7 +45,7 @@ class ReadNovelPage extends GetView<ReadNovelCotroller> {
             }
           },
           onLongPress: () {
-            controller.toggleControlVisibility(); // Toggle visibility
+            controller.toggleControlVisibility();
           },
           child: SingleChildScrollView(
             controller: controller.scrollController,
@@ -45,85 +55,165 @@ class ReadNovelPage extends GetView<ReadNovelCotroller> {
                 return Column(
                   children: [
                     Container(
-                      padding: const EdgeInsets.all(20),
-                      height: Get.height * .7,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Row(
-                            children: [
-                              Icon(Icons.settings),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              TextLargeBold(textChild: "Tùy chỉnh",)
-                            ],
-                          ),
-                          const SizedBox(
-                            height: SpaceDimens.space10,
-                          ),
-                          Container(
-                            width: Get.width,
-                            padding:
-                                const EdgeInsets.all(SpaceDimens.spaceStandard),
-                            decoration: BoxDecoration(
-                              color: AppColors.tertiaryDarkBg,
-                              borderRadius: BorderRadius.circular(
-                                  RadiusDimens.radiusSmall2),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const TextMediumBold(textChild: "Cỡ chữ"),
-                                BalloonSlider(
-                                    value: 0.16,
-                                    ropeLength: 55,
-                                    showRope: true,
-                                    onChangeStart: (val) {
-                                      val = 10;
-                                    },
-                                    onChanged: (val) {},
-                                    onChangeEnd: (val) {
-                                      val = 20;
-                                    },
-                                    color: AppColors.accentColor)
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    Container(
                       padding: const EdgeInsets.only(top: 20, bottom: 15),
                       child: TextLargeBold(
                         textChild: controller.chapterNovelModel.chapterName,
+                        colorChild: controller.currentReadTheme?["textColor"] ??
+                            AppColors.white,
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: TextWidget(
-                        text: controller.chapterNovelModel.chapterContent,
-                      ),
-                    ),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Obx(
+                          () => TextWidget(
+                            text: controller.chapterNovelModel.chapterContent,
+                            color: controller.currentReadTheme?["textColor"] ??
+                                AppColors.white,
+                            size: controller.textSizeReadTheme?.value ??
+                                16.0.obs.value,
+                          ),
+                        )),
                   ],
                 );
               },
             ),
           ),
         ),
-        Positioned(
-            top: 30,
-            left: 16,
-            child: Obx(() => AnimatedSlide(
-                  offset: controller.isControlsVisible.value
-                      ? const Offset(0, 0)
-                      : const Offset(-1.5, 0),
-                  curve: Curves.bounceInOut,
-                  duration: const Duration(milliseconds: 200),
-                  child: const leadingIconAppBar(),
-                ))),
+        _BuildLeadingIcon(),
         _BuildTagControlChapter(context), // Control buttons
       ],
+    );
+  }
+
+  // ignore: non_constant_identifier_names
+  Container _BuildItemThemeRead(
+      {required Color textColor,
+      required Color backgroundColor,
+      required String title,
+      bool selected = false}) {
+    return Container(
+      width: 70,
+      height: 70,
+      decoration: BoxDecoration(
+          color: backgroundColor,
+          borderRadius: BorderRadius.circular(RadiusDimens.radiusSmall2),
+          border: Border.all(
+              color:
+                  selected ? AppColors.accentColor : AppColors.secondaryDarkBg,
+              width: selected ? 3 : 0)),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          TextWidget(
+            text: "aA",
+            fontWeight: FontWeight.w500,
+            color: textColor,
+          ),
+          TextWidget(
+            text: title,
+            size: 12,
+            color: textColor,
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ignore: non_constant_identifier_names
+  Positioned _BuildLeadingIcon() {
+    return Positioned(
+        top: 30,
+        left: 16,
+        child: Obx(() => AnimatedSlide(
+              offset: controller.isControlsVisible.value
+                  ? const Offset(0, 0)
+                  : const Offset(-1.5, 0),
+              curve: Curves.bounceInOut,
+              duration: const Duration(milliseconds: 200),
+              child: const leadingIconAppBar(),
+            )));
+  }
+
+  // ignore: non_constant_identifier_names
+  DropdownSearch<(IconData, String)> _BuildDropDown() {
+    return DropdownSearch<(IconData, String)>(
+      selectedItem: (Icons.circle, 'Font 1'),
+      compareFn: (item1, item2) => item1.$1 == item2.$2,
+      items: (f, cs) => [
+        (Icons.circle, 'Font 1'),
+        (Icons.circle, 'Font 2'),
+        (Icons.circle, 'Font 3'),
+      ],
+      decoratorProps: DropDownDecoratorProps(
+        decoration: InputDecoration(
+          contentPadding: const EdgeInsets.symmetric(vertical: 0),
+          filled: true,
+          fillColor: AppColors.secondaryDarkBg,
+          border: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.transparent),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.transparent),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.transparent),
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+      ),
+      dropdownBuilder: (context, selectedItem) {
+        return ListTile(
+          leading: Icon(selectedItem!.$1, color: Colors.white),
+          title: Text(
+            selectedItem.$2,
+            style: const TextStyle(
+                color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+        );
+      },
+      popupProps: PopupProps.menu(
+        itemBuilder: (context, item, isDisabled, isSelected) {
+          return ListTile(
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+            leading: Icon(item.$1, color: Colors.white),
+            title: Text(
+              item.$2,
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
+            ),
+          );
+        },
+        fit: FlexFit.loose,
+        menuProps: const MenuProps(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          margin: EdgeInsets.only(top: 5),
+        ),
+        containerBuilder: (ctx, popupWidget) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Flexible(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.secondaryDarkBg,
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: popupWidget,
+                ),
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 
@@ -223,20 +313,126 @@ class ReadNovelPage extends GetView<ReadNovelCotroller> {
 
   // ignore: non_constant_identifier_names
   CustomBottomSheetWidget _BuildButtomSheet(BuildContext context) {
+    Timer? _debounce;
     return CustomBottomSheetWidget(
       paddingContent: const EdgeInsets.all(SpaceDimens.space20),
-      heightSheet: Get.height * .7,
+      heightSheet: Get.height * .62,
       context,
-      viewItems: const [
-        Row(
+      viewItems: [
+        const Row(
           children: [
             Icon(Icons.settings),
             SizedBox(
               width: 10,
             ),
-            TextLargeBold(textChild: "Tùy chỉnh")
+            TextLargeBold(
+              textChild: "Tùy chỉnh",
+            )
           ],
-        )
+        ),
+        const SizedBox(
+          height: SpaceDimens.space10,
+        ),
+        Container(
+          width: Get.width,
+          padding: const EdgeInsets.all(SpaceDimens.spaceStandard),
+          decoration: BoxDecoration(
+            color: AppColors.tertiaryDarkBg,
+            borderRadius: BorderRadius.circular(RadiusDimens.radiusSmall2),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const TextMediumBold(textChild: "Cỡ chữ"),
+              BalloonSlider(
+                  value: controller.textSizeReadTheme?.value != null
+                      ? ((controller.textSizeReadTheme?.value ?? 16) / 100)
+                      : 0.16,
+                  ropeLength: 55,
+                  showRope: true,
+                  onChangeStart: (val) {},
+                  onChanged: (val) {
+                    // Hủy debounce trước nếu đang hoạt động
+                    if (_debounce?.isActive ?? false) {
+                      _debounce?.cancel();
+                    }
+                    // Thực hiện debounce với khoảng trễ 300ms
+                    _debounce = Timer(const Duration(milliseconds: 300), () {
+                      controller.changeTextSizeReadTheme(size: val * 100);
+                    });
+                  },
+                  onChangeEnd: (val) {},
+                  color: AppColors.accentColor)
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Container(
+          width: Get.width,
+          padding: const EdgeInsets.all(SpaceDimens.spaceStandard),
+          decoration: BoxDecoration(
+            color: AppColors.tertiaryDarkBg,
+            borderRadius: BorderRadius.circular(RadiusDimens.radiusSmall2),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const TextMediumBold(textChild: "Font chữ"),
+              const SizedBox(
+                height: 10,
+              ),
+              _BuildDropDown(),
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Container(
+          width: Get.width,
+          padding: const EdgeInsets.all(SpaceDimens.spaceStandard),
+          decoration: BoxDecoration(
+            color: AppColors.tertiaryDarkBg,
+            borderRadius: BorderRadius.circular(RadiusDimens.radiusSmall2),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const TextMediumBold(textChild: "Chủ đề"),
+              const SizedBox(
+                height: 10,
+              ),
+              GetBuilder<ReadNovelCotroller>(
+                  id: "ListThemeReadID",
+                  builder: (_) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        for (var i = 0;
+                            i < AppConstants.readThemeIds.length;
+                            i++)
+                          InkWell(
+                            onTap: () {
+                              controller.changeReadTheme(
+                                  readTheme: AppConstants.readThemeIds[i]);
+                            },
+                            child: _BuildItemThemeRead(
+                                selected: controller.currentReadTheme!["id"] ==
+                                    AppConstants.readThemeIds[i]["id"],
+                                title: AppConstants.readThemeIds[i]["name"],
+                                backgroundColor: AppConstants.readThemeIds[i]
+                                    ["backgroundColor"],
+                                textColor: AppConstants.readThemeIds[i]
+                                    ["textColor"]),
+                          ),
+                      ],
+                    );
+                  })
+            ],
+          ),
+        ),
       ],
     );
   }
