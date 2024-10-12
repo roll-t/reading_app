@@ -7,11 +7,11 @@ import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
 import 'package:reading_app/core/ui/widgets/icons/icon_circle.dart';
 import 'package:reading_app/core/ui/widgets/icons/leading_icon_app_bar.dart';
-import 'package:reading_app/features/expanded/book/presentation/controller/book_read_controller.dart';
+import 'package:reading_app/features/expanded/comic/presentation/controllers/read_comic_controller.dart';
 
-class BookReadPage extends GetView<BookReadController> {
-  const BookReadPage({super.key});
-  
+class ReadComicPage extends GetView<ReadComicController> {
+  const ReadComicPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +24,8 @@ class BookReadPage extends GetView<BookReadController> {
                 itemBuilder: (context, index) {
                   return SizedBox(
                     width: double.infinity,
-                    child: TextNormal(textChild: "${AppContents.chapter} ${index + 1}"),
+                    child: TextNormal(
+                        textChild: "${AppContents.chapter} ${index + 1}"),
                   );
                 },
               ),
@@ -48,9 +49,8 @@ class BookReadPage extends GetView<BookReadController> {
                             imageUrl: controller.imageUrls[index],
                             fit: BoxFit.cover,
                             width: double.infinity,
-                            placeholder: (context, url) => const Center(
-                              child: SizedBox()
-                            ),
+                            placeholder: (context, url) =>
+                                const Center(child: SizedBox()),
                             errorWidget: (context, url, error) => const Center(
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,

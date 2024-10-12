@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reading_app/features/expanded/book/model/info_book_detail_model.dart';
 import 'package:reading_app/features/expanded/book/presentation/layout_book_detail/layout_book_detail_page.dart';
 import 'package:reading_app/features/expanded/novel/presentation/controller/novel_detail_controller.dart';
 
@@ -11,10 +12,14 @@ class NovelDetailPage extends GetView<NovelDetailController> {
     return GetBuilder<NovelDetailController>(
         id: "body",
         builder: (_) => LayoutBookDetailPage(
-              thumbImage: controller.novelModel.thumbUrl,
-              bookTitle: controller.novelModel.name,
               isLoading: controller.isLoading,
               listChapter: controller.listChapter,
+              infoBookDetailModel: InfoBookDetailModel(
+                  bookTitle: controller.novelModel.name,
+                  thumbImage: controller.novelModel.thumbUrl,
+                  rating: 4.2,
+                  view: 1000,
+                  countChapter: controller.listChapter.length),
             ));
   }
 }

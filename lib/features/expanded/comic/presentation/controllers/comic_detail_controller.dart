@@ -1,0 +1,66 @@
+import 'package:get/get.dart';
+import 'package:reading_app/core/configs/enum.dart';
+import 'package:reading_app/core/database/data/model/comic_model.dart';
+import 'package:reading_app/core/database/data/model/list_comic_model.dart';
+import 'package:reading_app/core/database/service/api/comic_api.dart';
+import 'package:reading_app/core/ui/snackbar/snackbar.dart';
+
+class ComicDetailController extends GetxController
+    with GetSingleTickerProviderStateMixin {
+  var isLoading = false.obs;
+
+  ComicModel comicModel = ComicModel(title: "", description: "", thumb: "");
+
+  List<dynamic> chapters = [];
+
+  List<CategoryModel> category = [];
+
+  List<String> listIntroduceSlide = [];
+
+  List<dynamic> listComicNewest = [];
+
+  String domainImage = "";
+
+  dynamic slugArgument;
+
+  @override
+  void onInit() async {
+    super.onInit();
+    isLoading.value = true;
+    await initial();
+    update(["body"]);
+    isLoading.value = false;
+  }
+
+  initial() async {
+    if (Get.arguments != null && Get.arguments is Map<String, dynamic>) {
+      if (Get.arguments["slug"] != null) {
+        slugArgument = Get.arguments["slug"];
+        await fetchDataAPI();
+      }
+    }
+  }
+
+  Future<void> fetchDataAPI() async {
+    try {
+      final result = await ComicApi.getBookDetailDataAPI(slug: slugArgument);
+      if (result.status == Status.success) {
+        comicModel =
+            result.data ?? ComicModel(title: "", description: "", thumb: "");
+        chapters = comicModel.chapters ?? [];
+        if (comicModel.category != null) {
+          category = (comicModel.category as List<dynamic>)
+              .map((item) => CategoryModel.fromJson(item))
+              .toList();
+        }
+        
+        print(category);
+
+      } else {
+        SnackbarUtil.showError(result.error.toString());
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+}

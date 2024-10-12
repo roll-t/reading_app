@@ -9,7 +9,6 @@ import 'package:reading_app/core/database/service/configs/end_point_setting.dart
 class UserApi {
   final Dio _dio;
   UserApi(this._dio);
-  
   Future<Result<UserModel>?> fetchUser({required String uid}) async {
     try {
       final response =
@@ -48,7 +47,8 @@ class UserApi {
 
   Future<Result<bool>> fetchEmailExist({required String email}) async {
     try {
-      final response = await _dio.get(EndPointSetting.emailExistEndpoint(email: email));
+      final response =
+          await _dio.get(EndPointSetting.emailExistEndpoint(email: email));
       if (response.statusCode == 200) {
         return Result.success(true);
       }
@@ -58,15 +58,13 @@ class UserApi {
     return Result.error(ApiError.badRequest);
   }
 
-  
-
   static Future<Result<UserModel>?> getUser({required String uid}) async {
     final dataRemote = UserApi(Dio());
     return await dataRemote.fetchUser(uid: uid);
   }
 
-  static Future<Result<bool>> emailExist({required String email}) async{
-    final remote =UserApi(Dio());
+  static Future<Result<bool>> emailExist({required String email}) async {
+    final remote = UserApi(Dio());
     return await remote.fetchEmailExist(email: email);
   }
 

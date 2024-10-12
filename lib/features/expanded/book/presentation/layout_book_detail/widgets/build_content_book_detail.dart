@@ -7,16 +7,16 @@ import 'package:reading_app/core/database/data/model/list_comic_model.dart';
 import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_medium_semi_bold.dart';
 import 'package:reading_app/core/ui/widgets/tags/tag_category.dart';
-import 'package:reading_app/features/expanded/book/widgets/book_details/build_wrap_list_comment.dart';
-import 'package:reading_app/features/expanded/book/widgets/shared/expandable_text.dart';
+import 'package:reading_app/core/ui/widgets/text/expandable_text.dart';
+import 'package:reading_app/features/expanded/book/presentation/layout_book_detail/widgets/build_wrap_list_comment.dart';
 
 class BuildContentBookDetail extends StatelessWidget{
-  final List<CategoryModel> ? categories;
+  final List<CategoryModel>  categories;
   final String ?description;
   final SliverToBoxAdapter ? listRelate;
   const BuildContentBookDetail({
     super.key,
-    this.categories,
+    this.categories=const[],
     this.description,
     this.listRelate,
   });
@@ -54,8 +54,8 @@ class BuildContentBookDetail extends StatelessWidget{
                         spacing: SpaceDimens.space10,
                         runSpacing: SpaceDimens.space10,
                         children: [
-                          for(var value in categories ?? [])
-                            TagCategory(categoryName: value["name"],)
+                          for(var value in categories)
+                            TagCategory(categoryName: value.name,)
                         ],
                       ),
                     )

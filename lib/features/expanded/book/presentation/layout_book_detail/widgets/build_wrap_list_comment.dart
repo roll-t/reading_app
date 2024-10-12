@@ -10,8 +10,8 @@ import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart'
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small.dart';
 import 'package:reading_app/core/ui/widgets/avatar/avatar.dart';
 import 'package:reading_app/core/ui/widgets/card/card_comment.dart';
+import 'package:reading_app/core/ui/widgets/text/expandable_text.dart';
 import 'package:reading_app/core/ui/widgets/textfield/comment_text_field.dart';
-import 'package:reading_app/features/expanded/book/widgets/shared/expandable_text.dart';
 
 class BuildWrapListComment extends StatelessWidget {
   final double heightWrapList;
@@ -153,7 +153,7 @@ class CommentBottomSheet extends StatelessWidget {
           const SizedBox(
             height: SpaceDimens.space15,
           ),
-          const ExpandableText(
+          ExpandableText(
             colorText: AppColors.white,
             text:
                 "comment writing this here comment writing this here comment writing this here comment writing this here comment writing this here comment writing this here comment writing this here comment writing this here comment writing this here comment writing this here comment writing this here comment writing this here comment writing this here comment writing this here comment writing this here comment writing this here comment writing this here comment writing this here",

@@ -5,6 +5,7 @@ import 'package:reading_app/core/database/data/chapter_data.dart';
 import 'package:reading_app/core/database/data/model/chapter_novel_model.dart';
 import 'package:reading_app/core/database/data/model/novel_model.dart';
 import 'package:reading_app/core/database/data/novel_data.dart';
+import 'package:reading_app/core/routes/routes.dart';
 
 class NovelDetailController extends GetxController {
   var isLoading = false.obs;
@@ -28,6 +29,9 @@ class NovelDetailController extends GetxController {
     isLoading.value = true;
     try {
       final result = await NovelData.getNovelById(id: slugArgument);
+      if (result.status == Status.error) {
+        Get.offAllNamed(Routes.login);
+      }
       if (result.status == Status.success) {
         novelModel = result.data ?? DefaultData.defaultNovel;
         final chapters =

@@ -3,13 +3,26 @@ import 'dart:ui';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 
 class AppConstants {
+
   static const bool isAdmobEnabled = false;
+
   static const Map<String, dynamic> listType = {
     "newRelease": "truyen-moi",
     "upcoming": "sap-ra-mat",
     "ongoing": "dang-phat-hanh",
     "completed": "hoan-thanh"
   };
+
+  static const String fontDefault ="Roboto";
+
+  static const List<String> listFont =[
+    "Roboto",
+    "Lora",
+    "PT Serif",
+    "Open Sans",
+    "Nunito",
+    "Merriweather",
+  ];
   static const List<Map<String, dynamic>> readThemeIds = [
     {
       "id": "readThemeDefault",
@@ -36,4 +49,6 @@ class AppConstants {
       "backgroundColor": Color(0xFF263238), // Màu nền xanh đậm
     },
   ];
+
+  
 }

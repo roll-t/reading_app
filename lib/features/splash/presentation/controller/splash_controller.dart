@@ -1,27 +1,43 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
+import 'package:reading_app/core/configs/enum.dart';
+import 'package:reading_app/core/database/data/auth_api.dart';
+import 'package:reading_app/core/database/domain/auth_use_case.dart';
+import 'package:reading_app/core/database/dto/request/introspect_request.dart';
+import 'package:reading_app/core/database/prefs/prefs.dart';
 import 'package:reading_app/core/routes/routes.dart';
 
 class SplashController extends GetxController {
-  SplashController();
+  final AuthApi authApi = AuthApi();
+  final Prefs prefs = Prefs();
 
-  RxDouble loadingProgress = 0.0.obs;
+  var isAuth = false;
 
   @override
   void onInit() {
     super.onInit();
-    simulateLoading();
+    initialValue();
   }
 
-  void simulateLoading() {
-    Timer.periodic(const Duration(milliseconds: 100), (timer) {
-      if (loadingProgress.value >= 1.0) {
-        timer.cancel();
-        Get.offNamed(Routes.main); // Navigate to main screen when loading is complete
-      } else {
-        loadingProgress.value += 0.1; // Increment progress by 10%
+  Future<void> initialValue() async {
+    try {
+      var token = await AuthUseCase.getAuthToken();
+      if (token != null && token.isNotEmpty) {
+        var result =
+            await authApi.introspect(request: IntrospectRequest(token: token));
+        if (result.status == Status.success) {
+          isAuth = result.data?.valid ?? false;
+        }
       }
-    });
+    } catch (e) {
+      print('Error during authentication: $e');
+    } finally {
+      if (isAuth) {
+        Get.toNamed(Routes.main);
+      } else {
+        Get.offNamed(Routes.login);
+      }
+    }
   }
 }

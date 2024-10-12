@@ -9,8 +9,11 @@ import 'package:reading_app/core/database/data/model/chapter_novel_model.dart';
 import 'package:reading_app/core/database/domain/read_theme_use_case.dart';
 
 class ReadNovelCotroller extends GetxController {
+  
   ChapterNovelModel chapterNovelModel = DefaultData.defaultChapter;
+
   List<ChapterNovelModel> listChapter = <ChapterNovelModel>[];
+
   ScrollController scrollController = ScrollController();
 
   var currentActiveList = 0.obs;
@@ -25,7 +28,11 @@ class ReadNovelCotroller extends GetxController {
 
   Map<String, dynamic>? currentReadTheme;
 
-  RxDouble ?textSizeReadTheme;
+  double textSizeReadTheme = 20;
+
+  String fontReadTheme = AppConstants.fontDefault;
+
+  List<String> fonts = AppConstants.listFont;
 
   @override
   void onInit() {
@@ -44,9 +51,10 @@ class ReadNovelCotroller extends GetxController {
   }
 
   _intReadTheme() async {
-    currentReadTheme = await ReadThemeUseCase.getReadTheme() ?? AppConstants.readThemeIds[0];
-    textSizeReadTheme?.value= await ReadThemeUseCase.getTextSizeReadTheme() ?? 16.0;
-    print(textSizeReadTheme?.value);
+    currentReadTheme =
+        await ReadThemeUseCase.getReadTheme() ?? AppConstants.readThemeIds[0];
+    textSizeReadTheme = await ReadThemeUseCase.getTextSizeReadTheme();
+    fontReadTheme = await ReadThemeUseCase.getFontReadTheme();
     update(["ControlThemeId"]);
   }
 
@@ -67,7 +75,7 @@ class ReadNovelCotroller extends GetxController {
     isControlsVisible.value = !isControlsVisible.value;
     if (isControlsVisible.value) {
       _hideControlsTimer?.cancel();
-      _hideControlsTimer = Timer(const Duration(seconds: 1000), () {
+      _hideControlsTimer = Timer(const Duration(seconds: 60), () {
         isControlsVisible.value = false;
       });
     } else {
@@ -82,23 +90,28 @@ class ReadNovelCotroller extends GetxController {
     update(["ListThemeReadID", "ControlThemeId"]);
   }
 
+  void changeFontReadTheme({required String font}) {
+    fontReadTheme = font;
+    ReadThemeUseCase.setFontReadTheme(font: font);
+    update(["mainContentChapter"]);
+  }
+
   void changeTextSizeReadTheme({required double size}) {
-    if (size >= 13 && size <= 40) {
-      textSizeReadTheme?.value = size;
-    } else if (size < 13) {
-      textSizeReadTheme?.value = 13.0;
+    if (size < 13) {
+      textSizeReadTheme = 13;
     } else if (size > 40) {
-      textSizeReadTheme?.value = 40.0;
+      textSizeReadTheme = 40;
+    } else {
+      textSizeReadTheme = size;
     }
-    if (size != textSizeReadTheme?.value) {
-      ReadThemeUseCase.setTextSizeReadTheme(sizeText: size);
-    }
+    ReadThemeUseCase.setTextSizeReadTheme(sizeText: textSizeReadTheme);
+    update(["mainContentChapter"]);
   }
 
   void clickControl() {
     isControlsVisible.value = true;
     _hideControlsTimer?.cancel();
-    _hideControlsTimer = Timer(const Duration(seconds: 5), () {
+    _hideControlsTimer = Timer(const Duration(seconds: 10), () {
       isControlsVisible.value = false;
     });
   }
@@ -110,8 +123,6 @@ class ReadNovelCotroller extends GetxController {
     if (selectedChapter != null) {
       chapterNovelModel = selectedChapter;
       updateChapter();
-    } else {
-      print("Chapter not found with id: $chapterId");
     }
   }
 
@@ -169,6 +180,7 @@ class ReadNovelCotroller extends GetxController {
     );
   }
 
+  //Scroll Top
   void scrollTop() {
     scrollController.animateTo(
       0.0,
@@ -178,8 +190,7 @@ class ReadNovelCotroller extends GetxController {
   }
 
   void _scrollListener() {
-    if (scrollController.position.pixels >=
-            scrollController.position.maxScrollExtent - 50 &&
+    if (scrollController.position.pixels >= scrollController.position.maxScrollExtent - 50 &&
         !_hasScrolledToBottom) {
       onScrolledToBottom();
     }
@@ -187,7 +198,7 @@ class ReadNovelCotroller extends GetxController {
 
   void onScrolledToBottom() {
     _hasScrolledToBottom = true;
-    nextChapter(chapterId: chapterNovelModel.chapterId);
+    isControlsVisible.value = true;
     _hasScrolledToBottom = false;
   }
 }

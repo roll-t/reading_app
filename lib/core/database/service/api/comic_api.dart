@@ -26,8 +26,10 @@ class ComicApi extends EndPointSetting {
   Future<Result<ComicModel>> fetchBookBySlug({required String slug}) async {
     await _initializeHeaders();
     try {
-      final response = await _dio.get(EndPointSetting.comicDetailEndpoint(slug: slug));
-      return ResponseApi.handleResponseComic(response.statusCode ?? 500,data: response.data);
+      final response =
+          await _dio.get(EndPointSetting.comicDetailEndpoint(slug: slug));
+      return ResponseApi.handleResponseComic(response.statusCode ?? 500,
+          data: response.data);
     } catch (e) {
       if (e is DioException) {
         if (e.response?.statusCode == 401) {
@@ -41,7 +43,8 @@ class ComicApi extends EndPointSetting {
   Future<Result<ListComicModel>> fetchHomeData() async {
     try {
       final response = await _dio.get(EndPointSetting.comicHomeEndpoint());
-      return ResponseApi.handleResponseData(response.statusCode ?? 500, data: response.data);
+      return ResponseApi.handleResponseData(response.statusCode ?? 500,
+          data: response.data);
     } catch (e) {
       if (e is DioException) {
         if (e.response?.statusCode == 401) {
@@ -52,10 +55,11 @@ class ComicApi extends EndPointSetting {
     }
   }
 
-  Future<Result<ListComicModel>> fetchListBySlug({required String slug,required int page}) async {
+  Future<Result<ListComicModel>> fetchListBySlug(
+      {required String slug, required int page}) async {
     try {
-      final response =
-          await _dio.get(EndPointSetting.listByTypeEndpoint(slug: slug,page: page));
+      final response = await _dio
+          .get(EndPointSetting.listByTypeEndpoint(slug: slug, page: page));
       final apiResponse = response.data;
       return ResponseApi.handleResponseData(response.statusCode ?? 500,
           data: apiResponse);
@@ -69,10 +73,11 @@ class ComicApi extends EndPointSetting {
     }
   }
 
-  Future<Result<ListComicModel>> fetchListSearchBySlug({required String slug,required int page}) async {
+  Future<Result<ListComicModel>> fetchListSearchBySlug(
+      {required String slug, required int page}) async {
     try {
-      final response =
-          await _dio.get(EndPointSetting.searchBySlugEndpoint(slug: slug,page: page));
+      final response = await _dio
+          .get(EndPointSetting.searchBySlugEndpoint(slug: slug, page: page));
       final apiResponse = response.data;
       return ResponseApi.handleResponseData(response.statusCode ?? 500,
           data: apiResponse);
@@ -102,9 +107,11 @@ class ComicApi extends EndPointSetting {
     }
   }
 
-  Future<Result<ListComicModel>> fetchComicCategoryBySlug({required String slug,required int page}) async {
+  Future<Result<ListComicModel>> fetchComicCategoryBySlug(
+      {required String slug, required int page}) async {
     try {
-      final response = await _dio.get(EndPointSetting.categoriesBySlugEndpoint(slug: slug,page:page));
+      final response = await _dio.get(
+          EndPointSetting.categoriesBySlugEndpoint(slug: slug, page: page));
 
       final apiResponse = response.data;
 
@@ -148,7 +155,7 @@ class ComicApi extends EndPointSetting {
   static Future<Result<ComicModel>> getBookDetailDataAPI(
       {required String slug}) async {
     final bookRemote = ComicApi(Dio());
-    return await bookRemote.fetchBookBySlug(slug: slug);
+    return bookRemote.fetchBookBySlug(slug: slug);
   }
 
   static Future<Result<ChapterModel>> getChapterDataAPI(
@@ -162,39 +169,41 @@ class ComicApi extends EndPointSetting {
     return await dataRemote.fetchHomeData();
   }
 
-  static Future<Result<ListComicModel>> getListNewest({page=1}) async {
+  static Future<Result<ListComicModel>> getListNewest({page = 1}) async {
     final dataRemote = ComicApi(Dio());
-    return await dataRemote.fetchListBySlug(slug: 'truyen-moi',page: page);
+    return await dataRemote.fetchListBySlug(slug: 'truyen-moi', page: page);
   }
 
-  static Future<Result<ListComicModel>> getListComingSoon({page=1}) async {
+  static Future<Result<ListComicModel>> getListComingSoon({page = 1}) async {
     final dataRemote = ComicApi(Dio());
-    return await dataRemote.fetchListBySlug(slug: 'sap-ra-mat',page: page);
+    return await dataRemote.fetchListBySlug(slug: 'sap-ra-mat', page: page);
   }
 
-  static Future<Result<ListComicModel>> getListNowRelease({page=1}) async {
+  static Future<Result<ListComicModel>> getListNowRelease({page = 1}) async {
     final dataRemote = ComicApi(Dio());
-    return await dataRemote.fetchListBySlug(slug: 'dang-phat-hanh',page: page);
+    return await dataRemote.fetchListBySlug(slug: 'dang-phat-hanh', page: page);
   }
 
-  static Future<Result<ListComicModel>> getListBySlug({required String slug,page=1}) async {
+  static Future<Result<ListComicModel>> getListBySlug(
+      {required String slug, page = 1}) async {
     final dataRemote = ComicApi(Dio());
     return await dataRemote.fetchListBySlug(slug: slug, page: page);
   }
 
-  static Future<Result<ListComicModel>> getListComplete({page=1}) async {
+  static Future<Result<ListComicModel>> getListComplete({page = 1}) async {
     final dataRemote = ComicApi(Dio());
-    return await dataRemote.fetchListBySlug(slug: 'hoan-thanh',page: page);
+    return await dataRemote.fetchListBySlug(slug: 'hoan-thanh', page: page);
   }
 
-  static Future<Result<ListComicModel>> getListNewUpdate({page=1}) async {
+  static Future<Result<ListComicModel>> getListNewUpdate({page = 1}) async {
     final dataRemote = ComicApi(Dio());
-    return await dataRemote.fetchListBySlug(slug: 'moi-cap-nhat',page: page);
+    return await dataRemote.fetchListBySlug(slug: 'moi-cap-nhat', page: page);
   }
 
-  static Future<Result<ListComicModel>> getListSearchBySlug({required String slug,page=1}) async {
+  static Future<Result<ListComicModel>> getListSearchBySlug(
+      {required String slug, page = 1}) async {
     final dataRemote = ComicApi(Dio());
-    return await dataRemote.fetchListSearchBySlug(slug: slug,page: page);
+    return await dataRemote.fetchListSearchBySlug(slug: slug, page: page);
   }
 
   static Future<Result<List<ListCategoryModel>>> getListCategories() async {
@@ -202,9 +211,10 @@ class ComicApi extends EndPointSetting {
     return await dataRemote.fetchCategories();
   }
 
-  static Future<Result<ListComicModel>> getListComicCategoryBySlug({required String slug, int page=1}) async {
+  static Future<Result<ListComicModel>> getListComicCategoryBySlug(
+      {required String slug, int page = 1}) async {
     final dataRemote = ComicApi(Dio());
-    return await dataRemote.fetchComicCategoryBySlug(slug: slug,page: page);
+    return await dataRemote.fetchComicCategoryBySlug(slug: slug, page: page);
   }
 
   static Future<void> setCategoryCache() async {
@@ -221,7 +231,7 @@ class ComicApi extends EndPointSetting {
     }
   }
 
-  static Future<List<ListCategoryModel>?> getCategoryCache()async{
+  static Future<List<ListCategoryModel>?> getCategoryCache() async {
     return await UseCaseCategory.getCategoryCache();
   }
 }

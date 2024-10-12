@@ -30,7 +30,11 @@ class CategoryController extends GetxController {
     isLoading.value = true;
     scrollController.addListener(_scrollListener);
     if (dataArgument["slugQuery"] != null) {
-      await fetchDataComicCategoryByChange(slug: dataArgument["slugQuery"]);
+      try {
+        await fetchDataComicCategoryByChange(slug: dataArgument["slugQuery"]);
+      } catch (e) {
+        print(e);
+      }
     }
     isLoading.value = false;
     update(["titleID", "ListCategoryID"]);

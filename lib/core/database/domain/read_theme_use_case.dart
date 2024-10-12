@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:reading_app/core/configs/const/app_constants.dart';
 import 'package:reading_app/core/configs/const/prefs_constants.dart';
 import 'package:reading_app/core/database/prefs/prefs.dart';
 
 class ReadThemeUseCase {
   static final Prefs prefs = Prefs();
-
   static Future<void> setReadTheme(
       {required Map<String, dynamic> readThemSetting}) async {
     try {
@@ -48,16 +48,31 @@ class ReadThemeUseCase {
     }
   }
 
-  static Future<double?> getTextSizeReadTheme() async {
+  static Future<double> getTextSizeReadTheme() async {
     try {
       var data = await prefs.get(PrefsConstants.readSizeTextUseCase);
-      if (data != null) {
-        return double.tryParse(data);
-      }
+      return double.tryParse(data) ?? 10;
     } catch (e) {
-      print('Error getting text size: $e');
-      return null;
+      await prefs.set(PrefsConstants.readSizeTextUseCase, 10.toString());
+      return 10;
     }
-    return null; // Trả về null nếu không có dữ liệu
+  }
+
+  static Future<void> setFontReadTheme({required String font}) async {
+    try {
+      await prefs.set(PrefsConstants.fontTheme, font);
+    } catch (e) {
+      print('Error setting text size: $e');
+    }
+  }
+
+  static Future<String> getFontReadTheme() async {
+    try {
+      var data = await prefs.get(PrefsConstants.fontTheme);
+      return data;
+        } catch (e) {
+      await prefs.set(PrefsConstants.fontTheme, AppConstants.fontDefault);
+      return AppConstants.fontDefault;
+    }
   }
 }

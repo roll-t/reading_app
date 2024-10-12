@@ -2,8 +2,8 @@ class ComicModel {
   final String title;
   final String description;
   final String thumb;
-  final List<dynamic>? chapters; // Use `List<dynamic>?` if the list can be null
-  final List<dynamic>? category; // Use `List<dynamic>?` if the list can be null
+  final List<dynamic>? chapters;
+  final List<dynamic>? category;
 
   ComicModel({
     required this.title,
@@ -13,7 +13,6 @@ class ComicModel {
     this.category,
   });
 
-  // Factory method to create a Comic instance from JSON
   factory ComicModel.fromJson(Map<String, dynamic> json) {
     return ComicModel(
       title: json['title'] as String,
@@ -24,7 +23,6 @@ class ComicModel {
     );
   }
 
-  // Method to convert a Comic instance to JSON
   Map<String, dynamic> toJson() {
     return {
       'title': title,

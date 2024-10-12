@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -15,6 +14,7 @@ import 'package:reading_app/core/database/data/model/user_request_model.dart';
 import 'package:reading_app/core/database/data/user_api.dart';
 import 'package:reading_app/core/database/domain/user/remember_user_case.dart';
 import 'package:reading_app/core/database/domain/user/save_user_use_case.dart';
+import 'package:reading_app/core/database/prefs/prefs.dart';
 import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/ui/snackbar/snackbar.dart';
 
@@ -44,9 +44,12 @@ class LogInController extends GetxController {
     scopes: ['email', 'profile'],
   );
 
+  Prefs prefs = Prefs();
+
   @override
   void onInit() async {
     super.onInit();
+    prefs.logout();
     await _googleSignIn.signOut();
     dataArgument = Get.arguments;
 
@@ -79,7 +82,7 @@ class LogInController extends GetxController {
 
   Future<AuthenticationModel?> _initToken(
       {required String email, required String password}) async {
-    final authApi = AuthApi(Dio());
+    final authApi = AuthApi();
     try {
       final Result<AuthenticationModel>? auth = await authApi.token(
         userModel: UserModel(
@@ -98,7 +101,8 @@ class LogInController extends GetxController {
   }
 
   Future<void> handleLogin() async {
-    Result emailExits = await UserApi.emailExist(email: emailController.text.trim());
+    Result emailExits =
+        await UserApi.emailExist(email: emailController.text.trim());
 
     if (emailExits.data != true) {
       errorMessageEmail.value = AppErrors.emailUncreated;
@@ -121,9 +125,8 @@ class LogInController extends GetxController {
       _rememberUserCase.set(UserModel(email: emailController.text.trim()));
     }
     isLoading.value = false;
-
     if (auth != null && auth.authenticated) {
-      Get.back(result: auth);
+      Get.toNamed(Routes.main);
       SnackbarUtil.showSuccess(AppSuccess.loginSuccess);
     } else {
       SnackbarUtil.showSuccess(AppErrors.loginError);
@@ -144,7 +147,7 @@ class LogInController extends GetxController {
             password: result.password ?? "0123456",
           );
           if (auth != null && auth.authenticated) {
-            Get.back(result: auth);
+            Get.offAllNamed(Routes.main);
             SnackbarUtil.showSuccess(AppSuccess.loginSuccess);
           } else {
             SnackbarUtil.showError(AppErrors.loginError);

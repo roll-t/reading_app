@@ -11,15 +11,21 @@ import 'package:reading_app/core/ui/customs_widget_theme/texts/text_medium_semi_
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small.dart';
 import 'package:reading_app/core/ui/widgets/icons/icon_image.dart';
-import 'package:reading_app/features/expanded/book/widgets/shared/icon_rounder.dart';
+import 'package:reading_app/core/utils/count_translate.dart';
+import 'package:reading_app/features/expanded/book/presentation/layout_book_detail/shared/icon_rounder.dart';
 
 class BuildTagReact extends StatelessWidget {
-  
-  final String ? title;
+  final String title;
+  final int countChapters;
+  final int countView;
+  final double rating;
 
   const BuildTagReact({
-    super.key, 
-    this.title,
+    super.key,
+    required this.title,
+    required this.countChapters,
+    required this.countView,
+    required this.rating,
   });
 
   @override
@@ -38,7 +44,8 @@ class BuildTagReact extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextMediumSemiBold(
-            textChild:title ?? "UnTitle",maxLinesChild: 3,
+            textChild: title,
+            maxLinesChild: 3,
           ),
           const SizedBox(
             height: SpaceDimens.space15,
@@ -46,21 +53,21 @@ class BuildTagReact extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Row(
+              Row(
                 children: [
-                  IconsRounder(
+                  const IconsRounder(
                     iconData: Icons.remove_red_eye_outlined,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: SpaceDimens.space10,
                   ),
                   Column(
                     children: [
-                      TextSmall(
+                      const TextSmall(
                         textChild: AppContents.read,
                         colorChild: AppColors.gray2,
                       ),
-                      TextNormal(textChild: "78.3K")
+                      TextNormal(textChild: CountTranslate.formatNumber(countView),maxLinesChild: 1)
                     ],
                   )
                 ],
@@ -85,7 +92,7 @@ class BuildTagReact extends StatelessWidget {
                         ),
                         Row(
                           children: [
-                            const TextNormal(textChild: "4.3"),
+                            TextNormal(textChild: rating.toString()),
                             const SizedBox(
                               width: 2,
                             ),
@@ -99,21 +106,21 @@ class BuildTagReact extends StatelessWidget {
                   ],
                 ),
               ),
-              const Row(
+              Row(
                 children: [
-                  IconsRounder(
+                  const IconsRounder(
                     iconData: Icons.list_alt,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: SpaceDimens.space10,
                   ),
                   Column(
                     children: [
-                      TextSmall(
+                      const TextSmall(
                         textChild: AppContents.chapter,
                         colorChild: AppColors.gray2,
                       ),
-                      TextNormal(textChild: "120")
+                      TextNormal(textChild: countChapters.toString())
                     ],
                   )
                 ],

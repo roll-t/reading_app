@@ -38,6 +38,7 @@ class ReadNovelPage extends GetView<ReadNovelCotroller> {
       children: [
         GestureDetector(
           onTapUp: (TapUpDetails details) {
+            controller.isControlsVisible.value = false;
             if (details.localPosition.dy < Get.height / 2) {
               controller.scrollUp();
             } else {
@@ -47,35 +48,38 @@ class ReadNovelPage extends GetView<ReadNovelCotroller> {
           onLongPress: () {
             controller.toggleControlVisibility();
           },
-          child: SingleChildScrollView(
-            controller: controller.scrollController,
-            child: GetBuilder<ReadNovelCotroller>(
-              id: "mainContentChapter",
-              builder: (_) {
-                return Column(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.only(top: 20, bottom: 15),
-                      child: TextLargeBold(
-                        textChild: controller.chapterNovelModel.chapterName,
-                        colorChild: controller.currentReadTheme?["textColor"] ??
-                            AppColors.white,
+          child: Scrollbar(
+            thickness: 2,
+            child: SingleChildScrollView(
+              controller: controller.scrollController,
+              child: GetBuilder<ReadNovelCotroller>(
+                id: "mainContentChapter",
+                builder: (_) {
+                  return Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.only(top: 20, bottom: 15),
+                        child: TextLargeBold(
+                          textChild: controller.chapterNovelModel.chapterName,
+                          colorChild:
+                              controller.currentReadTheme?["textColor"] ??
+                                  AppColors.white,
+                        ),
                       ),
-                    ),
-                    Container(
+                      Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Obx(
-                          () => TextWidget(
-                            text: controller.chapterNovelModel.chapterContent,
-                            color: controller.currentReadTheme?["textColor"] ??
-                                AppColors.white,
-                            size: controller.textSizeReadTheme?.value ??
-                                16.0.obs.value,
-                          ),
-                        )),
-                  ],
-                );
-              },
+                        child: TextWidget(
+                          text: controller.chapterNovelModel.chapterContent,
+                          color: controller.currentReadTheme?["textColor"] ??
+                              AppColors.white,
+                          fontFamily: controller.fontReadTheme,
+                          size: controller.textSizeReadTheme,
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
             ),
           ),
         ),
@@ -138,13 +142,15 @@ class ReadNovelPage extends GetView<ReadNovelCotroller> {
   // ignore: non_constant_identifier_names
   DropdownSearch<(IconData, String)> _BuildDropDown() {
     return DropdownSearch<(IconData, String)>(
-      selectedItem: (Icons.circle, 'Font 1'),
+      selectedItem: (Icons.circle, controller.fontReadTheme),
       compareFn: (item1, item2) => item1.$1 == item2.$2,
-      items: (f, cs) => [
-        (Icons.circle, 'Font 1'),
-        (Icons.circle, 'Font 2'),
-        (Icons.circle, 'Font 3'),
-      ],
+      items: (f, cs) =>
+          controller.fonts.map((value) => (Icons.circle, value)).toList(),
+      onChanged: (value) {
+        if (value != null) {
+          controller.changeFontReadTheme(font: value.$2);
+        }
+      },
       decoratorProps: DropDownDecoratorProps(
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(vertical: 0),
@@ -313,7 +319,7 @@ class ReadNovelPage extends GetView<ReadNovelCotroller> {
 
   // ignore: non_constant_identifier_names
   CustomBottomSheetWidget _BuildButtomSheet(BuildContext context) {
-    Timer? _debounce;
+    Timer? debounce;
     return CustomBottomSheetWidget(
       paddingContent: const EdgeInsets.all(SpaceDimens.space20),
       heightSheet: Get.height * .62,
@@ -345,19 +351,19 @@ class ReadNovelPage extends GetView<ReadNovelCotroller> {
             children: [
               const TextMediumBold(textChild: "Cỡ chữ"),
               BalloonSlider(
-                  value: controller.textSizeReadTheme?.value != null
-                      ? ((controller.textSizeReadTheme?.value ?? 16) / 100)
+                  value: controller.textSizeReadTheme != null
+                      ? ((controller.textSizeReadTheme) / 100)
                       : 0.16,
                   ropeLength: 55,
                   showRope: true,
                   onChangeStart: (val) {},
                   onChanged: (val) {
                     // Hủy debounce trước nếu đang hoạt động
-                    if (_debounce?.isActive ?? false) {
-                      _debounce?.cancel();
+                    if (debounce?.isActive ?? false) {
+                      debounce?.cancel();
                     }
                     // Thực hiện debounce với khoảng trễ 300ms
-                    _debounce = Timer(const Duration(milliseconds: 300), () {
+                    debounce = Timer(const Duration(milliseconds: 300), () {
                       controller.changeTextSizeReadTheme(size: val * 100);
                     });
                   },

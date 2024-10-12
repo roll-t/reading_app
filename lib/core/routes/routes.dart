@@ -19,4 +19,5 @@ abstract class Routes {
   static const novelDetail = "/novelDetail";
   static const loginRequestSplash = "/LoginRequestSplash";
   static const readNovel = "/readNovel";
+  static const comicDetail = "/comicDetail";
 }

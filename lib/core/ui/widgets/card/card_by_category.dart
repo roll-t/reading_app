@@ -25,7 +25,7 @@ class CardByCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(Routes.bookDetail, arguments: {"slug": bookModel.slug});
+        Get.toNamed(Routes.comicDetail, arguments: {"slug": bookModel.slug});
       },
       child: Container(
         margin: const EdgeInsets.only(right: SpaceDimens.space10),

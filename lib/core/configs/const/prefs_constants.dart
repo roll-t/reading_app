@@ -7,4 +7,5 @@ class PrefsConstants {
   static const String categoryCache = "categoryCache";
   static const String readThemeUseCase = "readThemeUseCase";
   static const String readSizeTextUseCase = "readSizeTextUseCase";
+  static const String fontTheme = "FONTTHEME";
 }

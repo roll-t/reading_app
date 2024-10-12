@@ -1,42 +1,45 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/assets/app_images.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/database/data/model/chapter_novel_model.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/button/button_normal.dart';
+import 'package:reading_app/core/database/data/model/list_comic_model.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_medium_semi_bold.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
+import 'package:reading_app/core/ui/widgets/loading.dart';
 import 'package:reading_app/core/ui/widgets/textfield/custom_search_field.dart';
-import 'package:reading_app/core/utils/loading.dart';
-import 'package:reading_app/features/expanded/book/presentation/layout_book_detail/book_details/build_bottom_book_detail.dart';
-import 'package:reading_app/features/expanded/book/presentation/layout_book_detail/book_details/build_chapter_body.dart';
-import 'package:reading_app/features/expanded/book/presentation/layout_book_detail/book_details/build_content_book_detail.dart';
-import 'package:reading_app/features/expanded/book/presentation/layout_book_detail/book_details/build_header_tab_bar.dart';
+import 'package:reading_app/features/expanded/book/model/info_book_detail_model.dart';
 import 'package:reading_app/features/expanded/book/presentation/layout_book_detail/layout_book_detail_controller.dart';
 import 'package:reading_app/features/expanded/book/presentation/layout_book_detail/shared/build_sliver_app_bar_book_detail.dart';
+import 'package:reading_app/features/expanded/book/presentation/layout_book_detail/widgets/build_bottom_book_detail.dart';
+import 'package:reading_app/features/expanded/book/presentation/layout_book_detail/widgets/build_chapter_comic_body.dart';
+import 'package:reading_app/features/expanded/book/presentation/layout_book_detail/widgets/build_chapter_novel_body.dart';
+import 'package:reading_app/features/expanded/book/presentation/layout_book_detail/widgets/build_content_book_detail.dart';
+import 'package:reading_app/features/expanded/book/presentation/layout_book_detail/widgets/build_header_tab_bar.dart';
 
 class LayoutBookDetailPage extends GetView<LayoutBookDetailController> {
   final RxBool isLoading;
-  final String bookTitle;
-  final String thumbImage;
+  final InfoBookDetailModel infoBookDetailModel;
   final List<ChapterNovelModel> listChapter;
+  final List<dynamic>? listChapterComic;
+  final List<CategoryModel>? categories;
+
   const LayoutBookDetailPage({
     super.key,
-    this.bookTitle = "unTitle",
-    this.thumbImage = AppImages.iNoImage,
+    required this.infoBookDetailModel,
     required this.isLoading,
+    this.categories,
+    this.listChapterComic,
     this.listChapter = const <ChapterNovelModel>[],
   });
+
   @override
   Widget build(BuildContext context) {
     final String tag = 'bookDetail ${DateTime.now().microsecondsSinceEpoch}';
-    return Obx(() {
-      return !controller.isAuth.value
-          ? _LoginRequest()
-          : _BuildBodyBookDetail(tag);
-    });
+    return _BuildBodyBookDetail(tag);
   }
 
   // ignore: non_constant_identifier_names
@@ -47,9 +50,10 @@ class LayoutBookDetailPage extends GetView<LayoutBookDetailController> {
         bodyBuilder: BookDetailBody(
           tag: tag,
           controller: controller,
-          bookTitle: bookTitle,
-          thumbImage: thumbImage,
           listChapter: listChapter,
+          listChapterComic: listChapterComic,
+          infoBookDetailModel: infoBookDetailModel,
+          categories: categories,
         ),
       ),
       bottomNavigationBar: Obx(() => isLoading.value
@@ -57,41 +61,21 @@ class LayoutBookDetailPage extends GetView<LayoutBookDetailController> {
           : const BuildBottomNavBookDetail()),
     );
   }
-
-  // ignore: non_constant_identifier_names
-  Widget _LoginRequest() {
-    return Scaffold(
-        body: Loading(
-            isLoading: controller.isLoading,
-            bodyBuilder: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: SpaceDimens.space30),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ButtonNormal(
-                    textChild: AppContents.login,
-                    onTap: () async {
-                      await controller.handleLogin();
-                    },
-                  ),
-                ],
-              ),
-            )));
-  }
 }
 
 class BookDetailBody extends StatelessWidget {
-  final String bookTitle;
-  final String thumbImage;
-  final List<ChapterNovelModel> listChapter;
+  final InfoBookDetailModel infoBookDetailModel;
+  final List<ChapterNovelModel>? listChapter;
+  final List<dynamic>? listChapterComic;
+  final List<CategoryModel>? categories;
   const BookDetailBody({
     super.key,
     required this.tag,
     required this.controller,
-    required this.bookTitle, 
-    required this.thumbImage, 
     required this.listChapter,
+    required this.infoBookDetailModel,
+    this.categories,
+    this.listChapterComic,
   });
   final String tag;
   final LayoutBookDetailController controller;
@@ -106,17 +90,12 @@ class BookDetailBody extends StatelessWidget {
       controller: controller.scrollController,
       headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
         return [
-          // app bar
           BuildSliverAppBarBookDetail(
-            controller: LayoutBookDetailController(),
-            title: bookTitle,
-            thumbImage: thumbImage,
+            opacityAppBarTitle: controller.opacity,
+            infoBookDetailModel: infoBookDetailModel,
           ),
-
           // tab bar
           BuildHeaderTapBar(controller: controller),
-
-          //space
           const SliverToBoxAdapter(
             child: SizedBox(
               height: SpaceDimens.space10,
@@ -124,25 +103,42 @@ class BookDetailBody extends StatelessWidget {
           ),
         ];
       },
-
-      // main body
-      body: _buildMainBodyBookDetail(chapters: listChapter),
+      body: _buildMainBodyBookDetail(
+          description: infoBookDetailModel.description ?? "",
+          chapters: listChapter ?? [],
+          categories: categories ?? []),
     );
   }
 
-  TabBarView _buildMainBodyBookDetail({required List<ChapterNovelModel> chapters})
-  {
+  TabBarView _buildMainBodyBookDetail(
+      {required List<ChapterNovelModel> chapters,
+      List<CategoryModel> categories = const [],
+      String description = ""}) {
+    Timer? debounce;
     return TabBarView(
       controller: controller.tabController,
       children: [
-        const BuildContentBookDetail(),
+        BuildContentBookDetail(
+          description: description,
+          categories: categories,
+        ),
         Container(
           padding: const EdgeInsets.symmetric(
               horizontal: SpaceDimens.spaceStandard,
               vertical: SpaceDimens.space15),
           child: Column(
             children: [
-              const CustomSearchField(
+              CustomSearchField(
+                onChanged: (value) {
+                  if (debounce?.isActive ?? false) {
+                    debounce?.cancel();
+                  }
+                  debounce = Timer(const Duration(milliseconds: 300), () {
+                    controller.searchQuery = value;
+                    controller.filteredChapters.value =
+                        controller.filterChapters(chapters);
+                  });
+                },
                 placeholder: AppContents.searchPlaceholderChapter,
               ),
               Container(
@@ -172,8 +168,25 @@ class BookDetailBody extends StatelessWidget {
                   ],
                 ),
               ),
-
-              BuildChapterBody(chapters: chapters,),
+              Obx(() {
+                if (listChapter != null && listChapter!.isNotEmpty) {
+                  return BuildChapterNovelBody(
+                    // ignore: invalid_use_of_protected_member
+                    chapters: controller.filteredChapters.value.isNotEmpty
+                        // ignore: invalid_use_of_protected_member
+                        ? controller.filteredChapters.value
+                        : chapters,
+                  );
+                } else {
+                  return BuildChapterComicBody(
+                    listChapterComic:
+                        // ignore: invalid_use_of_protected_member
+                        controller.filteredChapterComic.value.isNotEmpty
+                            ? controller.filteredChapterComic
+                            : listChapterComic ?? [],
+                  );
+                }
+              }),
             ],
           ),
         ),

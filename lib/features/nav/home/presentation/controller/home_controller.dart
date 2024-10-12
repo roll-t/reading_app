@@ -10,6 +10,7 @@ import 'package:reading_app/core/extensions/text_format.dart';
 import 'package:reading_app/core/routes/routes.dart';
 
 class HomeController extends GetxController {
+
   var currentIndex = 0.obs;
 
   var currentIndexCategory = 0.obs;
@@ -22,26 +23,19 @@ class HomeController extends GetxController {
 
   List<String> listIntroduceSlide = [];
 
-  ListComicModel listDataSlider =
-      ListComicModel(domainImage: "", titlePage: '', items: []);
+  ListComicModel listDataSlider = ListComicModel(domainImage: "", titlePage: '', items: []);
 
-  ListComicModel listDataComplete =
-      ListComicModel(domainImage: "", titlePage: '', items: []);
+  ListComicModel listDataComplete = ListComicModel(domainImage: "", titlePage: '', items: []);
 
-  ListComicModel listDataComingSoon =
-      ListComicModel(domainImage: "", titlePage: '', items: []);
+  ListComicModel listDataComingSoon = ListComicModel(domainImage: "", titlePage: '', items: []);
 
-  ListComicModel listDataNowRelease =
-      ListComicModel(domainImage: "", titlePage: '', items: []);
+  ListComicModel listDataNowRelease = ListComicModel(domainImage: "", titlePage: '', items: []);
 
-  ListComicModel listDataNewUpdate =
-      ListComicModel(domainImage: "", titlePage: '', items: []);
+  ListComicModel listDataNewUpdate = ListComicModel(domainImage: "", titlePage: '', items: []);
 
-  ListComicModel listDataNewest =
-      ListComicModel(domainImage: "", titlePage: '', items: []);
+  ListComicModel listDataNewest = ListComicModel(domainImage: "", titlePage: '', items: []);
 
-  ListComicModel listDataChangeCategory =
-      ListComicModel(domainImage: "", titlePage: '', items: []);
+  ListComicModel listDataChangeCategory = ListComicModel(domainImage: "", titlePage: '', items: []);
 
   List<ListComicModel> listDataComicCategoryBySlug = <ListComicModel>[];
 
@@ -52,16 +46,23 @@ class HomeController extends GetxController {
   @override
   onInit() async {
     super.onInit();
+
     isLoading.value = true;
-    // await fetchDataHomeApi();
-    await setCategoryCache();
-    // await fetchDataListNewest();
-    await fetchDataListComplete();
-    // await fetchDataListNowRelease();
-    // await fetchDataComicCategoryBySlug();
-    // await fetchDataListNewUpdate();
-    await fetchDataComicCategoryByChange(slug: categories![0].slug);
-    await fetchListNovel();
+    
+    await Future.wait([
+      fetchDataHomeApi(),
+      setCategoryCache(),
+      fetchDataListComplete(),
+      fetchDataListNewUpdate(),
+      fetchListNovel(),
+    ]);
+
+    if (categories != null && categories!.isNotEmpty) {
+      await Future.wait([
+        fetchDataComicCategoryBySlug(),
+        fetchDataComicCategoryByChange(slug: categories![0].slug),
+      ]);
+    }
 
     isLoading.value = false;
 

@@ -17,8 +17,7 @@ class ProfileController extends GetxController {
 
   String jwtToken = "";
 
-  var userModel =
-      UserModel(email: " ", photoURL: "", displayName: "no name").obs;
+  var userModel = UserModel(email: " ", photoURL: "", displayName: "no name").obs;
 
   @override
   onInit() async {
@@ -46,7 +45,7 @@ class ProfileController extends GetxController {
   Future<void> logout() async {
     isLoading.value = true;
     await prefs.logout();
-    isLogin.value = await AuthUseCase.isLogin();
+    Get.offAllNamed(Routes.login);
     isLoading.value = false;
   }
 

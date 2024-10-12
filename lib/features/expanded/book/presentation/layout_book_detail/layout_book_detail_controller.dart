@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/database/data/model/authentication_model.dart';
+import 'package:reading_app/core/database/data/model/chapter_novel_model.dart';
 import 'package:reading_app/core/database/domain/auth_use_case.dart';
 import 'package:reading_app/core/routes/routes.dart';
 
 class LayoutBookDetailController extends GetxController
     with GetSingleTickerProviderStateMixin {
+      
   TextEditingController searchController = TextEditingController();
 
+  var filteredChapters =<ChapterNovelModel>[].obs; // Add this in your controller
+  
+  var filteredChapterComic =<dynamic>[].obs; // Add this in your controller
+
   late TabController tabController;
+
+  String searchQuery = '';
 
   var tabIndex = 0.obs;
 
@@ -66,5 +74,33 @@ class LayoutBookDetailController extends GetxController
     scrollController.removeListener(_scrollListening);
     scrollController.dispose();
     super.onClose();
+  }
+
+  List<ChapterNovelModel> filterChapters(List<ChapterNovelModel> chapters) {
+    if (searchQuery.isEmpty) {
+      return chapters;
+    }
+    return chapters.where((chapter) {
+      return chapter.chapterTitle
+              .toLowerCase()
+              .contains(searchQuery.toLowerCase()) ||
+          chapter.chapterName
+              .toLowerCase()
+              .contains(searchQuery.toLowerCase());
+    }).toList();
+  }
+
+  List<ChapterNovelModel> filterChapterChapter(List<ChapterNovelModel> chapters) {
+    if (searchQuery.isEmpty) {
+      return chapters;
+    }
+    return chapters.where((chapter) {
+      return chapter.chapterTitle
+              .toLowerCase()
+              .contains(searchQuery.toLowerCase()) ||
+          chapter.chapterName
+              .toLowerCase()
+              .contains(searchQuery.toLowerCase());
+    }).toList();
   }
 }

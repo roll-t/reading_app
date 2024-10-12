@@ -13,7 +13,9 @@ class EndPointSetting {
   static String categoriesBySlugEndpoint({required String slug,required int page}) => "${_baseUrl}comic/categories/$slug?page=$page";
   static String searchEndpoint() => "${_baseUrl}comic/search";
   static String searchBySlugEndpoint({required String slug,required int page}) => "${_baseUrl}comic/search/$slug?page=$page";
+
   static String get tokenEndpoint => "${_baseUrl}auth/token";
+  static String introspect ="${_baseUrl}auth/introspect";
 
   // configs auth end point
   static String signInEndpoint()=> "${_baseUrl}users";

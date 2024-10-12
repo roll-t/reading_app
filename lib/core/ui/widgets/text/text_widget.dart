@@ -13,7 +13,7 @@ class TextWidget extends StatelessWidget {
   final List<Shadow>? listShadow;
   final TextDecoration? textDecoration;
   final FontStyle? fontStyle;
-  final String? fontFamily; // Add the fontFamily parameter
+  final String? fontFamily;
 
   const TextWidget({
     super.key,
@@ -26,7 +26,7 @@ class TextWidget extends StatelessWidget {
     this.fontWeight = FontWeight.normal,
     this.fontStyle = FontStyle.normal,
     this.textDecoration = TextDecoration.none,
-    this.fontFamily, // Initialize the fontFamily parameter
+    this.fontFamily,
   });
 
   @override
@@ -35,8 +35,14 @@ class TextWidget extends StatelessWidget {
       text.tr,
       maxLines: maxLines,
       textAlign: textAlign,
-      style: GoogleFonts.getFont(
-        fontFamily ?? "Roboto", // Use the custom font family or default to Nunito Sans
+      style: _getTextStyle(),
+    );
+  }
+
+  TextStyle _getTextStyle() {
+    try {
+      return GoogleFonts.getFont(
+        fontFamily ?? "Roboto",
         textStyle: TextStyle(
           color: color,
           fontSize: size,
@@ -46,7 +52,19 @@ class TextWidget extends StatelessWidget {
           decoration: textDecoration,
           overflow: TextOverflow.ellipsis,
         ),
-      ),
-    );
+      );
+    } catch (e) {
+      return GoogleFonts.roboto(
+        textStyle: TextStyle(
+          color: color,
+          fontSize: size,
+          fontStyle: fontStyle,
+          shadows: listShadow,
+          fontWeight: fontWeight,
+          decoration: textDecoration,
+          overflow: TextOverflow.ellipsis,
+        ),
+      );
+    }
   }
 }
