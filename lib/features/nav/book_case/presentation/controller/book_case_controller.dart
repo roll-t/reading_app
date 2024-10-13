@@ -1,6 +1,6 @@
 
 import 'package:get/get.dart';
-import 'package:reading_app/core/database/data/model/book_model.dart';
+import 'package:reading_app/core/data/database/model/book_model.dart';
 
 class BookCaseController extends GetxController {
 

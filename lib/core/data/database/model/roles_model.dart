@@ -1,5 +1,5 @@
 
-import 'package:reading_app/core/database/data/model/permission_model.dart';
+import 'package:reading_app/core/data/database/model/permission_model.dart';
 
 class RolesModel {
   final String name;

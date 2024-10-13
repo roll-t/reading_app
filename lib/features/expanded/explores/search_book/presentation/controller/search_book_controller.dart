@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/database/data/model/list_category_model.dart';
-import 'package:reading_app/core/database/data/model/list_comic_model.dart';
-import 'package:reading_app/core/database/service/api/comic_api.dart';
+import 'package:reading_app/core/data/database/model/list_category_model.dart';
+import 'package:reading_app/core/data/database/model/list_comic_model.dart';
+import 'package:reading_app/core/data/service/api/comic_api.dart';
 import 'package:reading_app/features/expanded/explores/search_book/presentation/page/type/book_type_page.dart';
 import 'package:reading_app/features/expanded/explores/search_book/presentation/page/type/commic_type_page.dart';
 

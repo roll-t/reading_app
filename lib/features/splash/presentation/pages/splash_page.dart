@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/themes/app_colors.dart';
+import 'package:reading_app/core/configs/assets/app_images.dart';
 import 'package:reading_app/features/splash/presentation/controller/splash_controller.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class SplashPage extends GetView<SplashController> {
   const SplashPage({super.key});
@@ -9,18 +10,7 @@ class SplashPage extends GetView<SplashController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 80.0),
-          height: 6.0,
-          child: LinearProgressIndicator(
-            color: AppColors.primary,
-            backgroundColor: AppColors.gray3,
-            borderRadius: BorderRadius.circular(10.0),
-            // You can customize the appearance of the progress indicator
-          ),
-        ),
-      ),
+      body: Center(child: Image.asset(width: 50.w, AppImages.iLoading)),
     );
   }
 }

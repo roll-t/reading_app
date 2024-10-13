@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:reading_app/core/configs/const/prefs_constants.dart';
-import 'package:reading_app/core/database/data/model/authentication_model.dart';
-import 'package:reading_app/core/database/data/model/user_model.dart';
-import 'package:reading_app/core/database/prefs/prefs.dart';
+import 'package:reading_app/core/data/database/model/authentication_model.dart';
+import 'package:reading_app/core/data/database/model/user_model.dart';
+import 'package:reading_app/core/data/prefs/prefs.dart';
 
 class SaveUserUseCase {
   final Prefs _prefs;

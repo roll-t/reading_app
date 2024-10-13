@@ -1,11 +1,11 @@
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/database/data/core_service.dart';
-import 'package:reading_app/core/database/data/model/authentication_model.dart';
-import 'package:reading_app/core/database/data/model/result.dart';
-import 'package:reading_app/core/database/data/model/user_model.dart';
-import 'package:reading_app/core/database/dto/request/introspect_request.dart';
-import 'package:reading_app/core/database/dto/response/introspect_response.dart';
-import 'package:reading_app/core/database/service/configs/end_point_setting.dart';
+import 'package:reading_app/core/data/database/model/authentication_model.dart';
+import 'package:reading_app/core/data/database/model/result.dart';
+import 'package:reading_app/core/data/database/model/user_model.dart';
+import 'package:reading_app/core/data/dto/request/introspect_request.dart';
+import 'package:reading_app/core/data/dto/response/introspect_response.dart';
+import 'package:reading_app/core/data/service/configs/end_point_setting.dart';
+import 'package:reading_app/core/data/service/core_service.dart';
 
 class AuthApi extends CoreService {
   Future<Result<AuthenticationModel>?> token(

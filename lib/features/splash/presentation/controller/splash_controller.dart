@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/database/data/auth_api.dart';
-import 'package:reading_app/core/database/domain/auth_use_case.dart';
-import 'package:reading_app/core/database/dto/request/introspect_request.dart';
-import 'package:reading_app/core/database/prefs/prefs.dart';
+import 'package:reading_app/core/data/database/auth_api.dart';
+import 'package:reading_app/core/data/domain/auth_use_case.dart';
+import 'package:reading_app/core/data/dto/request/introspect_request.dart';
+import 'package:reading_app/core/data/prefs/prefs.dart';
 import 'package:reading_app/core/routes/routes.dart';
 
 class SplashController extends GetxController {
@@ -34,7 +34,7 @@ class SplashController extends GetxController {
       print('Error during authentication: $e');
     } finally {
       if (isAuth) {
-        Get.toNamed(Routes.main);
+        Get.offAndToNamed(Routes.main);
       } else {
         Get.offNamed(Routes.login);
       }

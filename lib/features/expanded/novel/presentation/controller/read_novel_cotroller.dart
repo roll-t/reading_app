@@ -5,11 +5,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/const/app_constants.dart';
 import 'package:reading_app/core/configs/default_data.dart';
-import 'package:reading_app/core/database/data/model/chapter_novel_model.dart';
-import 'package:reading_app/core/database/domain/read_theme_use_case.dart';
+import 'package:reading_app/core/data/database/model/chapter_novel_model.dart';
+import 'package:reading_app/core/data/domain/read_theme_use_case.dart';
 
 class ReadNovelCotroller extends GetxController {
-  
   ChapterNovelModel chapterNovelModel = DefaultData.defaultChapter;
 
   List<ChapterNovelModel> listChapter = <ChapterNovelModel>[];
@@ -190,7 +189,8 @@ class ReadNovelCotroller extends GetxController {
   }
 
   void _scrollListener() {
-    if (scrollController.position.pixels >= scrollController.position.maxScrollExtent - 50 &&
+    if (scrollController.position.pixels >=
+            scrollController.position.maxScrollExtent - 50 &&
         !_hasScrolledToBottom) {
       onScrolledToBottom();
     }

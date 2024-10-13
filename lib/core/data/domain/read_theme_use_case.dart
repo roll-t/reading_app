@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:reading_app/core/configs/const/app_constants.dart';
 import 'package:reading_app/core/configs/const/prefs_constants.dart';
-import 'package:reading_app/core/database/prefs/prefs.dart';
+import 'package:reading_app/core/data/prefs/prefs.dart';
 
 class ReadThemeUseCase {
   static final Prefs prefs = Prefs();

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/dimens/text_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/database/data/model/list_category_model.dart';
+import 'package:reading_app/core/data/database/model/list_category_model.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/custom_backgound/background_gradient.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal_semi_bold.dart';
 

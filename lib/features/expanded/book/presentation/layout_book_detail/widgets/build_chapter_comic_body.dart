@@ -6,6 +6,7 @@ import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small_light.dart';
+import 'package:reading_app/features/expanded/comic/model/argument_comic_chapter_model.dart';
 
 class BuildChapterComicBody extends StatelessWidget {
   final List<dynamic> listChapterComic;
@@ -22,7 +23,7 @@ class BuildChapterComicBody extends StatelessWidget {
         itemBuilder: (_, index) {
           return InkWell(
             onTap: () async {
-              Get.toNamed(Routes.readBook, arguments: listChapterComic[index]);
+              Get.toNamed(Routes.readBook, arguments: ArgumentComicChapterModel(currentChapter: listChapterComic[index], listChapter: listChapterComic));
             },
             child: ListTile(
               leading:

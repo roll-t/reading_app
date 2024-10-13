@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/database/data/model/authentication_model.dart';
-import 'package:reading_app/core/database/data/model/chapter_novel_model.dart';
-import 'package:reading_app/core/database/domain/auth_use_case.dart';
+import 'package:reading_app/core/data/database/model/authentication_model.dart';
+import 'package:reading_app/core/data/database/model/chapter_novel_model.dart';
+import 'package:reading_app/core/data/domain/auth_use_case.dart';
 import 'package:reading_app/core/routes/routes.dart';
 
 class LayoutBookDetailController extends GetxController

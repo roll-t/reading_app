@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/database/data/model/list_comic_model.dart';
-import 'package:reading_app/core/database/data/model/result.dart';
-import 'package:reading_app/core/database/service/api/comic_api.dart';
+import 'package:reading_app/core/data/database/model/list_comic_model.dart';
+import 'package:reading_app/core/data/database/model/result.dart';
+import 'package:reading_app/core/data/service/api/comic_api.dart';
 import 'package:reading_app/core/extensions/text_format.dart';
 
 class CategoryController extends GetxController {
@@ -57,11 +57,11 @@ class CategoryController extends GetxController {
   }
 
   Future<Result<ListComicModel>> _routeRenderData(
-      {required String slug, required page}) async {
+      {required String slug, required page}) {
     if (typeOfList.contains(slug)) {
-      return await ComicApi.getListBySlug(slug: slug, page: page);
+      return ComicApi.getListBySlug(slug: slug, page: page);
     }
-    return await ComicApi.getListComicCategoryBySlug(slug: slug, page: page);
+    return ComicApi.getListComicCategoryBySlug(slug: slug, page: page);
   }
 
   Future<void> fetchDataComicCategoryByChange({required String slug}) async {

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/database/domain/auth_use_case.dart';
+import 'package:reading_app/core/data/domain/auth_use_case.dart';
 
 // dio config
 class DioConfig extends GetxService {

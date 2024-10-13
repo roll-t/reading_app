@@ -1,16 +1,15 @@
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/database/data/model/list_category_model.dart';
-import 'package:reading_app/core/database/data/model/list_comic_model.dart';
-import 'package:reading_app/core/database/data/model/result.dart';
-import 'package:reading_app/core/database/data/novel_data.dart';
-import 'package:reading_app/core/database/dto/response/novel_response.dart';
-import 'package:reading_app/core/database/service/api/comic_api.dart';
+import 'package:reading_app/core/data/database/model/list_category_model.dart';
+import 'package:reading_app/core/data/database/model/list_comic_model.dart';
+import 'package:reading_app/core/data/database/model/result.dart';
+import 'package:reading_app/core/data/database/novel_data.dart';
+import 'package:reading_app/core/data/dto/response/novel_response.dart';
+import 'package:reading_app/core/data/service/api/comic_api.dart';
 import 'package:reading_app/core/extensions/text_format.dart';
 import 'package:reading_app/core/routes/routes.dart';
 
 class HomeController extends GetxController {
-
   var currentIndex = 0.obs;
 
   var currentIndexCategory = 0.obs;
@@ -23,19 +22,23 @@ class HomeController extends GetxController {
 
   List<String> listIntroduceSlide = [];
 
-  ListComicModel listDataSlider = ListComicModel(domainImage: "", titlePage: '', items: []);
+  ListComicModel listDataSlider =
+      ListComicModel(domainImage: "", titlePage: '', items: []);
 
-  ListComicModel listDataComplete = ListComicModel(domainImage: "", titlePage: '', items: []);
+  ListComicModel listDataComplete =
+      ListComicModel(domainImage: "", titlePage: '', items: []);
 
-  ListComicModel listDataComingSoon = ListComicModel(domainImage: "", titlePage: '', items: []);
+  ListComicModel listDataComingSoon =
+      ListComicModel(domainImage: "", titlePage: '', items: []);
 
-  ListComicModel listDataNowRelease = ListComicModel(domainImage: "", titlePage: '', items: []);
+  ListComicModel listDataNowRelease =
+      ListComicModel(domainImage: "", titlePage: '', items: []);
 
-  ListComicModel listDataNewUpdate = ListComicModel(domainImage: "", titlePage: '', items: []);
+  ListComicModel listDataNewUpdate =
+      ListComicModel(domainImage: "", titlePage: '', items: []);
 
-  ListComicModel listDataNewest = ListComicModel(domainImage: "", titlePage: '', items: []);
-
-  ListComicModel listDataChangeCategory = ListComicModel(domainImage: "", titlePage: '', items: []);
+  ListComicModel listDataChangeCategory =
+      ListComicModel(domainImage: "", titlePage: '', items: []);
 
   List<ListComicModel> listDataComicCategoryBySlug = <ListComicModel>[];
 
@@ -48,7 +51,7 @@ class HomeController extends GetxController {
     super.onInit();
 
     isLoading.value = true;
-    
+
     await Future.wait([
       fetchDataHomeApi(),
       setCategoryCache(),
@@ -73,7 +76,6 @@ class HomeController extends GetxController {
       "IDListNowRelease",
       "ListByCategoryID_1",
       "ListByCategoryID_2",
-      "ListByCategoryID_3",
       "ListNewUpdateID",
       "ReadContinue",
     ]);
@@ -99,16 +101,6 @@ class HomeController extends GetxController {
     Result result = await NovelData.getListNovel();
     if (result.status == Status.success) {
       listNovel = result.data;
-    }
-  }
-
-  Future<void> fetchDataListNewest() async {
-    final result = await ComicApi.getListNewest(page: 3);
-    if (result.status == Status.success) {
-      final apiResponse = result.data;
-      if (apiResponse != null) {
-        listDataNewest = apiResponse;
-      }
     }
   }
 
@@ -152,8 +144,6 @@ class HomeController extends GetxController {
       final apiResponse = result.data;
       if (apiResponse != null) {
         listDataNewUpdate = apiResponse;
-        listDataNewUpdate.titlePage =
-            listDataNewUpdate.titlePage.replaceAll("Truyện tranh", "");
       }
     }
   }

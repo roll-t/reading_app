@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/database/data/model/result.dart';
-import 'package:reading_app/core/database/data/model/user_model.dart';
-import 'package:reading_app/core/database/service/configs/end_point_setting.dart';
+import 'package:reading_app/core/data/database/model/result.dart';
+import 'package:reading_app/core/data/database/model/user_model.dart';
+import 'package:reading_app/core/data/service/configs/end_point_setting.dart';
 
 class UserApi {
   final Dio _dio;

@@ -1,10 +1,9 @@
-import 'package:reading_app/core/database/data/core_service.dart';
-import 'package:reading_app/core/database/data/model/chapter_novel_model.dart';
-import 'package:reading_app/core/database/data/model/result.dart';
-import 'package:reading_app/core/database/service/configs/end_point_setting.dart';
+import 'package:reading_app/core/data/database/model/chapter_novel_model.dart';
+import 'package:reading_app/core/data/database/model/result.dart';
+import 'package:reading_app/core/data/service/configs/end_point_setting.dart';
+import 'package:reading_app/core/data/service/core_service.dart';
 
 class ChapterData extends CoreService {
-  
   ChapterData._privateConstructor();
 
   static final ChapterData _instance = ChapterData._privateConstructor();
@@ -15,15 +14,15 @@ class ChapterData extends CoreService {
 
   Future<Result<List<ChapterNovelModel>>> fetchListChapterOfBook(
       {required String slug}) async {
-    return await fetchData<List<ChapterNovelModel>, List<ChapterNovelModel>>(
+    return await fetchData(
         endpoint: EndPointSetting.getListChapterOfBookEndpoint(slug: slug),
         parse: (data) => (data as List<dynamic>)
             .map((item) => ChapterNovelModel.fromJson(item))
             .toList());
   }
 
-  static Future<Result<List<ChapterNovelModel>>> getListChapterOfBook({required String slug}){
+  static Future<Result<List<ChapterNovelModel>>> getListChapterOfBook(
+      {required String slug}) {
     return ChapterData().fetchListChapterOfBook(slug: slug);
   }
-  
 }

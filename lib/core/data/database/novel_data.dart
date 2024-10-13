@@ -1,11 +1,10 @@
-import 'package:reading_app/core/database/data/core_service.dart';
-import 'package:reading_app/core/database/data/model/novel_model.dart';
-import 'package:reading_app/core/database/data/model/result.dart';
-import 'package:reading_app/core/database/dto/response/novel_response.dart';
-import 'package:reading_app/core/database/service/configs/end_point_setting.dart';
+import 'package:reading_app/core/data/database/model/novel_model.dart';
+import 'package:reading_app/core/data/database/model/result.dart';
+import 'package:reading_app/core/data/dto/response/novel_response.dart';
+import 'package:reading_app/core/data/service/configs/end_point_setting.dart';
+import 'package:reading_app/core/data/service/core_service.dart';
 
 class NovelData extends CoreService {
-  
   NovelData._privateConstructor();
   static final NovelData _instance = NovelData._privateConstructor();
   factory NovelData() {
@@ -13,7 +12,7 @@ class NovelData extends CoreService {
   }
 
   Future<Result<List<NovelResponse>>> fetchListNovel() async {
-    return await fetchData<List<NovelResponse>, List<NovelResponse>>(
+    return await fetchData(
       endpoint: EndPointSetting.getListNovelEnpoint,
       parse: (data) => (data as List<dynamic>)
           .map((item) => NovelResponse.fromJson(item))
@@ -22,7 +21,7 @@ class NovelData extends CoreService {
   }
 
   Future<Result<NovelModel>> fetchNovelById({required String id}) async {
-    return await fetchData<NovelModel, NovelModel>(
+    return await fetchData(
       endpoint: EndPointSetting.getNovelByIdEnpoint(id: id),
       parse: (data) => NovelModel.fromJson(data),
     );

@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/default_data.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/database/data/chapter_data.dart';
-import 'package:reading_app/core/database/data/model/chapter_novel_model.dart';
-import 'package:reading_app/core/database/data/model/novel_model.dart';
-import 'package:reading_app/core/database/data/novel_data.dart';
+import 'package:reading_app/core/data/database/chapter_data.dart';
+import 'package:reading_app/core/data/database/model/chapter_novel_model.dart';
+import 'package:reading_app/core/data/database/model/novel_model.dart';
+import 'package:reading_app/core/data/database/novel_data.dart';
 import 'package:reading_app/core/routes/routes.dart';
 
 class NovelDetailController extends GetxController {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
-import 'package:reading_app/core/database/data/model/list_comic_model.dart';
+import 'package:reading_app/core/data/database/model/list_comic_model.dart';
 import 'package:reading_app/core/ui/widgets/card/card_explore.dart';
 
 class BuildListBook extends StatelessWidget {

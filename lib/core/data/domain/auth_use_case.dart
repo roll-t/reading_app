@@ -1,7 +1,7 @@
 
-import 'package:reading_app/core/database/data/model/authentication_model.dart';
-import 'package:reading_app/core/database/domain/user/get_user_use_case.dart';
-import 'package:reading_app/core/database/prefs/prefs.dart';
+import 'package:reading_app/core/data/database/model/authentication_model.dart';
+import 'package:reading_app/core/data/domain/user/get_user_use_case.dart';
+import 'package:reading_app/core/data/prefs/prefs.dart';
 
 class AuthUseCase {
   static final Prefs prefs = Prefs();
