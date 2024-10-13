@@ -1,10 +1,13 @@
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/data/models/list_category_model.dart';
-import 'package:reading_app/core/data/models/list_comic_model.dart';
+import 'package:reading_app/core/data/database/model/list_category_model.dart';
+import 'package:reading_app/core/data/database/model/list_comic_model.dart';
+import 'package:reading_app/core/data/database/model/result.dart';
+import 'package:reading_app/core/data/database/novel_data.dart';
+import 'package:reading_app/core/data/dto/response/novel_response.dart';
+import 'package:reading_app/core/data/service/api/comic_api.dart';
 import 'package:reading_app/core/extensions/text_format.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/services/data/api/comic_api.dart';
 
 class HomeController extends GetxController {
   var currentIndex = 0.obs;
@@ -34,29 +37,35 @@ class HomeController extends GetxController {
   ListComicModel listDataNewUpdate =
       ListComicModel(domainImage: "", titlePage: '', items: []);
 
-  ListComicModel listDataNewest =
-      ListComicModel(domainImage: "", titlePage: '', items: []);
-
   ListComicModel listDataChangeCategory =
       ListComicModel(domainImage: "", titlePage: '', items: []);
 
   List<ListComicModel> listDataComicCategoryBySlug = <ListComicModel>[];
+
+  List<NovelResponse> listNovel = <NovelResponse>[];
 
   List<ListCategoryModel>? categories;
 
   @override
   onInit() async {
     super.onInit();
+
     isLoading.value = true;
 
-    await fetchDataHomeApi();
-    await fetchDataListNewest();
-    await fetchDataListComplete();
-    await fetchDataListNowRelease();
-    await setCategoryCache();
-    await fetchDataComicCategoryBySlug();
-    await fetchDataListNewUpdate();
-    await fetchDataComicCategoryByChange(slug: categories![0].slug);
+    await Future.wait([
+      fetchDataHomeApi(),
+      setCategoryCache(),
+      fetchDataListComplete(),
+      fetchDataListNewUpdate(),
+      fetchListNovel(),
+    ]);
+
+    if (categories != null && categories!.isNotEmpty) {
+      await Future.wait([
+        fetchDataComicCategoryBySlug(),
+        fetchDataComicCategoryByChange(slug: categories![0].slug),
+      ]);
+    }
 
     isLoading.value = false;
 
@@ -67,11 +76,9 @@ class HomeController extends GetxController {
       "IDListNowRelease",
       "ListByCategoryID_1",
       "ListByCategoryID_2",
-      "ListByCategoryID_3",
       "ListNewUpdateID",
-      "ReadContinue"
+      "ReadContinue",
     ]);
-    
   }
 
   Future<void> setCategoryCache() async {
@@ -90,13 +97,10 @@ class HomeController extends GetxController {
     }
   }
 
-  Future<void> fetchDataListNewest() async {
-    final result = await ComicApi.getListNewest(page: 3);
+  Future<void> fetchListNovel() async {
+    Result result = await NovelData.getListNovel();
     if (result.status == Status.success) {
-      final apiResponse = result.data;
-      if (apiResponse != null) {
-        listDataNewest = apiResponse;
-      }
+      listNovel = result.data;
     }
   }
 
@@ -123,7 +127,7 @@ class HomeController extends GetxController {
   }
 
   Future<void> fetchDataListNowRelease() async {
-    final result = await ComicApi.getListNowRelease(page:3);
+    final result = await ComicApi.getListNowRelease(page: 3);
     if (result.status == Status.success) {
       final apiResponse = result.data;
       if (apiResponse != null) {
@@ -140,8 +144,6 @@ class HomeController extends GetxController {
       final apiResponse = result.data;
       if (apiResponse != null) {
         listDataNewUpdate = apiResponse;
-        listDataNewUpdate.titlePage =
-            listDataNewUpdate.titlePage.replaceAll("Truyện tranh", "");
       }
     }
   }
@@ -178,7 +180,7 @@ class HomeController extends GetxController {
     ListCategoryModel? category = categories?.firstWhere(
       (category) => category.name == title,
     );
-    if(category?.slug==null){
+    if (category?.slug == null) {
       return "";
     }
     return category!.slug;

@@ -19,8 +19,9 @@ class LoginPage extends GetView<LogInController> {
   @override
   Widget build(BuildContext context) {
     return BuildShareAuth.buildMainBodyPage(
-      appbar: BuildShareAuth.buildAppbar(),
-      body: _BuildBody(),
+      body: SafeArea(
+        child: _BuildBody(),
+      ),
       isLoading: controller.isLoading,
     );
   }
@@ -34,14 +35,14 @@ class LoginPage extends GetView<LogInController> {
             title: AppContents.login, subTitle: AppContents.subLogin),
         BuildShareAuth.buildBackgoundForm(
           childContent: Wrap(
-            runSpacing: SpaceDimens.space20,
             children: [
               Obx(
                 () => InputAppNormal(
                   lable: AppContents.email,
                   placeholder: AppContents.placeholderEmail,
-                  controller: controller.emailController, // Cung cấp controller
+                  controller: controller.emailController,
                   errorMess: controller.errorMessageEmail.value,
+                  isBorder: true,
                 ),
               ),
               Obx(
@@ -80,11 +81,14 @@ class LoginPage extends GetView<LogInController> {
                           colorChild: AppColors.accentColor)),
                 ],
               ),
-              ButtonNormal(
-                  textChild: AppContents.login,
-                  onTap: () async {
-                    await controller.handleLogin();
-                  }),
+              Container(
+                margin: const EdgeInsets.only(top: 15),
+                child: ButtonNormal(
+                    textChild: AppContents.login,
+                    onTap: () async {
+                      await controller.handleLogin();
+                    }),
+              ),
               _BuildLoginMethod()
             ],
           ),
@@ -97,12 +101,15 @@ class LoginPage extends GetView<LogInController> {
   Column _BuildLoginMethod() {
     return Column(
       children: [
+        const SizedBox(
+          height: 15,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const TextNormal(textChild: AppContents.dontHaveAnAccount),
             InkWell(
-              onTap:controller.toSignUp,
+              onTap: controller.toSignUp,
               child: const TextNormal(
                 textChild: AppContents.createHere,
                 colorChild: AppColors.accentColor,

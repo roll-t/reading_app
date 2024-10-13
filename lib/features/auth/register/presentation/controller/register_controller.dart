@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/strings/messages/app_errors.dart';
 import 'package:reading_app/core/configs/strings/messages/app_success.dart';
-import 'package:reading_app/core/data/models/result.dart';
-import 'package:reading_app/core/data/models/user_request_model.dart';
+import 'package:reading_app/core/data/database/model/result.dart';
+import 'package:reading_app/core/data/database/model/user_request_model.dart';
+import 'package:reading_app/core/data/database/user_api.dart';
 import 'package:reading_app/core/data/prefs/prefs.dart';
-import 'package:reading_app/core/services/data/api/user_api.dart';
 import 'package:reading_app/core/ui/snackbar/snackbar.dart';
 import 'package:reading_app/core/utils/validator.dart';
 

@@ -3,15 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/data/models/list_comic_model.dart';
+import 'package:reading_app/core/data/database/model/list_comic_model.dart';
 import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/ui/widgets/images/image_widget.dart';
-
 class CarouselSliderUtils {
-
   static Widget buildCarouselSlider(
-      {required RxInt indexValue,
-      required ListComicModel listImage}) {
+      {required RxInt indexValue, required ListComicModel listImage}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: SpaceDimens.space10),
       child: CarouselSlider.builder(
@@ -21,7 +18,7 @@ class CarouselSliderUtils {
             final currentIndex = indexValue.value;
             final isCurrent = index == currentIndex;
             final double scale = isCurrent ? 1 : .9;
-            
+
             return Transform(
               transform: Matrix4.identity()..scale(scale),
               alignment: Alignment.center,
@@ -31,17 +28,18 @@ class CarouselSliderUtils {
                 ),
                 child: InkWell(
                   onTap: () {
-                    Get.toNamed(Routes.bookDetail,arguments: {"slug":listImage.items[index].slug});
+                    Get.toNamed(Routes.comicDetail,
+                        arguments: {"slug": listImage.items[index].slug});
                   },
                   child: ImageWidget(
-                    imageUrl: listImage.domainImage + listImage.items[index].thumbUrl,
+                    imageUrl:
+                        listImage.domainImage + listImage.items[index].thumbUrl,
                   ),
                 ),
               ),
             );
           });
         },
-        
         options: CarouselOptions(
           height: 330.0,
           viewportFraction: 0.6,

@@ -12,7 +12,6 @@ class ForgotPasswordPage extends GetView<LogInController> {
   @override
   Widget build(BuildContext context) {
     return BuildShareAuth.buildMainBodyPage(
-      appbar: BuildShareAuth.buildAppbar(),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -21,7 +20,8 @@ class ForgotPasswordPage extends GetView<LogInController> {
               subTitle: AppContents.subForgotPasswordTitle),
           _BuildBody()
         ],
-      ), isLoading: false.obs,
+      ),
+      isLoading: false.obs,
     );
   }
 
@@ -29,14 +29,19 @@ class ForgotPasswordPage extends GetView<LogInController> {
   Widget _BuildBody() {
     return BuildShareAuth.buildBackgoundForm(
       childContent: Column(
-        children:  [
-          SizedBox(height: Get.height*.08,),
+        children: [
+          SizedBox(
+            height: Get.height * .08,
+          ),
           InputAppNormal(
             lable: AppContents.email,
-            placeholder: AppContents.placeholderEmail, controller: TextEditingController(),
+            placeholder: AppContents.placeholderEmail,
+            controller: TextEditingController(),
           ),
-          SizedBox(height: Get.height*.03,),
-          ButtonNormal(textChild: AppContents.sendCode, onTap: (){})
+          SizedBox(
+            height: Get.height * .03,
+          ),
+          ButtonNormal(textChild: AppContents.sendCode, onTap: () {})
         ],
       ),
     );

@@ -9,8 +9,8 @@ import 'package:reading_app/core/ui/customs_widget_theme/texts/text_medium_semi_
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal_semi_bold.dart';
 import 'package:reading_app/core/ui/widgets/avatar/avatar.dart';
 import 'package:reading_app/core/ui/widgets/icons/leading_icon_app_bar.dart';
+import 'package:reading_app/core/ui/widgets/text/expandable_text.dart';
 import 'package:reading_app/core/ui/widgets/textfield/comment_text_field.dart';
-import 'package:reading_app/features/expanded/book/widgets/shared/expandable_text.dart';
 import 'package:reading_app/features/expanded/comment/presentation/controller/comment_controller.dart';
 
 class CommentPage extends GetView<CommentController> {
@@ -65,14 +65,14 @@ class CommentPage extends GetView<CommentController> {
                               borderRadius: BorderRadius.circular(
                                   RadiusDimens.radiusSmall2),
                               color: AppColors.secondaryDarkBg),
-                          child: const Column(
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              TextNormalSemiBold(
+                              const TextNormalSemiBold(
                                 textChild: "Ten tac gia viet ơ day",
                                 maxLineChild: 1,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: SpaceDimens.space10,
                               ),
                               ExpandableText(

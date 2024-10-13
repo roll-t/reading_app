@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // Thêm import này để sử dụng FilteringTextInputFormatter
 import 'package:reading_app/core/configs/dimens/radius_dimens.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/dimens/text_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal_light.dart';
+import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
+
 class InputAppNormal extends StatefulWidget {
   final String lable;
   final String placeholder;
@@ -12,15 +14,19 @@ class InputAppNormal extends StatefulWidget {
   final bool isNumeric; // Thêm thuộc tính để xác định kiểu bàn phím
   final TextEditingController controller; // Sử dụng thuộc tính controller
   final String errorMess;
+  final bool isBorderCustom;
+  final bool isBorder;
 
   const InputAppNormal({
     super.key,
     this.lable = "",
     this.placeholder = "",
-    this.isPassword = false, // Thêm tham số để xác định trường mật khẩu
-    this.isNumeric = false, 
-    required this.controller, 
-    this.errorMess="", // Chuyển thành required
+    this.isPassword = false,
+    this.isNumeric = false,
+    required this.controller,
+    this.errorMess = "",
+    this.isBorderCustom = false,
+    this.isBorder = true,
   });
 
   @override
@@ -30,7 +36,7 @@ class InputAppNormal extends StatefulWidget {
 
 class _InputAppNormalState extends State<InputAppNormal> {
   final FocusNode _focusNode = FocusNode();
-  bool _obscureText = true; // Để kiểm soát việc hiển thị mật khẩu
+  bool _obscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -44,17 +50,19 @@ class _InputAppNormalState extends State<InputAppNormal> {
           padding: const EdgeInsets.all(SpaceDimens.space5),
           margin: const EdgeInsets.only(top: SpaceDimens.space5),
           decoration: BoxDecoration(
-            border: Border.all(color: AppColors.white,width: 2),
+              border: widget.isBorderCustom
+                  ? Border.all(color: AppColors.white, width: 2)
+                  : null,
               borderRadius: BorderRadius.circular(RadiusDimens.radiusSmall1),
               color: AppColors.black),
           child: TextField(
-            controller: widget.controller, // Sử dụng widget.controller
+            controller: widget.controller,
             focusNode: _focusNode,
-            obscureText: widget.isPassword ? _obscureText : false, // Sử dụng _obscureText cho mật khẩu
+
+            obscureText: widget.isPassword ? _obscureText : false,
             textCapitalization: TextCapitalization.sentences,
-            keyboardType: widget.isNumeric
-                ? TextInputType.number
-                : TextInputType.text, // Chuyển đổi kiểu bàn phím
+            keyboardType:
+                widget.isNumeric ? TextInputType.number : TextInputType.text,
             inputFormatters: widget.isNumeric
                 ? [
                     FilteringTextInputFormatter.digitsOnly,
@@ -63,12 +71,18 @@ class _InputAppNormalState extends State<InputAppNormal> {
                 : null, // Hạn chế chỉ cho phép một ký tự số
             style: const TextStyle(color: AppColors.white),
             decoration: InputDecoration(
-              fillColor:AppColors.black,
+              fillColor: AppColors.black,
               hintText: widget.placeholder,
               hintStyle: TextStyle(
                   fontWeight: FontWeight.w400,
                   color: AppColors.white.withOpacity(.6)),
-              border: InputBorder.none,
+              border: widget.isBorder
+                  ? const OutlineInputBorder(
+                      borderSide: BorderSide(width: 2, color: AppColors.white))
+                  : InputBorder.none,
+              focusedBorder: const OutlineInputBorder(
+                  borderSide:
+                      BorderSide(width: 2, color: AppColors.accentColor)),
               suffixIcon: widget.isPassword
                   ? IconButton(
                       icon: Icon(
@@ -77,19 +91,24 @@ class _InputAppNormalState extends State<InputAppNormal> {
                       ),
                       onPressed: () {
                         setState(() {
-                          _obscureText = !_obscureText; // Chuyển đổi giữa ẩn/hiện mật khẩu
+                          _obscureText =
+                              !_obscureText;
                         });
                       },
                     )
                   : null,
             ),
             onEditingComplete: () {
-              // Tắt bàn phím khi ấn enter
-              _focusNode.unfocus(); // Sử dụng _focusNode để tắt bàn phím
+              _focusNode.unfocus();
             },
           ),
         ),
-        TextNormal(textChild: widget.errorMess,colorChild: AppColors.error,)
+        TextWidget(
+          text: widget.errorMess,
+          size: TextDimens.textSize12,
+          color: AppColors.error,
+          fontWeight: FontWeight.w300,
+        )
       ],
     );
   }

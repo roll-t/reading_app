@@ -16,5 +16,8 @@ abstract class Routes {
   static const bookDetail = "/bookDetail";
   static const comment = "/comment";
   static const readBook = "/readBook";
+  static const novelDetail = "/novelDetail";
   static const loginRequestSplash = "/LoginRequestSplash";
+  static const readNovel = "/readNovel";
+  static const comicDetail = "/comicDetail";
 }

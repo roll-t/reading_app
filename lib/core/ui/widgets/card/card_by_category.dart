@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/data/models/list_comic_model.dart';
+import 'package:reading_app/core/data/database/model/list_comic_model.dart';
 import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small.dart';
@@ -25,7 +25,7 @@ class CardByCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(Routes.bookDetail, arguments: {"slug": bookModel.slug});
+        Get.toNamed(Routes.comicDetail, arguments: {"slug": bookModel.slug});
       },
       child: Container(
         margin: const EdgeInsets.only(right: SpaceDimens.space10),

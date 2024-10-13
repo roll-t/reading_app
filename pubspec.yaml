@@ -28,6 +28,7 @@ dependencies:
   dio: ^5.5.0+1
   loading_animation_widget: ^1.2.1
   intl: ^0.19.0
+  flutter_widget_from_html: ^0.15.2
   percent_indicator: ^4.2.3
   syncfusion_flutter_gauges: ^25.1.38
   flutter_staggered_grid_view: ^0.7.0
@@ -37,13 +38,18 @@ dependencies:
   cached_network_image: ^3.3.1
   shimmer: ^3.0.0
   firebase_storage: ^11.6.0
+  responsive_sizer: ^3.3.1
   image_picker: ^1.0.8
+  flutter_dotenv: ^5.1.0
   dropdown_button2: ^2.3.9
   custom_check_box: ^0.0.4
+  flutter_balloon_slider: ^0.1.1
+  dropdown_search: ^6.0.1
   flutter_rating_bar: ^4.0.0
   fluttertoast: ^8.2.6
+  flutter_xlider: ^3.5.0
   permission_handler: ^11.0.1
-  carousel_slider: ^4.2.1
+  carousel_slider: ^5.0.0
   jwt_decoder: ^2.0.1
   html_unescape: ^2.0.0
 dev_dependencies:
@@ -73,7 +79,9 @@ flutter:
     - assets/jsons/
     - assets/images/
     - assets/images/default/
+    - assets/images/no_images/
     - assets/icons/
+    - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

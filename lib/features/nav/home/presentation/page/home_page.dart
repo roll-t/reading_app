@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/enum.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
-import 'package:reading_app/core/data/models/list_type.dart';
 import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/button/button_normal.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/custom_backgound/background_gradient.dart';
-import 'package:reading_app/core/ui/widgets/card/btv_recoment_card.dart';
 import 'package:reading_app/core/ui/widgets/card/card_by_category.dart';
 import 'package:reading_app/core/ui/widgets/card/card_full_info_follow_row.dart';
 import 'package:reading_app/core/ui/widgets/card/card_newest_update.dart';
 import 'package:reading_app/core/ui/widgets/card/card_reading_continue.dart';
-import 'package:reading_app/core/utils/loading.dart';
+import 'package:reading_app/core/ui/widgets/card/novel_card.dart';
+import 'package:reading_app/core/ui/widgets/loading.dart';
+import 'package:reading_app/features/expanded/book/presentation/layout_book_detail/shared/build_wrap_list_card.dart';
 import 'package:reading_app/features/nav/home/presentation/controller/home_controller.dart';
 import 'package:reading_app/features/nav/home/presentation/widgets/build_buttom_to_explore.dart';
 import 'package:reading_app/features/nav/home/presentation/widgets/build_category.dart';
@@ -20,7 +21,8 @@ import 'package:reading_app/features/nav/home/presentation/widgets/build_list_ta
 import 'package:reading_app/features/nav/home/presentation/widgets/build_slider.dart';
 import 'package:reading_app/features/nav/home/presentation/widgets/build_sliver_app_bar.dart';
 import 'package:reading_app/features/nav/home/presentation/widgets/build_wrap_grid_card.dart';
-import 'package:reading_app/features/nav/home/presentation/widgets/build_wrap_list_card.dart';
+import 'package:reading_app/features/nav/home/presentation/widgets/build_wrap_novel.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class HomePage extends GetView<HomeController> {
   const HomePage({super.key});
@@ -73,14 +75,15 @@ class HomePage extends GetView<HomeController> {
                         },
                       );
                     })),
+
             // Build list BTV đề cử
             SliverToBoxAdapter(
                 child: GetBuilder<HomeController>(
                     id: "IDListNowRelease",
                     builder: (_) {
-                      return BuildWrapListCard(
-                        listBookData: controller.listDataNowRelease.items,
-                        titleList: controller.listDataNowRelease.titlePage,
+                      return BuildWrapNovel(
+                        listBookData: controller.listNovel,
+                        titleList: "Tiểu Thuyết",
                         heightWrapList: 270,
                         widthCard: 150,
                         seeMore: () {
@@ -88,11 +91,10 @@ class HomePage extends GetView<HomeController> {
                               arguments: {"slugQuery": ListType.ongoing});
                         },
                         cardBuilder: (double widthCard, bookModel) {
-                          return BTVRecomentCard(
+                          return NovelCard(
                             widthCard: widthCard,
                             heightImage: 180,
                             bookModel: bookModel,
-                            domain: controller.listDataNowRelease.domainImage,
                           );
                         },
                       );
@@ -104,23 +106,22 @@ class HomePage extends GetView<HomeController> {
               id: "ListNewUpdateID",
               builder: (_) {
                 return BuildWrapGridCard(
-                  heightCardItem: 205,
+                  heightCardItem: 27.h,
                   maxLength: 8,
-                  title: controller.listDataNewest.titlePage,
+                  title: controller.listDataNewUpdate.titlePage,
                   seeMore: () {
                     Get.toNamed(Routes.category,
-                        arguments: {"slugQuery": ListType.newUpdate});
+                        arguments: {"slugQuery": 'truyen-moi'});
                   },
                   columns: 4,
-                  childAspectRatio: 0.95 /
-                      2, // tỉ lệ giữa chiều rộng với chiều cao của phần tử trong Grid 1/2 có nghĩa là chiểu cao bằng 2 lần chiều rộng
-                  heightImage: 120,
+                  childAspectRatio: 0.95 / 2,
+                  heightImage: 16.h,
                   listBookData: controller.listDataNewUpdate.items,
-                  spacingCol: 10,
-                  spacingRow: 10,
+                  spacingCol: 2.w,
+                  spacingRow: 2.w,
                   cardChild: (double heightImage, bookModel) {
                     return CardNewestUpdate(
-                      heightImage: 120,
+                      heightImage: 16.h,
                       bookModel: bookModel,
                       domainImage: controller.listDataNewUpdate.domainImage,
                     );
@@ -136,33 +137,6 @@ class HomePage extends GetView<HomeController> {
 
             // build list book by category
             SliverToBoxAdapter(
-              child: GetBuilder<HomeController>(
-                id: "listNewestID",
-                builder: (_) {
-                  return BuildWrapListCard(
-                    titleList: controller.listDataNewest.titlePage,
-                    seeMore: () {
-                      Get.toNamed(Routes.category,
-                          arguments: {"slugQuery": ListType.newRelease});
-                    },
-                    heightWrapList: 280,
-                    listBookData: controller.listDataNewest.items,
-                    widthCard: 150,
-                    cardBuilder: (double widthCard, bookModel) {
-                      return CardByCategory(
-                        widthCard: widthCard,
-                        heightImage: 190,
-                        bookModel: bookModel,
-                        domain: controller.listDataNewest.domainImage,
-                      );
-                    },
-                  );
-                },
-              ),
-            ),
-
-            // build list book by category
-            SliverToBoxAdapter(
                 child: GetBuilder<HomeController>(
                     id: "IDListComplete",
                     builder: (_) {
@@ -171,7 +145,7 @@ class HomePage extends GetView<HomeController> {
                         titleList: controller.listDataComplete.titlePage,
                         seeMore: () {
                           Get.toNamed(Routes.category,
-                              arguments: {"slugQuery": ListType.completed});
+                              arguments: {"slugQuery": "hoan-thanh"});
                         },
                         heightWrapList: 280,
                         listBookData: controller.listDataComplete.items,
@@ -214,19 +188,21 @@ class HomePage extends GetView<HomeController> {
                       return FittedBox(
                         child: Column(
                           children: [
-                            for (var i = 0; i < 5; i++)
-                              CardFullInfoFollowRow(
-                                domain: controller
-                                    .listDataChangeCategory.domainImage,
-                                heightImage: 120,
-                                bookModel:
-                                    controller.listDataChangeCategory.items[i],
-                                currentIndex: i,
-                                last: i ==
-                                    controller.listDataChangeCategory.items
-                                            .length -
-                                        1,
-                              ),
+                            if (controller.listDataChangeCategory.items.length >
+                                4)
+                              for (var i = 0; i < 5; i++)
+                                CardFullInfoFollowRow(
+                                  domain: controller
+                                      .listDataChangeCategory.domainImage,
+                                  heightImage: 120,
+                                  bookModel: controller
+                                      .listDataChangeCategory.items[i],
+                                  currentIndex: i,
+                                  last: i ==
+                                      controller.listDataChangeCategory.items
+                                              .length -
+                                          1,
+                                ),
                           ],
                         ),
                       );
@@ -248,14 +224,14 @@ class HomePage extends GetView<HomeController> {
               ),
             )),
 
-            // // build list newest update
+            // build list newest update
             SliverToBoxAdapter(
                 child: GetBuilder<HomeController>(
                     id: "ListByCategoryID_1",
                     builder: (_) {
                       return BuildWrapGridCard(
                         margin: const EdgeInsets.only(top: SpaceDimens.space40),
-                        heightCardItem: 330,
+                        heightCardItem: 40.h,
                         title:
                             controller.listDataComicCategoryBySlug[0].titlePage,
                         maxLength: 9,
@@ -268,11 +244,11 @@ class HomePage extends GetView<HomeController> {
                         },
                         columns: 3,
                         childAspectRatio: 1.7 / 3,
-                        heightImage: 150,
+                        heightImage: 18.h,
                         listBookData:
                             controller.listDataComicCategoryBySlug[0].items,
-                        spacingCol: 10,
-                        spacingRow: 10,
+                        spacingCol: 3.w,
+                        spacingRow: 3.w,
                         cardChild: (double heightImage, bookModel) {
                           return CardNewestUpdate(
                             heightImage: heightImage,
@@ -290,7 +266,7 @@ class HomePage extends GetView<HomeController> {
                     builder: (_) {
                       return BuildWrapGridCard(
                         margin: const EdgeInsets.only(top: SpaceDimens.space40),
-                        heightCardItem: 330,
+                        heightCardItem: 40.h,
                         title:
                             controller.listDataComicCategoryBySlug[1].titlePage,
                         maxLength: 9,
@@ -304,11 +280,11 @@ class HomePage extends GetView<HomeController> {
                         columns: 3,
                         childAspectRatio: 1.7 /
                             3, // tỉ lệ giữa chiều rộng với chiều cao của phần tử trong Grid 1/2 có nghĩa là chiểu cao bằng 2 lần chiều rộng
-                        heightImage: 150,
+                        heightImage: 18.h,
                         listBookData:
                             controller.listDataComicCategoryBySlug[1].items,
-                        spacingCol: 10,
-                        spacingRow: 10,
+                        spacingCol: 3.w,
+                        spacingRow: 3.w,
                         cardChild: (double heightImage, bookModel) {
                           return CardNewestUpdate(
                             heightImage: heightImage,
@@ -320,51 +296,14 @@ class HomePage extends GetView<HomeController> {
                       );
                     })),
 
-            SliverToBoxAdapter(
-                child: GetBuilder<HomeController>(
-                    id: "ListByCategoryID_3",
-                    builder: (_) {
-                      return BuildWrapGridCard(
-                        margin: const EdgeInsets.only(top: SpaceDimens.space40),
-                        heightCardItem: 330,
-                        title:
-                            controller.listDataComicCategoryBySlug[2].titlePage,
-                        maxLength: 9,
-                        seeMore: () async {
-                          await controller.toDetailListBySlug(
-                              slug: controller.getSlugByTitlePage(
-                                  title: controller
-                                      .listDataComicCategoryBySlug[2]
-                                      .titlePage));
-                        },
-                        columns: 3,
-                        childAspectRatio: 1.7 /
-                            3, // tỉ lệ giữa chiều rộng với chiều cao của phần tử trong Grid 1/2 có nghĩa là chiểu cao bằng 2 lần chiều rộng
-                        heightImage: 150,
-                        listBookData:
-                            controller.listDataComicCategoryBySlug[2].items,
-                        spacingCol: 10,
-                        spacingRow: 10,
-                        cardChild: (double heightImage, bookModel) {
-                          return CardNewestUpdate(
-                            heightImage: heightImage,
-                            bookModel: bookModel,
-                            domainImage: controller
-                                .listDataComicCategoryBySlug[0].domainImage,
-                          );
-                        },
-                      );
-                    })),
-
-            // create bottom space
             const SliverToBoxAdapter(
               child: BuildButtomToExplore(),
             ),
 
             // create bottom space
-            const SliverToBoxAdapter(
+            SliverToBoxAdapter(
               child: SizedBox(
-                height: 100,
+                height: 10.h,
               ),
             ),
           ],

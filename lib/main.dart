@@ -4,6 +4,6 @@ import 'package:reading_app/app_config.dart';
 import 'app.dart';
 
 void main() async {
-  appConfig();
+  await appConfig();
   runApp(const App());
 }

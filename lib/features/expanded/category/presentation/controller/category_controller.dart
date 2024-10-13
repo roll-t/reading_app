@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/data/models/list_comic_model.dart';
-import 'package:reading_app/core/data/models/result.dart';
+import 'package:reading_app/core/data/database/model/list_comic_model.dart';
+import 'package:reading_app/core/data/database/model/result.dart';
+import 'package:reading_app/core/data/service/api/comic_api.dart';
 import 'package:reading_app/core/extensions/text_format.dart';
-import 'package:reading_app/core/services/data/api/comic_api.dart';
 
 class CategoryController extends GetxController {
   Map<String, dynamic> dataArgument = Get.arguments;
@@ -30,7 +30,11 @@ class CategoryController extends GetxController {
     isLoading.value = true;
     scrollController.addListener(_scrollListener);
     if (dataArgument["slugQuery"] != null) {
-      await fetchDataComicCategoryByChange(slug: dataArgument["slugQuery"]);
+      try {
+        await fetchDataComicCategoryByChange(slug: dataArgument["slugQuery"]);
+      } catch (e) {
+        print(e);
+      }
     }
     isLoading.value = false;
     update(["titleID", "ListCategoryID"]);
@@ -53,11 +57,11 @@ class CategoryController extends GetxController {
   }
 
   Future<Result<ListComicModel>> _routeRenderData(
-      {required String slug, required page}) async {
+      {required String slug, required page}) {
     if (typeOfList.contains(slug)) {
-      return await ComicApi.getListBySlug(slug: slug, page: page);
+      return ComicApi.getListBySlug(slug: slug, page: page);
     }
-    return await ComicApi.getListComicCategoryBySlug(slug: slug, page: page);
+    return ComicApi.getListComicCategoryBySlug(slug: slug, page: page);
   }
 
   Future<void> fetchDataComicCategoryByChange({required String slug}) async {
