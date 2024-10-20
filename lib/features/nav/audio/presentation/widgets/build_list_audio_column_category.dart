@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
-import 'package:reading_app/core/data/database/model/book_model.dart';
-import 'package:reading_app/core/ui/widgets/card/card_commic_full_info.dart';
-import 'package:reading_app/features/nav/commic/presentation/widgets/build_body_list.dart';
+import 'package:reading_app/features/nav/book_case/model/book_case_model.dart';
+import 'package:reading_app/features/nav/comic/presentation/widgets/build_body_list.dart';
 
 class BuildListAudioColumnCategory extends StatelessWidget {
   final int maxLength;
-  final List<BookModel> listBook;
+  final List<BookCaseModel> listBook;
   final String ? titleList;
   final VoidCallback ? seeMore;
 
@@ -28,16 +27,16 @@ class BuildListAudioColumnCategory extends StatelessWidget {
       child: BuildBodyList(
         titleList:titleList,
         seeMore: seeMore,
-        childBuilder: Wrap(
+        childBuilder: const Wrap(
           runSpacing: SpaceDimens.space15,
           children: [
-            for(var i = 0; i<maxLength;i++)
-            CardCommicFullInfo(
-              heightImage: 120,
-              bookModel: listBook[i],
-              currentIndex: 0,
-              widthImage: 90,
-            ),
+            // for(var i = 0; i<maxLength;i++)
+            // CardCommicFullInfo(
+            //   heightImage: 120,
+            //   bookModel: listBook[i],
+            //   currentIndex: 0,
+            //   widthImage: 90,
+            // ),
           ],
         ),
       ),

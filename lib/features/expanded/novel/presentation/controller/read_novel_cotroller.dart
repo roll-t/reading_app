@@ -3,10 +3,15 @@ import 'dart:async'; // Import for Timer
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:reading_app/core/configs/const/app_constants.dart';
 import 'package:reading_app/core/configs/default_data.dart';
 import 'package:reading_app/core/data/database/model/chapter_novel_model.dart';
+import 'package:reading_app/core/data/domain/auth_use_case.dart';
 import 'package:reading_app/core/data/domain/read_theme_use_case.dart';
+import 'package:reading_app/core/data/dto/request/reading_book_case_request.dart';
+import 'package:reading_app/core/data/dto/response/reading_book_case_response.dart';
+import 'package:reading_app/features/expanded/novel/model/novel_argument_model.dart';
 
 class ReadNovelCotroller extends GetxController {
   ChapterNovelModel chapterNovelModel = DefaultData.defaultChapter;
@@ -33,28 +38,78 @@ class ReadNovelCotroller extends GetxController {
 
   List<String> fonts = AppConstants.listFont;
 
+  dynamic authID;
+
+  ReadingBookCaseRequest readingBookReturn = ReadingBookCaseRequest(
+      bookDataId: "",
+      uid: '',
+      chapterName: '',
+      readingDate: DateTime.now(),
+      positionReading: 0);
+
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
     _startHideControlsTimer();
-    _intReadTheme();
+    await _intReadTheme();
     scrollController.addListener(_scrollListener);
-    if (Get.arguments != null && Get.arguments is Map<String, dynamic>) {
-      if (Get.arguments['chapterCurrent'] is ChapterNovelModel) {
-        chapterNovelModel = Get.arguments['chapterCurrent'];
-      }
-      if (Get.arguments['listChapter'] is List<ChapterNovelModel>) {
-        listChapter = Get.arguments['listChapter'];
-      }
-    }
+    initial();
   }
-
+  
   _intReadTheme() async {
     currentReadTheme =
         await ReadThemeUseCase.getReadTheme() ?? AppConstants.readThemeIds[0];
     textSizeReadTheme = await ReadThemeUseCase.getTextSizeReadTheme();
     fontReadTheme = await ReadThemeUseCase.getFontReadTheme();
+    var auth = await AuthUseCase.getAuthToken();
+    authID = JwtDecoder.decode(auth)["uid"];
     update(["ControlThemeId"]);
+  }
+
+  void initial() {
+    if (Get.arguments != null) {
+      if (Get.arguments is NovelArgumentModel) {
+        var data = Get.arguments as NovelArgumentModel;
+        chapterNovelModel = data.chapterCurrent;
+        listChapter = data.listChapter;
+        readingBookReturn = ReadingBookCaseRequest(
+            bookDataId: data.bookId,
+            uid: authID ?? "",
+            chapterName: chapterNovelModel.chapterName,
+            readingDate: DateTime.now(),
+            positionReading: scrollController.position.pixels);
+      }
+
+      if (Get.arguments is Map<String, dynamic>) {
+        if (Get.arguments["listChapter"] != null) {
+          listChapter = Get.arguments["listChapter"];
+          if (Get.arguments["readContinue"] != null) {
+            ReadingBookCaseResponse bookCase =
+                Get.arguments["readContinue"] as ReadingBookCaseResponse;
+            var chapterCurrent = listChapter.firstWhere(
+                (chapter) => chapter.chapterName == bookCase.chapterName);
+            chapterNovelModel = chapterCurrent;
+            readingBookReturn = ReadingBookCaseRequest(
+                bookDataId: bookCase.bookDataId,
+                uid: authID ?? "",
+                chapterName: chapterNovelModel.chapterName,
+                readingDate: DateTime.now(),
+                positionReading: scrollController.position.pixels);
+            try {
+              chapterNovelModel = listChapter.firstWhere(
+                  (chapter) => chapter.chapterName == bookCase.chapterName);
+              scrollController.animateTo(
+                scrollController.position.pixels + bookCase.positionReading,
+                duration: const Duration(milliseconds: 400),
+                curve: Curves.easeOut,
+              );
+            } catch (e) {
+              print(e);
+            }
+          }
+        }
+      }
+    }
   }
 
   @override
@@ -121,6 +176,7 @@ class ReadNovelCotroller extends GetxController {
     );
     if (selectedChapter != null) {
       chapterNovelModel = selectedChapter;
+      readingBookReturn.chapterName = chapterNovelModel.chapterName;
       updateChapter();
     }
   }
@@ -146,6 +202,7 @@ class ReadNovelCotroller extends GetxController {
     chapterNovelModel = listChapter[currentIndex + 1];
     scrollTop();
     Fluttertoast.showToast(msg: chapterNovelModel.chapterName);
+    readingBookReturn.chapterName = chapterNovelModel.chapterName;
     updateChapter();
   }
 
@@ -158,6 +215,7 @@ class ReadNovelCotroller extends GetxController {
     chapterNovelModel = listChapter[currentIndex - 1];
     scrollTop();
     Fluttertoast.showToast(msg: chapterNovelModel.chapterName);
+    readingBookReturn.chapterName = chapterNovelModel.chapterName;
     updateChapter();
   }
 
@@ -189,11 +247,18 @@ class ReadNovelCotroller extends GetxController {
   }
 
   void _scrollListener() {
-    if (scrollController.position.pixels >=
-            scrollController.position.maxScrollExtent - 50 &&
-        !_hasScrolledToBottom) {
-      onScrolledToBottom();
+    const double threshold = 50.0;
+
+    if (scrollController.position.pixels <
+            scrollController.position.maxScrollExtent - threshold ||
+        _hasScrolledToBottom) {
+      readingBookReturn.positionReading = scrollController.position.pixels;
+      return;
     }
+
+    _hasScrolledToBottom = true;
+    onScrolledToBottom();
+    readingBookReturn.positionReading = scrollController.position.pixels;
   }
 
   void onScrolledToBottom() {

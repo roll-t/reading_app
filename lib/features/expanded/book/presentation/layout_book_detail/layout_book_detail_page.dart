@@ -58,7 +58,10 @@ class LayoutBookDetailPage extends GetView<LayoutBookDetailController> {
       ),
       bottomNavigationBar: Obx(() => isLoading.value
           ? const SizedBox()
-          : const BuildBottomNavBookDetail()),
+          : BuildBottomNavBookDetail(
+              listChapterNovel: listChapter,
+              bookCaseResponse: controller.bookCaseModel,
+            )),
     );
   }
 }

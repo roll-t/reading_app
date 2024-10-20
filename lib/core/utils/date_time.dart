@@ -21,4 +21,5 @@ class DatetimeUtil {
       return formatter.format(now);
     }
   }
+
 }

@@ -10,11 +10,18 @@ class CategoryController extends GetxController {
   Map<String, dynamic> dataArgument = Get.arguments;
 
   var title = "".obs;
+
   var isLoading = false.obs;
+
+  ComicApi comicApi = ComicApi();
+
   var hasMore = true.obs;
+
   var currentPage = 2.obs;
 
   var typeOfList = ["truyen-moi", "sap-ra-mat", "dang-phat-hanh", "hoan-thanh"];
+
+  bool homeData = false;
 
   Rx<ListComicModel> listDataChangeCategory = ListComicModel(
     domainImage: "",
@@ -28,21 +35,34 @@ class CategoryController extends GetxController {
   void onInit() async {
     super.onInit();
     isLoading.value = true;
+
     scrollController.addListener(_scrollListener);
-    if (dataArgument["slugQuery"] != null) {
-      try {
-        await fetchDataComicCategoryByChange(slug: dataArgument["slugQuery"]);
-      } catch (e) {
-        print(e);
+
+    // Validate and process slugQuery
+    if (dataArgument["slugQuery"] != null &&
+        dataArgument["slugQuery"] is String) {
+      var slug = dataArgument["slugQuery"].trim();
+      if (slug.isNotEmpty) {
+        try {
+          await fetchDataComicCategoryByChange(slug: slug);
+        } catch (e) {
+          print("Error fetching data: $e");
+        }
+      } else {
+        print("Slug is empty.");
       }
+    } else {
+      print("Invalid or missing slugQuery.");
     }
+
+    // Finish loading and trigger UI update
     isLoading.value = false;
     update(["titleID", "ListCategoryID"]);
   }
 
   @override
   void onClose() {
-    scrollController.dispose(); // Dispose of ScrollController
+    scrollController.dispose();
     super.onClose();
   }
 
@@ -58,10 +78,14 @@ class CategoryController extends GetxController {
 
   Future<Result<ListComicModel>> _routeRenderData(
       {required String slug, required page}) {
-    if (typeOfList.contains(slug)) {
-      return ComicApi.getListBySlug(slug: slug, page: page);
+    if (slug == "homeData") {
+      homeData = true;
+      return comicApi.fetchHomeData();
     }
-    return ComicApi.getListComicCategoryBySlug(slug: slug, page: page);
+    if (typeOfList.contains(slug)) {
+      return comicApi.fetchListBySlug(slug: slug, page: page);
+    }
+    return comicApi.fetchComicCategoryBySlug(slug: slug, page: page);
   }
 
   Future<void> fetchDataComicCategoryByChange({required String slug}) async {
@@ -70,14 +94,20 @@ class CategoryController extends GetxController {
       final apiResponse = result.data;
       if (apiResponse != null) {
         listDataChangeCategory.value = apiResponse;
-        listDataChangeCategory.value.titlePage = TextFormat.capitalizeEachWord(
-            listDataChangeCategory.value.titlePage);
+        if (homeData) {
+          listDataChangeCategory.value.titlePage = "Truyện Nổi Bật";
+        } else {
+          listDataChangeCategory.value.titlePage =
+              TextFormat.capitalizeEachWord(
+                  listDataChangeCategory.value.titlePage);
+        }
       }
     }
     update(["loadMoreID"]);
   }
 
   Future<void> fetchData() async {
+    if (homeData) return;
     if (isLoading.value || !hasMore.value) return;
 
     isLoading.value = true;

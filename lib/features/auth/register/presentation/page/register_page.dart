@@ -64,6 +64,7 @@ class RegisterPage extends GetView<RegisterController> {
             errorMess: controller.errorMessagePasswordConfirm.value,
           ),
           ButtonNormal(
+            paddingChild: const EdgeInsets.symmetric(vertical: 10),
             textChild: AppContents.signUp,
             onTap: () async {
               await controller.signUp();

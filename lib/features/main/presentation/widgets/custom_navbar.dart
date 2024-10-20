@@ -1,28 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/dimens/icons_dimens.dart';
 import 'package:reading_app/core/configs/dimens/radius_dimens.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 import 'package:reading_app/features/main/presentation/controller/main_controller.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
-class CustomNavbar extends StatelessWidget {
+class CustomNavbar extends GetView<MainController> {
   final double radiusFull = RadiusDimens.radiusFull;
   final Color primaryColor = AppColors.primary;
   final Color whiteColor = Colors.white;
-
   const CustomNavbar({super.key});
-
   @override
   Widget build(BuildContext context) {
-    final MainController controller = Get.find<MainController>();
-    
     return Positioned(
-      bottom: SpaceDimens.space10,
-      left: Get.width * 0.03,
-      right: Get.width * 0.03,
+      bottom: 1.5.h,
+      left: 10.w,
+      right: 10.w,
       child: Obx(
         () => AnimatedOpacity(
           opacity: controller.navbarOpacity.value,
@@ -35,22 +30,39 @@ class CustomNavbar extends StatelessWidget {
               controller.resetOpacityTimer();
             },
             child: Container(
-              padding: const EdgeInsets.all(SpaceDimens.space10),
+              padding: EdgeInsets.symmetric(horizontal: 12.sp, vertical: 10.sp),
               decoration: BoxDecoration(
-                color: AppColors.primary.withOpacity(controller.navbarOpacity.value),
+                color: AppColors.primary
+                    .withOpacity(controller.navbarOpacity.value),
                 borderRadius: BorderRadius.circular(radiusFull),
                 boxShadow: [
-                  BoxShadow(color: AppColors.gray3.withOpacity(.1), blurRadius: 2),
+                  BoxShadow(
+                      color: AppColors.gray3.withOpacity(.1), blurRadius: 2),
                 ],
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _buildIconButton(icon: Icons.home, title: AppContents.home, index: 0, controller: controller),
-                  _buildIconButton(icon: Icons.menu_book, title: AppContents.comic, index: 1, controller: controller),
-                  _buildIconButton(icon: Icons.headphones, title: AppContents.audioStory, index: 2, controller: controller),
-                  _buildIconButton(icon: Icons.book, title: AppContents.bookCase, index: 3, controller: controller),
-                  _buildIconButton(icon: Icons.person, title: AppContents.account, index: 4, controller: controller),
+                  _buildIconButton(
+                      icon: Icons.home,
+                      title: AppContents.home,
+                      index: 0,
+                      controller: controller),
+                  _buildIconButton(
+                      icon: Icons.menu_book,
+                      title: AppContents.comic,
+                      index: 1,
+                      controller: controller),
+                  _buildIconButton(
+                      icon: Icons.book,
+                      title: AppContents.bookCase,
+                      index: 2,
+                      controller: controller),
+                  _buildIconButton(
+                      icon: Icons.person,
+                      title: AppContents.account,
+                      index: 3,
+                      controller: controller),
                 ],
               ),
             ),
@@ -84,12 +96,15 @@ class CustomNavbar extends StatelessWidget {
           children: [
             Icon(
               icon,
-              size: IconsDimens.iconsSize24,
+              size: 18.sp,
               color: isActive ? AppColors.primary : AppColors.white,
+            ),
+            SizedBox(
+              height: 4.sp,
             ),
             TextWidget(
               text: title,
-              size: 8,
+              size: 12.sp,
               color: isActive ? AppColors.primary : AppColors.white,
             ),
           ],

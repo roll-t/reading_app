@@ -7,6 +7,7 @@ import 'package:reading_app/features/auth/login/presentation/page/login_page.dar
 import 'package:reading_app/features/auth/register/di/register_binding.dart';
 import 'package:reading_app/features/auth/register/presentation/page/register_page.dart';
 import 'package:reading_app/features/expanded/category/di/category_binding.dart';
+import 'package:reading_app/features/expanded/category/presentation/page/category_novel_page.dart';
 import 'package:reading_app/features/expanded/category/presentation/page/category_page.dart';
 import 'package:reading_app/features/expanded/comic/di/comic_detail_binding.dart';
 import 'package:reading_app/features/expanded/comic/di/read_comic_binding.dart';
@@ -74,6 +75,11 @@ class Pages {
     GetPage(
       name: Routes.category,
       page: () => const CategoryPage(),
+      binding: CategoryBinding(),
+    ),
+    GetPage(
+      name: Routes.categoryNovel,
+      page: () => const CategoryNovelPage(),
       binding: CategoryBinding(),
     ),
     GetPage(

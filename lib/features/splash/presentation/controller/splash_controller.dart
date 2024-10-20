@@ -2,14 +2,14 @@ import 'dart:async';
 
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/data/database/auth_api.dart';
+import 'package:reading_app/core/data/database/auth_data.dart';
 import 'package:reading_app/core/data/domain/auth_use_case.dart';
 import 'package:reading_app/core/data/dto/request/introspect_request.dart';
 import 'package:reading_app/core/data/prefs/prefs.dart';
 import 'package:reading_app/core/routes/routes.dart';
 
 class SplashController extends GetxController {
-  final AuthApi authApi = AuthApi();
+  final AuthData authApi = AuthData();
   final Prefs prefs = Prefs();
 
   var isAuth = false;

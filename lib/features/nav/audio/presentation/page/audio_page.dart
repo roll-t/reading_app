@@ -6,7 +6,7 @@ import 'package:reading_app/features/nav/audio/presentation/controller/audio_con
 import 'package:reading_app/features/nav/audio/presentation/widgets/build_list_audio_column_category.dart';
 import 'package:reading_app/features/nav/audio/presentation/widgets/build_slider_audio.dart';
 import 'package:reading_app/features/nav/audio/presentation/widgets/build_sliver_audio_app_bar.dart';
-import 'package:reading_app/features/nav/commic/presentation/widgets/build_list_row_category.dart';
+import 'package:reading_app/features/nav/comic/presentation/widgets/build_list_row_category.dart';
 
 class AudioPage extends GetView<AudioController> {
   const AudioPage({super.key});

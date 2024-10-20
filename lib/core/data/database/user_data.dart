@@ -6,9 +6,9 @@ import 'package:reading_app/core/data/database/model/result.dart';
 import 'package:reading_app/core/data/database/model/user_model.dart';
 import 'package:reading_app/core/data/service/configs/end_point_setting.dart';
 
-class UserApi {
+class UserData {
   final Dio _dio;
-  UserApi(this._dio);
+  UserData(this._dio);
   Future<Result<UserModel>?> fetchUser({required String uid}) async {
     try {
       final response =
@@ -59,18 +59,18 @@ class UserApi {
   }
 
   static Future<Result<UserModel>?> getUser({required String uid}) async {
-    final dataRemote = UserApi(Dio());
+    final dataRemote = UserData(Dio());
     return await dataRemote.fetchUser(uid: uid);
   }
 
   static Future<Result<bool>> emailExist({required String email}) async {
-    final remote = UserApi(Dio());
+    final remote = UserData(Dio());
     return await remote.fetchEmailExist(email: email);
   }
 
   static Future<Result<UserModel>?> signIn(
       {required String userRequest}) async {
-    final dataRemote = UserApi(Dio());
+    final dataRemote = UserData(Dio());
     return await dataRemote.signInAPI(userRequest: userRequest);
   }
 }

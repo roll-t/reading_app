@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
-import 'package:reading_app/core/configs/strings/app_contents.dart';
-import 'package:reading_app/core/data/database/model/book_model.dart';
+import 'package:reading_app/core/data/dto/response/reading_book_case_response.dart';
 import 'package:reading_app/core/ui/widgets/card/card_book_case.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class BuildListBookCase extends StatelessWidget {
-  final List<BookModel> listBook;
+  final List<ReadingBookCaseResponse> listBook;
   const BuildListBookCase({
     super.key,
     required this.listBook,
@@ -13,16 +13,26 @@ class BuildListBookCase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: listBook.length,
-        padding: const EdgeInsets.only(top: 0, bottom: SpaceDimens.space60),
-        itemBuilder: (context, index) {
-          return CardBookCase(
-            type: AppContents.audio,
-            bookModel: listBook[index],
-            heightCard: 120,
-            widthCard: 100,
-          );
-        });
+    return Column(
+      children: [
+        Expanded(
+          child: ListView.builder(
+              itemCount: listBook.length,
+              padding:
+                  const EdgeInsets.only(top: 0, bottom: SpaceDimens.space60),
+              itemBuilder: (context, index) {
+                return CardBookCase(
+                  type: "Tiểu thuyết",
+                  bookModel: listBook[index],
+                  heightCard: 120,
+                  widthCard: 100,
+                );
+              }),
+        ),
+        SizedBox(
+          height: 5.h,
+        )
+      ],
+    );
   }
 }

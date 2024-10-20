@@ -13,8 +13,7 @@ class BuildListTagCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(
-          top: SpaceDimens.space20, left: SpaceDimens.spaceStandard),
-      margin: const EdgeInsets.only(bottom: SpaceDimens.space20),
+          top: SpaceDimens.space40, left: SpaceDimens.spaceStandard),
       child: const Wrap(
         spacing: SpaceDimens.space10,
         runSpacing: SpaceDimens.space10,
@@ -54,4 +53,3 @@ class BuildListTagCategory extends StatelessWidget {
     );
   }
 }
-

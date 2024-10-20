@@ -103,16 +103,16 @@ class CategoryModel {
   factory CategoryModel.fromJson(Map<String, dynamic> json) {
     return CategoryModel(
       id: json['id'],
-      slug: json['slug'],
       name: json['name'],
+      slug: json['slug'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'slug': slug,
       'name': name,
+      'slug': slug,
     };
   }
 }

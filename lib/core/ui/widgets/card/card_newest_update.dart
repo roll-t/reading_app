@@ -10,7 +10,6 @@ class CardNewestUpdate extends StatelessWidget {
   final double heightImage;
   final ItemModel bookModel;
   final String domainImage;
-
   const CardNewestUpdate({
     super.key,
     required this.heightImage,
@@ -22,7 +21,7 @@ class CardNewestUpdate extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(Routes.comicDetail, arguments: {"slug": bookModel.slug});
+        Get.toNamed(Routes.comicDetail, arguments: {"novelId": bookModel.slug});
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

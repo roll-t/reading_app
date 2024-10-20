@@ -12,6 +12,7 @@ class BuildShareAuth {
   static Expanded buildBackgoundForm({Widget childContent = const SizedBox()}) {
     return Expanded(
       child: Container(
+        height: 72.h,
           padding: EdgeInsets.symmetric(
               horizontal: SpaceDimens.space25, vertical: 4.h),
           width: 100.w,
@@ -27,11 +28,11 @@ class BuildShareAuth {
   static Widget buildTitle({String title = "", String subTitle = ""}) {
     return Center(
       child: SizedBox(
-        height: 23.h,
+        height: 28.h,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(width: 130, child: Image.asset(AppImages.iLogo)),
+            SizedBox(width: 35.w, child: Image.asset(AppImages.iLogo)),
             const SizedBox(height: 5),
             TextWidget(
               text: title,
@@ -54,13 +55,10 @@ class BuildShareAuth {
           isLoading: isLoading,
           bodyBuilder: SingleChildScrollView(
             child: SizedBox(
-              height: Get.height,
+              height: 100.h,
               child: Stack(
                 children: [
-                  Positioned(
-                    top: 10,
-                    left: 10,
-                    child: appbar),
+                  Positioned(top: 10, left: 10, child: appbar),
                   body,
                 ],
               ),

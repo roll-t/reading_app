@@ -6,6 +6,6 @@ class BookCaseBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => Prefs(), fenix: true);
-    Get.put(BookCaseController());
+    Get.lazyPut(() => BookCaseController());
   }
 }
