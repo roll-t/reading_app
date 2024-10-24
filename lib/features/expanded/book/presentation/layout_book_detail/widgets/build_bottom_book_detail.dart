@@ -10,14 +10,20 @@ import 'package:reading_app/core/data/dto/request/reading_book_case_request.dart
 import 'package:reading_app/core/data/dto/response/reading_book_case_response.dart';
 import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_large_semi_bold.dart';
+import 'package:reading_app/features/expanded/comic/model/argument_comic_chapter_model.dart';
+import 'package:reading_app/features/expanded/novel/model/novel_argument_model.dart';
 
 class BuildBottomNavBookDetail extends StatelessWidget {
   final ReadingBookCaseResponse? bookCaseResponse;
   final List<ChapterNovelModel>? listChapterNovel;
+  final List<dynamic>? listChapterComic;
+  final String? novelId;
   const BuildBottomNavBookDetail({
     super.key,
     this.bookCaseResponse,
     this.listChapterNovel,
+    this.novelId,
+    this.listChapterComic,
   });
 
   @override
@@ -52,14 +58,37 @@ class BuildBottomNavBookDetail extends StatelessWidget {
           Expanded(
             child: InkWell(
               onTap: () async {
-                var result = await Get.toNamed(Routes.readNovel, arguments: {
-                  "readContinue": bookCaseResponse,
-                  "listChapter": listChapterNovel
-                });
-                if (result != null) {
-                  if (result is ReadingBookCaseRequest) {
-                    var data = result;
-                    await BookCaseData.addReadingBookCase(request: data);
+                if (listChapterComic != null) {
+                  Get.toNamed(Routes.readBook,
+                      arguments: ArgumentComicChapterModel(
+                          currentChapter: listChapterComic?[0],
+                          listChapter: listChapterComic ?? []));
+                }
+
+                if (novelId != null) {
+                  var result = bookCaseResponse != null
+                      ? await Get.toNamed(Routes.readNovel, arguments: {
+                          "readContinue": bookCaseResponse,
+                          "listChapter": listChapterNovel
+                        })
+                      : await Get.toNamed(Routes.readNovel,
+                          arguments: NovelArgumentModel(
+                              bookId: listChapterNovel?[0].bookDataId ?? "",
+                              chapterCurrent: listChapterNovel?[0] ??
+                                  ChapterNovelModel(
+                                      chapterId: "",
+                                      chapterName: "",
+                                      chapterTitle: "",
+                                      chapterContent: "",
+                                      createAt: DateTime.now(),
+                                      bookDataId: ""),
+                              listChapter: listChapterNovel ?? []));
+
+                  if (result != null) {
+                    if (result is ReadingBookCaseRequest) {
+                      var data = result;
+                      await BookCaseData.addReadingBookCase(request: data);
+                    }
                   }
                 }
               },

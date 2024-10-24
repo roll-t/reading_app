@@ -13,13 +13,17 @@ class NovelDetailPage extends GetView<NovelDetailController> {
         id: "body",
         builder: (_) => LayoutBookDetailPage(
               isLoading: controller.isLoading,
+              // ignore: invalid_use_of_protected_member
+              categoriesNovel: controller.categories.value,
               listChapter: controller.listChapter,
+              novelId: controller.novelModel.bookDataId,
               infoBookDetailModel: InfoBookDetailModel(
-                  bookTitle: controller.novelModel.name,
-                  thumbImage: controller.novelModel.thumbUrl,
-                  rating: 4.2,
-                  view: 1000,
-                  countChapter: controller.listChapter.length),
+                bookTitle: controller.novelModel.name,
+                thumbImage: controller.novelModel.thumbUrl,
+                rating: 4.2,
+                view: 1000,
+                countChapter: controller.listChapter.length,
+              ),
             ));
   }
 }

@@ -59,24 +59,12 @@ class BookCasePage extends GetView<BookCaseController> {
                         },
                         itemBuilder: (BuildContext context) => [
                           const PopupMenuItem<String>(
-                            value: 'Tất cả',
-                            child: Text('Tất cả'),
-                          ),
-                          const PopupMenuItem<String>(
                             value: 'Tiểu thuyết',
                             child: Text('Tiểu thuyết'),
                           ),
                           const PopupMenuItem<String>(
                             value: 'Truyện tranh',
                             child: Text('Truyện tranh'),
-                          ),
-                          const PopupMenuItem<String>(
-                            value: 'Truyện audio',
-                            child: Text('Truyện audio'),
-                          ),
-                          const PopupMenuItem<String>(
-                            value: 'Truyện ngắn',
-                            child: Text('Truyện ngắn'),
                           ),
                         ],
                         child: Container(

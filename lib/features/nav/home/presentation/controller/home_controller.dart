@@ -8,7 +8,6 @@ import 'package:reading_app/core/data/database/model/result.dart';
 import 'package:reading_app/core/data/database/novel_data.dart';
 import 'package:reading_app/core/data/domain/auth_use_case.dart';
 import 'package:reading_app/core/data/dto/response/novel_response.dart';
-import 'package:reading_app/core/data/dto/response/reading_book_case_response.dart';
 import 'package:reading_app/core/data/service/api/comic_api.dart';
 import 'package:reading_app/core/routes/routes.dart';
 
@@ -35,8 +34,8 @@ class HomeController extends GetxController {
 
   RxList<NovelResponse> listNovel = <NovelResponse>[].obs;
   RxList<NovelResponse> listSlide = <NovelResponse>[].obs;
-  RxList<ReadingBookCaseResponse> listReadContinue =
-      <ReadingBookCaseResponse>[].obs;
+  // RxList<ReadingBookCaseResponse> listReadContinue =
+  //     <ReadingBookCaseResponse>[].obs;
 
   List<ListCategoryModel>? categories;
 
@@ -67,11 +66,11 @@ class HomeController extends GetxController {
     String? token = await AuthUseCase.getAuthToken();
     auth = JwtDecoder.decode(token);
     userName.value = auth?["displayName"];
-    var result =
-        await bookCaseData.fetchAllReadingBookCase(uid: auth?["uid"] ?? "");
-    if (result.status == Status.success) {
-      listReadContinue.value = result.data ?? [];
-    }
+    // var result =
+    //     await bookCaseData.fetchAllReadingBookCase(uid: auth?["uid"] ?? "");
+    // if (result.status == Status.success) {
+    //   listReadContinue.value = result.data ?? [];
+    // }
   }
 
   Future<void> _fetchListNovelByListSlug() async {
@@ -108,7 +107,7 @@ class HomeController extends GetxController {
       final apiResponse = result.data;
 
       if (apiResponse != null) {
-        listDataComplete.value = apiResponse..titlePage = "Sắp ra mắt";
+        listDataComplete.value = apiResponse..titlePage = "Cập nhật mới nhất";
       }
     }
   }

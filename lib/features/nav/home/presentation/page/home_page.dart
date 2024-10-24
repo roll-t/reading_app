@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
-import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/custom_backgound/background_gradient.dart';
 import 'package:reading_app/core/ui/widgets/card/card_newest_update.dart';
 import 'package:reading_app/core/ui/widgets/card/card_novel_newest_update.dart';
-import 'package:reading_app/core/ui/widgets/card/card_reading_continue.dart';
 import 'package:reading_app/core/ui/widgets/card/novel_card.dart';
 import 'package:reading_app/core/ui/widgets/loading.dart';
-import 'package:reading_app/features/expanded/book/presentation/layout_book_detail/shared/build_wrap_list_card.dart';
 import 'package:reading_app/features/nav/home/presentation/controller/home_controller.dart';
 import 'package:reading_app/features/nav/home/presentation/widgets/build_buttom_to_explore.dart';
 import 'package:reading_app/features/nav/home/presentation/widgets/build_category.dart';
@@ -38,30 +35,32 @@ class HomePage extends GetView<HomeController> {
             }),
             SliverToBoxAdapter(child: Obx(() {
               return BuildSlider(
+                // ignore: invalid_use_of_protected_member
                 listBook: controller.listSlide.value,
                 currentIndex: controller.currentIndex,
               );
             })),
             const SliverToBoxAdapter(child: BuildCategory()),
-            SliverToBoxAdapter(child: Obx(() {
-              // ignore: invalid_use_of_protected_member
-              return controller.listReadContinue.value.isNotEmpty
-                  ? BuildWrapListCard(
-                      margin: const EdgeInsets.all(0),
-                      heightWrapList: 14.h,
-                      // ignore: invalid_use_of_protected_member
-                      listBookData: controller.listReadContinue.value,
-                      titleList: AppContents.titleListContinue,
-                      widthCard: 170,
-                      cardBuilder: (double widthCard, bookModel) {
-                        return CardReadingContinue(
-                          widthCard: widthCard,
-                          bookCaseModel: bookModel,
-                        );
-                      },
-                    )
-                  : const SizedBox();
-            })),
+
+            // SliverToBoxAdapter(child: Obx(() {
+            //   // ignore: invalid_use_of_protected_member
+            //   return controller.listReadContinue.value.isNotEmpty
+            //       ? BuildWrapListCard(
+            //           margin: const EdgeInsets.all(0),
+            //           heightWrapList: 14.h,
+            //           // ignore: invalid_use_of_protected_member
+            //           listBookData: controller.listReadContinue.value,
+            //           titleList: AppContents.titleListContinue,
+            //           widthCard: 20.h,
+            //           cardBuilder: (double widthCard, bookModel) {
+            //             return CardReadingContinue(
+            //               widthCard: widthCard,
+            //               bookCaseModel: bookModel,
+            //             );
+            //           },
+            //         )
+            //       : const SizedBox();
+            // })),
 
             SliverToBoxAdapter(child: Obx(() {
               return controller.listDataComplete.value.items.isNotEmpty

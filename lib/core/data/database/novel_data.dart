@@ -29,6 +29,15 @@ class NovelData extends CoreService {
           .toList(),
     );
   }
+  Future<Result<List<NovelResponse>>> fetchListNovelByCategory(
+      {required String statusName}) async {
+    return await fetchData(
+      endpoint: EndPointSetting.getNovelByCategory(categoryName: statusName),
+      parse: (data) => (data as List<dynamic>)
+          .map((item) => NovelResponse.fromJson(item))
+          .toList(),
+    );
+  }
 
   // trả về danh sách truyện dựa trên mảng slug
   Future<Result<List<NovelResponse>>> fetchListNovelByListSlugNovel(

@@ -144,8 +144,7 @@ class ReadNovelPage extends GetView<ReadNovelCotroller> {
                         color: AppColors.white.withOpacity(.4), width: .6),
                     color: AppColors.gray2.withOpacity(.2)),
                 child: IconButton(
-                    onPressed: (){
-                      print(controller.readingBookReturn.toJson());
+                    onPressed: () {
                       Get.back(result: controller.readingBookReturn);
                     },
                     icon: const Icon(

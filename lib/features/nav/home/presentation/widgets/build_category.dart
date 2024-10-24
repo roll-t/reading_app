@@ -10,8 +10,10 @@ class BuildCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-          horizontal: SpaceDimens.spaceStandard, vertical: SpaceDimens.space25),
+      padding: const EdgeInsets.only(
+          left: SpaceDimens.spaceStandard,
+          right: SpaceDimens.spaceStandard,
+          top: SpaceDimens.space25),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

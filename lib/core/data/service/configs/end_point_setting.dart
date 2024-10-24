@@ -46,10 +46,16 @@ class EndPointSetting {
 
   static String getNovelByStatus({required String statusName}) =>
       "${_baseUrl}book-data/status/$statusName";
+      
+  static String getNovelByCategory({required String categoryName }) =>
+      "${_baseUrl}book-data/category/$categoryName";
 
   // lấy danh sách truyện dự trên danh sách slug
   static String getNovelByListSlug({required List<String> listSlug}) {
     String slugsQuery = listSlug.map((slug) => "slugs=$slug").join("&");
     return "${_baseUrl}book-data/slugs?$slugsQuery";
   }
+
+  // category
+    static String getAllCategory = "${_baseUrl}category";
 }

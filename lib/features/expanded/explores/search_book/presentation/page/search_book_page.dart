@@ -7,6 +7,7 @@ import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
 import 'package:reading_app/features/expanded/explores/search_book/presentation/controller/search_book_controller.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class SearchBookPage extends GetView<SearchBookController> {
   const SearchBookPage({super.key});
@@ -42,8 +43,8 @@ class SearchBookPage extends GetView<SearchBookController> {
                                 color: AppColors.tertiaryDarkBg,
                                 borderRadius:BorderRadius.circular(RadiusDimens.radiusFull) 
                               ),
-                              height: 60,
-                              width: Get.width * .8,
+                              height: 6.5.h,
+                              width:80.w,
                               child: const Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,

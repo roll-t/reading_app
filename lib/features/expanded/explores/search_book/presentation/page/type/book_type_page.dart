@@ -3,8 +3,9 @@ import 'package:get/get.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
 import 'package:reading_app/features/expanded/explores/search_book/presentation/controller/search_book_controller.dart';
-import 'package:reading_app/features/expanded/explores/search_book/presentation/page/type/widgets/build_category_filter.dart';
-import 'package:reading_app/features/expanded/explores/search_book/presentation/page/type/widgets/build_list_book.dart';
+import 'package:reading_app/features/expanded/explores/search_book/presentation/page/type/widgets/build_category_filter_novel.dart';
+import 'package:reading_app/features/expanded/explores/search_book/presentation/page/type/widgets/build_list_novel.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class BookTypePage extends GetView<SearchBookController> {
   const BookTypePage({super.key});
@@ -20,13 +21,14 @@ class BookTypePage extends GetView<SearchBookController> {
               shrinkWrap: true,
               slivers: [
                 SliverToBoxAdapter(
-                  child: BuildCategoryFilter(
-                    currentIndex: controller.currentIndexCategory, categories: controller.categories!,
+                  child: BuildCategoryFilterNovel(
+                    currentIndex: controller.currentIndexCategoryNovel,
+                    categories: controller.categoriesNovel,
                   ),
                 ),
-                const SliverPadding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  sliver: SliverToBoxAdapter(
+                SliverPadding(
+                  padding: EdgeInsets.symmetric(horizontal: 2.h),
+                  sliver: const SliverToBoxAdapter(
                     child: TabBar(
                       unselectedLabelColor: AppColors.gray2,
                       dividerColor: AppColors.secondaryDarkBg,
@@ -47,26 +49,32 @@ class BookTypePage extends GetView<SearchBookController> {
                 ),
               ],
             ),
-            Expanded(
-                child: TabBarView(
-              children: [
-                CustomScrollView(
-                  slivers: [
-                    BuildListBook(listBookData: controller.dataComicCategoryByType.value)
-                  ],
-                ),
-                CustomScrollView(
-                  slivers: [
-                    BuildListBook(listBookData: controller.dataComicCategoryByType.value)
-                  ],
-                ),
-                CustomScrollView(
-                  slivers: [
-                    BuildListBook(listBookData: controller.dataComicCategoryByType.value)
-                  ],
-                ),
-              ],
-            ))
+            Obx(() {
+              return Expanded(
+                  child: TabBarView(
+                children: [
+                  CustomScrollView(
+                    slivers: [
+                      // ignore: invalid_use_of_protected_member
+                      BuildListNovel(listBookData: controller.listNovel.value)
+                    ],
+                  ),
+                  CustomScrollView(
+                    slivers: [
+                      // ignore: invalid_use_of_protected_member
+                      BuildListNovel(
+                          listBookData: controller.listNovelComplete.value)
+                    ],
+                  ),
+                  CustomScrollView(
+                    slivers: [
+                      // ignore: invalid_use_of_protected_member
+                      BuildListNovel(listBookData: controller.listNovel.value)
+                    ],
+                  ),
+                ],
+              ));
+            })
           ],
         ),
       ),
