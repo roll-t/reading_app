@@ -4,21 +4,31 @@ import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/data/database/model/list_comic_model.dart';
+import 'package:reading_app/core/data/dto/response/category_response.dart';
+import 'package:reading_app/core/data/dto/response/commentReponse.dart';
 import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_medium_semi_bold.dart';
 import 'package:reading_app/core/ui/widgets/tags/tag_category.dart';
 import 'package:reading_app/core/ui/widgets/text/expandable_text.dart';
 import 'package:reading_app/features/expanded/book/presentation/layout_book_detail/widgets/build_wrap_list_comment.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
-class BuildContentBookDetail extends StatelessWidget{
-  final List<CategoryModel>  categories;
-  final String ?description;
-  final SliverToBoxAdapter ? listRelate;
+class BuildContentBookDetail extends StatelessWidget {
+  final String? novelId;
+  final List<CategoryModel> categories;
+  final List<CategoryResponse>? categoriesNovel;
+  final String? description;
+  final List<CommentResponse> listComment;
+  final SliverToBoxAdapter? listRelate;
+
   const BuildContentBookDetail({
     super.key,
-    this.categories=const[],
+    this.categories = const [],
     this.description,
     this.listRelate,
+    this.categoriesNovel,
+    this.listComment = const [],
+    this.novelId,
   });
 
   @override
@@ -45,17 +55,24 @@ class BuildContentBookDetail extends StatelessWidget{
                           top: SpaceDimens.space10),
                       margin:
                           const EdgeInsets.only(bottom: SpaceDimens.space30),
-                      width: Get.width,
+                      width: 100.w,
                       decoration: const BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
                                   color: AppColors.gray3, width: .5))),
-                      child:  Wrap(
+                      child: Wrap(
                         spacing: SpaceDimens.space10,
                         runSpacing: SpaceDimens.space10,
                         children: [
-                          for(var value in categories)
-                            TagCategory(categoryName: value.name,)
+                          for (var value in categories)
+                            TagCategory(
+                              categoryName: value.name,
+                            ),
+                          if (categoriesNovel != null)
+                            for (var value in categoriesNovel ?? [])
+                              TagCategory(
+                                categoryName: value.name,
+                              )
                         ],
                       ),
                     )
@@ -73,22 +90,20 @@ class BuildContentBookDetail extends StatelessWidget{
             ),
           ),
         ),
-
-        // Build list có thể bạn sẽ thích
         SliverToBoxAdapter(
           child: BuildWrapListComment(
+            novelId: novelId,
+            listComment: listComment,
             titleList: AppContents.comment,
-            heightWrapList: 200,
-            widthCard: 150,
+            heightWrapList: 24.h,
+            widthCard: 70.w,
             toDetail: () {
               Get.toNamed(
-                Routes.comment,
+                Routes.comment,arguments: {"novelId":novelId}
               );
             },
           ),
         ),
-        // Build list có thể bạn sẽ thích
-        if(listRelate!=null) listRelate!
       ],
     );
   }

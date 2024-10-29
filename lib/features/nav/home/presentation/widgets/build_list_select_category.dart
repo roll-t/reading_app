@@ -9,7 +9,7 @@ import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal_semi_
 class BuildListSelectCategory extends StatelessWidget {
   final int currentIndex;
   final List<ListCategoryModel> listCategory;
-  final Function(int) onTap; // Change VoidCallback to Function(int)
+  final Function(int) onTap;
   const BuildListSelectCategory({
     super.key,
     required this.currentIndex,
@@ -29,7 +29,7 @@ class BuildListSelectCategory extends StatelessWidget {
           itemBuilder: (context, index) {
             return InkWell(
               onTap: () {
-                onTap(index); // Update current index when item is clicked
+                onTap(index);
               },
               child: Container(
                   margin: const EdgeInsets.only(right: SpaceDimens.space10),

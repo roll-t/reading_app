@@ -54,11 +54,9 @@ class ComicApi extends CoreService {
   Future<Result<ListComicModel>> fetchListBySlug(
       {required String slug, required int page}) async {
     try {
-      final response = await dioService.dio
-          .get(EndPointSetting.listByTypeEndpoint(slug: slug, page: page));
+      final response = await dioService.dio.get(EndPointSetting.listByTypeEndpoint(slug: slug, page: page));
       final apiResponse = response.data;
-      return ResponseApi.handleResponseData(response.statusCode ?? 500,
-          data: apiResponse);
+      return ResponseApi.handleResponseData(response.statusCode ?? 500,data: apiResponse);
     } catch (e) {
       if (e is DioException) {
         if (e.response?.statusCode == 401) {

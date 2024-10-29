@@ -7,6 +7,7 @@ import 'package:reading_app/features/auth/login/presentation/page/login_page.dar
 import 'package:reading_app/features/auth/register/di/register_binding.dart';
 import 'package:reading_app/features/auth/register/presentation/page/register_page.dart';
 import 'package:reading_app/features/expanded/category/di/category_binding.dart';
+import 'package:reading_app/features/expanded/category/presentation/page/category_novel_page.dart';
 import 'package:reading_app/features/expanded/category/presentation/page/category_page.dart';
 import 'package:reading_app/features/expanded/comic/di/comic_detail_binding.dart';
 import 'package:reading_app/features/expanded/comic/di/read_comic_binding.dart';
@@ -15,6 +16,7 @@ import 'package:reading_app/features/expanded/comic/presentation/pages/read_comi
 import 'package:reading_app/features/expanded/comment/di/comment_binding.dart';
 import 'package:reading_app/features/expanded/comment/presentation/page/comment_page.dart';
 import 'package:reading_app/features/expanded/explores/find/di/find_binding.dart';
+import 'package:reading_app/features/expanded/explores/find/presentation/page/find_novel_page.dart';
 import 'package:reading_app/features/expanded/explores/find/presentation/page/find_page.dart';
 import 'package:reading_app/features/expanded/explores/search_book/di/search_book_binding.dart';
 import 'package:reading_app/features/expanded/explores/search_book/presentation/page/search_book_page.dart';
@@ -57,6 +59,11 @@ class Pages {
       binding: RegisterBindding(),
     ),
     GetPage(
+      name: Routes.findNovelPage,
+      page: () => const FindNovelPage(),
+      binding: FindBinding(),
+    ),
+    GetPage(
       name: Routes.forgotPassword,
       page: () => const ForgotPasswordPage(),
       binding: ForgotPasswordBinding(),
@@ -74,6 +81,11 @@ class Pages {
     GetPage(
       name: Routes.category,
       page: () => const CategoryPage(),
+      binding: CategoryBinding(),
+    ),
+    GetPage(
+      name: Routes.categoryNovel,
+      page: () => const CategoryNovelPage(),
       binding: CategoryBinding(),
     ),
     GetPage(

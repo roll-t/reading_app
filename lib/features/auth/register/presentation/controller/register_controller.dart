@@ -6,7 +6,7 @@ import 'package:reading_app/core/configs/strings/messages/app_errors.dart';
 import 'package:reading_app/core/configs/strings/messages/app_success.dart';
 import 'package:reading_app/core/data/database/model/result.dart';
 import 'package:reading_app/core/data/database/model/user_request_model.dart';
-import 'package:reading_app/core/data/database/user_api.dart';
+import 'package:reading_app/core/data/database/user_data.dart';
 import 'package:reading_app/core/data/prefs/prefs.dart';
 import 'package:reading_app/core/ui/snackbar/snackbar.dart';
 import 'package:reading_app/core/utils/validator.dart';
@@ -80,7 +80,8 @@ class RegisterController extends GetxController {
       }
     }
 
-    Result emailExist = await UserApi.emailExist(email: emailController.text.trim());
+    Result emailExist =
+        await UserData.emailExist(email: emailController.text.trim());
 
     if (emailExist.data == true) {
       errorMessageEmail.value = AppErrors.emailExistError;
@@ -104,10 +105,10 @@ class RegisterController extends GetxController {
 
     String dataJson = jsonEncode(userRequestModel.toJson());
 
-    Result? userModel = await UserApi.signIn(userRequest: dataJson);
+    Result? userModel = await UserData.signIn(userRequest: dataJson);
 
-    if(userModel!=null){
-      Get.back(result:userModel);
+    if (userModel != null) {
+      Get.back(result: userModel);
       SnackbarUtil.showSuccess(AppSuccess.registrationSuccess);
     }
   }

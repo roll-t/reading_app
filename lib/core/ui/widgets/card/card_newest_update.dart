@@ -10,7 +10,6 @@ class CardNewestUpdate extends StatelessWidget {
   final double heightImage;
   final ItemModel bookModel;
   final String domainImage;
-
   const CardNewestUpdate({
     super.key,
     required this.heightImage,

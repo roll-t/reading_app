@@ -25,7 +25,7 @@ class AppColors{
   static const Color headerBackground = Color.fromARGB(255, 33, 7, 9);
   static const Color secondaryColor=Color(0xffa42133);
   static const Color accentColor=Color.fromARGB(255, 255, 3, 28);
-  static const Color primaryLight=Color.fromARGB(255, 234, 118, 130);
+  static const Color primaryLight=Color.fromARGB(255, 255, 120, 62);
 
 
   // config notify and message

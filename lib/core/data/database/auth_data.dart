@@ -7,7 +7,7 @@ import 'package:reading_app/core/data/dto/response/introspect_response.dart';
 import 'package:reading_app/core/data/service/configs/end_point_setting.dart';
 import 'package:reading_app/core/data/service/core_service.dart';
 
-class AuthApi extends CoreService {
+class AuthData extends CoreService {
   Future<Result<AuthenticationModel>?> token(
 
       {required UserModel userModel}) async {

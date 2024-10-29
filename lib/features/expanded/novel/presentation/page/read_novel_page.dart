@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_balloon_slider/flutter_balloon_slider.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/const/app_constants.dart';
+import 'package:reading_app/core/configs/dimens/icons_dimens.dart';
 import 'package:reading_app/core/configs/dimens/radius_dimens.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_large_bold.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_medium_bold.dart';
-import 'package:reading_app/core/ui/widgets/icons/leading_icon_app_bar.dart';
 import 'package:reading_app/core/ui/widgets/modal/custom_bottom_sheet.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 import 'package:reading_app/features/expanded/novel/presentation/controller/read_novel_cotroller.dart';
@@ -135,7 +135,23 @@ class ReadNovelPage extends GetView<ReadNovelCotroller> {
                   : const Offset(-1.5, 0),
               curve: Curves.bounceInOut,
               duration: const Duration(milliseconds: 200),
-              child: const leadingIconAppBar(),
+              child: Container(
+                width: 35,
+                height: 35,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(1000),
+                    border: Border.all(
+                        color: AppColors.white.withOpacity(.4), width: .6),
+                    color: AppColors.gray2.withOpacity(.2)),
+                child: IconButton(
+                    onPressed: () {
+                      Get.back(result: controller.readingBookReturn);
+                    },
+                    icon: const Icon(
+                      Icons.arrow_back_ios_new_rounded,
+                      size: IconsDimens.iconsSize18,
+                    )),
+              ),
             )));
   }
 
@@ -351,6 +367,7 @@ class ReadNovelPage extends GetView<ReadNovelCotroller> {
             children: [
               const TextMediumBold(textChild: "Cỡ chữ"),
               BalloonSlider(
+                  // ignore: unnecessary_null_comparison
                   value: controller.textSizeReadTheme != null
                       ? ((controller.textSizeReadTheme) / 100)
                       : 0.16,

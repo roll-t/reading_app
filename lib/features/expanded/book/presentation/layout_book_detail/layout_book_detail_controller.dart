@@ -3,16 +3,16 @@ import 'package:get/get.dart';
 import 'package:reading_app/core/data/database/model/authentication_model.dart';
 import 'package:reading_app/core/data/database/model/chapter_novel_model.dart';
 import 'package:reading_app/core/data/domain/auth_use_case.dart';
+import 'package:reading_app/core/data/dto/response/reading_book_case_response.dart';
 import 'package:reading_app/core/routes/routes.dart';
 
 class LayoutBookDetailController extends GetxController
     with GetSingleTickerProviderStateMixin {
-      
   TextEditingController searchController = TextEditingController();
 
-  var filteredChapters =<ChapterNovelModel>[].obs; // Add this in your controller
-  
-  var filteredChapterComic =<dynamic>[].obs; // Add this in your controller
+  var filteredChapters = <ChapterNovelModel>[].obs;
+
+  var filteredChapterComic = <dynamic>[].obs;
 
   late TabController tabController;
 
@@ -25,6 +25,8 @@ class LayoutBookDetailController extends GetxController
   var isLoading = false.obs;
 
   var isAuth = false.obs;
+
+  ReadingBookCaseResponse? bookCaseModel;
 
   ScrollController scrollController = ScrollController();
 
@@ -39,6 +41,9 @@ class LayoutBookDetailController extends GetxController
 
   _initial() async {
     tabController = TabController(length: 2, vsync: this);
+    if (Get.arguments["readContinue"] != null) {
+      bookCaseModel = Get.arguments["readContinue"];
+    }
     isAuth.value = await AuthUseCase.isLogin();
     tabController.addListener(() {
       tabIndex.value = tabController.index;
@@ -84,13 +89,12 @@ class LayoutBookDetailController extends GetxController
       return chapter.chapterTitle
               .toLowerCase()
               .contains(searchQuery.toLowerCase()) ||
-          chapter.chapterName
-              .toLowerCase()
-              .contains(searchQuery.toLowerCase());
+          chapter.chapterName.toLowerCase().contains(searchQuery.toLowerCase());
     }).toList();
   }
 
-  List<ChapterNovelModel> filterChapterChapter(List<ChapterNovelModel> chapters) {
+  List<ChapterNovelModel> filterChapterChapter(
+      List<ChapterNovelModel> chapters) {
     if (searchQuery.isEmpty) {
       return chapters;
     }
@@ -98,9 +102,7 @@ class LayoutBookDetailController extends GetxController
       return chapter.chapterTitle
               .toLowerCase()
               .contains(searchQuery.toLowerCase()) ||
-          chapter.chapterName
-              .toLowerCase()
-              .contains(searchQuery.toLowerCase());
+          chapter.chapterName.toLowerCase().contains(searchQuery.toLowerCase());
     }).toList();
   }
 }

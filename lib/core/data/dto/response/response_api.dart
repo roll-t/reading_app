@@ -97,18 +97,40 @@ class ResponseApi {
         return Result.error(ApiError.serverError);
       }
       try {
-        String domainImage = data["data"]["APP_DOMAIN_CDN_IMAGE"] + "/uploads/comics/";
+        String domainImage =
+            data["data"]["APP_DOMAIN_CDN_IMAGE"] + "/uploads/comics/";
         String titlePage = data["data"]["titlePage"] ?? "";
         List<dynamic> listImage = data["data"]["items"];
+        List<Map<String, dynamic>> listImageMap =
+            listImage.cast<Map<String, dynamic>>();
+
         ListComicModel listDataModel = ListComicModel(
           domainImage: domainImage,
           titlePage: titlePage,
-          items: listImage
-              .map((comicJson) => ItemModel.fromJson(comicJson))
+          items: listImageMap
+              .map((comicJson) => ItemModel(
+                    name: comicJson["name"] ?? "",
+                    slug: comicJson["slug"] ?? "",
+                    originName: comicJson["originName"] ?? [],
+                    status: comicJson["status"] ?? "Unknown",
+                    thumbUrl: comicJson["thumb_url"] ?? "",
+                    subDocQuyen: comicJson["sub_docquyen"] ?? false,
+                    category: (comicJson["category"] as List<dynamic>?)
+                            ?.map((categoryJson) {
+                          // Assuming each categoryJson is a Map<String, dynamic> that needs to be converted to CategoryModel
+                          return CategoryModel.fromJson(
+                              categoryJson as Map<String, dynamic>);
+                        }).toList() ??
+                        [], // Provide empty list if category is missing or null
+                    updatedAt: DateTime
+                        .now(), // Default to current time if 'updatedAt' is missing or null
+                    chaptersLatest: [],
+                  ))
               .toList(),
         );
         return Result.success(listDataModel);
       } catch (e) {
+        print(e);
         return Result.error(ApiError.badRequest);
       }
     }

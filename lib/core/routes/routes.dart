@@ -20,4 +20,6 @@ abstract class Routes {
   static const loginRequestSplash = "/LoginRequestSplash";
   static const readNovel = "/readNovel";
   static const comicDetail = "/comicDetail";
+  static const categoryNovel = "/categoryNovel";
+  static const findNovelPage = "/findNovelPage";
 }

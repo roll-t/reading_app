@@ -3,16 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/data/database/model/list_comic_model.dart';
+import 'package:reading_app/core/data/dto/response/novel_response.dart';
 import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/ui/widgets/images/image_widget.dart';
+
 class CarouselSliderUtils {
   static Widget buildCarouselSlider(
-      {required RxInt indexValue, required ListComicModel listImage}) {
+      {required RxInt indexValue, required List<NovelResponse> listBook}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: SpaceDimens.space10),
       child: CarouselSlider.builder(
-        itemCount: listImage.items.length,
+        itemCount: listBook.length,
         itemBuilder: (context, index, realIndex) {
           return Obx(() {
             final currentIndex = indexValue.value;
@@ -28,12 +29,11 @@ class CarouselSliderUtils {
                 ),
                 child: InkWell(
                   onTap: () {
-                    Get.toNamed(Routes.comicDetail,
-                        arguments: {"slug": listImage.items[index].slug});
+                    Get.toNamed(Routes.novelDetail,
+                        arguments: {"novelId": listBook[index].bookDataId});
                   },
                   child: ImageWidget(
-                    imageUrl:
-                        listImage.domainImage + listImage.items[index].thumbUrl,
+                    imageUrl: listBook[index].thumbUrl ?? "",
                   ),
                 ),
               ),

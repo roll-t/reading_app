@@ -6,6 +6,7 @@ import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/extensions/text_format.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_medium_semi_bold.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
+import 'package:reading_app/core/ui/widgets/loading_widgets.dart';
 import 'package:reading_app/features/nav/book_case/presentation/controller/book_case_controller.dart';
 import 'package:reading_app/features/nav/book_case/presentation/widgets/build_list_book_case.dart';
 
@@ -58,24 +59,12 @@ class BookCasePage extends GetView<BookCaseController> {
                         },
                         itemBuilder: (BuildContext context) => [
                           const PopupMenuItem<String>(
-                            value: 'Tất cả',
-                            child: Text('Tất cả'),
-                          ),
-                          const PopupMenuItem<String>(
                             value: 'Tiểu thuyết',
                             child: Text('Tiểu thuyết'),
                           ),
                           const PopupMenuItem<String>(
                             value: 'Truyện tranh',
                             child: Text('Truyện tranh'),
-                          ),
-                          const PopupMenuItem<String>(
-                            value: 'Truyện audio',
-                            child: Text('Truyện audio'),
-                          ),
-                          const PopupMenuItem<String>(
-                            value: 'Truyện ngắn',
-                            child: Text('Truyện ngắn'),
                           ),
                         ],
                         child: Container(
@@ -139,9 +128,14 @@ class BookCasePage extends GetView<BookCaseController> {
             SliverFillRemaining(
               child: TabBarView(
                 children: [
-                  BuildListBookCase(listBook: controller.listBookData),
-                  BuildListBookCase(listBook: controller.listBookData),
-                  BuildListBookCase(listBook: controller.listBookData),
+                  LoadingWidgets.LoadingPartial(
+                      isLoading: controller.isLoading,
+                      body: GetBuilder<BookCaseController>(
+                          id: "LoadReadingBookCase",
+                          builder: (_) => BuildListBookCase(
+                              listBook: controller.listReadingBookCase))),
+                  BuildListBookCase(listBook: controller.listReadingBookCase),
+                  BuildListBookCase(listBook: controller.listReadingBookCase),
                 ],
               ),
             ),

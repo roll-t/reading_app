@@ -20,6 +20,47 @@ class NovelData extends CoreService {
     );
   }
 
+  Future<Result<List<NovelResponse>>> fetchListNovelByStatus(
+      {required String statusName}) async {
+    return await fetchData(
+      endpoint: EndPointSetting.getNovelByStatus(statusName: statusName),
+      parse: (data) => (data as List<dynamic>)
+          .map((item) => NovelResponse.fromJson(item))
+          .toList(),
+    );
+  }
+
+  Future<Result<List<NovelResponse>>> searchNovelByNameOrSlug(
+      {required String text}) async {
+    return await fetchData(
+      endpoint: EndPointSetting.searchNovelByNameOrSlug(text: text),
+      parse: (data) => (data as List<dynamic>)
+          .map((item) => NovelResponse.fromJson(item))
+          .toList(),
+    );
+  }
+
+  Future<Result<List<NovelResponse>>> fetchListNovelByCategory(
+      {required String statusName}) async {
+    return await fetchData(
+      endpoint: EndPointSetting.getNovelByCategory(categoryName: statusName),
+      parse: (data) => (data as List<dynamic>)
+          .map((item) => NovelResponse.fromJson(item))
+          .toList(),
+    );
+  }
+
+  // trả về danh sách truyện dựa trên mảng slug
+  Future<Result<List<NovelResponse>>> fetchListNovelByListSlugNovel(
+      {required List<String> listSlug}) async {
+    return await fetchData(
+      endpoint: EndPointSetting.getNovelByListSlug(listSlug: listSlug),
+      parse: (data) => (data as List<dynamic>)
+          .map((item) => NovelResponse.fromJson(item))
+          .toList(),
+    );
+  }
+
   Future<Result<NovelModel>> fetchNovelById({required String id}) async {
     return await fetchData(
       endpoint: EndPointSetting.getNovelByIdEnpoint(id: id),
@@ -34,5 +75,10 @@ class NovelData extends CoreService {
 
   static Future<Result<NovelModel>> getNovelById({required String id}) {
     return NovelData().fetchNovelById(id: id);
+  }
+
+  static Future<Result<List<NovelResponse>>> getNovelByStatus(
+      {required String statusName}) {
+    return NovelData().fetchListNovelByStatus(statusName: statusName);
   }
 }

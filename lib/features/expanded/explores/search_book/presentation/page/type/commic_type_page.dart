@@ -4,7 +4,7 @@ import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
 import 'package:reading_app/features/expanded/explores/search_book/presentation/controller/search_book_controller.dart';
 import 'package:reading_app/features/expanded/explores/search_book/presentation/page/type/widgets/build_category_filter.dart';
-import 'package:reading_app/features/expanded/explores/search_book/presentation/page/type/widgets/build_list_book.dart';
+import 'package:reading_app/features/expanded/explores/search_book/presentation/page/type/widgets/build_list_comic.dart';
 
 class CommicTypePage extends GetView<SearchBookController> {
   const CommicTypePage({super.key});
@@ -22,7 +22,7 @@ class CommicTypePage extends GetView<SearchBookController> {
                 SliverToBoxAdapter(
                   child: BuildCategoryFilter(
                     currentIndex: controller.currentIndexCategory,
-                    categories: controller.categories!,
+                    categories: controller.categories??[],
                   ),
                 ),
                 const SliverPadding(
@@ -56,19 +56,19 @@ class CommicTypePage extends GetView<SearchBookController> {
                 children: [
                   CustomScrollView(
                     slivers: [
-                      BuildListBook(
+                      BuildListComic(
                           listBookData: controller.dataComicCategoryByType.value)
                     ],
                   ),
                   CustomScrollView(
                     slivers: [
-                      BuildListBook(
+                      BuildListComic(
                           listBookData: controller.dataComicCategoryByType.value)
                     ],
                   ),
                   CustomScrollView(
                     slivers: [
-                      BuildListBook(
+                      BuildListComic(
                           listBookData: controller.dataComicCategoryByType.value)
                     ],
                   ),

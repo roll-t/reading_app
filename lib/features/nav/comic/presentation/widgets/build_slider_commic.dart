@@ -1,6 +1,6 @@
 // Home slider
 import 'package:flutter/material.dart';
-import 'package:reading_app/features/nav/commic/presentation/controller/commic_controller.dart';
+import 'package:reading_app/features/nav/comic/presentation/controller/commic_controller.dart';
 
 class BuildSliderCommic extends StatelessWidget {
   final CommicController controller;
