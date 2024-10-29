@@ -16,6 +16,7 @@ import 'package:reading_app/features/expanded/comic/presentation/pages/read_comi
 import 'package:reading_app/features/expanded/comment/di/comment_binding.dart';
 import 'package:reading_app/features/expanded/comment/presentation/page/comment_page.dart';
 import 'package:reading_app/features/expanded/explores/find/di/find_binding.dart';
+import 'package:reading_app/features/expanded/explores/find/presentation/page/find_novel_page.dart';
 import 'package:reading_app/features/expanded/explores/find/presentation/page/find_page.dart';
 import 'package:reading_app/features/expanded/explores/search_book/di/search_book_binding.dart';
 import 'package:reading_app/features/expanded/explores/search_book/presentation/page/search_book_page.dart';
@@ -56,6 +57,11 @@ class Pages {
       name: Routes.register,
       page: () => const RegisterPage(),
       binding: RegisterBindding(),
+    ),
+    GetPage(
+      name: Routes.findNovelPage,
+      page: () => const FindNovelPage(),
+      binding: FindBinding(),
     ),
     GetPage(
       name: Routes.forgotPassword,

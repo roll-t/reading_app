@@ -5,6 +5,7 @@ import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/dimens/text_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
+import 'package:reading_app/core/data/dto/response/commentReponse.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_medium_semi_bold.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small.dart';
@@ -15,20 +16,24 @@ import 'package:reading_app/core/ui/widgets/textfield/comment_text_field.dart';
 
 class BuildWrapListComment extends StatelessWidget {
   final double heightWrapList;
+  final String ? novelId;
   final String? titleList;
   final double widthCard;
   final EdgeInsetsGeometry margin;
+  final List<CommentResponse> listComment;
   final VoidCallback? toDetail;
-  final Axis scrollDirection; // New parameter for scroll direction
+  final Axis scrollDirection;
 
   const BuildWrapListComment({
     super.key,
     required this.heightWrapList,
     this.titleList,
+    this.novelId,
     required this.widthCard,
     this.margin = const EdgeInsets.only(top: SpaceDimens.space20),
     this.toDetail,
     this.scrollDirection = Axis.horizontal,
+    this.listComment = const [],
   });
 
   @override
@@ -58,12 +63,13 @@ class BuildWrapListComment extends StatelessWidget {
                         bottom: SpaceDimens.space10),
                     child: InkWell(
                         onTap: toDetail,
-                        child: const Row(
+                        child: Row(
                           children: [
                             TextSmall(
-                                textChild: "2 ${AppContents.comment}",
+                                textChild:
+                                    "${listComment.length} ${AppContents.comment}",
                                 colorChild: AppColors.gray2),
-                            Icon(
+                            const Icon(
                               Icons.arrow_forward_ios_rounded,
                               size: IconsDimens.iconsSize18,
                               color: AppColors.gray2,
@@ -79,13 +85,15 @@ class BuildWrapListComment extends StatelessWidget {
                   horizontal: SpaceDimens.spaceStandard),
               child: ListView.builder(
                 scrollDirection: scrollDirection,
-                itemCount: 10,
+                itemCount: listComment.length,
                 itemBuilder: (context, index) {
                   return InkWell(
                       onTap: () {
                         CommentBottomSheet.show(context);
                       },
-                      child: const CardComment());
+                      child: CardComment(
+                        commentData: listComment[index],
+                      ));
                 },
               ),
             ),
@@ -101,7 +109,7 @@ class CommentBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FractionallySizedBox(
-      heightFactor: 0.9, // Chiếm 90% chiều cao của màn hình
+      heightFactor: 0.9,
       child: Container(
         padding: const EdgeInsets.all(
             SpaceDimens.spaceStandard), // Điều chỉnh khoảng cách padding

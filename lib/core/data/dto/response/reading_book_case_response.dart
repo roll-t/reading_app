@@ -136,7 +136,6 @@ class User {
   final String? photoURL;
   final String? creationTime;
   final List<dynamic> roles;
-  final List<dynamic> books;
 
   User({
     required this.uid,
@@ -146,7 +145,6 @@ class User {
     this.photoURL,
     this.creationTime,
     required this.roles,
-    required this.books,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -158,7 +156,6 @@ class User {
       photoURL: json['photoURL'],
       creationTime: json['creationTime'],
       roles: json['roles'] ?? [],
-      books: json['books'] ?? [],
     );
   }
 
@@ -171,7 +168,6 @@ class User {
       'photoURL': photoURL,
       'creationTime': creationTime,
       'roles': roles,
-      'books': books,
     };
   }
 }

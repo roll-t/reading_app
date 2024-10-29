@@ -10,13 +10,17 @@ import 'package:reading_app/features/expanded/explores/search_book/presentation/
 import 'package:reading_app/features/expanded/explores/search_book/presentation/page/type/commic_type_page.dart';
 
 class SearchBookController extends GetxController {
+
   NovelData novelData = NovelData();
+
+  var currentTypePage = 0.obs;
 
   var currentIndexCategory = 0.obs;
 
   var currentIndexCategoryNovel = 0.obs;
 
   var currentCategoryModalNovel = 0.obs;
+
   var currentCategoryModal = 0.obs;
 
   var isLoading = false.obs;
@@ -51,14 +55,14 @@ class SearchBookController extends GetxController {
     ListCategoryModel(id: '23', name: 'Lịch sử', slug: 'lich-su'),
   ];
 
-  Rx<ListComicModel> dataComicCategoryByType = ListComicModel(titlePage: '', domainImage: "", items: []).obs;
+  Rx<ListComicModel> dataComicCategoryByType =
+      ListComicModel(titlePage: '', domainImage: "", items: []).obs;
 
   RxList<NovelResponse> listNovel = <NovelResponse>[].obs;
 
   RxList<NovelResponse> listNovelComplete = <NovelResponse>[].obs;
 
   final ScrollController scrollController = ScrollController();
-
 
   @override
   onInit() async {
@@ -68,7 +72,7 @@ class SearchBookController extends GetxController {
     await setCategoryCache();
     await fetchDataComicCategoryBySlug(slug: categories?[0].slug ?? "");
     Future.wait([
-      fetchDataNovelCategoryBySlug(),
+      fetchDataNovelByCategory(categoryName: categoriesNovel[0].slug),
       fetchListNovelByStatus(status: 'COMPLETED'),
     ]);
     isLoading.value = false;

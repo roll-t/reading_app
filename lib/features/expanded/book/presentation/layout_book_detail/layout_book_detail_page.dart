@@ -8,6 +8,7 @@ import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/data/database/model/chapter_novel_model.dart';
 import 'package:reading_app/core/data/database/model/list_comic_model.dart';
 import 'package:reading_app/core/data/dto/response/category_response.dart';
+import 'package:reading_app/core/data/dto/response/commentReponse.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_medium_semi_bold.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
 import 'package:reading_app/core/ui/widgets/loading.dart';
@@ -28,6 +29,7 @@ class LayoutBookDetailPage extends GetView<LayoutBookDetailController> {
   final List<dynamic>? listChapterComic;
   final List<CategoryModel>? categories;
   final List<CategoryResponse>? categoriesNovel;
+  final List<CommentResponse>? lisComment;
   final String? novelId;
 
   const LayoutBookDetailPage({
@@ -35,6 +37,7 @@ class LayoutBookDetailPage extends GetView<LayoutBookDetailController> {
     required this.infoBookDetailModel,
     required this.isLoading,
     this.categories,
+    this.lisComment,
     this.listChapterComic,
     this.novelId,
     this.categoriesNovel,
@@ -53,6 +56,8 @@ class LayoutBookDetailPage extends GetView<LayoutBookDetailController> {
       body: Loading(
         isLoading: isLoading,
         bodyBuilder: BookDetailBody(
+          novelId: novelId,
+          listComment: lisComment ?? [],
           tag: tag,
           controller: controller,
           listChapter: listChapter,
@@ -75,10 +80,12 @@ class LayoutBookDetailPage extends GetView<LayoutBookDetailController> {
 }
 
 class BookDetailBody extends StatelessWidget {
+  final String? novelId;
   final InfoBookDetailModel infoBookDetailModel;
   final List<ChapterNovelModel>? listChapter;
   final List<dynamic>? listChapterComic;
   final List<CategoryModel>? categories;
+  final List<CommentResponse> listComment;
   final List<CategoryResponse>? categoriesNovel;
   const BookDetailBody({
     super.key,
@@ -89,6 +96,8 @@ class BookDetailBody extends StatelessWidget {
     this.categories,
     this.listChapterComic,
     this.categoriesNovel,
+    required this.listComment,
+    this.novelId,
   });
   final String tag;
   final LayoutBookDetailController controller;
@@ -120,7 +129,8 @@ class BookDetailBody extends StatelessWidget {
           description: infoBookDetailModel.description ?? "",
           chapters: listChapter ?? [],
           categoriesNovel: categoriesNovel ?? [],
-          categories: categories ?? []),
+          categories: categories ?? [],
+          listComment: listComment),
     );
   }
 
@@ -128,15 +138,18 @@ class BookDetailBody extends StatelessWidget {
       {required List<ChapterNovelModel> chapters,
       List<CategoryModel> categories = const [],
       List<CategoryResponse> categoriesNovel = const [],
+      required List<CommentResponse> listComment,
       String description = ""}) {
     Timer? debounce;
     return TabBarView(
       controller: controller.tabController,
       children: [
         BuildContentBookDetail(
+          novelId: novelId,
           categoriesNovel: categoriesNovel,
           description: description,
           categories: categories,
+          listComment: listComment,
         ),
         Container(
           padding: const EdgeInsets.symmetric(

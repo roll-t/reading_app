@@ -56,10 +56,11 @@ class HomeController extends GetxController {
     await Future.wait([
       _fetchAuthData(),
       _setCategoryCache(),
-      _fetchDataListComplete(),
-      _fetchListNovel(),
       _fetchListNovelByListSlug(),
     ]);
+
+    _fetchDataListComplete();
+    _fetchListNovel();
   }
 
   Future<void> _fetchAuthData() async {

@@ -13,7 +13,7 @@ class NovelDetailPage extends GetView<NovelDetailController> {
         id: "body",
         builder: (_) => LayoutBookDetailPage(
               isLoading: controller.isLoading,
-              // ignore: invalid_use_of_protected_member
+              lisComment: controller.listComment.value,
               categoriesNovel: controller.categories.value,
               listChapter: controller.listChapter,
               novelId: controller.novelModel.bookDataId,

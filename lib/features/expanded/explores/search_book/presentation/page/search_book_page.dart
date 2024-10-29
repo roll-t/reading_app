@@ -35,16 +35,21 @@ class SearchBookPage extends GetView<SearchBookController> {
                         ),
                         title: InkWell(
                             onTap: () {
-                              Get.toNamed(Routes.find);
+                              if (controller.currentTypePage.value == 0) {
+                                Get.toNamed(Routes.find,arguments: {"mark":"COMIC"});
+                              } else {
+                                Get.toNamed(Routes.findNovelPage,arguments: {"mark":"NOVEL"});
+                              }
                             },
                             child: Container(
-                              padding: const EdgeInsets.only(left: SpaceDimens.space20),
+                              padding: const EdgeInsets.only(
+                                  left: SpaceDimens.space20),
                               decoration: BoxDecoration(
-                                color: AppColors.tertiaryDarkBg,
-                                borderRadius:BorderRadius.circular(RadiusDimens.radiusFull) 
-                              ),
+                                  color: AppColors.tertiaryDarkBg,
+                                  borderRadius: BorderRadius.circular(
+                                      RadiusDimens.radiusFull)),
                               height: 6.5.h,
-                              width:80.w,
+                              width: 80.w,
                               child: const Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,8 +76,22 @@ class SearchBookPage extends GetView<SearchBookController> {
                         ),
                       ),
                     ],
-                    body: TabBarView(
-                      children: controller.listPage,
+                    body: Builder(
+                      builder: (context) {
+                        final TabController tabController =
+                            DefaultTabController.of(context);
+
+                        tabController.addListener(() {
+                          if (!tabController.indexIsChanging) {
+                            controller.currentTypePage.value =
+                                tabController.index;
+                          }
+                        });
+
+                        return TabBarView(
+                          children: controller.listPage,
+                        );
+                      },
                     ),
                   ),
                 )

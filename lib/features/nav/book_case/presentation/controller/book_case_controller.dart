@@ -10,6 +10,7 @@ class BookCaseController extends GetxController {
   RxString typeSelect = "Tất cả".obs;
   RxString filterType = "Mới nhất".obs;
   var isLoading = false.obs;
+  BookCaseData bookCaseData =BookCaseData();
 
   List<ReadingBookCaseResponse> listReadingBookCase = [];
   List<BookCaseModel> listBookData = [];
@@ -23,8 +24,9 @@ class BookCaseController extends GetxController {
   Future<void> initial() async {
     isLoading.value = true;
     final auth = await AuthUseCase.getAuthToken();
+    // ignore: unnecessary_null_comparison
     final authID = auth != null ? JwtDecoder.decode(auth)["uid"] : "";
-    final result = await BookCaseData.getAllReadingBookCase(uid: authID);
+    final result = await bookCaseData.fetchAllReadingBookCase(uid: authID);
     if (result.status == Status.success) {
       listReadingBookCase = result.data ?? [];
     }

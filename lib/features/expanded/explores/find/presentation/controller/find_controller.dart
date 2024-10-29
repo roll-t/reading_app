@@ -2,12 +2,18 @@ import 'dart:async';
 
 import 'package:get/get.dart';
 import 'package:reading_app/core/data/database/model/list_comic_model.dart';
-import 'package:reading_app/core/data/database/model/result.dart';
+import 'package:reading_app/core/data/database/novel_data.dart';
+import 'package:reading_app/core/data/dto/response/novel_response.dart';
 import 'package:reading_app/core/data/service/api/comic_api.dart';
 
 class FindController extends GetxController {
+  dynamic argumentValue = Get.arguments["mark"];
+
   var isLoading = false.obs;
   var titlePage = "".obs;
+
+  late final ComicApi comicApi;
+  late final NovelData novelData;
 
   Rx<ListComicModel> listComicSearch = ListComicModel(
     domainImage: "",
@@ -15,33 +21,49 @@ class FindController extends GetxController {
     items: [],
   ).obs;
 
+  RxList<NovelResponse> listNovelSearch = <NovelResponse>[].obs;
+
   Timer? _debounce;
-  Map<String, ListComicModel> searchCache = {};  // Caching results
+
+  final Map<String, ListComicModel> searchCache = {};
+
+  final Map<String, List<NovelResponse>> searchNovelCache = {};
+
+  @override
+  void onInit() {
+    super.onInit();
+    comicApi = ComicApi();
+    novelData = NovelData();
+    fetchDefaultData();
+  }
 
   @override
   void dispose() {
-    // Hủy Timer khi widget bị hủy
     _debounce?.cancel();
     super.dispose();
   }
 
-  @override
-  void onInit() async {
-    super.onInit();
-    await fetchDefaultData();
-  }
-
   Future<void> fetchDefaultData() async {
-    isLoading.value = true;
-    Result<ListComicModel> result =
-        await ComicApi.getListSearchBySlug(slug: "Rồng");
-    if (result.data != null) {
-      listComicSearch.value = result.data!;
+    _setLoading(true);
+    if (argumentValue != null) {
+      if (argumentValue == "COMIC") {
+        final result = await comicApi.fetchListBySlug(slug: "Rồng", page: 1);
+        if (result.data != null) {
+          listComicSearch.value = result.data!;
+        }
+      }
+      if (argumentValue == "NOVEL") {
+        final result = await novelData.searchNovelByNameOrSlug(text: "so thu");
+        if (result.data != null) {
+          listNovelSearch.value = result.data!;
+        }
+      }
     }
-    isLoading.value = false;
+    print("hellooooo");
+    _setLoading(false);
   }
 
-  Future<void> handleSearch({required String searchContent}) async {
+  void handleSearch({required String searchContent}) {
     if (_debounce?.isActive ?? false) _debounce?.cancel();
     if (searchContent.isEmpty || searchContent.length < 3) return;
     if (searchCache.containsKey(searchContent)) {
@@ -50,17 +72,30 @@ class FindController extends GetxController {
     }
 
     _debounce = Timer(const Duration(milliseconds: 500), () async {
-      isLoading.value = true;
-      
-      // Gọi API để tìm kiếm
-      Result<ListComicModel> result =
-          await ComicApi.getListSearchBySlug(slug: searchContent);
-      
-      if (result.data != null) {
-        listComicSearch.value = result.data!;
-        searchCache[searchContent] = result.data!;  // Lưu kết quả vào cache
+      _setLoading(true);
+      if (argumentValue != null) {
+        if (argumentValue == "COMIC") {
+          final result = await comicApi.fetchListSearchBySlug(
+              slug: searchContent, page: 1);
+          if (result.data != null) {
+            listComicSearch.value = result.data!;
+            searchCache[searchContent] = result.data!; // Lưu kết quả vào cache
+          }
+        }
+        if (argumentValue == "NOVEL") {
+          final result =
+              await novelData.searchNovelByNameOrSlug(text: searchContent);
+          if (result.data != null) {
+            listNovelSearch.value = result.data!;
+            searchNovelCache[searchContent] = result.data!;
+          }
+        }
       }
-      isLoading.value = false;
+      _setLoading(false);
     });
+  }
+
+  void _setLoading(bool value) {
+    isLoading.value = value;
   }
 }

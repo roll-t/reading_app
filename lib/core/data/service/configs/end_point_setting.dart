@@ -46,8 +46,11 @@ class EndPointSetting {
 
   static String getNovelByStatus({required String statusName}) =>
       "${_baseUrl}book-data/status/$statusName";
-      
-  static String getNovelByCategory({required String categoryName }) =>
+
+  static String searchNovelByNameOrSlug({required String text}) =>
+      "${_baseUrl}book-data/search/$text";
+
+  static String getNovelByCategory({required String categoryName}) =>
       "${_baseUrl}book-data/category/$categoryName";
 
   // lấy danh sách truyện dự trên danh sách slug
@@ -57,5 +60,15 @@ class EndPointSetting {
   }
 
   // category
-    static String getAllCategory = "${_baseUrl}category";
+  static String getAllCategory = "${_baseUrl}category";
+
+  // comment
+  static String addComment({required String bookId}) =>
+      "${_baseUrl}comment/$bookId/create";
+
+  static String getAllCommentByBookId({required String bookId}) =>
+      "${_baseUrl}comment/$bookId";
+
+  static String deleteComment({required String cmId}) =>
+      "${_baseUrl}comment/$cmId";
 }

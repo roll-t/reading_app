@@ -13,7 +13,6 @@ import 'package:reading_app/core/ui/widgets/icons/icon_image.dart';
 import 'package:reading_app/core/ui/widgets/images/Image_widget.dart';
 
 class CardNovelFullInfo extends StatelessWidget {
-  
   final int currentIndex;
   final double heightImage;
   final NovelResponse bookModel;
@@ -28,10 +27,11 @@ class CardNovelFullInfo extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(Routes.comicDetail, arguments: {"slug": bookModel.slug});
+        Get.toNamed(Routes.novelDetail,
+            arguments: {"novelId": bookModel.bookDataId});
       },
       child: Container(
         height: heightImage + SpaceDimens.space25,
@@ -50,7 +50,7 @@ class CardNovelFullInfo extends StatelessWidget {
             SizedBox(
               width: heightImage,
               height: heightImage,
-              child: ImageWidget(imageUrl:bookModel.thumbUrl??""),
+              child: ImageWidget(imageUrl: bookModel.thumbUrl ?? ""),
             ),
             const SizedBox(
               width: SpaceDimens.space10,
@@ -59,7 +59,7 @@ class CardNovelFullInfo extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextNormal(textChild: bookModel.name??""),
+                  TextNormal(textChild: bookModel.name ?? ""),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: SpaceDimens.space10),

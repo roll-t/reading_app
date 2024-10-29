@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:reading_app/core/configs/enum.dart';
 import 'package:reading_app/core/data/database/model/list_category_model.dart';
 import 'package:reading_app/core/data/database/model/list_comic_model.dart';
-import 'package:reading_app/core/data/database/model/result.dart';
 import 'package:reading_app/core/data/database/novel_data.dart';
 import 'package:reading_app/core/data/dto/response/novel_response.dart';
 import 'package:reading_app/core/data/service/api/comic_api.dart';
@@ -14,7 +13,7 @@ class CommicController extends GetxController {
   NovelData novelData = NovelData();
   ComicApi comicApi = ComicApi();
 
-  List<ListComicModel> listDataComicCategoryBySlug = <ListComicModel>[];
+  RxList<ListComicModel> listDataComicCategoryBySlug = <ListComicModel>[].obs;
 
   RxList<ListCategoryModel> categories = <ListCategoryModel>[].obs;
 
@@ -31,17 +30,14 @@ class CommicController extends GetxController {
   @override
   onInit() async {
     super.onInit();
-    await setCategoryCache();
     isLoading.value = true;
+    await setCategoryCache();
+    await fetchListHome();
     if (categories.isNotEmpty) {
-      await Future.wait([
-        fetchDataComicCategoryBySlug(),
-        fetchDataComicCategoryByChange(slug: categories[0].slug),
-        fetchListComplete(),
-        _fetchListNovelByListSlug(),
-        fetchListHome()
-      ]);
+      fetchDataComicCategoryByChange(slug: categories[0].slug);
+      fetchDataComicCategoryBySlug();
     }
+    fetchListComplete();
     isLoading.value = false;
     update(["ListComicCategoryID"]);
   }
@@ -80,22 +76,6 @@ class CommicController extends GetxController {
     categories.value = await ComicApi.getCategoryCache() ?? categories.value;
   }
 
-  Future<void> _fetchListNovelByListSlug() async {
-    const List<String> listSlug = [
-      "so-thu-bi-an",
-      "gia-toc-viridis",
-      "ke-cuong-tin-tu-inh-huong",
-      "me-tre-phu-thuy-cua-lao-ai",
-      "the-gioi-ky-dieu-cua-mai-mai",
-    ];
-
-    Result result =
-        await novelData.fetchListNovelByListSlugNovel(listSlug: listSlug);
-    if (result.status == Status.success) {
-      listSlide.value = result.data ?? [];
-    }
-  }
-
   Future<void> fetchDataComicCategoryBySlug() async {
     for (var i = 10; i <= 11; i++) {
       final result = await comicApi.fetchComicCategoryBySlug(
@@ -103,7 +83,11 @@ class CommicController extends GetxController {
       if (result.status == Status.success) {
         final apiResponse = result.data;
         if (apiResponse != null) {
-          listDataComicCategoryBySlug.add(apiResponse);
+          // ignore: invalid_use_of_protected_member
+          listDataComicCategoryBySlug.value = [
+            ...listDataComicCategoryBySlug.value,
+            apiResponse
+          ];
         }
       }
     }
