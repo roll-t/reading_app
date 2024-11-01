@@ -114,6 +114,15 @@ class HomePage extends GetView<HomeController> {
                   : const SizedBox();
             })),
 
+            // build category recommentaition
+            Obx(() {
+              return SliverToBoxAdapter(
+                child: BuildListTagCategory(
+                    // ignore: invalid_use_of_protected_member
+                    listCategory: controller.categories.value),
+              );
+            }),
+
             SliverToBoxAdapter(child: Obx(() {
               // ignore: invalid_use_of_protected_member
               return controller.listNovel.value.isNotEmpty
@@ -141,11 +150,7 @@ class HomePage extends GetView<HomeController> {
                     )
                   : const SizedBox();
             })),
-
-            // build category recommentaition
-            const SliverToBoxAdapter(
-              child: BuildListTagCategory(),
-            ),
+            
             const SliverToBoxAdapter(
               child: BuildButtomToExplore(),
             ),

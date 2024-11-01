@@ -59,7 +59,6 @@ class FindController extends GetxController {
         }
       }
     }
-    print("hellooooo");
     _setLoading(false);
   }
 

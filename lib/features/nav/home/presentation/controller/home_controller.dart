@@ -37,7 +37,7 @@ class HomeController extends GetxController {
   // RxList<ReadingBookCaseResponse> listReadContinue =
   //     <ReadingBookCaseResponse>[].obs;
 
-  List<ListCategoryModel>? categories;
+  RxList<ListCategoryModel> categories = <ListCategoryModel>[].obs;
 
   Map<String, dynamic>? auth;
 
@@ -92,7 +92,7 @@ class HomeController extends GetxController {
 
   Future<void> _setCategoryCache() async {
     await ComicApi.setCategoryCache();
-    categories = await ComicApi.getCategoryCache();
+    categories.value = await ComicApi.getCategoryCache()??[];
   }
 
   Future<void> _fetchListNovel() async {
@@ -118,7 +118,6 @@ class HomeController extends GetxController {
   }
 
   String getSlugByTitlePage({required String title}) {
-    return categories?.firstWhere((category) => category.name == title).slug ??
-        "";
+    return categories.firstWhere((category) => category.name == title).slug;
   }
 }

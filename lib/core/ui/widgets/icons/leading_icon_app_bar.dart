@@ -6,9 +6,8 @@ import 'package:reading_app/core/configs/themes/app_colors.dart';
 
 // ignore: camel_case_types
 class leadingIconAppBar extends StatelessWidget {
-  const leadingIconAppBar({
-    super.key,
-  });
+  final Function? back;
+  const leadingIconAppBar({super.key, this.back});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +22,7 @@ class leadingIconAppBar extends StatelessWidget {
             color: AppColors.gray2.withOpacity(.2)),
         child: IconButton(
             onPressed: () {
-              Get.back();
+              back != null ? back!() : Get.back();
             },
             icon: const Icon(
               Icons.arrow_back_ios_new_rounded,

@@ -21,8 +21,10 @@ import 'package:reading_app/features/expanded/book/presentation/layout_book_deta
 import 'package:reading_app/features/expanded/book/presentation/layout_book_detail/widgets/build_chapter_novel_body.dart';
 import 'package:reading_app/features/expanded/book/presentation/layout_book_detail/widgets/build_content_book_detail.dart';
 import 'package:reading_app/features/expanded/book/presentation/layout_book_detail/widgets/build_header_tab_bar.dart';
+import 'package:reading_app/features/expanded/novel/presentation/controller/novel_detail_controller.dart';
 
 class LayoutBookDetailPage extends GetView<LayoutBookDetailController> {
+  final NovelDetailController? novelDetailController;
   final RxBool isLoading;
   final InfoBookDetailModel infoBookDetailModel;
   final List<ChapterNovelModel> listChapter;
@@ -37,6 +39,7 @@ class LayoutBookDetailPage extends GetView<LayoutBookDetailController> {
     required this.infoBookDetailModel,
     required this.isLoading,
     this.categories,
+    this.novelDetailController,
     this.lisComment,
     this.listChapterComic,
     this.novelId,
@@ -58,6 +61,7 @@ class LayoutBookDetailPage extends GetView<LayoutBookDetailController> {
         bodyBuilder: BookDetailBody(
           novelId: novelId,
           listComment: lisComment ?? [],
+          novelDetailController: novelDetailController,
           tag: tag,
           controller: controller,
           listChapter: listChapter,
@@ -81,6 +85,7 @@ class LayoutBookDetailPage extends GetView<LayoutBookDetailController> {
 
 class BookDetailBody extends StatelessWidget {
   final String? novelId;
+  final NovelDetailController? novelDetailController;
   final InfoBookDetailModel infoBookDetailModel;
   final List<ChapterNovelModel>? listChapter;
   final List<dynamic>? listChapterComic;
@@ -98,6 +103,7 @@ class BookDetailBody extends StatelessWidget {
     this.categoriesNovel,
     required this.listComment,
     this.novelId,
+    this.novelDetailController,
   });
   final String tag;
   final LayoutBookDetailController controller;
@@ -146,6 +152,7 @@ class BookDetailBody extends StatelessWidget {
       children: [
         BuildContentBookDetail(
           novelId: novelId,
+          novelController: novelDetailController,
           categoriesNovel: categoriesNovel,
           description: description,
           categories: categories,

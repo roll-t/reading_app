@@ -30,7 +30,9 @@ class CommentPage extends GetView<CommentController> {
         slivers: [
           SliverAppBar(
             pinned: true,
-            leading: const leadingIconAppBar(), // Fixed casing issue
+            leading: leadingIconAppBar(back: () {
+              Get.back(result: {"manipulate": controller.isManipulate});
+            }), // Fixed casing issue
             centerTitle: true,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.center,

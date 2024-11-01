@@ -18,6 +18,7 @@ class EndPointSetting {
       "${_baseUrl}comic/search/$slug?page=$page";
 
   static String get tokenEndpoint => "${_baseUrl}auth/token";
+  
   static String introspect = "${_baseUrl}auth/introspect";
 
   // configs auth end point

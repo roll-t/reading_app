@@ -23,6 +23,8 @@ class ComicDetailController extends GetxController
 
   dynamic slugArgument;
 
+  RxBool isComicAvAilable = true.obs;
+
   @override
   void onInit() async {
     super.onInit();
@@ -53,11 +55,9 @@ class ComicDetailController extends GetxController
               .map((item) => CategoryModel.fromJson(item))
               .toList();
         }
-        
-        print(category);
-
       } else {
-        SnackbarUtil.showError(result.error.toString());
+        isComicAvAilable.value = false;
+        SnackbarUtil.showInfo("Truyện bản quyền");
       }
     } catch (e) {
       print(e);
