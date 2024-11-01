@@ -1,76 +1,45 @@
 import 'dart:async';
 
-import 'package:dio/dio.dart';
-import 'package:reading_app/core/configs/enum.dart';
 import 'package:reading_app/core/data/database/model/result.dart';
 import 'package:reading_app/core/data/database/model/user_model.dart';
 import 'package:reading_app/core/data/service/configs/end_point_setting.dart';
+import 'package:reading_app/core/data/service/core_service.dart';
 
-class UserData {
-  final Dio _dio;
-  UserData(this._dio);
+class UserData extends CoreService {
+  UserData._privateConstructor();
+  static final UserData _instance = UserData._privateConstructor();
+  factory UserData() {
+    return _instance;
+  }
   Future<Result<UserModel>?> fetchUser({required String uid}) async {
-    try {
-      final response =
-          await _dio.get(EndPointSetting.getUserEndpoint(uid: uid));
-      if (response.statusCode == 200) {
-        final data = response.data["result"];
-        final userModel = UserModel.fromJson(data);
-        return Result.success(userModel);
-      } else {
-        return null;
-      }
-    } catch (e) {
-      return null;
-    }
+    return await fetchData(
+        endpoint: EndPointSetting.getUserEndpoint(uid: uid),
+        parse: (data) => UserModel.fromJson(data));
   }
 
   Future<Result<UserModel>?> signInAPI({required String userRequest}) async {
-    try {
-      final response = await _dio.post(
-        EndPointSetting.signInEndpoint(),
-        data: userRequest,
-        options: Options(
-          headers: {"Content-Type": "application/json"},
-        ),
-      );
-      if (response.statusCode == 200) {
-        final data = response.data["result"];
-        final userModel = UserModel.fromJson(data);
-        return Result.success(userModel);
-      }
-    } catch (e) {
-      print(e);
-    }
-    return null;
+    return await postData(
+        endpoint: EndPointSetting.tokenEndpoint,
+        parse: (data) => UserModel.fromJson(data),
+        data: userRequest);
   }
 
   Future<Result<bool>> fetchEmailExist({required String email}) async {
-    try {
-      final response =
-          await _dio.get(EndPointSetting.emailExistEndpoint(email: email));
-      if (response.statusCode == 200) {
-        return Result.success(true);
-      }
-    } catch (e) {
-      print(e);
-    }
-    return Result.error(ApiError.badRequest);
+    return await fetchData(
+        endpoint: EndPointSetting.emailExistEndpoint(email: email),
+        parse: (data) => true);
   }
 
   static Future<Result<UserModel>?> getUser({required String uid}) async {
-    final dataRemote = UserData(Dio());
-    return await dataRemote.fetchUser(uid: uid);
+    return await UserData().fetchUser(uid: uid);
   }
 
   static Future<Result<bool>> emailExist({required String email}) async {
-    final remote = UserData(Dio());
-    return await remote.fetchEmailExist(email: email);
+    return await UserData().fetchEmailExist(email: email);
   }
 
   static Future<Result<UserModel>?> signIn(
       {required String userRequest}) async {
-    final dataRemote = UserData(Dio());
-    return await dataRemote.signInAPI(userRequest: userRequest);
+    return await UserData().signInAPI(userRequest: userRequest);
   }
 }

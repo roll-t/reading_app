@@ -12,6 +12,7 @@ class NovelDetailPage extends GetView<NovelDetailController> {
     return GetBuilder<NovelDetailController>(
         id: "body",
         builder: (_) => LayoutBookDetailPage(
+              novelDetailController: controller,
               isLoading: controller.isLoading,
               lisComment: controller.listComment.value,
               categoriesNovel: controller.categories.value,

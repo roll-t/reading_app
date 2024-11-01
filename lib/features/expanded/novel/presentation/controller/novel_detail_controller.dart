@@ -13,7 +13,7 @@ import 'package:reading_app/core/routes/routes.dart';
 
 class NovelDetailController extends GetxController {
   var isLoading = false.obs;
-  
+
   var isLoadingComment = false.obs;
 
   // define Object
@@ -79,7 +79,11 @@ class NovelDetailController extends GetxController {
     var response = await commentData.fetchAllComment(bookId: bookId);
     if (response.status == Status.success) {
       listComment.value = response.data ?? [];
-      print(listComment);
     }
+  }
+
+  Future<void> loadNovelDetails() async {
+    await fetchListComment(bookId: slugArgumentBookId);
+    update(["body"]);
   }
 }

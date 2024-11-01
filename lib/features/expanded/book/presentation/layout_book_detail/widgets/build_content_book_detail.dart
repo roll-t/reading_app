@@ -11,9 +11,11 @@ import 'package:reading_app/core/ui/customs_widget_theme/texts/text_medium_semi_
 import 'package:reading_app/core/ui/widgets/tags/tag_category.dart';
 import 'package:reading_app/core/ui/widgets/text/expandable_text.dart';
 import 'package:reading_app/features/expanded/book/presentation/layout_book_detail/widgets/build_wrap_list_comment.dart';
+import 'package:reading_app/features/expanded/novel/presentation/controller/novel_detail_controller.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class BuildContentBookDetail extends StatelessWidget {
+  final NovelDetailController? novelController;
   final String? novelId;
   final List<CategoryModel> categories;
   final List<CategoryResponse>? categoriesNovel;
@@ -29,82 +31,106 @@ class BuildContentBookDetail extends StatelessWidget {
     this.categoriesNovel,
     this.listComment = const [],
     this.novelId,
+    this.novelController,
   });
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: SpaceDimens.spaceStandard),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: SpaceDimens.space20,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const TextMediumSemiBold(textChild: AppContents.type),
-                    Container(
-                      padding: const EdgeInsets.only(
-                          bottom: SpaceDimens.space10,
-                          top: SpaceDimens.space10),
-                      margin:
-                          const EdgeInsets.only(bottom: SpaceDimens.space30),
-                      width: 100.w,
-                      decoration: const BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                                  color: AppColors.gray3, width: .5))),
-                      child: Wrap(
-                        spacing: SpaceDimens.space10,
-                        runSpacing: SpaceDimens.space10,
-                        children: [
-                          for (var value in categories)
-                            TagCategory(
-                              categoryName: value.name,
-                            ),
-                          if (categoriesNovel != null)
-                            for (var value in categoriesNovel ?? [])
-                              TagCategory(
-                                categoryName: value.name,
-                              )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-                const TextMediumSemiBold(textChild: AppContents.description),
-                const SizedBox(
-                  height: SpaceDimens.space10,
-                ),
-                ExpandableText(text: description ?? ""),
-                const SizedBox(
-                  height: 15.0,
-                ),
-              ],
+    return RefreshIndicator(
+      onRefresh: () async {
+        if (novelController != null) {
+          await novelController!.loadNovelDetails();
+        }
+      },
+      child: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: SpaceDimens.spaceStandard),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: SpaceDimens.space20,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const TextMediumSemiBold(textChild: AppContents.type),
+                      Container(
+                        padding: const EdgeInsets.only(
+                            bottom: SpaceDimens.space10,
+                            top: SpaceDimens.space10),
+                        margin:
+                            const EdgeInsets.only(bottom: SpaceDimens.space30),
+                        width: 100.w,
+                        decoration: const BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                                    color: AppColors.gray3, width: .5))),
+                        child: Wrap(
+                          spacing: SpaceDimens.space10,
+                          runSpacing: SpaceDimens.space10,
+                          children: [
+                            for (var value in categories)
+                              InkWell(
+                                onTap: () {
+                                  Get.toNamed(Routes.category,
+                                      arguments: {"slugQuery": value.slug});
+                                },
+                                child: TagCategory(
+                                  categoryName: value.name,
+                                ),
+                              ),
+                            if (categoriesNovel != null)
+                              for (var value in categoriesNovel ?? [])
+                                InkWell(
+                                  onTap: () {
+                                    Get.toNamed(Routes.categoryNovel,
+                                        arguments: {"slugQuery": value.slug});
+                                  },
+                                  child: TagCategory(
+                                    categoryName: value.name,
+                                  ),
+                                )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  const TextMediumSemiBold(textChild: AppContents.description),
+                  const SizedBox(
+                    height: SpaceDimens.space10,
+                  ),
+                  ExpandableText(text: description ?? ""),
+                  const SizedBox(
+                    height: 15.0,
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        SliverToBoxAdapter(
-          child: BuildWrapListComment(
-            novelId: novelId,
-            listComment: listComment,
-            titleList: AppContents.comment,
-            heightWrapList: 24.h,
-            widthCard: 70.w,
-            toDetail: () {
-              Get.toNamed(
-                Routes.comment,arguments: {"novelId":novelId}
-              );
-            },
+          SliverToBoxAdapter(
+            child: BuildWrapListComment(
+              novelId: novelId,
+              listComment: listComment,
+              titleList: AppContents.comment,
+              heightWrapList: 24.h,
+              widthCard: 70.w,
+              toDetail: () async {
+                var result = await Get.toNamed(Routes.comment,
+                    arguments: {"novelId": novelId});
+                if (result != null) {
+                  if (novelController != null) {
+                    await novelController!.loadNovelDetails();
+                  }
+                }
+              },
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

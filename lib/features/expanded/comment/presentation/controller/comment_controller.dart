@@ -1,3 +1,4 @@
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:reading_app/core/configs/enum.dart';
@@ -11,6 +12,8 @@ class CommentController extends GetxController {
   var isLoading = false.obs;
   var listComment = <CommentResponse>[].obs;
   var auth = Rxn<Map<String, dynamic>>();
+
+  bool isManipulate = false;
 
   String? commentValue;
   final CommentData commentData = CommentData();
@@ -31,7 +34,7 @@ class CommentController extends GetxController {
   Future<void> _initializeAuth() async {
     String? token = await AuthUseCase.getAuthToken();
     auth.value = JwtDecoder.decode(token);
-    }
+  }
 
   Future<void> fetchComments() async {
     if (argumentNovelId != null) {
@@ -43,12 +46,16 @@ class CommentController extends GetxController {
   }
 
   Future<void> addComment(String content) async {
-    if (argumentNovelId != null && auth.value?["uid"] != null && content.isNotEmpty) {
+    if (argumentNovelId != null &&
+        auth.value?["uid"] != null &&
+        content.isNotEmpty) {
       var response = await commentData.addComment(
-        request: CommentRequest(userId: auth.value!["uid"], content: content.trim()),
+        request:
+            CommentRequest(userId: auth.value!["uid"], content: content.trim()),
         bookId: argumentNovelId,
       );
       if (response.status == Status.success && response.data != null) {
+        isManipulate = true;
         listComment.insert(0, response.data!);
       }
     }
@@ -57,7 +64,9 @@ class CommentController extends GetxController {
   Future<void> deleteComment(String commentId) async {
     var response = await commentData.deleteReadingComment(commentId: commentId);
     if (response.status == Status.success) {
-      listComment.removeWhere((comment) => comment.commentId == commentId); // Remove from list
+      isManipulate = true;
+      listComment.removeWhere((comment) => comment.commentId == commentId);
+      Fluttertoast.showToast(msg: "Đã xóa");
     }
   }
 }

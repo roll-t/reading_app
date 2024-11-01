@@ -6,7 +6,6 @@ import 'package:reading_app/core/data/database/novel_data.dart';
 import 'package:reading_app/core/data/dto/response/novel_response.dart';
 
 class CategoryNovelController extends GetxController {
-
   var title = "".obs;
 
   var isLoading = false.obs;
@@ -41,7 +40,7 @@ class CategoryNovelController extends GetxController {
       var slug = Get.arguments["slugQuery"].trim();
       if (slug.isNotEmpty) {
         try {
-          await fetchDataNovelCategoryByChange(slug: slug);
+          (slug: slug);
         } catch (e) {
           print("Error fetching data: $e");
         }
@@ -79,8 +78,7 @@ class CategoryNovelController extends GetxController {
     if (typeOfList.contains(slug)) {
       return novelData.fetchListNovel();
     }
-    return novelData.fetchListNovelByStatus(
-        statusName: "OPENING");
+    return novelData.fetchListNovelByStatus(statusName: "OPENING");
   }
 
   Future<void> fetchDataNovelCategoryByChange({required String slug}) async {

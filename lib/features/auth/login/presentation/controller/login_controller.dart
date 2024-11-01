@@ -35,7 +35,7 @@ class LogInController extends GetxController {
   var errorMessage = ''.obs;
 
   var isCheckRememberAccount = false.obs;
-
+  
   UserModel? user;
   dynamic dataArgument;
   UserModel? userRemember;
