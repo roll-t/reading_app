@@ -7,7 +7,7 @@ class CategoryBinding extends Bindings{
   @override
   void dependencies() {
     Get.lazyPut(()=>CategoryController());
-    Get.put(CategoryNovelController());
+    Get.lazyPut(()=>CategoryNovelController());
   }
 
 }

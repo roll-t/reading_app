@@ -10,10 +10,11 @@ import 'package:reading_app/features/expanded/explores/search_book/presentation/
 import 'package:reading_app/features/expanded/explores/search_book/presentation/page/type/commic_type_page.dart';
 
 class SearchBookController extends GetxController {
-
   NovelData novelData = NovelData();
 
   var currentTypePage = 0.obs;
+
+  var currentTypePageNovel = 0.obs;
 
   var currentIndexCategory = 0.obs;
 
@@ -28,6 +29,8 @@ class SearchBookController extends GetxController {
   var hasMore = true.obs;
 
   var currentPage = 2.obs;
+
+  ComicApi comicApi = ComicApi();
 
   List<Widget> listPage = [
     const CommicTypePage(),
@@ -57,12 +60,20 @@ class SearchBookController extends GetxController {
 
   Rx<ListComicModel> dataComicCategoryByType =
       ListComicModel(titlePage: '', domainImage: "", items: []).obs;
+  Rx<ListComicModel> dataComicCategoryByTypeAndStatus =
+      ListComicModel(titlePage: '', domainImage: "", items: []).obs;
 
   RxList<NovelResponse> listNovel = <NovelResponse>[].obs;
 
   RxList<NovelResponse> listNovelComplete = <NovelResponse>[].obs;
 
   final ScrollController scrollController = ScrollController();
+
+  String currentSlugComic = '';
+
+  String currentSlugNovel = '';
+
+  RxBool isDataLoading = false.obs;
 
   @override
   onInit() async {
@@ -71,10 +82,8 @@ class SearchBookController extends GetxController {
     scrollController.addListener(_scrollListener);
     await setCategoryCache();
     await fetchDataComicCategoryBySlug(slug: categories?[0].slug ?? "");
-    Future.wait([
-      fetchDataNovelByCategory(categoryName: categoriesNovel[0].slug),
-      fetchListNovelByStatus(status: 'COMPLETED'),
-    ]);
+    currentSlugComic = categories?[0].slug ?? "";
+    fetchDataNovelByCategory(categoryName: categoriesNovel[0].slug);
     isLoading.value = false;
     update(["IDSeach"]);
   }
@@ -101,18 +110,58 @@ class SearchBookController extends GetxController {
   }
 
   Future<void> fetchDataComicCategoryBySlug({required String slug}) async {
-    final result =
-        await ComicApi.getListComicCategoryBySlug(slug: slug, page: 1);
+    isDataLoading.value = true;
+    final result = await comicApi.fetchComicCategoryBySlug(slug: slug, page: 1);
     if (result.status == Status.success) {
       final apiResponse = result.data;
       if (apiResponse != null) {
         dataComicCategoryByType.value = apiResponse;
       }
     }
+    isDataLoading.value = false;
   }
 
-  Future<void> fetchListNovelByStatus({required String status}) async {
-    var result = await novelData.fetchListNovelByStatus(statusName: status);
+  Future<void> fetchDataComicCategoryBySlugAndStatus(
+      {required String slug}) async {
+    isDataLoading.value = true;
+    int page = 1;
+    ListComicModel completedComics =
+        ListComicModel(titlePage: '', domainImage: "", items: []);
+    while (completedComics.items.length < 10 && hasMore.value) {
+      final result =
+          await comicApi.fetchComicCategoryBySlug(slug: slug, page: page);
+      if (result.status == Status.success) {
+        final apiResponse = result.data;
+        if (apiResponse != null) {
+          completedComics.domainImage = apiResponse.domainImage;
+          final filteredComics = apiResponse.items
+              .where((item) => item.status == "completed")
+              .toList();
+          completedComics.items.addAll(filteredComics);
+
+          if (filteredComics.isEmpty || apiResponse.items.length < 10) {
+            hasMore.value = false;
+            break;
+          }
+        }
+      } else {
+        hasMore.value = false;
+        break;
+      }
+      page++;
+    }
+    dataComicCategoryByTypeAndStatus.value = ListComicModel(
+      titlePage: "Hoàn thành",
+      domainImage: completedComics.domainImage,
+      items: completedComics.items,
+    );
+    isDataLoading.value = false;
+  }
+
+  Future<void> fetchListNovelByCategorySlugAndStatus(
+      {required String status, required String categorySlug}) async {
+    var result = await novelData.fetchListNovelByCategorySlugAndStatus(
+        categorySlug: categorySlug, statusName: status);
     if (result.status == Status.success) {
       listNovelComplete.value = result.data ?? [];
     }
@@ -126,20 +175,44 @@ class SearchBookController extends GetxController {
   }
 
   Future<void> fetchDataNovelByCategory({required String categoryName}) async {
-    var result =
-        await novelData.fetchListNovelByCategory(statusName: categoryName);
-    if (result.status == Status.success) {
-      listNovel.value = result.data ?? [];
+    if (currentTypePageNovel.value == 0) {
+      currentSlugNovel = categoryName;
+      isDataLoading.value = true;
+      var result =
+          await novelData.fetchListNovelByCategory(statusName: categoryName);
+      if (result.status == Status.success) {
+        listNovel.value = result.data ?? [];
+      }
+      isDataLoading.value = false;
+    } else if (currentTypePageNovel.value == 1) {
+      isDataLoading.value = true;
+      await fetchListNovelByCategorySlugAndStatus(
+          categorySlug: categoryName, status: 'COMPLETED');
+      currentSlugNovel = categoryName;
+      isDataLoading.value = false;
     }
   }
 
   Future<void> changeCategoryList({required String slug}) async {
-    await fetchDataComicCategoryBySlug(slug: slug);
-    update(["UpdateListByCategory"]);
+    if (currentTypePage.value == 0) {
+      hasMore.value = true;
+      currentPage.value = 1;
+      dataComicCategoryByType.value.items.clear();
+      await fetchDataComicCategoryBySlug(slug: slug);
+      currentSlugComic = slug;
+    } else if (currentTypePage.value == 1) {
+      hasMore.value = true;
+      currentPage.value = 1;
+      dataComicCategoryByTypeAndStatus.value.items.clear();
+      isDataLoading.value = true;
+      await fetchDataComicCategoryBySlugAndStatus(slug: slug);
+      currentSlugComic = slug;
+      isDataLoading.value = false;
+    }
   }
 
   Future<void> loadMoreData() async {
-    final result = await ComicApi.getListComicCategoryBySlug(
+    final result = await comicApi.fetchComicCategoryBySlug(
         slug: categories![currentIndexCategory.value].slug,
         page: currentPage.value);
     if (result.status == Status.success) {

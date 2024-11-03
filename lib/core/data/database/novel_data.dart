@@ -61,6 +61,21 @@ class NovelData extends CoreService {
     );
   }
 
+  // trả về danh sách truyện dựa trên mảng slug
+  Future<Result<List<NovelResponse>>> fetchListNovelByCategorySlugAndStatus(
+      {required String categorySlug,
+      String status = "COMPLETED",
+      int page = 0,
+      int size = 20, required String statusName}) async {
+    return await fetchData(
+      endpoint: EndPointSetting.getNovelByCategoryAndStatus(
+          categorySlug: categorySlug, status: status, page: page, size: size),
+      parse: (data) => (data as List<dynamic>)
+          .map((item) => NovelResponse.fromJson(item))
+          .toList(),
+    );
+  }
+
   Future<Result<NovelModel>> fetchNovelById({required String id}) async {
     return await fetchData(
       endpoint: EndPointSetting.getNovelByIdEnpoint(id: id),

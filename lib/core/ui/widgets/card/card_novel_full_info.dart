@@ -30,8 +30,8 @@ class CardNovelFullInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(Routes.novelDetail,
-            arguments: {"novelId": bookModel.bookDataId});
+        Get.offAndToNamed(Routes.novelDetail,
+            arguments: {"novelId": bookModel.bookDataId,});
       },
       child: Container(
         height: heightImage + SpaceDimens.space25,

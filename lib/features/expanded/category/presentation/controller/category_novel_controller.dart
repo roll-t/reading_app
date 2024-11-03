@@ -3,56 +3,30 @@ import 'package:get/get.dart';
 import 'package:reading_app/core/configs/enum.dart';
 import 'package:reading_app/core/data/database/model/result.dart';
 import 'package:reading_app/core/data/database/novel_data.dart';
+import 'package:reading_app/core/data/dto/response/category_response.dart';
 import 'package:reading_app/core/data/dto/response/novel_response.dart';
 
 class CategoryNovelController extends GetxController {
   var title = "".obs;
-
   var isLoading = false.obs;
-
   var hasMore = true.obs;
+  var currentPage = 1.obs;
+  var listDataChangeCategory = <NovelResponse>[].obs;
 
-  NovelData novelData = NovelData();
-
-  var currentPage = 1.obs; // Start from the first page
-
-  var typeOfList = [
+  final NovelData novelData = NovelData();
+  final ScrollController scrollController = ScrollController();
+  final List<String> typeOfList = [
     "truyen-moi",
     "sap-ra-mat",
     "dang-phat-hanh",
     "hoan-thanh"
-  ]; // Novel categories
-
-  RxList<NovelResponse> listDataChangeCategory = <NovelResponse>[].obs;
-
-  final ScrollController scrollController = ScrollController();
+  ];
 
   @override
-  void onInit() async {
+  void onInit() {
     super.onInit();
-    isLoading.value = true;
-
     scrollController.addListener(_scrollListener);
-
-    // Validate and process slugQuery
-    if (Get.arguments["slugQuery"] != null &&
-        Get.arguments["slugQuery"] is String) {
-      var slug = Get.arguments["slugQuery"].trim();
-      if (slug.isNotEmpty) {
-        try {
-          (slug: slug);
-        } catch (e) {
-          print("Error fetching data: $e");
-        }
-      } else {
-        print("Slug is empty.");
-      }
-    } else {
-      print("Invalid or missing slugQuery.");
-    }
-
-    isLoading.value = false;
-    update(["titleID", "ListCategoryID"]);
+    _initializeData();
   }
 
   @override
@@ -62,12 +36,35 @@ class CategoryNovelController extends GetxController {
   }
 
   void _scrollListener() {
-    if (scrollController.position.pixels ==
-        scrollController.position.maxScrollExtent) {
+    if (scrollController.position.atEdge &&
+        scrollController.position.pixels != 0) {
       if (!isLoading.value && hasMore.value) {
         fetchData();
-        update(["loadMoreID"]);
       }
+    }
+  }
+
+  Future<void> _initializeData() async {
+    isLoading.value = true;
+    final categoryArgument = Get.arguments["slugQuery"] as CategoryResponse?;
+
+    final slug = categoryArgument?.slug.trim();
+    title.value=categoryArgument?.name.trim()??"Tiểu thuyết";
+    if (slug != null && slug.isNotEmpty) {
+      await _fetchInitialData(slug);
+    } else {
+      print(slug == null ? "Missing slugQuery" : "Slug is empty.");
+    }
+
+    isLoading.value = false;
+    update(["titleID", "ListCategoryID"]);
+  }
+
+  Future<void> _fetchInitialData(String slug) async {
+    try {
+      await fetchDataNovelCategoryByChange(slug: slug);
+    } catch (e) {
+      print("Error fetching data: $e");
     }
   }
 
@@ -75,19 +72,15 @@ class CategoryNovelController extends GetxController {
     required String slug,
     required int page,
   }) {
-    if (typeOfList.contains(slug)) {
-      return novelData.fetchListNovel();
-    }
-    return novelData.fetchListNovelByStatus(statusName: "OPENING");
+    return typeOfList.contains(slug)
+        ? novelData.fetchListNovelByStatus(statusName: "OPENING")
+        : novelData.fetchListNovelByCategory(statusName: slug);
   }
 
   Future<void> fetchDataNovelCategoryByChange({required String slug}) async {
     final result = await _routeRenderData(slug: slug, page: 1);
     if (result.status == Status.success) {
-      final apiResponse = result.data;
-      if (apiResponse != null) {
-        listDataChangeCategory.value = apiResponse;
-      }
+      listDataChangeCategory.value = result.data ?? [];
     }
     update(["loadMoreID"]);
   }
@@ -96,21 +89,21 @@ class CategoryNovelController extends GetxController {
     if (isLoading.value || !hasMore.value) return;
 
     isLoading.value = true;
-
     try {
+      var value = Get.arguments["slugQuery"] as CategoryResponse;
       final result = await _routeRenderData(
-        slug: Get.arguments["slugQuery"],
+        slug: value.slug,
         page: currentPage.value,
       );
 
       if (result.status == Status.success) {
         final apiResponse = result.data;
+
         if (apiResponse != null && apiResponse.isNotEmpty) {
-          // ignore: invalid_use_of_protected_member
-          listDataChangeCategory.value.addAll(apiResponse); // Append new items
-          currentPage.value++; // Increment page for next fetch
+          listDataChangeCategory.addAll(apiResponse);
+          currentPage.value++;
         } else {
-          hasMore.value = false; // No more items to fetch
+          hasMore.value = false;
         }
       }
     } catch (e) {

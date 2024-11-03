@@ -7,12 +7,13 @@ import 'package:reading_app/core/data/dto/response/reading_book_case_response.da
 import 'package:reading_app/features/nav/book_case/model/book_case_model.dart';
 
 class BookCaseController extends GetxController {
-  RxString typeSelect = "Tất cả".obs;
+  RxString typeSelect = "Tiểu thuyết".obs;
   RxString filterType = "Mới nhất".obs;
   var isLoading = false.obs;
-  BookCaseData bookCaseData =BookCaseData();
+  BookCaseData bookCaseData = BookCaseData();
 
   List<ReadingBookCaseResponse> listReadingBookCase = [];
+
   List<BookCaseModel> listBookData = [];
 
   @override
