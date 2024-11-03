@@ -7,76 +7,122 @@ import 'package:reading_app/features/expanded/explores/search_book/presentation/
 import 'package:reading_app/features/expanded/explores/search_book/presentation/page/type/widgets/build_list_novel.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class BookTypePage extends GetView<SearchBookController> {
+class BookTypePage extends StatefulWidget {
   const BookTypePage({super.key});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _BookTypePageState createState() => _BookTypePageState();
+}
+
+class _BookTypePageState extends State<BookTypePage>
+    with SingleTickerProviderStateMixin {
+  late TabController tabController;
+  final SearchBookController controller = Get.find();
+
+  @override
+  void initState() {
+    super.initState();
+    tabController = TabController(length: 2, vsync: this);
+    tabController.addListener(() {
+      if (!tabController.indexIsChanging) {
+        controller.currentTypePageNovel.value = tabController.index;
+        if (tabController.index == 1) {
+          controller.fetchListNovelByCategorySlugAndStatus(
+              categorySlug: controller.currentSlugNovel, status: 'COMPLETED');
+        } else {
+          controller.fetchDataNovelByCategory(
+              categoryName: controller.currentSlugNovel);
+        }
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: DefaultTabController(
-        length: 3,
-        child: Column(
-          children: [
-            CustomScrollView(
-              shrinkWrap: true,
-              slivers: [
-                SliverToBoxAdapter(
-                  child: BuildCategoryFilterNovel(
-                    currentIndex: controller.currentIndexCategoryNovel,
-                    categories: controller.categoriesNovel,
+      body: Column(
+        children: [
+          CustomScrollView(
+            shrinkWrap: true,
+            slivers: [
+              SliverToBoxAdapter(
+                child: BuildCategoryFilterNovel(
+                  currentIndex: controller.currentIndexCategoryNovel,
+                  categories: controller.categoriesNovel,
+                ),
+              ),
+              SliverPadding(
+                padding: EdgeInsets.symmetric(horizontal: 2.h),
+                sliver: SliverToBoxAdapter(
+                  child: TabBar(
+                    controller: tabController, // Set the tab controller here
+                    unselectedLabelColor: AppColors.gray2,
+                    dividerColor: AppColors.secondaryDarkBg,
+                    labelColor: AppColors.accentColor,
+                    indicator: const UnderlineTabIndicator(
+                      borderSide: BorderSide(
+                        width: 2,
+                        color: AppColors.accentColor,
+                      ),
+                    ),
+                    tabs: const [
+                      TextNormal(textChild: "Tất cả"),
+                      TextNormal(textChild: "Hoàn thành"),
+                    ],
                   ),
                 ),
-                SliverPadding(
-                  padding: EdgeInsets.symmetric(horizontal: 2.h),
-                  sliver: const SliverToBoxAdapter(
-                    child: TabBar(
-                      unselectedLabelColor: AppColors.gray2,
-                      dividerColor: AppColors.secondaryDarkBg,
-                      labelColor: AppColors.accentColor,
-                      indicator: UnderlineTabIndicator(
-                        borderSide: BorderSide(
-                          width: 2,
-                          color: AppColors.accentColor,
-                        ),
-                      ),
-                      tabs: [
-                        TextNormal(textChild: "Tất cả"),
-                        TextNormal(textChild: "Hoàn thành"),
-                        TextNormal(textChild: "Truyện hot"),
-                      ],
-                    ),
-                  ),
+              ),
+            ],
+          ),
+          Expanded(
+            child: TabBarView(
+              controller: tabController, // Set the tab controller here as well
+              children: [
+                CustomScrollView(
+                  slivers: [
+                    Obx(() {
+                      return controller.isDataLoading.value
+                          ? SliverToBoxAdapter(
+                              child: Padding(
+                                padding: EdgeInsets.only(top: 2.h),
+                                child: const Center(
+                                    child: CircularProgressIndicator()),
+                              ),
+                            )
+                          : BuildListNovel(
+                              // ignore: invalid_use_of_protected_member
+                              listBookData: controller.listNovel.value);
+                    }),
+                  ],
+                ),
+                CustomScrollView(
+                  slivers: [
+                    Obx(() {
+                      return controller.isDataLoading.value
+                          ? SliverToBoxAdapter(
+                              child: Padding(
+                                padding: EdgeInsets.only(top: 2.h),
+                                child: const Center(
+                                    child: CircularProgressIndicator()),
+                              ),
+                            )
+                          : BuildListNovel(
+                              // ignore: invalid_use_of_protected_member
+                              listBookData: controller.listNovelComplete.value);
+                    }),
+                  ],
                 ),
               ],
             ),
-            Obx(() {
-              return Expanded(
-                  child: TabBarView(
-                children: [
-                  CustomScrollView(
-                    slivers: [
-                      // ignore: invalid_use_of_protected_member
-                      BuildListNovel(listBookData: controller.listNovel.value)
-                    ],
-                  ),
-                  CustomScrollView(
-                    slivers: [
-                      // ignore: invalid_use_of_protected_member
-                      BuildListNovel(
-                          listBookData: controller.listNovelComplete.value)
-                    ],
-                  ),
-                  CustomScrollView(
-                    slivers: [
-                      // ignore: invalid_use_of_protected_member
-                      BuildListNovel(listBookData: controller.listNovel.value)
-                    ],
-                  ),
-                ],
-              ));
-            })
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

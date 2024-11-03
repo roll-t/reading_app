@@ -18,7 +18,7 @@ class EndPointSetting {
       "${_baseUrl}comic/search/$slug?page=$page";
 
   static String get tokenEndpoint => "${_baseUrl}auth/token";
-  
+
   static String introspect = "${_baseUrl}auth/introspect";
 
   // configs auth end point
@@ -36,6 +36,13 @@ class EndPointSetting {
   // chapter endpoint
   static String getListChapterOfBookEndpoint({required String slug}) =>
       "${_baseUrl}chapter/book/$slug";
+
+  static String getNovelByCategoryAndStatus(
+          {required String categorySlug,
+          required String status,
+          int page = 0,
+          int size = 20}) =>
+      "${_baseUrl}book-data/category/$categorySlug/status/$status?page=$page&size=$size";
 
   //bookcase Endpoint
   static String addReadingBookCase = "${_baseUrl}book-case";

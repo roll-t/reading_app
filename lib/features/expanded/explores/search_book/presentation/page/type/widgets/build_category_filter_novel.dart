@@ -124,7 +124,7 @@ class BuildCategoryFilterNovel extends GetView<SearchBookController> {
                                         .categoriesNovel[controller
                                             .currentCategoryModalNovel.value]
                                         .slug);
-                                controller.currentIndexCategory.value =
+                                controller.currentIndexCategoryNovel.value =
                                     controller.currentCategoryModalNovel.value;
                               },
                             ),

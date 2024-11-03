@@ -13,7 +13,6 @@ import 'package:reading_app/core/ui/widgets/icons/icon_image.dart';
 import 'package:reading_app/core/ui/widgets/images/Image_widget.dart';
 
 class CardFullInfoFollowRow extends StatelessWidget {
-  
   final int currentIndex;
   final double heightImage;
   final ItemModel bookModel;
@@ -30,10 +29,11 @@ class CardFullInfoFollowRow extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(Routes.comicDetail, arguments: {"slug": bookModel.slug});
+        Get.offAndToNamed(Routes.comicDetail,
+            arguments: {"slug": bookModel.slug});
       },
       child: Container(
         height: heightImage + SpaceDimens.space25,

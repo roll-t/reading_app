@@ -73,22 +73,23 @@ class BuildContentBookDetail extends StatelessWidget {
                           spacing: SpaceDimens.space10,
                           runSpacing: SpaceDimens.space10,
                           children: [
-                            for (var value in categories)
-                              InkWell(
-                                onTap: () {
-                                  Get.toNamed(Routes.category,
-                                      arguments: {"slugQuery": value.slug});
-                                },
-                                child: TagCategory(
-                                  categoryName: value.name,
+                            if (categories.isNotEmpty)
+                              for (var value in categories)
+                                InkWell(
+                                  onTap: () {
+                                    Get.offAndToNamed(Routes.category,
+                                        arguments: {"slugQuery": value.slug});
+                                  },
+                                  child: TagCategory(
+                                    categoryName: value.name,
+                                  ),
                                 ),
-                              ),
                             if (categoriesNovel != null)
                               for (var value in categoriesNovel ?? [])
                                 InkWell(
                                   onTap: () {
-                                    Get.toNamed(Routes.categoryNovel,
-                                        arguments: {"slugQuery": value.slug});
+                                    Get.offAndToNamed(Routes.categoryNovel,
+                                        arguments: {"slugQuery": value});
                                   },
                                   child: TagCategory(
                                     categoryName: value.name,
