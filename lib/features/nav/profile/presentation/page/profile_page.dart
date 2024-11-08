@@ -10,7 +10,7 @@ import 'package:reading_app/core/ui/customs_widget_theme/texts/text_medium.dart'
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small.dart';
 import 'package:reading_app/core/ui/widgets/avatar/avatar.dart';
-import 'package:reading_app/core/utils/loading.dart';
+import 'package:reading_app/core/ui/widgets/loading.dart';
 import 'package:reading_app/features/nav/profile/presentation/controller/profile_controller.dart';
 
 class ProfilePage extends GetView<ProfileController> {

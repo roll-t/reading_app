@@ -7,7 +7,6 @@ import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 class TextLargeBold extends TextWidget {
   final String textChild;
   final Color? colorChild;
-
   const TextLargeBold({
     super.key,
     required this.textChild,

@@ -2,12 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/features/nav/audio/di/audio_binding.dart';
-import 'package:reading_app/features/nav/audio/presentation/page/audio_page.dart';
 import 'package:reading_app/features/nav/book_case/di/book_case_binding.dart';
 import 'package:reading_app/features/nav/book_case/presentation/page/book_case_page.dart';
-import 'package:reading_app/features/nav/commic/di/commic_binding.dart';
-import 'package:reading_app/features/nav/commic/presentation/page/commic_page.dart';
+import 'package:reading_app/features/nav/comic/di/commic_binding.dart';
+import 'package:reading_app/features/nav/comic/presentation/page/commic_page.dart';
 import 'package:reading_app/features/nav/home/di/home_binding.dart';
 import 'package:reading_app/features/nav/home/presentation/page/home_page.dart';
 import 'package:reading_app/features/nav/profile/di/profile_binding.dart';
@@ -20,16 +18,10 @@ class MainController extends GetxController {
   var navbarOpacity = 1.0.obs;
 
   // Route names for bottom navigation
-  final List<String> pages = [
-    '/home',
-    '/commic',
-    '/post',
-    '/notify',
-    '/profile'
-  ];
+  final List<String> pages = ['/home', '/comic', '/bookCase', '/profile'];
 
   Timer? _timer;
-  
+
   @override
   void onInit() {
     super.onInit();
@@ -51,21 +43,14 @@ class MainController extends GetxController {
           binding: HomeBinding(),
           transition: Transition.fadeIn,
         );
-      case '/commic':
+      case '/comic':
         return GetPageRoute(
           settings: settings,
           page: () => const CommicPage(),
           binding: CommicBinding(),
           transition: Transition.fadeIn,
         );
-      case '/post':
-        return GetPageRoute(
-          settings: settings,
-          page: () => const AudioPage(),
-          binding: AudioBinding(),
-          transition: Transition.fadeIn,
-        );
-      case '/notify':
+      case '/bookCase':
         return GetPageRoute(
           settings: settings,
           page: () => const BookCasePage(),

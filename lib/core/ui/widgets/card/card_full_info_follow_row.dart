@@ -5,15 +5,14 @@ import 'package:reading_app/core/configs/dimens/icons_dimens.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
+import 'package:reading_app/core/data/database/model/list_comic_model.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/services/data/model/list_comic_model.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small.dart';
 import 'package:reading_app/core/ui/widgets/icons/icon_image.dart';
 import 'package:reading_app/core/ui/widgets/images/Image_widget.dart';
 
 class CardFullInfoFollowRow extends StatelessWidget {
-  
   final int currentIndex;
   final double heightImage;
   final ItemModel bookModel;
@@ -30,10 +29,11 @@ class CardFullInfoFollowRow extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(Routes.bookDetail, arguments: {"slug": bookModel.slug});
+        Get.toNamed(Routes.comicDetail,
+            arguments: {"slug": bookModel.slug, "comicId": bookModel.id});
       },
       child: Container(
         height: heightImage + SpaceDimens.space25,

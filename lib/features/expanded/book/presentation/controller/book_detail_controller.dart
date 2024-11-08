@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/enum.dart';
+import 'package:reading_app/core/data/database/model/authentication_model.dart';
+import 'package:reading_app/core/data/database/model/comic_model.dart';
+import 'package:reading_app/core/data/service/api/comic_api.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/services/api/comic_api.dart';
-import 'package:reading_app/core/services/data/model/authentication_model.dart';
-import 'package:reading_app/core/services/data/model/comic_model.dart';
 import 'package:reading_app/core/ui/snackbar/snackbar.dart';
 
 class BookDetailController extends GetxController

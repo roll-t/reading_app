@@ -1,38 +1,45 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
-import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/services/data/model/book_model.dart';
+import 'package:reading_app/core/data/dto/response/reading_book_case_response.dart';
+import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
+import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small_semi_bold.dart';
 import 'package:reading_app/core/ui/widgets/images/Image_widget.dart';
+import 'package:reading_app/core/utils/date_time.dart';
+import 'package:reading_app/features/nav/book_case/presentation/controller/book_case_controller.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
-class CardBookCase extends StatelessWidget {
+class CardBookCase extends GetView<BookCaseController> {
   final String type;
-  final BookModel bookModel;
+  final ReadingBookCaseResponse bookModel;
   final double heightCard;
   final double widthCard;
   const CardBookCase({
-    super.key, 
-    required this.type, 
-    required this.bookModel, 
-    required this.heightCard, 
+    super.key,
+    required this.type,
+    required this.bookModel,
+    required this.heightCard,
     required this.widthCard,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      
+      onTap: () {
+        Get.toNamed(Routes.novelDetail, arguments: {
+          "novelId": bookModel.bookData.bookDataId,
+          "readContinue": bookModel
+        });
+      },
       child: Container(
         height: heightCard,
-        margin: const EdgeInsets.symmetric(
-            horizontal: SpaceDimens.spaceStandard,
-            vertical: SpaceDimens.space10),
+        margin: EdgeInsets.symmetric(
+            horizontal: 3.w, vertical: SpaceDimens.space10),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(5),
             color: AppColors.secondaryDarkBg),
         child: Row(
           children: [
@@ -40,24 +47,29 @@ class CardBookCase extends StatelessWidget {
               height: heightCard,
               width: widthCard,
               child: ImageWidget(
-                imageUrl:bookModel.imageUrl,
+                imageUrl: bookModel.bookData.thumbUrl,
               ),
             ),
-            const SizedBox(
-              width: SpaceDimens.space10,
+            SizedBox(
+              width: 3.w,
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: SpaceDimens.space5,
+                padding: EdgeInsets.symmetric(
+                  vertical: .5.h,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextSmallSemiBold(textChild:type),
-                    const SizedBox(height: SpaceDimens.space5,),
+                    TextSmallSemiBold(
+                      textChild: type,
+                      colorChild: AppColors.primaryLight,
+                    ),
+                    const SizedBox(
+                      height: SpaceDimens.space5,
+                    ),
                     TextNormal(
-                      textChild:bookModel.title,
+                      textChild: bookModel.bookData.name,
                       maxLinesChild: 2,
                     ),
                     const Spacer(),
@@ -66,13 +78,10 @@ class CardBookCase extends StatelessWidget {
                           horizontal: SpaceDimens.space10,
                           vertical: SpaceDimens.space5),
                       decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.circular(1000),
-                          color: AppColors.accentColor
-                              .withOpacity(.5)),
-                      child: const TextNormal(
-                        textChild:
-                            "${AppContents.chapter} 2/12",
+                          borderRadius: BorderRadius.circular(1000),
+                          color: AppColors.accentColor.withOpacity(.4)),
+                      child: TextSmall(
+                        textChild: "${bookModel.chapterName}",
                       ),
                     ),
                     const SizedBox(
@@ -85,14 +94,27 @@ class CardBookCase extends StatelessWidget {
             const SizedBox(
               width: SpaceDimens.space10,
             ),
-            const Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(SpaceDimens.space10),
-                  child: Icon(Icons.delete,color: AppColors.gray2,),
-                )
-              ],
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: .5.h, horizontal: 1.h),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  TextSmall(
+                      textChild:
+                          DatetimeUtil.formatCustom(bookModel.readingDate)),
+                  InkWell(
+                    onTap: () {
+                      controller.handleDelete(
+                          readingBookCaseID: bookModel.id.toString());
+                    },
+                    child: const Icon(
+                      Icons.delete,
+                      color: AppColors.gray2,
+                    ),
+                  )
+                ],
+              ),
             )
           ],
         ),

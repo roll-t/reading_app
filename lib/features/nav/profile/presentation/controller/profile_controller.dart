@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:reading_app/core/data/database/model/authentication_model.dart';
+import 'package:reading_app/core/data/database/model/user_model.dart';
+import 'package:reading_app/core/data/domain/auth_use_case.dart';
+import 'package:reading_app/core/data/prefs/prefs.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/services/data/model/authentication_model.dart';
-import 'package:reading_app/core/services/data/model/user_model.dart';
-import 'package:reading_app/core/services/domain/auth_use_case.dart';
-import 'package:reading_app/core/services/prefs/prefs.dart';
 
 class ProfileController extends GetxController {
   final prefs = Prefs();
@@ -17,8 +17,7 @@ class ProfileController extends GetxController {
 
   String jwtToken = "";
 
-  var userModel =
-      UserModel(email: " ", photoURL: "", displayName: "no name").obs;
+  var userModel = UserModel(email: " ", photoURL: "", displayName: "no name").obs;
 
   @override
   onInit() async {
@@ -46,7 +45,7 @@ class ProfileController extends GetxController {
   Future<void> logout() async {
     isLoading.value = true;
     await prefs.logout();
-    isLogin.value = await AuthUseCase.isLogin();
+    Get.offAllNamed(Routes.login);
     isLoading.value = false;
   }
 

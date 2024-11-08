@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/button/button_normal.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/inputs/input_app_normal.dart';
+import 'package:reading_app/core/ui/widgets/icons/leading_icon_app_bar.dart';
 import 'package:reading_app/features/auth/register/presentation/controller/register_controller.dart';
 import 'package:reading_app/features/auth/shared/build_share_auth.dart';
 
@@ -11,23 +12,25 @@ class RegisterPage extends GetView<RegisterController> {
 
   @override
   Widget build(BuildContext context) {
-    return BuildShareAuth.buildMainBodyPage(
-      appbar: BuildShareAuth.buildAppbar(),
-      body: Column(
-        children: [
-          BuildShareAuth.buildTitle(
-            title: AppContents.signUp,
-            subTitle: AppContents.subSignUp,
-          ),
-          _BuildBody()
-        ],
-      ), isLoading: controller.isLoading,
+    return SafeArea(
+      child: BuildShareAuth.buildMainBodyPage(
+        appbar: const leadingIconAppBar(),
+        body: Column(
+          children: [
+            BuildShareAuth.buildTitle(
+              title: AppContents.signUp,
+              subTitle: AppContents.subSignUp,
+            ),
+            _BuildBody()
+          ],
+        ),
+        isLoading: controller.isLoading,
+      ),
     );
   }
 
   // ignore: non_constant_identifier_names
   Widget _BuildBody() {
-    // Khởi tạo các controllers cho các InputAppNormal
     return BuildShareAuth.buildBackgoundForm(
         childContent: Obx(
       () => Column(
@@ -56,15 +59,15 @@ class RegisterPage extends GetView<RegisterController> {
             lable: AppContents.passwordConfirm,
             placeholder: AppContents.placeholderPassword,
             isPassword: true,
-            controller:controller.passwordConfirmController, // Cung cấp controller
+            controller:
+                controller.passwordConfirmController, // Cung cấp controller
             errorMess: controller.errorMessagePasswordConfirm.value,
           ),
           ButtonNormal(
+            paddingChild: const EdgeInsets.symmetric(vertical: 10),
             textChild: AppContents.signUp,
             onTap: () async {
-              // Gọi phương thức đăng ký từ RegisterController
               await controller.signUp();
-              // Điều hướng đến trang xác minh email nếu cần
             },
           )
         ],

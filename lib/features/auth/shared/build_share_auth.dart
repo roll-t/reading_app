@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reading_app/core/configs/assets/app_images.dart';
 import 'package:reading_app/core/configs/dimens/radius_dimens.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal_bold.dart';
-import 'package:reading_app/core/ui/widgets/icons/icon_circle.dart';
+import 'package:reading_app/core/ui/widgets/loading.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
-import 'package:reading_app/core/utils/loading.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class BuildShareAuth {
   static Expanded buildBackgoundForm({Widget childContent = const SizedBox()}) {
     return Expanded(
       child: Container(
+        height: 72.h,
           padding: EdgeInsets.symmetric(
-              horizontal: SpaceDimens.space25, vertical: Get.height * .04),
-          width: Get.width,
+              horizontal: SpaceDimens.space25, vertical: 4.h),
+          width: 100.w,
           decoration: const BoxDecoration(
               color: AppColors.black,
               borderRadius: BorderRadius.only(
@@ -27,20 +28,17 @@ class BuildShareAuth {
   static Widget buildTitle({String title = "", String subTitle = ""}) {
     return Center(
       child: SizedBox(
-        height: Get.height * .25,
+        height: 28.h,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextWidget(text: title,fontWeight: FontWeight.w700,size: 35,),
-            const SizedBox(
-              height: SpaceDimens.space15,
+            SizedBox(width: 35.w, child: Image.asset(AppImages.iLogo)),
+            const SizedBox(height: 5),
+            TextWidget(
+              text: title,
+              fontWeight: FontWeight.w700,
+              size: 23.sp,
             ),
-            TextNormalBold(
-              textChild: subTitle,
-            ),
-            const SizedBox(
-              height: SpaceDimens.space40,
-            )
           ],
         ),
       ),
@@ -52,56 +50,20 @@ class BuildShareAuth {
       Widget appbar = const SizedBox(),
       required RxBool isLoading}) {
     return Scaffold(
-        backgroundColor: AppColors.primary,
+        backgroundColor: AppColors.tertiaryDarkBg,
         body: Loading(
           isLoading: isLoading,
           bodyBuilder: SingleChildScrollView(
             child: SizedBox(
-              height: Get.height,
+              height: 100.h,
               child: Stack(
                 children: [
-                  Positioned(
-                      left: -400 / 1.7,
-                      top: -400 / 1.7,
-                      child: Container(
-                        width: 400,
-                        height: 400,
-                        decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.circular(RadiusDimens.radiusFull),
-                            color: AppColors.lightActive),
-                      )),
-                  Positioned(
-                      right: -150 / 1.5,
-                      top: 150 / 4,
-                      child: Container(
-                        width: 150,
-                        height: 150,
-                        decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.circular(RadiusDimens.radiusFull),
-                            color: AppColors.lightHover),
-                      )),
-                  Positioned(child: appbar),
+                  Positioned(top: 10, left: 10, child: appbar),
                   body,
                 ],
               ),
             ),
           ),
-        ));
-  }
-
-  static Widget buildAppbar() {
-    return Container(
-        margin: const EdgeInsets.only(
-            top: SpaceDimens.space20, left: SpaceDimens.space10),
-        child: IconCircle(
-          background: AppColors.white.withOpacity(.3),
-          iconColor: AppColors.white,
-          iconChild: Icons.arrow_back_ios_new,
-          onTap: () {
-            Get.back();
-          },
         ));
   }
 }

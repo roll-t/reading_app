@@ -1,13 +1,11 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/strings/messages/app_errors.dart';
 import 'package:reading_app/core/configs/strings/messages/app_success.dart';
-import 'package:reading_app/core/services/api/user_api.dart';
-import 'package:reading_app/core/services/data/model/result.dart';
-import 'package:reading_app/core/services/data/model/user_request_model.dart';
-import 'package:reading_app/core/services/prefs/prefs.dart';
+import 'package:reading_app/core/data/database/model/result.dart';
+import 'package:reading_app/core/data/database/model/user_request_model.dart';
+import 'package:reading_app/core/data/database/user_data.dart';
+import 'package:reading_app/core/data/prefs/prefs.dart';
 import 'package:reading_app/core/ui/snackbar/snackbar.dart';
 import 'package:reading_app/core/utils/validator.dart';
 
@@ -29,6 +27,9 @@ class RegisterController extends GetxController {
   var errorMessageEmail = ''.obs;
   var errorMessagePassword = ''.obs;
   var errorMessagePasswordConfirm = ''.obs;
+
+  //
+  UserData userData = UserData();
 
   // Phương thức đăng ký
   Future<void> signUp() async {
@@ -80,7 +81,8 @@ class RegisterController extends GetxController {
       }
     }
 
-    Result emailExist = await UserApi.emailExist(email: emailController.text.trim());
+    Result emailExist =
+        await UserData.emailExist(email: emailController.text.trim());
 
     if (emailExist.data == true) {
       errorMessageEmail.value = AppErrors.emailExistError;
@@ -101,13 +103,11 @@ class RegisterController extends GetxController {
         displayName: nameController.text.trim(),
         email: emailController.text.trim(),
         password: passwordController.text.trim());
+        
+    var userModel = await userData.signInAPI(userRequest: userRequestModel);
 
-    String dataJson = jsonEncode(userRequestModel.toJson());
-
-    Result? userModel = await UserApi.signIn(userRequest: dataJson);
-
-    if(userModel!=null){
-      Get.back(result:userModel);
+    if (userModel != null) {
+      Get.back(result: userModel);
       SnackbarUtil.showSuccess(AppSuccess.registrationSuccess);
     }
   }

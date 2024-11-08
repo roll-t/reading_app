@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
-import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_medium_semi_bold.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small.dart';
 import 'package:reading_app/core/ui/widgets/card/card_full_info_follow_row.dart';
 import 'package:reading_app/core/ui/widgets/textfield/custom_search_field.dart';
 import 'package:reading_app/features/expanded/explores/find/presentation/controller/find_controller.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class FindPage extends GetView<FindController> {
   const FindPage({super.key});
@@ -22,17 +22,17 @@ class FindPage extends GetView<FindController> {
         ),
         backgroundColor: AppColors.black,
         title: CustomSearchField(
-          onChanged: (value) async{
-            await controller.handleSearch(searchContent: value);
+          onChanged: (value) async {
+            controller.handleSearch(searchContent: value);
           },
-          placeholder: AppContents.searchPlaceholder,
+          placeholder: "Tên truyện tranh ....",
         ),
       ),
       body: Padding(
-          padding: const EdgeInsets.only(
-            left: SpaceDimens.spaceStandard,
-            right: SpaceDimens.spaceStandard,
-            top: SpaceDimens.spaceStandard,
+          padding: EdgeInsets.only(
+            left: 3.w,
+            right: 3.w,
+            top: 3.w,
           ),
           child: Obx(() {
             return CustomScrollView(
@@ -40,7 +40,10 @@ class FindPage extends GetView<FindController> {
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: SpaceDimens.space20),
-                    child: TextSmall(textChild: controller.listComicSearch.value.titlePage,colorChild: AppColors.gray2,),
+                    child: TextSmall(
+                      textChild: controller.listComicSearch.value.titlePage,
+                      colorChild: AppColors.gray2,
+                    ),
                   ),
                 ),
                 const SliverToBoxAdapter(
@@ -57,7 +60,7 @@ class FindPage extends GetView<FindController> {
                         return const Center(child: CircularProgressIndicator());
                       }
                       return CardFullInfoFollowRow(
-                        heightImage: 120,
+                        heightImage: 15.h,
                         bookModel:
                             controller.listComicSearch.value.items[index],
                         currentIndex: index,

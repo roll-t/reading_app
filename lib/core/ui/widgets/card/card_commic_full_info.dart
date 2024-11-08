@@ -5,17 +5,17 @@ import 'package:get/get.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/services/data/model/book_model.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small.dart';
 import 'package:reading_app/core/ui/widgets/images/Image_widget.dart';
 import 'package:reading_app/core/ui/widgets/tags/tag_category.dart';
+import 'package:reading_app/features/nav/book_case/model/book_case_model.dart';
 
 class CardCommicFullInfo extends StatelessWidget {
   final int currentIndex;
   final double heightImage;
   final double widthImage;
-  final BookModel bookModel;
+  final BookCaseModel bookModel;
 
   const CardCommicFullInfo({
     super.key, 

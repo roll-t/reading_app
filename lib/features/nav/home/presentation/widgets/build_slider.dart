@@ -1,36 +1,40 @@
 // Home slider
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/services/data/model/list_comic_model.dart';
+import 'package:reading_app/core/data/dto/response/novel_response.dart';
 import 'package:reading_app/core/ui/widgets/carousel_slider/carousel_slider_utils.dart';
 
 class BuildSlider extends StatelessWidget {
-  final ListComicModel listImage;
-  final RxInt currentIndex ;
+  final List<NovelResponse> listBook;
+  final RxInt currentIndex;
+  final bool showDots;
 
   const BuildSlider({
-    super.key, 
-    required this.listImage, 
-    required this.currentIndex, 
+    super.key,
+    required this.listBook,
+    required this.currentIndex,
+    this.showDots = true,
   });
 
   @override
   Widget build(BuildContext context) {
+    return listBook.isNotEmpty
+        ? Column(
+            children: [
+              // build slide control
+              CarouselSliderUtils.buildCarouselSlider(
+                indexValue: currentIndex,
+                listBook: listBook,
+              ),
 
-    return listImage.items.isNotEmpty? Column(  
-      children: [
-        // build slide control
-        CarouselSliderUtils.buildCarouselSlider(
-            indexValue: currentIndex,
-            listImage: listImage,
-            ),
-            
-            // build dots control
-        CarouselSliderUtils.buildListDots(
-          indexValue: currentIndex,
-          lengthList: listImage.items.length,
-        ),
-      ],
-    ):const SizedBox();
+              // build dots control
+              if (showDots)
+                CarouselSliderUtils.buildListDots(
+                  indexValue: currentIndex,
+                  lengthList: listBook.length,
+                ),
+            ],
+          )
+        : const SizedBox();
   }
 }

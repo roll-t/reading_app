@@ -6,7 +6,6 @@ import 'package:reading_app/core/ui/customs_widget_theme/texts/text_medium_semi_
 import 'package:reading_app/core/ui/widgets/card/card_full_info_follow_row.dart';
 import 'package:reading_app/core/ui/widgets/icons/leading_icon_app_bar.dart';
 import 'package:reading_app/features/expanded/category/presentation/controller/category_controller.dart';
-import 'package:reading_app/features/nav/home/presentation/controller/home_controller.dart';
 
 class CategoryPage extends GetView<CategoryController> {
   const CategoryPage({super.key});
@@ -24,7 +23,7 @@ class CategoryPage extends GetView<CategoryController> {
               backgroundColor: AppColors.headerBackground,
               floating: true,
               snap: true,
-              title: GetBuilder<HomeController>(
+              title: GetBuilder<CategoryController>(
                 id: "titleID",
                 builder: (_) => TextMediumSemiBold(
                   textChild: controller.listDataChangeCategory.value.titlePage,
@@ -39,7 +38,7 @@ class CategoryPage extends GetView<CategoryController> {
                 height: SpaceDimens.space25,
               ),
             ),
-            GetBuilder<HomeController>(
+            GetBuilder<CategoryController>(
               id: "ListCategoryID",
               builder: (_) {
                 return SliverPadding(

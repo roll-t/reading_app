@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
+import 'package:reading_app/core/data/dto/response/commentReponse.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small.dart';
 import 'package:reading_app/core/ui/widgets/avatar/avatar.dart';
+import 'package:reading_app/core/utils/date_time.dart';
 
 class CardComment extends StatelessWidget {
-  const CardComment({
-    super.key,
-  });
+  final CommentResponse commentData;
+  const CardComment({super.key, required this.commentData});
 
   @override
   Widget build(BuildContext context) {
@@ -38,17 +39,17 @@ class CardComment extends StatelessWidget {
 
   // ignore: non_constant_identifier_names
   Widget _BuildAuthorComment() {
-    return const Row(
+    return Row(
       children: [
         Avatar(
           radius: 40,
-          url: null,
+          url:commentData.user.photoURL,
         ),
-        SizedBox(
+        const SizedBox(
           width: SpaceDimens.space10,
         ),
         TextNormal(
-          textChild: "user name",
+          textChild: commentData.user.displayName ?? "Đọc giả",
           maxLinesChild: 1,
         )
       ],
@@ -59,8 +60,8 @@ class CardComment extends StatelessWidget {
   Row _BuildBottomLine() {
     return Row(
       children: [
-        const TextSmall(
-          textChild: "2 tháng trước",
+        TextSmall(
+          textChild: DatetimeUtil.timeAgo(commentData.createdAt),
           colorChild: AppColors.gray2,
         ),
         const Spacer(),
@@ -92,15 +93,15 @@ class CardComment extends StatelessWidget {
 
   // ignore: non_constant_identifier_names
   Expanded _BuildContentComment() {
-    return const Expanded(
+    return Expanded(
       child: ListTile(
-        contentPadding: EdgeInsets.all(0),
+        contentPadding: const EdgeInsets.all(0),
         titleAlignment: ListTileTitleAlignment.top,
         title: TextSmall(
-          textChild: "comment writing this here comment writing this here comment writing this here comment writing this here comment writing this here comment writing this here",
+          textChild: commentData.content,
           maxLinesChild: 2,
         ),
-        subtitle: TextSmall(
+        subtitle: const TextSmall(
           textChild: "${AppContents.chapter} 5",
           maxLinesChild: 1,
           colorChild: AppColors.gray2,

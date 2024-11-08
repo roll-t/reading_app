@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/data/dto/response/novel_response.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/services/dto/response/novel_response.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
 import 'package:reading_app/core/ui/widgets/images/Image_widget.dart';
 import 'package:reading_app/core/ui/widgets/tags/tag_category.dart';
+import 'package:reading_app/core/utils/string_utils.dart';
 
 class NovelCard extends StatelessWidget {
   final double widthCard;
@@ -23,7 +24,8 @@ class NovelCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(Routes.bookDetail, arguments: {"slug": bookModel.slug});
+        Get.toNamed(Routes.novelDetail,
+            arguments: {"novelId": bookModel.bookDataId});
       },
       child: Container(
         margin: const EdgeInsets.only(right: SpaceDimens.space10),
@@ -33,7 +35,7 @@ class NovelCard extends StatelessWidget {
           children: [
             SizedBox(
               height: heightImage,
-              child: ImageWidget(imageUrl:bookModel.thumbUrl ?? ""),
+              child: ImageWidget(imageUrl: bookModel.thumbUrl ?? ""),
             ),
             Expanded(
               child: Column(
@@ -41,10 +43,13 @@ class NovelCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextNormal(
-                    textChild: bookModel.name??" ",
+                    textChild: bookModel.name ?? " ",
                     maxLinesChild: 2,
                   ),
-                  const TagCategory(categoryName: "Huyền thoại")
+                  if (bookModel.status != null && bookModel.status != "")
+                    TagCategory(
+                        categoryName: StringUtils.translate(
+                            bookModel.status?.trim() ?? ""))
                 ],
               ),
             )

@@ -3,25 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
+import 'package:reading_app/core/data/dto/response/novel_response.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/services/data/model/list_comic_model.dart';
 import 'package:reading_app/core/ui/widgets/images/image_widget.dart';
 
 class CarouselSliderUtils {
-
   static Widget buildCarouselSlider(
-      {required RxInt indexValue,
-      required ListComicModel listImage}) {
+      {required RxInt indexValue, required List<NovelResponse> listBook}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: SpaceDimens.space10),
       child: CarouselSlider.builder(
-        itemCount: listImage.items.length,
+        itemCount: listBook.length,
         itemBuilder: (context, index, realIndex) {
           return Obx(() {
             final currentIndex = indexValue.value;
             final isCurrent = index == currentIndex;
             final double scale = isCurrent ? 1 : .9;
-            
+
             return Transform(
               transform: Matrix4.identity()..scale(scale),
               alignment: Alignment.center,
@@ -31,17 +29,17 @@ class CarouselSliderUtils {
                 ),
                 child: InkWell(
                   onTap: () {
-                    Get.toNamed(Routes.bookDetail,arguments: {"slug":listImage.items[index].slug});
+                    Get.toNamed(Routes.novelDetail,
+                        arguments: {"novelId": listBook[index].bookDataId});
                   },
                   child: ImageWidget(
-                    imageUrl: listImage.domainImage + listImage.items[index].thumbUrl,
+                    imageUrl: listBook[index].thumbUrl ?? "",
                   ),
                 ),
               ),
             );
           });
         },
-        
         options: CarouselOptions(
           height: 330.0,
           viewportFraction: 0.6,
