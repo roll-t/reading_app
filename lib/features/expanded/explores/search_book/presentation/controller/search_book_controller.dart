@@ -200,18 +200,21 @@ class SearchBookController extends GetxController {
       dataComicCategoryByType.value.items.clear();
       await fetchDataComicCategoryBySlug(slug: slug);
       currentSlugComic = slug;
+      update(['listComicId']);
     } else if (currentTypePage.value == 1) {
       hasMore.value = true;
       currentPage.value = 1;
       dataComicCategoryByTypeAndStatus.value.items.clear();
       isDataLoading.value = true;
       await fetchDataComicCategoryBySlugAndStatus(slug: slug);
+      update(['listComicId']);
       currentSlugComic = slug;
       isDataLoading.value = false;
     }
   }
 
   Future<void> loadMoreData() async {
+    isLoading.value = true;
     final result = await comicApi.fetchComicCategoryBySlug(
         slug: categories![currentIndexCategory.value].slug,
         page: currentPage.value);
@@ -219,10 +222,13 @@ class SearchBookController extends GetxController {
       final apiResponse = result.data;
       if (apiResponse != null) {
         dataComicCategoryByType.value.items.addAll(apiResponse.items);
+        update(['listComicId']);
         currentPage.value++;
+        hasMore.value = apiResponse.items.isNotEmpty;
       } else {
         hasMore.value = false;
       }
     }
+    isLoading.value = false;
   }
 }

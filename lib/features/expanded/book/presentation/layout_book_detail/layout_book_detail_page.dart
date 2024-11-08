@@ -21,10 +21,12 @@ import 'package:reading_app/features/expanded/book/presentation/layout_book_deta
 import 'package:reading_app/features/expanded/book/presentation/layout_book_detail/widgets/build_chapter_novel_body.dart';
 import 'package:reading_app/features/expanded/book/presentation/layout_book_detail/widgets/build_content_book_detail.dart';
 import 'package:reading_app/features/expanded/book/presentation/layout_book_detail/widgets/build_header_tab_bar.dart';
+import 'package:reading_app/features/expanded/comic/presentation/controllers/comic_detail_controller.dart';
 import 'package:reading_app/features/expanded/novel/presentation/controller/novel_detail_controller.dart';
 
 class LayoutBookDetailPage extends GetView<LayoutBookDetailController> {
   final NovelDetailController? novelDetailController;
+  final ComicDetailController? comicDetailController;
   final RxBool isLoading;
   final InfoBookDetailModel infoBookDetailModel;
   final List<ChapterNovelModel> listChapter;
@@ -33,16 +35,19 @@ class LayoutBookDetailPage extends GetView<LayoutBookDetailController> {
   final List<CategoryResponse>? categoriesNovel;
   final List<CommentResponse>? lisComment;
   final String? novelId;
+  final String? comicId;
 
   const LayoutBookDetailPage({
     super.key,
     required this.infoBookDetailModel,
+    this.comicDetailController,
     required this.isLoading,
     this.categories,
     this.novelDetailController,
     this.lisComment,
     this.listChapterComic,
     this.novelId,
+    this.comicId,
     this.categoriesNovel,
     this.listChapter = const <ChapterNovelModel>[],
   });
@@ -60,6 +65,7 @@ class LayoutBookDetailPage extends GetView<LayoutBookDetailController> {
         isLoading: isLoading,
         bodyBuilder: BookDetailBody(
           novelId: novelId,
+          comicId: comicId,
           listComment: lisComment ?? [],
           novelDetailController: novelDetailController,
           tag: tag,
@@ -67,6 +73,7 @@ class LayoutBookDetailPage extends GetView<LayoutBookDetailController> {
           listChapter: listChapter,
           listChapterComic: listChapterComic,
           infoBookDetailModel: infoBookDetailModel,
+          comicDetailController: comicDetailController,
           categories: categories,
           categoriesNovel: categoriesNovel,
         ),
@@ -85,7 +92,9 @@ class LayoutBookDetailPage extends GetView<LayoutBookDetailController> {
 
 class BookDetailBody extends StatelessWidget {
   final String? novelId;
+  final String? comicId;
   final NovelDetailController? novelDetailController;
+  final ComicDetailController ?comicDetailController;
   final InfoBookDetailModel infoBookDetailModel;
   final List<ChapterNovelModel>? listChapter;
   final List<dynamic>? listChapterComic;
@@ -104,6 +113,7 @@ class BookDetailBody extends StatelessWidget {
     required this.listComment,
     this.novelId,
     this.novelDetailController,
+    this.comicId, this.comicDetailController,
   });
   final String tag;
   final LayoutBookDetailController controller;
@@ -152,6 +162,8 @@ class BookDetailBody extends StatelessWidget {
       children: [
         BuildContentBookDetail(
           novelId: novelId,
+          comicId: comicId,
+          comicDetailController: comicDetailController,
           novelController: novelDetailController,
           categoriesNovel: categoriesNovel,
           description: description,
@@ -215,6 +227,7 @@ class BookDetailBody extends StatelessWidget {
                   );
                 } else {
                   return BuildChapterComicBody(
+                    controller: comicDetailController,
                     listChapterComic:
                         // ignore: invalid_use_of_protected_member
                         controller.filteredChapterComic.value.isNotEmpty

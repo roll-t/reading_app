@@ -11,13 +11,13 @@ class CommicTypePage extends StatefulWidget {
   const CommicTypePage({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _CommicTypePageState createState() => _CommicTypePageState();
+  _ComicTypePageState createState() => _ComicTypePageState();
 }
 
-class _CommicTypePageState extends State<CommicTypePage>
+class _ComicTypePageState extends State<CommicTypePage>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
+
   final SearchBookController controller = Get.find();
 
   @override
@@ -85,12 +85,12 @@ class _CommicTypePageState extends State<CommicTypePage>
                 children: [
                   CustomScrollView(
                     slivers: [
-                      Obx(() {
-                        return BuildListComic(
-                          listBookData:
-                              controller.dataComicCategoryByType.value,
-                        );
-                      }),
+                      GetBuilder<SearchBookController>(
+                          id: "listComicId",
+                          builder: (_) => BuildListComic(
+                                listBookData:
+                                    controller.dataComicCategoryByType.value,
+                              ))
                     ],
                   ),
                   CustomScrollView(

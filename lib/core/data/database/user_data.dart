@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:reading_app/core/data/database/model/result.dart';
 import 'package:reading_app/core/data/database/model/user_model.dart';
+import 'package:reading_app/core/data/database/model/user_request_model.dart';
 import 'package:reading_app/core/data/service/configs/end_point_setting.dart';
 import 'package:reading_app/core/data/service/core_service.dart';
 
@@ -17,11 +18,12 @@ class UserData extends CoreService {
         parse: (data) => UserModel.fromJson(data));
   }
 
-  Future<Result<UserModel>?> signInAPI({required String userRequest}) async {
+  Future<Result<UserModel>?> signInAPI(
+      {required UserRequestModel userRequest}) async {
     return await postData(
-        endpoint: EndPointSetting.tokenEndpoint,
+        endpoint: EndPointSetting.signInEndpoint,
         parse: (data) => UserModel.fromJson(data),
-        data: userRequest);
+        data: userRequest.toJson());
   }
 
   Future<Result<bool>> fetchEmailExist({required String email}) async {
@@ -36,10 +38,5 @@ class UserData extends CoreService {
 
   static Future<Result<bool>> emailExist({required String email}) async {
     return await UserData().fetchEmailExist(email: email);
-  }
-
-  static Future<Result<UserModel>?> signIn(
-      {required String userRequest}) async {
-    return await UserData().signInAPI(userRequest: userRequest);
   }
 }

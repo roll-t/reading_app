@@ -47,7 +47,6 @@ class CategoryNovelController extends GetxController {
   Future<void> _initializeData() async {
     isLoading.value = true;
     final categoryArgument = Get.arguments["slugQuery"] as CategoryResponse?;
-
     final slug = categoryArgument?.slug.trim();
     title.value=categoryArgument?.name.trim()??"Tiểu thuyết";
     if (slug != null && slug.isNotEmpty) {

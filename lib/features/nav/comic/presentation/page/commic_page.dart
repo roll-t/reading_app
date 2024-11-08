@@ -129,6 +129,7 @@ class CommicPage extends GetView<CommicController> {
         SliverToBoxAdapter(child: Obx(() {
           ListComicModel? listComic;
           try {
+            // ignore: invalid_use_of_protected_member
             listComic = controller.listDataComicCategoryBySlug.value[0];
           } catch (e) {
             print(e);
@@ -165,6 +166,7 @@ class CommicPage extends GetView<CommicController> {
         SliverToBoxAdapter(child: Obx(() {
           ListComicModel? listComic;
           try {
+            // ignore: invalid_use_of_protected_member
             listComic = controller.listDataComicCategoryBySlug.value[1];
           } catch (e) {
             print(e);

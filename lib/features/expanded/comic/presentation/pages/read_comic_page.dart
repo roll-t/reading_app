@@ -1,10 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reading_app/core/configs/dimens/icons_dimens.dart';
 import 'package:reading_app/core/configs/dimens/radius_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
+import 'package:reading_app/core/data/database/model/reading_book_case_model.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_large_bold.dart';
-import 'package:reading_app/core/ui/widgets/icons/leading_icon_app_bar.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 import 'package:reading_app/features/expanded/comic/presentation/controllers/read_comic_controller.dart';
 
@@ -120,7 +121,39 @@ class ReadComicPage extends GetView<ReadComicController> {
                   : const Offset(-1.5, 0),
               curve: Curves.bounceInOut,
               duration: const Duration(milliseconds: 200),
-              child: const leadingIconAppBar(),
+              child: Center(
+                child: Container(
+                  width: 35,
+                  height: 35,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(1000),
+                      border: Border.all(
+                          color: AppColors.white.withOpacity(.4), width: .6),
+                      color: AppColors.gray2.withOpacity(.2)),
+                  child: IconButton(
+                      onPressed: () {
+                        Get.back(
+                            result: ReadingComicBookCaseModel(
+                                bookDataId: "",
+                                slug: "",
+                                uid: "",
+                                chapterName: controller.currentChapterArguments
+                                    .value["chapter_name"],
+                                chapterApiData: controller
+                                    .currentChapterArguments
+                                    .value["chapter_api_data"],
+                                readingDate: DateTime.now().toIso8601String(),
+                                positionReading:
+                                    controller.scrollController.position.pixels,
+                                thumbUrl: "",
+                                comicName: ""));
+                      },
+                      icon: const Icon(
+                        Icons.arrow_back_ios_new_rounded,
+                        size: IconsDimens.iconsSize18,
+                      )),
+                ),
+              ),
             )));
   }
 

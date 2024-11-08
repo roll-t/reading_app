@@ -9,6 +9,7 @@ import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart'
 import 'package:reading_app/core/ui/widgets/loading_widgets.dart';
 import 'package:reading_app/features/nav/book_case/presentation/controller/book_case_controller.dart';
 import 'package:reading_app/features/nav/book_case/presentation/widgets/build_list_book_case.dart';
+import 'package:reading_app/features/nav/book_case/presentation/widgets/build_list_comic_case.dart';
 
 class BookCasePage extends GetView<BookCaseController> {
   const BookCasePage({super.key});
@@ -56,6 +57,7 @@ class BookCasePage extends GetView<BookCaseController> {
                       () => PopupMenuButton<String>(
                         onSelected: (value) {
                           controller.typeSelect.value = value;
+                          controller.update(["LoadReadingBookCase"]);
                         },
                         itemBuilder: (BuildContext context) => [
                           const PopupMenuItem<String>(
@@ -132,8 +134,13 @@ class BookCasePage extends GetView<BookCaseController> {
                       isLoading: controller.isLoading,
                       body: GetBuilder<BookCaseController>(
                           id: "LoadReadingBookCase",
-                          builder: (_) => BuildListBookCase(
-                              listBook: controller.listReadingBookCase))),
+                          builder: (_) => controller.typeSelect.value ==
+                                  "Truyện tranh"
+                              ? BuildListComicCase(
+                                  listBook: controller.listBookComic,
+                                )
+                              : BuildListBookCase(
+                                  listBook: controller.listReadingBookCase))),
                   BuildListBookCase(listBook: controller.listReadingBookCase),
                   BuildListBookCase(listBook: controller.listReadingBookCase),
                 ],

@@ -19,6 +19,7 @@ class CoreService {
     try {
       await dioService.init();
       final response = await _makeRequest(method, endpoint, data);
+
       return _handleResponse<T>(response, parse);
     } catch (e) {
       if (e is DioException) {

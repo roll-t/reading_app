@@ -13,7 +13,6 @@ import 'package:reading_app/features/expanded/novel/model/novel_argument_model.d
 
 // ignore: must_be_immutable
 class BuildChapterNovelBody extends StatelessWidget {
-  
   List<ChapterNovelModel> chapters;
   BuildChapterNovelBody({
     super.key,
@@ -36,8 +35,7 @@ class BuildChapterNovelBody extends StatelessWidget {
                       listChapter: chapters));
               if (result != null) {
                 if (result is ReadingBookCaseRequest) {
-                  var data = result;
-                  await BookCaseData.addReadingBookCase(request: data);
+                  await BookCaseData.addReadingBookCase(request: result);
                 }
               }
             },

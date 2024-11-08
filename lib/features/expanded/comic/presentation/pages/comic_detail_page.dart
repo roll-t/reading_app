@@ -13,6 +13,9 @@ class ComicDetailPage extends GetView<ComicDetailController> {
       id: "body",
       builder: (_) => controller.isComicAvAilable.value
           ? LayoutBookDetailPage(
+            comicDetailController: controller,
+              lisComment: controller.listComment,
+              comicId: controller.argumentComicId,
               isLoading: controller.isLoading,
               listChapterComic: controller.chapters,
               categories: controller.category,

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/strings/messages/app_errors.dart';
@@ -29,6 +27,9 @@ class RegisterController extends GetxController {
   var errorMessageEmail = ''.obs;
   var errorMessagePassword = ''.obs;
   var errorMessagePasswordConfirm = ''.obs;
+
+  //
+  UserData userData = UserData();
 
   // Phương thức đăng ký
   Future<void> signUp() async {
@@ -102,10 +103,8 @@ class RegisterController extends GetxController {
         displayName: nameController.text.trim(),
         email: emailController.text.trim(),
         password: passwordController.text.trim());
-
-    String dataJson = jsonEncode(userRequestModel.toJson());
-
-    Result? userModel = await UserData.signIn(userRequest: dataJson);
+        
+    var userModel = await userData.signInAPI(userRequest: userRequestModel);
 
     if (userModel != null) {
       Get.back(result: userModel);

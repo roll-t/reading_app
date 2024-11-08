@@ -1,6 +1,6 @@
 class EndPointSetting {
   // Base URL of the API
-  static const String _baseUrl = "http://10.0.2.2:8080/";
+  static const String _baseUrl = "http://14.225.218.46:8080/";
 
   // configs end point
   static String comicDetailEndpoint({required String slug}) =>
@@ -22,7 +22,7 @@ class EndPointSetting {
   static String introspect = "${_baseUrl}auth/introspect";
 
   // configs auth end point
-  static String signInEndpoint() => "${_baseUrl}users";
+  static String signInEndpoint = "${_baseUrl}users";
   static String getUserEndpoint({required String uid}) =>
       "${_baseUrl}users/$uid";
   static String emailExistEndpoint({required String email}) =>
@@ -73,10 +73,18 @@ class EndPointSetting {
   // comment
   static String addComment({required String bookId}) =>
       "${_baseUrl}comment/$bookId/create";
+  // comment
+  static String addCommentComic = "${_baseUrl}comic/comments/create";
 
   static String getAllCommentByBookId({required String bookId}) =>
       "${_baseUrl}comment/$bookId";
 
+  static String getAllCommentComicByBookId({required String bookId}) =>
+      "${_baseUrl}comic/comments/all/$bookId";
+
   static String deleteComment({required String cmId}) =>
       "${_baseUrl}comment/$cmId";
+
+  static String deleteCommentComic({required String cmId}) =>
+      "${_baseUrl}comic/comments/$cmId";
 }

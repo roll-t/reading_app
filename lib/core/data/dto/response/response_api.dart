@@ -109,6 +109,7 @@ class ResponseApi {
           titlePage: titlePage,
           items: listImageMap
               .map((comicJson) => ItemModel(
+                    id: comicJson["_id"] ?? "",
                     name: comicJson["name"] ?? "",
                     slug: comicJson["slug"] ?? "",
                     originName: comicJson["originName"] ?? [],

@@ -9,7 +9,6 @@ import 'package:reading_app/core/data/service/api/comic_api.dart';
 import 'package:reading_app/features/expanded/comic/model/argument_comic_chapter_model.dart';
 
 class ReadComicController extends GetxController {
-  
   ChapterModel? chapterModel;
 
   List<dynamic> listChapterImage = [];

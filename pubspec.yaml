@@ -21,8 +21,10 @@ dependencies:
 
   http: ^1.2.1
   flutter_svg: ^2.0.10+1
-
+  path: ^1.8.0
   get: ^4.6.6
+  sqflite: ^2.0.0+4
+  path_provider: ^2.0.11
   google_fonts: ^5.1.0
   lottie: ^2.7.0
   dio: ^5.5.0+1

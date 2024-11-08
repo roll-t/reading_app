@@ -33,9 +33,8 @@ class HomeController extends GetxController {
   );
 
   RxList<NovelResponse> listNovel = <NovelResponse>[].obs;
+
   RxList<NovelResponse> listSlide = <NovelResponse>[].obs;
-  // RxList<ReadingBookCaseResponse> listReadContinue =
-  //     <ReadingBookCaseResponse>[].obs;
 
   RxList<ListCategoryModel> categories = <ListCategoryModel>[].obs;
 
@@ -54,9 +53,9 @@ class HomeController extends GetxController {
 
   Future<void> _initializeData() async {
     await Future.wait([
+      _fetchListSlider(),
       _fetchAuthData(),
       _setCategoryCache(),
-      _fetchListNovelByListSlug(),
     ]);
 
     _fetchDataListComplete();
@@ -67,38 +66,25 @@ class HomeController extends GetxController {
     String? token = await AuthUseCase.getAuthToken();
     auth = JwtDecoder.decode(token);
     userName.value = auth?["displayName"];
-    // var result =
-    //     await bookCaseData.fetchAllReadingBookCase(uid: auth?["uid"] ?? "");
-    // if (result.status == Status.success) {
-    //   listReadContinue.value = result.data ?? [];
-    // }
-  }
-
-  Future<void> _fetchListNovelByListSlug() async {
-    const List<String> listSlug = [
-      "so-thu-bi-an",
-      "gia-toc-viridis",
-      "ke-cuong-tin-tu-inh-huong",
-      "me-tre-phu-thuy-cua-lao-ai",
-      "the-gioi-ky-dieu-cua-mai-mai",
-    ];
-
-    Result result =
-        await novelData.fetchListNovelByListSlugNovel(listSlug: listSlug);
-    if (result.status == Status.success) {
-      listSlide.value = result.data ?? [];
-    }
   }
 
   Future<void> _setCategoryCache() async {
     await ComicApi.setCategoryCache();
-    categories.value = await ComicApi.getCategoryCache()??[];
+    categories.value = await ComicApi.getCategoryCache() ?? [];
   }
 
   Future<void> _fetchListNovel() async {
     Result result = await novelData.fetchListNovel();
     if (result.status == Status.success) {
       listNovel.value = result.data ?? [];
+    }
+  }
+
+  Future<void> _fetchListSlider() async {
+    Result result =
+        await novelData.fetchListNovelByStatus(statusName: "SLIDER");
+    if (result.status == Status.success) {
+      listSlide.value = result.data ?? [];
     }
   }
 

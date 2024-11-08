@@ -1,12 +1,16 @@
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/enum.dart';
+import 'package:reading_app/core/data/database/comment_comic_data.dart';
 import 'package:reading_app/core/data/database/model/comic_model.dart';
 import 'package:reading_app/core/data/database/model/list_comic_model.dart';
+import 'package:reading_app/core/data/dto/response/commentReponse.dart';
 import 'package:reading_app/core/data/service/api/comic_api.dart';
 import 'package:reading_app/core/ui/snackbar/snackbar.dart';
 
 class ComicDetailController extends GetxController
     with GetSingleTickerProviderStateMixin {
+  dynamic argumentComicId = Get.arguments["comicId"];
+
   var isLoading = false.obs;
 
   ComicModel comicModel = ComicModel(title: "", description: "", thumb: "");
@@ -22,6 +26,10 @@ class ComicDetailController extends GetxController
   String domainImage = "";
 
   dynamic slugArgument;
+
+  CommentComicData commentComicData = CommentComicData();
+
+  List<CommentResponse> listComment = [];
 
   RxBool isComicAvAilable = true.obs;
 
@@ -39,8 +47,24 @@ class ComicDetailController extends GetxController
       if (Get.arguments["slug"] != null) {
         slugArgument = Get.arguments["slug"];
         await fetchDataAPI();
+        await fetchAllComment();
       }
     }
+  }
+
+  Future<void> fetchAllComment() async {
+    if (argumentComicId != null) {
+      var response =
+          await commentComicData.fetchAllComment(bookId: argumentComicId);
+      if (response.status == Status.success) {
+        listComment = response.data ?? [];
+      }
+    }
+  }
+
+  Future<void> loadComicDetail() async {
+    await fetchAllComment();
+    update(["body"]);
   }
 
   Future<void> fetchDataAPI() async {

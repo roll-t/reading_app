@@ -2,8 +2,10 @@ import 'package:get/get.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:reading_app/core/configs/enum.dart';
 import 'package:reading_app/core/data/database/book_case_data.dart';
+import 'package:reading_app/core/data/database/model/reading_book_case_model.dart';
 import 'package:reading_app/core/data/domain/auth_use_case.dart';
 import 'package:reading_app/core/data/dto/response/reading_book_case_response.dart';
+import 'package:reading_app/core/data/sql/data_helper.dart';
 import 'package:reading_app/features/nav/book_case/model/book_case_model.dart';
 
 class BookCaseController extends GetxController {
@@ -11,13 +13,13 @@ class BookCaseController extends GetxController {
   RxString filterType = "Mới nhất".obs;
   var isLoading = false.obs;
   BookCaseData bookCaseData = BookCaseData();
-
   List<ReadingBookCaseResponse> listReadingBookCase = [];
-
   List<BookCaseModel> listBookData = [];
+  List<ReadingComicBookCaseModel> listBookComic = [];
+  final dbHelper = DatabaseHelper();
 
   @override
-  onInit() {
+  onInit() async {
     super.onInit();
     initial();
   }
@@ -31,7 +33,7 @@ class BookCaseController extends GetxController {
     if (result.status == Status.success) {
       listReadingBookCase = result.data ?? [];
     }
-
+    listBookComic = await dbHelper.getReadingComicBookCasesByUid(authID);
     isLoading.value = false;
     update(["LoadReadingBookCase"]);
   }

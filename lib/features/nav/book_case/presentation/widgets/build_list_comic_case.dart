@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/data/dto/response/reading_book_case_response.dart';
+import 'package:reading_app/core/data/database/model/reading_book_case_model.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal_light.dart';
-import 'package:reading_app/core/ui/widgets/card/card_book_case.dart';
+import 'package:reading_app/core/ui/widgets/card/card_comic_book_case.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class BuildListBookCase extends StatelessWidget {
-  final List<ReadingBookCaseResponse> listBook;
-  const BuildListBookCase({
+class BuildListComicCase extends StatelessWidget {
+  final List<ReadingComicBookCaseModel> listBook;
+  const BuildListComicCase({
     super.key,
-    required this.listBook,
+    this.listBook = const [],
   });
 
   @override
@@ -43,8 +43,8 @@ class BuildListBookCase extends StatelessWidget {
                   padding: const EdgeInsets.only(
                       top: 0, bottom: SpaceDimens.space60),
                   itemBuilder: (context, index) {
-                    return CardBookCase(
-                      type: "Tiểu thuyết",
+                    return CardComicBookCase(
+                      type: "Truyện tranh",
                       bookModel: listBook[index],
                       heightCard: 15.h,
                       widthCard: 25.w,

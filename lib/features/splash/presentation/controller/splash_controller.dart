@@ -23,7 +23,7 @@ class SplashController extends GetxController {
   Future<void> initialValue() async {
     try {
       var token = await AuthUseCase.getAuthToken();
-      if (token != null && token.isNotEmpty) {
+      if (token.isNotEmpty) {
         var result =
             await authApi.introspect(request: IntrospectRequest(token: token));
         if (result.status == Status.success) {

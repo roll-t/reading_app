@@ -26,7 +26,7 @@ class CardExplore extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(Routes.comicDetail, arguments: {"slug": bookModel.slug});
+        Get.toNamed(Routes.comicDetail,arguments: {"slug": bookModel.slug, "comicId": bookModel.id});;
       },
       child: SizedBox(
         height: heightCard,

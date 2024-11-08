@@ -1,5 +1,5 @@
 class ReadingBookCaseResponse {
-  final int id;
+  final String id;
   final String bookDataId;
   final String uid;
   final String chapterName;
@@ -19,7 +19,7 @@ class ReadingBookCaseResponse {
 
   factory ReadingBookCaseResponse.fromJson(Map<String, dynamic> json) {
     return ReadingBookCaseResponse(
-      id: json["id"],
+      id: json['id'],
       bookDataId: json['bookDataId'],
       uid: json['uid'],
       chapterName: json['chapterName'],
@@ -31,7 +31,7 @@ class ReadingBookCaseResponse {
 
   Map<String, dynamic> toJson() {
     return {
-      "id": id,
+      'id': id,
       'bookDataId': bookDataId,
       'uid': uid,
       'chapterName': chapterName,
@@ -134,8 +134,8 @@ class User {
   final String email;
   final String password;
   final String? photoURL;
-  final String? creationTime;
-  final List<dynamic> roles;
+  final String creationTime;
+  final List<Role> roles;
 
   User({
     required this.uid,
@@ -143,7 +143,7 @@ class User {
     required this.email,
     required this.password,
     this.photoURL,
-    this.creationTime,
+    required this.creationTime,
     required this.roles,
   });
 
@@ -155,7 +155,8 @@ class User {
       password: json['password'],
       photoURL: json['photoURL'],
       creationTime: json['creationTime'],
-      roles: json['roles'] ?? [],
+      roles:
+          (json['roles'] as List).map((item) => Role.fromJson(item)).toList(),
     );
   }
 
@@ -167,7 +168,61 @@ class User {
       'password': password,
       'photoURL': photoURL,
       'creationTime': creationTime,
-      'roles': roles,
+      'roles': roles.map((item) => item.toJson()).toList(),
+    };
+  }
+}
+
+class Role {
+  final String name;
+  final String description;
+  final List<Permission> permissions;
+
+  Role({
+    required this.name,
+    required this.description,
+    required this.permissions,
+  });
+
+  factory Role.fromJson(Map<String, dynamic> json) {
+    return Role(
+      name: json['name'],
+      description: json['description'],
+      permissions: (json['permissions'] as List)
+          .map((item) => Permission.fromJson(item))
+          .toList(),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'description': description,
+      'permissions': permissions.map((item) => item.toJson()).toList(),
+    };
+  }
+}
+
+class Permission {
+  final String name;
+  final String description;
+
+  Permission({
+    required this.name,
+    required this.description,
+  });
+
+  factory Permission.fromJson(Map<String, dynamic> json) {
+    return Permission(
+      name: json['name'],
+      description: json['description'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'description': description,
     };
   }
 }

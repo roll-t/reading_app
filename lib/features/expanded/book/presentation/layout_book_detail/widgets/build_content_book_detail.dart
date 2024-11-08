@@ -11,12 +11,15 @@ import 'package:reading_app/core/ui/customs_widget_theme/texts/text_medium_semi_
 import 'package:reading_app/core/ui/widgets/tags/tag_category.dart';
 import 'package:reading_app/core/ui/widgets/text/expandable_text.dart';
 import 'package:reading_app/features/expanded/book/presentation/layout_book_detail/widgets/build_wrap_list_comment.dart';
+import 'package:reading_app/features/expanded/comic/presentation/controllers/comic_detail_controller.dart';
 import 'package:reading_app/features/expanded/novel/presentation/controller/novel_detail_controller.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class BuildContentBookDetail extends StatelessWidget {
   final NovelDetailController? novelController;
+  final ComicDetailController? comicDetailController;
   final String? novelId;
+  final String? comicId;
   final List<CategoryModel> categories;
   final List<CategoryResponse>? categoriesNovel;
   final String? description;
@@ -32,6 +35,8 @@ class BuildContentBookDetail extends StatelessWidget {
     this.listComment = const [],
     this.novelId,
     this.novelController,
+    this.comicId,
+    this.comicDetailController,
   });
 
   @override
@@ -40,6 +45,9 @@ class BuildContentBookDetail extends StatelessWidget {
       onRefresh: () async {
         if (novelController != null) {
           await novelController!.loadNovelDetails();
+        }
+        if (comicDetailController != null) {
+          await comicDetailController?.loadComicDetail();
         }
       },
       child: CustomScrollView(
@@ -120,11 +128,21 @@ class BuildContentBookDetail extends StatelessWidget {
               heightWrapList: 24.h,
               widthCard: 70.w,
               toDetail: () async {
-                var result = await Get.toNamed(Routes.comment,
-                    arguments: {"novelId": novelId});
-                if (result != null) {
-                  if (novelController != null) {
-                    await novelController!.loadNovelDetails();
+                if (novelId != null) {
+                  var result = await Get.toNamed(Routes.comment,
+                      arguments: {"novelId": novelId});
+                  if (result != null) {
+                    if (novelController != null) {
+                      await novelController?.loadNovelDetails();
+                    }
+                  }
+                } else if (comicId != null) {
+                  var result = await Get.toNamed(Routes.comment,
+                      arguments: {"comicId": comicId});
+                  if (result != null) {
+                    if (comicDetailController != null) {
+                      await comicDetailController?.loadComicDetail();
+                    }
                   }
                 }
               },

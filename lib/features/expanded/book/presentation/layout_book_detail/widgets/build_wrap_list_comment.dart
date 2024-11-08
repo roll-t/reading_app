@@ -16,7 +16,8 @@ import 'package:reading_app/core/ui/widgets/textfield/comment_text_field.dart';
 
 class BuildWrapListComment extends StatelessWidget {
   final double heightWrapList;
-  final String ? novelId;
+  final String? novelId;
+  final String? comicId;
   final String? titleList;
   final double widthCard;
   final EdgeInsetsGeometry margin;
@@ -34,6 +35,7 @@ class BuildWrapListComment extends StatelessWidget {
     this.toDetail,
     this.scrollDirection = Axis.horizontal,
     this.listComment = const [],
+    this.comicId,
   });
 
   @override
@@ -111,8 +113,7 @@ class CommentBottomSheet extends StatelessWidget {
     return FractionallySizedBox(
       heightFactor: 0.9,
       child: Container(
-        padding: const EdgeInsets.all(
-            SpaceDimens.spaceStandard), // Điều chỉnh khoảng cách padding
+        padding: const EdgeInsets.all(SpaceDimens.spaceStandard),
         child: Stack(
           children: [
             Column(

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -35,8 +33,9 @@ class LogInController extends GetxController {
   var errorMessage = ''.obs;
 
   var isCheckRememberAccount = false.obs;
-  
+
   UserModel? user;
+  UserData userData = UserData();
   dynamic dataArgument;
   UserModel? userRemember;
 
@@ -52,7 +51,6 @@ class LogInController extends GetxController {
     prefs.logout();
     await _googleSignIn.signOut();
     dataArgument = Get.arguments;
-
     userRemember = await _rememberUserCase.get();
     if (dataArgument is String) {
       emailController.text = dataArgument;
@@ -102,8 +100,7 @@ class LogInController extends GetxController {
 
   Future<void> handleLogin() async {
     Result emailExits =
-        await UserData.emailExist(email: emailController.text.trim());
-
+        await userData.fetchEmailExist(email: emailController.text.trim());
     if (emailExits.data != true) {
       errorMessageEmail.value = AppErrors.emailUncreated;
       return;
@@ -138,7 +135,7 @@ class LogInController extends GetxController {
       final account = await _googleSignIn.signIn();
       if (account != null) {
         final userLogin = _createUserLoginMap(account);
-        final userExists = await UserData.getUser(uid: account.id);
+        final userExists = await userData.fetchUser(uid: account.id);
         isLoading.value = true;
         final result = await _handleUserSignIn(userExists, userLogin);
         if (result != null) {
@@ -172,8 +169,9 @@ class LogInController extends GetxController {
 
   Future<UserModel?> _handleUserSignIn(
       Result? userExists, Map<String, dynamic> userLogin) async {
-    if (userExists == null) {
-      final response = await UserData.signIn(userRequest: jsonEncode(userLogin));
+    if (userExists == null || userExists.status == Status.error) {
+      UserRequestModel userRequestModel = UserRequestModel.fromJson(userLogin);
+      final response = await userData.signInAPI(userRequest: userRequestModel);
       return response?.data;
     } else {
       return userExists.data;
