@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:reading_app/core/configs/enum.dart';
@@ -18,6 +19,17 @@ class BookCaseController extends GetxController {
   List<ReadingComicBookCaseModel> listBookComic = [];
   final dbHelper = DatabaseHelper();
 
+  List<PopupMenuItem<String>> selectedValue = [
+    const PopupMenuItem<String>(
+      value: 'Tiểu thuyết',
+      child: Text('Tiểu thuyết'),
+    ),
+    const PopupMenuItem<String>(
+      value: 'Truyện tranh',
+      child: Text('Truyện tranh'),
+    ),
+  ];
+
   @override
   onInit() async {
     super.onInit();
@@ -34,15 +46,79 @@ class BookCaseController extends GetxController {
       listReadingBookCase = result.data ?? [];
     }
     listBookComic = await dbHelper.getReadingComicBookCasesByUid(authID);
+
+    if (listReadingBookCase.isEmpty) {
+      handleChangeTypeRead("Truyện tranh");
+    }
+
     isLoading.value = false;
     update(["LoadReadingBookCase"]);
+  }
+
+  void sortBooksByType(String type) {
+    listReadingBookCase.sort((a, b) {
+      DateTime dateA;
+      DateTime dateB;
+      if (type == "updatedAt") {
+        dateA = a.bookData.updatedAt;
+        dateB = b.bookData.updatedAt;
+      } else {
+        dateA = a.readingDate;
+        dateB = b.readingDate;
+      }
+      return dateB.compareTo(dateA); // Sắp xếp giảm dần
+    });
+    update(["reloadReadingBookCase"]);
+  }
+
+  // Reload reading book cases data (from API)
+  Future<void> reloadListReadingBookCase() async {
+    isLoading.value = true;
+    final auth = await AuthUseCase.getAuthToken();
+    // ignore: unnecessary_null_comparison
+    final authID = auth != null ? JwtDecoder.decode(auth)["uid"] : "";
+
+    // Fetch reading book cases from the API again
+    final result = await bookCaseData.fetchAllReadingBookCase(uid: authID);
+    if (result.status == Status.success) {
+      listReadingBookCase = result.data ?? [];
+    }
+
+    isLoading.value = false;
+    update(["LoadReadingBookCase"]);
+  }
+
+  handleChangeTypeRead(String value) {
+    typeSelect.value = value;
+    update(["LoadReadingBookCase"]);
+  }
+
+  Future<void> reloadListBookComic() async {
+    isLoading.value = true;
+    final auth = await AuthUseCase.getAuthToken();
+    // ignore: unnecessary_null_comparison
+    final authID = auth != null ? JwtDecoder.decode(auth)["uid"] : "";
+    listBookComic = await dbHelper.getReadingComicBookCasesByUid(authID);
+    isLoading.value = false;
+    update(["reloadReadingBookCase"]);
   }
 
   Future<void> handleDelete({required String readingBookCaseID}) async {
     try {
       await BookCaseData.handleDeleReadingBookCase(bcId: readingBookCaseID);
       await initial();
-      update(["LoadReadingBookCase"]);
+      update(["reloadReadingBookCase"]);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> handleDeleteComic(
+      {required ReadingComicBookCaseModel bookModel}) async {
+    try {
+      dbHelper.deleteReadingComicBookCase(bookModel);
+      await initial();
+      update(["reloadComicBookCase"]);
     } catch (e) {
       print(e);
     }

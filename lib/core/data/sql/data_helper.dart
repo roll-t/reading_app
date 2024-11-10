@@ -90,8 +90,7 @@ class DatabaseHelper {
       return ReadingComicBookCaseModel.fromMap(maps[i]);
     });
   }
-
-  // Update ReadingComicBookCaseModel in the database
+  
   Future<int> updateReadingComicBookCase(
       int id, ReadingComicBookCaseModel comic) async {
     final db = await database;
@@ -110,9 +109,10 @@ class DatabaseHelper {
     List<Map<String, dynamic>> maps = await db.query(
       'readingComicBookCase',
       where: 'uid = ?',
-      whereArgs: [uid], // Pass the `uid` as an argument
+      whereArgs: [uid],
+      orderBy: 'readingDate DESC',
     );
-    // Convert the result into a list of `ReadingComicBookCaseModel` objects
+
     return List.generate(maps.length, (i) {
       return ReadingComicBookCaseModel.fromMap(maps[i]);
     });
@@ -124,8 +124,8 @@ class DatabaseHelper {
     final db = await database;
     return await db.delete(
       'readingComicBookCase',
-      where: 'id = ?',
-      whereArgs: [comic.id],
+      where: 'slug = ?',
+      whereArgs: [comic.slug],
     );
   }
 

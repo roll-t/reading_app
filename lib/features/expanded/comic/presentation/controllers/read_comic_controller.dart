@@ -9,6 +9,7 @@ import 'package:reading_app/core/data/service/api/comic_api.dart';
 import 'package:reading_app/features/expanded/comic/model/argument_comic_chapter_model.dart';
 
 class ReadComicController extends GetxController {
+  
   ChapterModel? chapterModel;
 
   List<dynamic> listChapterImage = [];
@@ -23,6 +24,8 @@ class ReadComicController extends GetxController {
 
   final ScrollController scrollController = ScrollController();
 
+  double positionReading = 0;
+
   Timer? _hideControlsTimer;
 
   bool _hasScrolledToBottom = false;
@@ -34,6 +37,8 @@ class ReadComicController extends GetxController {
   List<dynamic> listChapterArgument = [];
 
   bool maxLengthImagechapter = false;
+
+  double currentPosition = 0;
 
   @override
   void onInit() async {
@@ -57,39 +62,33 @@ class ReadComicController extends GetxController {
         var data = Get.arguments as ArgumentComicChapterModel;
         currentChapterArguments.value = data.currentChapter;
         listChapterArgument = data.listChapter;
+        positionReading = data.positionReading ?? 0;
       }
     }
   }
 
   Future<void> fetchBookImages() async {
-    if (currentChapterArguments != null) {
-      imageUrls.clear();
-      final result = await ComicApi.getChapterDataAPI(
-        chapter: currentChapterArguments.value,
-      );
-      if (result.status == Status.success) {
-        chapterModel = result.data;
-        page.value = 0; // Reset pagination
-        loadMoreImages();
-      }
+    imageUrls.clear();
+    final result = await ComicApi.getChapterDataAPI(
+      // ignore: invalid_use_of_protected_member
+      chapter: currentChapterArguments.value,
+    );
+    if (result.status == Status.success) {
+      chapterModel = result.data;
+      page.value = 0;
+      await loadMoreImages();
     }
   }
 
-  void loadMoreImages() {
+  Future<void> loadMoreImages() async {
     loading.value = true;
-
     if (chapterModel == null) return;
-
     int startIndex = page.value * pageSize;
-
     int endIndex = (page.value + 1) * pageSize;
-
     endIndex = endIndex > chapterModel!.chapterImages.length - 1
         ? chapterModel!.chapterImages.length
         : endIndex;
-
     List<String> newImages = [];
-
     for (int i = startIndex; i < endIndex; i++) {
       var urlResult =
           "${chapterModel!.domain}/${chapterModel!.chapterPath}/${chapterModel!.chapterImages[i].imageFile}";
@@ -103,6 +102,23 @@ class ReadComicController extends GetxController {
     }
     page.value++;
     loading.value = false;
+    if (positionReading != 0) {
+      await Future.delayed(const Duration(milliseconds: 100));
+      await scrollController.animateTo(
+        scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
+      if (scrollController.position.pixels < positionReading) {
+        loadMoreImages();
+      } else {
+        await scrollController.animateTo(
+          positionReading,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
+    }
   }
 
   @override
@@ -146,6 +162,7 @@ class ReadComicController extends GetxController {
   }
 
   void changChapter({required String chapterId}) {
+    positionReading = 0;
     var selectedChapter = listChapterArgument.firstWhere(
       (chapter) => chapter["chapter_name"] == chapterId,
     );
@@ -158,6 +175,7 @@ class ReadComicController extends GetxController {
 
   void nextChapter({required String chapterId}) {
     loading.value = true;
+    currentPosition = 0;
     int currentIndex = currentIndexChapter(chapterId: chapterId);
     if (currentIndex + 1 > listChapterArgument.length - 1) {
       Fluttertoast.showToast(msg: "Đây là chapter cuối cùng");
@@ -174,6 +192,7 @@ class ReadComicController extends GetxController {
 
   void preChapter({required String chapterId}) {
     loading.value = true;
+    currentPosition = 0;
     int currentIndex = currentIndexChapter(chapterId: chapterId);
     if (currentIndex == 0) {
       Fluttertoast.showToast(msg: "Đây là chapter đầu tiên");
@@ -189,6 +208,7 @@ class ReadComicController extends GetxController {
   }
 
   void updateChapter() {
+    positionReading = 0;
     scrollTop();
     fetchBookImages();
   }

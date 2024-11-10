@@ -14,6 +14,7 @@ import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart'
 import 'package:reading_app/core/ui/widgets/loading.dart';
 import 'package:reading_app/core/ui/widgets/textfield/custom_search_field.dart';
 import 'package:reading_app/features/expanded/book/model/info_book_detail_model.dart';
+import 'package:reading_app/features/expanded/book/model/info_comic_read_now_argument_model.dart';
 import 'package:reading_app/features/expanded/book/presentation/layout_book_detail/layout_book_detail_controller.dart';
 import 'package:reading_app/features/expanded/book/presentation/layout_book_detail/shared/build_sliver_app_bar_book_detail.dart';
 import 'package:reading_app/features/expanded/book/presentation/layout_book_detail/widgets/build_bottom_book_detail.dart';
@@ -81,6 +82,11 @@ class LayoutBookDetailPage extends GetView<LayoutBookDetailController> {
       bottomNavigationBar: Obx(() => isLoading.value
           ? const SizedBox()
           : BuildBottomNavBookDetail(
+              infoComicReadNowArgumentModel: InfoComicReadNowArgumentModel(
+                  slug: comicDetailController?.slugArgument ?? "",
+                  title: comicDetailController?.comicModel.title ?? "",
+                  thumb: comicDetailController?.comicModel.thumb ?? ""),
+              readingComicBookCaseModel: controller.readingComicBookCaseModel,
               listChapterNovel: listChapter,
               bookCaseResponse: controller.bookCaseModel,
               novelId: novelId,
@@ -94,7 +100,7 @@ class BookDetailBody extends StatelessWidget {
   final String? novelId;
   final String? comicId;
   final NovelDetailController? novelDetailController;
-  final ComicDetailController ?comicDetailController;
+  final ComicDetailController? comicDetailController;
   final InfoBookDetailModel infoBookDetailModel;
   final List<ChapterNovelModel>? listChapter;
   final List<dynamic>? listChapterComic;
@@ -113,7 +119,8 @@ class BookDetailBody extends StatelessWidget {
     required this.listComment,
     this.novelId,
     this.novelDetailController,
-    this.comicId, this.comicDetailController,
+    this.comicId,
+    this.comicDetailController,
   });
   final String tag;
   final LayoutBookDetailController controller;

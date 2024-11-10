@@ -22,8 +22,8 @@ class SaveUserUseCase {
     }
   }
 
-  Future <void> saveToken (AuthenticationModel model) async{
-    if(model!=null){
+  Future<void> saveToken(AuthenticationModel model) async {
+    if (model != null) {
       try {
         final authentication = jsonEncode(model.toJson());
         await _prefs.set(PrefsConstants.authentication, authentication);

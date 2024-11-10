@@ -40,8 +40,7 @@ class BuildChapterComicBody extends StatelessWidget {
                 final dbHelper = DatabaseHelper();
                 var token = await AuthUseCase.getAuthToken();
                 var auth = JwtDecoder.decode(token)["uid"];
-                result.bookDataId = controller?.argumentComicId;
-                result.slug = controller?.argumentComicId;
+                result.slug = controller?.slugArgument;
                 result.thumbUrl = controller?.comicModel.thumb ?? "";
                 result.comicName = controller?.comicModel.title ?? "";
                 result.uid = auth;

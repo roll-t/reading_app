@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/data/database/model/authentication_model.dart';
 import 'package:reading_app/core/data/database/model/chapter_novel_model.dart';
+import 'package:reading_app/core/data/database/model/reading_book_case_model.dart';
 import 'package:reading_app/core/data/domain/auth_use_case.dart';
 import 'package:reading_app/core/data/dto/response/reading_book_case_response.dart';
 import 'package:reading_app/core/routes/routes.dart';
 
-class LayoutBookDetailController extends GetxController
-    with GetSingleTickerProviderStateMixin {
+class LayoutBookDetailController extends GetxController with GetSingleTickerProviderStateMixin {
+  
   TextEditingController searchController = TextEditingController();
 
   var filteredChapters = <ChapterNovelModel>[].obs;
@@ -28,6 +29,8 @@ class LayoutBookDetailController extends GetxController
 
   ReadingBookCaseResponse? bookCaseModel;
 
+  ReadingComicBookCaseModel? readingComicBookCaseModel;
+
   ScrollController scrollController = ScrollController();
 
   @override
@@ -43,6 +46,10 @@ class LayoutBookDetailController extends GetxController
     tabController = TabController(length: 2, vsync: this);
     if (Get.arguments["readContinue"] != null) {
       bookCaseModel = Get.arguments["readContinue"];
+    }
+    if (Get.arguments["readingComicBookCase"] != null) {
+      readingComicBookCaseModel =
+          Get.arguments["readingComicBookCase"] as ReadingComicBookCaseModel;
     }
     isAuth.value = await AuthUseCase.isLogin();
     tabController.addListener(() {

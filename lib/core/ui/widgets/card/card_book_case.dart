@@ -81,7 +81,7 @@ class CardBookCase extends GetView<BookCaseController> {
                           borderRadius: BorderRadius.circular(1000),
                           color: AppColors.accentColor.withOpacity(.4)),
                       child: TextSmall(
-                        textChild: "${bookModel.chapterName}",
+                        textChild: bookModel.chapterName,
                       ),
                     ),
                     const SizedBox(

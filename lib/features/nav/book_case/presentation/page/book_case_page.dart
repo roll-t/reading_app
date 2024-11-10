@@ -18,57 +18,83 @@ class BookCasePage extends GetView<BookCaseController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: DefaultTabController(
-        length: 3,
-        child: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              pinned: true,
-              floating: true,
-              snap: true,
-              centerTitle: true,
-              title: TextMediumSemiBold(
-                textChild: TextFormat.capitalizeEachWord(AppContents.bookCase),
-              ),
-              bottom: const TabBar(
-                dividerColor: AppColors.black,
-                labelColor: AppColors.accentColor,
-                indicator: UnderlineTabIndicator(
-                  borderSide: BorderSide(
-                    width: 2,
-                    color: AppColors.accentColor,
-                  ),
+        length: 2,
+        child: RefreshIndicator(
+          onRefresh: controller.initial,
+          child: CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                pinned: true,
+                floating: true,
+                snap: true,
+                centerTitle: true,
+                title: TextMediumSemiBold(
+                  textChild:
+                      TextFormat.capitalizeEachWord(AppContents.bookCase),
                 ),
-                tabs: [
-                  TextNormal(textChild: AppContents.reading),
-                  TextNormal(textChild: AppContents.liked),
-                  TextNormal(textChild: AppContents.downloaded),
-                ],
+                bottom: const TabBar(
+                  dividerColor: AppColors.black,
+                  labelColor: AppColors.accentColor,
+                  indicator: UnderlineTabIndicator(
+                    borderSide: BorderSide(
+                      width: 2,
+                      color: AppColors.accentColor,
+                    ),
+                  ),
+                  tabs: [
+                    TextNormal(textChild: AppContents.reading),
+                    TextNormal(textChild: AppContents.liked),
+                  ],
+                ),
               ),
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: SpaceDimens.spaceStandard,
-                    vertical: SpaceDimens.space20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Obx(
-                      () => PopupMenuButton<String>(
-                        onSelected: (value) {
-                          controller.typeSelect.value = value;
-                          controller.update(["LoadReadingBookCase"]);
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: SpaceDimens.spaceStandard,
+                      vertical: SpaceDimens.space20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Obx(
+                        () => PopupMenuButton<String>(
+                          onSelected: (value) {
+                            controller.handleChangeTypeRead(value);
+                          },
+                          itemBuilder: (BuildContext context) =>
+                              controller.selectedValue,
+                          child: Container(
+                            padding: const EdgeInsets.only(
+                                bottom: SpaceDimens.space5),
+                            decoration: const BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
+                                  color: AppColors.gray2,
+                                  width: 1,
+                                ),
+                              ),
+                            ),
+                            child: Row(
+                              children: [
+                                TextNormal(
+                                    textChild: controller.typeSelect.value),
+                                const SizedBox(width: SpaceDimens.space15),
+                                const Icon(Icons.arrow_drop_down,
+                                    color: AppColors.white),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          if (controller.filterType.value == "Mới nhất") {
+                            controller.sortBooksByType("updatedAt");
+                            controller.filterType.value = "Mới cập nhật";
+                          } else {
+                            controller.sortBooksByType("readingDate");
+                            controller.filterType.value = "Mới nhất";
+                          }
                         },
-                        itemBuilder: (BuildContext context) => [
-                          const PopupMenuItem<String>(
-                            value: 'Tiểu thuyết',
-                            child: Text('Tiểu thuyết'),
-                          ),
-                          const PopupMenuItem<String>(
-                            value: 'Truyện tranh',
-                            child: Text('Truyện tranh'),
-                          ),
-                        ],
                         child: Container(
                           padding:
                               const EdgeInsets.only(bottom: SpaceDimens.space5),
@@ -82,71 +108,43 @@ class BookCasePage extends GetView<BookCaseController> {
                           ),
                           child: Row(
                             children: [
-                              TextNormal(
-                                  textChild: controller.typeSelect.value),
-                              const SizedBox(width: SpaceDimens.space15),
-                              const Icon(Icons.arrow_drop_down,
-                                  color: AppColors.white),
+                              const Icon(Icons.filter_alt_rounded),
+                              const SizedBox(width: SpaceDimens.space10),
+                              Obx(
+                                () => TextNormal(
+                                    textChild: controller.filterType.value),
+                              ),
                             ],
                           ),
                         ),
                       ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        if (controller.filterType.value == "Mới nhất") {
-                          controller.filterType.value = "Mới cập nhật";
-                        } else {
-                          controller.filterType.value = "Mới nhất";
-                        }
-                      },
-                      child: Container(
-                        padding:
-                            const EdgeInsets.only(bottom: SpaceDimens.space5),
-                        decoration: const BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                              color: AppColors.gray2,
-                              width: 1,
-                            ),
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            const Icon(Icons.filter_alt_rounded),
-                            const SizedBox(width: SpaceDimens.space10),
-                            Obx(
-                              () => TextNormal(
-                                  textChild: controller.filterType.value),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    ],
+                  ),
+                ),
+              ),
+              SliverFillRemaining(
+                child: TabBarView(
+                  children: [
+                    LoadingWidgets.LoadingPartial(
+                        isLoading: controller.isLoading,
+                        body: GetBuilder<BookCaseController>(
+                            id: "LoadReadingBookCase",
+                            builder: (_) => controller.typeSelect.value ==
+                                    "Truyện tranh"
+                                ? BuildListComicCase(
+                                    onRefresh: controller.reloadListBookComic,
+                                    listBook: controller.listBookComic,
+                                  )
+                                : BuildListBookCase(
+                                    onRefresh:
+                                        controller.reloadListReadingBookCase,
+                                    listBook: controller.listReadingBookCase))),
+                    BuildListBookCase(listBook: controller.listReadingBookCase),
                   ],
                 ),
               ),
-            ),
-            SliverFillRemaining(
-              child: TabBarView(
-                children: [
-                  LoadingWidgets.LoadingPartial(
-                      isLoading: controller.isLoading,
-                      body: GetBuilder<BookCaseController>(
-                          id: "LoadReadingBookCase",
-                          builder: (_) => controller.typeSelect.value ==
-                                  "Truyện tranh"
-                              ? BuildListComicCase(
-                                  listBook: controller.listBookComic,
-                                )
-                              : BuildListBookCase(
-                                  listBook: controller.listReadingBookCase))),
-                  BuildListBookCase(listBook: controller.listReadingBookCase),
-                  BuildListBookCase(listBook: controller.listReadingBookCase),
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

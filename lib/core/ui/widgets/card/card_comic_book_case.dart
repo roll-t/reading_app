@@ -29,8 +29,10 @@ class CardComicBookCase extends GetView<BookCaseController> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(Routes.novelDetail,
-            arguments: {"novelId": '', "readContinue": bookModel});
+        Get.toNamed(Routes.comicDetail, arguments: {
+          "slug": bookModel.slug,
+          "readingComicBookCase": bookModel
+        });
       },
       child: Container(
         height: heightCard,
@@ -102,7 +104,9 @@ class CardComicBookCase extends GetView<BookCaseController> {
                       textChild: DatetimeUtil.formatCustom(
                           DateTime.parse(bookModel.readingDate))),
                   InkWell(
-                    onTap: () {},
+                    onTap: () async {
+                      await controller.handleDeleteComic(bookModel: bookModel);
+                    },
                     child: const Icon(
                       Icons.delete,
                       color: AppColors.gray2,

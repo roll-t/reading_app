@@ -46,22 +46,25 @@ class ProfilePage extends GetView<ProfileController> {
   Widget _BuildBodyAccount() {
     return Loading(
         isLoading: controller.isLoading,
-        bodyBuilder: Padding(
-          padding:
-              const EdgeInsets.symmetric(horizontal: SpaceDimens.spaceStandard),
-          child: CustomScrollView(
-            slivers: [
-              _buildSpacer(),
-              _buildProfileHeader(),
-              _buildSpacer(),
-              _buildResearchStatus(),
-              _buildSpacer(),
-              _buildResearchStatus(),
-              _buildSpacer(),
-              _buildSettings(),
-              _buildSpacer(),
-              _buildLogoutButton(),
-            ],
+        bodyBuilder: GetBuilder<ProfileController>(
+          id: "bodyId",
+          builder: (_) => Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: SpaceDimens.spaceStandard),
+            child: CustomScrollView(
+              slivers: [
+                _buildSpacer(),
+                _buildProfileHeader(),
+                _buildSpacer(),
+                _buildResearchStatus(),
+                _buildSpacer(),
+                _buildResearchStatus(),
+                _buildSpacer(),
+                _buildSettings(),
+                _buildSpacer(),
+                _buildLogoutButton(),
+              ],
+            ),
           ),
         ));
   }
@@ -87,8 +90,12 @@ class ProfilePage extends GetView<ProfileController> {
   Widget _buildProfileInfo() {
     return Expanded(
       child: InkWell(
-        onTap: () {
-          Get.toNamed(Routes.myInfo);
+        onTap: () async {
+          var result = await Get.toNamed(Routes.myInfo,
+              arguments: controller.userModel.value);
+          if (result == true) {
+            await controller.reloadData();
+          }
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,7 +117,7 @@ class ProfilePage extends GetView<ProfileController> {
     return SliverToBoxAdapter(
       child: CustomContainer.customBackgroudBox(
         childBuilder: const TextNormal(
-            textChild: "Đang nghiên cứu", colorChild: AppColors.gray2),
+            textChild: "Đang cập nhật", colorChild: AppColors.gray2),
       ),
     );
   }

@@ -21,6 +21,8 @@ class EndPointSetting {
 
   static String introspect = "${_baseUrl}auth/introspect";
 
+  static String uploadImage = "${_baseUrl}images/upload";
+
   // configs auth end point
   static String signInEndpoint = "${_baseUrl}users";
   static String getUserEndpoint({required String uid}) =>

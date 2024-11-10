@@ -5,15 +5,18 @@ import 'package:reading_app/core/data/database/book_case_data.dart';
 import 'package:reading_app/core/data/database/model/list_category_model.dart';
 import 'package:reading_app/core/data/database/model/list_comic_model.dart';
 import 'package:reading_app/core/data/database/model/result.dart';
+import 'package:reading_app/core/data/database/model/user_model.dart';
 import 'package:reading_app/core/data/database/novel_data.dart';
 import 'package:reading_app/core/data/domain/auth_use_case.dart';
+import 'package:reading_app/core/data/domain/user/get_user_use_case.dart';
 import 'package:reading_app/core/data/dto/response/novel_response.dart';
 import 'package:reading_app/core/data/service/api/comic_api.dart';
 import 'package:reading_app/core/routes/routes.dart';
 
 class HomeController extends GetxController {
   var currentIndex = 0.obs;
-
+  final GetuserUseCase _getuserUseCase;
+  HomeController(this._getuserUseCase);
   var currentIndexCategory = 0.obs;
 
   var isLoading = false.obs;
@@ -65,7 +68,8 @@ class HomeController extends GetxController {
   Future<void> _fetchAuthData() async {
     String? token = await AuthUseCase.getAuthToken();
     auth = JwtDecoder.decode(token);
-    userName.value = auth?["displayName"];
+    UserModel? userModel = await _getuserUseCase.getUser();
+    userName.value = userModel?.displayName ?? "username";
   }
 
   Future<void> _setCategoryCache() async {

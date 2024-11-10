@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:reading_app/core/data/database/model/result.dart';
 import 'package:reading_app/core/data/database/model/user_model.dart';
-import 'package:reading_app/core/data/database/model/user_request_model.dart';
+import 'package:reading_app/core/data/dto/request/user_request_model.dart';
 import 'package:reading_app/core/data/service/configs/end_point_setting.dart';
 import 'package:reading_app/core/data/service/core_service.dart';
 
@@ -16,6 +16,14 @@ class UserData extends CoreService {
     return await fetchData(
         endpoint: EndPointSetting.getUserEndpoint(uid: uid),
         parse: (data) => UserModel.fromJson(data));
+  }
+
+  Future<Result<UserModel>> updateUser(
+      {required String uid, required Map<String, dynamic> request}) async {
+    return await putData(
+        endpoint: EndPointSetting.getUserEndpoint(uid: uid),
+        parse: (data) => UserModel.fromJson(data),
+        data: request);
   }
 
   Future<Result<UserModel>?> signInAPI(
