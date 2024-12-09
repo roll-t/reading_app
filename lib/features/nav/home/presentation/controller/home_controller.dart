@@ -1,22 +1,24 @@
 import 'package:get/get.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/data/database/book_case_data.dart';
-import 'package:reading_app/core/data/database/model/list_category_model.dart';
-import 'package:reading_app/core/data/database/model/list_comic_model.dart';
-import 'package:reading_app/core/data/database/model/result.dart';
-import 'package:reading_app/core/data/database/model/user_model.dart';
-import 'package:reading_app/core/data/database/novel_data.dart';
-import 'package:reading_app/core/data/domain/auth_use_case.dart';
-import 'package:reading_app/core/data/domain/user/get_user_use_case.dart';
-import 'package:reading_app/core/data/dto/response/novel_response.dart';
-import 'package:reading_app/core/data/service/api/comic_api.dart';
 import 'package:reading_app/core/routes/routes.dart';
+import 'package:reading_app/core/service/api/database/book_case_service.dart';
+import 'package:reading_app/core/service/api/database/novel_service.dart';
+import 'package:reading_app/core/service/api/dto/response/novel_response.dart';
+import 'package:reading_app/core/service/api/remote/comic_api.dart';
+import 'package:reading_app/core/service/service/model/list_category_model.dart';
+import 'package:reading_app/core/service/service/model/list_comic_model.dart';
+import 'package:reading_app/core/service/service/model/result.dart';
+import 'package:reading_app/core/service/service/model/user_model.dart';
+import 'package:reading_app/core/storage/use_case/auth_use_case.dart';
+import 'package:reading_app/core/storage/use_case/get_user_use_case.dart';
 
 class HomeController extends GetxController {
   var currentIndex = 0.obs;
-  final GetuserUseCase _getuserUseCase;
-  HomeController(this._getuserUseCase);
+  GetuserUseCase ? _getuserUseCase;
+
+  // HomeController(this._getuserUseCase);
+  
   var currentIndexCategory = 0.obs;
 
   var isLoading = false.obs;
@@ -68,7 +70,7 @@ class HomeController extends GetxController {
   Future<void> _fetchAuthData() async {
     String? token = await AuthUseCase.getAuthToken();
     auth = JwtDecoder.decode(token);
-    UserModel? userModel = await _getuserUseCase.getUser();
+    UserModel? userModel = await _getuserUseCase?.getUser();
     userName.value = userModel?.displayName ?? "username";
   }
 

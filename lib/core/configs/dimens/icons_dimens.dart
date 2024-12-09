@@ -1,24 +1,23 @@
 
+import 'package:responsive_sizer/responsive_sizer.dart';
 
-class IconsDimens{
+class IconsDimens {
+  static double normal = 8.sp;
+  static double semiSmall = 7.sp;
+  static double large = 12.sp;
 
-  static const double normal = 34.0;
-  static const double semiSmall = 30.0;
-  static const double small = 20.0;
-  static const double large = 50.0;
-
-  static const double iconsSize18 = 18.0;
-  static const double iconsSize20 = 20.0;
-  static const double iconsSize24 = 24.0;
-  static const double iconsSize25 = 25.0;
-  static const double iconsSize26 = 26.0;
-  static const double iconsSize27 = 27.0;
-  static const double iconsSize28 = 28.0;
-  static const double iconsSize29 = 29.0;
-  static const double iconsSize30 = 30.0;
-  static const double iconsSize31 = 31.0;
-  static const double iconsSize32 = 32.0;
-  static const double iconsSize33 = 33.0;
-  static const double iconsSize34 = 34.0;
-  static const double iconsSize35 = 35.0;
+  static double iconsSize18 = 4.5.sp;
+  static double iconsSize20 = 5.sp;
+  static double iconsSize24 = 6.sp;
+  static double iconsSize25 = 6.2.sp;
+  static double iconsSize26 = 6.5.sp;
+  static double iconsSize27 = 6.8.sp;
+  static double iconsSize28 = 7.sp;
+  static double iconsSize29 = 7.2.sp;
+  static double iconsSize30 = 7.5.sp;
+  static double iconsSize31 = 7.8.sp;
+  static double iconsSize32 = 8.sp;
+  static double iconsSize33 = 8.2.sp;
+  static double iconsSize34 = 8.5.sp;
+  static double iconsSize35 = 8.8.sp;
 }

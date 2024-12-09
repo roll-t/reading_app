@@ -14,12 +14,14 @@ class TagCategory extends StatelessWidget {
   const TagCategory({
     super.key,
     required this.categoryName,
-    this.typeTag = TagMarker.normal, 
+    this.typeTag = TagMarker.normal,
     this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
+    final displayCategory = categoryName.split(" | ").first;
+
     final Map<TagMarker, Map<String, dynamic>> tagStyles = {
       TagMarker.newUpdate: {
         'color': AppColors.tagNewUpdate,
@@ -38,11 +40,12 @@ class TagCategory extends StatelessWidget {
       },
     };
 
-    final tagStyle = tagStyles[typeTag] ?? {
-      'color': AppColors.tertiaryDarkBg,
-      'image': null,
-      'textColor': AppColors.gray1,
-    };
+    final tagStyle = tagStyles[typeTag] ??
+        {
+          'color': AppColors.tertiaryDarkBg,
+          'image': null,
+          'textColor': AppColors.gray1,
+        };
 
     return InkWell(
       onTap: onTap,
@@ -55,15 +58,15 @@ class TagCategory extends StatelessWidget {
           child: Row(
             children: [
               tagStyle['image'] != null
-                ? Image.asset(
-                    tagStyle['image']!,
-                    width: IconsDimens.iconsSize18,
-                    height: IconsDimens.iconsSize18,
-                  )
-                : const SizedBox(),
+                  ? Image.asset(
+                      tagStyle['image']!,
+                      width: IconsDimens.iconsSize18,
+                      height: IconsDimens.iconsSize18,
+                    )
+                  : const SizedBox(),
               const SizedBox(width: SpaceDimens.space5),
               TextSmall(
-                textChild: categoryName,
+                textChild: displayCategory,
                 colorChild: tagStyle['textColor'],
               ),
             ],

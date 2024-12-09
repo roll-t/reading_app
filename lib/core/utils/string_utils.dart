@@ -1,12 +1,19 @@
 class StringUtils {
-  // A map to store the English words and their Vietnamese translations
+  // Bản đồ lưu trữ các từ tiếng Anh và bản dịch tiếng Việt
   static const Map<String, String> _translations = {
     'OPENING': 'Đang phát hành',
-    'AVAILABLE': 'Có sẳn',
+    'AVAILABLE': 'Phổ biến',
     'CANCELLED': 'Đã hủy',
     'COMPLETED': 'Hoàn thành',
     'ON_HOLD': 'Tạm dừng',
-    // Add more translations as needed
+    'SLIDER': 'Quảng cáo',
+    'ongoing': 'Đang phát hành',
+    'available': 'Phổ biến',
+    'cancelled': 'Đã hủy',
+    'coming_soon': 'sắp ra mắt',
+    'completed': 'Hoàn thành',
+    'on_hold': 'Tạm dừng',
+    'slider': 'Quảng cáo',
   };
 
   static String translate(String input) {

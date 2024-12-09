@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
-import 'package:reading_app/core/data/database/model/list_comic_model.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/button/button_normal.dart';
+import 'package:reading_app/core/service/service/model/list_comic_model.dart';
+import 'package:reading_app/core/ui/widgets/button/button_widget.dart';
 import 'package:reading_app/core/ui/widgets/card/card_full_info_follow_row.dart';
 import 'package:reading_app/core/ui/widgets/card/card_newest_update.dart';
 import 'package:reading_app/core/ui/widgets/carousel_slider/carousel_comic.dart';
@@ -96,7 +96,7 @@ class CommicPage extends GetView<CommicController> {
                           CardFullInfoFollowRow(
                             domain: controller
                                 .listDataChangeCategory.value.domainImage,
-                            heightImage: 120,
+                            heightImage: 13.h,
                             bookModel: controller
                                 .listDataChangeCategory.value.items[i],
                             currentIndex: i,
@@ -106,7 +106,7 @@ class CommicPage extends GetView<CommicController> {
                                     1,
                           ),
                       // "See More" button
-                      ButtonNormal(
+                      ButtonWidget(
                         textChild: AppContents.seeMore,
                         onTap: () {
                           controller.toDetailListBySlug(
@@ -115,7 +115,7 @@ class CommicPage extends GetView<CommicController> {
                                       .listDataChangeCategory.value.titlePage));
                         },
                         rounder: true,
-                        paddingChild: const EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                             vertical: SpaceDimens.space10),
                       ),
                     ],
@@ -129,7 +129,6 @@ class CommicPage extends GetView<CommicController> {
         SliverToBoxAdapter(child: Obx(() {
           ListComicModel? listComic;
           try {
-            // ignore: invalid_use_of_protected_member
             listComic = controller.listDataComicCategoryBySlug.value[0];
           } catch (e) {
             print(e);
@@ -137,7 +136,7 @@ class CommicPage extends GetView<CommicController> {
           return (listComic != null)
               ? BuildWrapGridCard(
                   margin: const EdgeInsets.only(top: SpaceDimens.space40),
-                  heightCardItem: 43.h,
+                  heightCardItem: 40.h,
                   title: listComic.titlePage,
                   maxLength: 9,
                   seeMore: () {
@@ -146,9 +145,8 @@ class CommicPage extends GetView<CommicController> {
                             title: listComic?.titlePage ?? ''));
                   },
                   columns: 3,
-                  childAspectRatio: 1.7 / 3,
-                  heightImage: 19.h,
-                  // ignore: invalid_use_of_protected_member
+                  childAspectRatio: 1.65 / 3,
+                  heightImage: 18.h,
                   listBookData: listComic.items,
                   spacingCol: 3.w,
                   spacingRow: 3.w,
@@ -174,7 +172,7 @@ class CommicPage extends GetView<CommicController> {
           return (listComic != null)
               ? BuildWrapGridCard(
                   margin: const EdgeInsets.only(top: SpaceDimens.space40),
-                  heightCardItem: 43.h,
+                  heightCardItem: 40.h,
                   title: listComic.titlePage,
                   maxLength: 9,
                   seeMore: () {
@@ -183,8 +181,8 @@ class CommicPage extends GetView<CommicController> {
                             title: listComic?.titlePage ?? ''));
                   },
                   columns: 3,
-                  childAspectRatio: 1.7 / 3,
-                  heightImage: 19.h,
+                  childAspectRatio: 1.65 / 3,
+                  heightImage: 18.h,
                   // ignore: invalid_use_of_protected_member
                   listBookData: listComic.items,
                   spacingCol: 3.w,

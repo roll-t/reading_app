@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/data/dto/response/novel_response.dart';
 import 'package:reading_app/core/routes/routes.dart';
+import 'package:reading_app/core/service/api/dto/response/novel_response.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small.dart';
 import 'package:reading_app/core/ui/widgets/images/image_widget.dart';
 

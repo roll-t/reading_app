@@ -12,10 +12,8 @@ class IconImage {
     return InkWell(
       onTap: () {},
       child: Column(
-        mainAxisSize:
-            MainAxisSize.min, // Ensures Column takes up only needed space
-        crossAxisAlignment:
-            CrossAxisAlignment.center, // Centers items horizontally
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Image.asset(
             iconUrl,
@@ -34,12 +32,21 @@ class IconImage {
     );
   }
 
-  static Widget iconImageNormal(
-      {required String iconUrl, double size = IconsDimens.semiSmall}) {
+  static Widget iconImageNormal({
+    required String iconUrl,
+    double size = 20,
+  }) {
     return Image.asset(
       iconUrl,
       width: size,
       height: size,
+      errorBuilder: (context, error, stackTrace) {
+        return Icon(
+          Icons.error,
+          size: size,
+          color: AppColors.gray1,
+        );
+      },
     );
   }
 }

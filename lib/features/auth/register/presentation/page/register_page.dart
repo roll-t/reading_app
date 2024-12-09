@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/button/button_normal.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/inputs/input_app_normal.dart';
+import 'package:reading_app/core/ui/customs_widget_theme/input_app_normal.dart';
+import 'package:reading_app/core/ui/widgets/button/button_widget.dart';
 import 'package:reading_app/core/ui/widgets/icons/leading_icon_app_bar.dart';
+import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 import 'package:reading_app/features/auth/register/presentation/controller/register_controller.dart';
 import 'package:reading_app/features/auth/shared/build_share_auth.dart';
 
@@ -63,13 +64,17 @@ class RegisterPage extends GetView<RegisterController> {
                 controller.passwordConfirmController, // Cung cấp controller
             errorMess: controller.errorMessagePasswordConfirm.value,
           ),
-          ButtonNormal(
-            paddingChild: const EdgeInsets.symmetric(vertical: 10),
-            textChild: AppContents.signUp,
-            onTap: () async {
-              await controller.signUp();
+          ButtonWidget(
+            onTap: () {
+              print("Sign Up button clicked!");
             },
-          )
+            textSize: 18,
+            background: Colors.blue,
+            textColor: Colors.white,
+            borderRadius: 20,
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+            child: const TextWidget(text: AppContents.signUp),
+          ),
         ],
       ),
     ));

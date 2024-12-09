@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/data/database/model/list_category_model.dart';
-import 'package:reading_app/core/data/database/model/list_comic_model.dart';
-import 'package:reading_app/core/data/database/novel_data.dart';
-import 'package:reading_app/core/data/dto/response/novel_response.dart';
-import 'package:reading_app/core/data/service/api/comic_api.dart';
 import 'package:reading_app/core/routes/routes.dart';
+import 'package:reading_app/core/service/api/database/novel_service.dart';
+import 'package:reading_app/core/service/api/dto/response/novel_response.dart';
+import 'package:reading_app/core/service/api/remote/comic_api.dart';
+import 'package:reading_app/core/service/service/model/list_category_model.dart';
+import 'package:reading_app/core/service/service/model/list_comic_model.dart';
 
 class CommicController extends GetxController {
   var currentIndex = 0.obs;

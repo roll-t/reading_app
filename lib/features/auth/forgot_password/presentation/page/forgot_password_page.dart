@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/button/button_normal.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/inputs/input_app_normal.dart';
+import 'package:reading_app/core/ui/customs_widget_theme/input_app_normal.dart';
+import 'package:reading_app/core/ui/widgets/button/button_widget.dart';
 import 'package:reading_app/features/auth/login/presentation/controller/login_controller.dart';
 import 'package:reading_app/features/auth/shared/build_share_auth.dart';
 
@@ -41,7 +41,7 @@ class ForgotPasswordPage extends GetView<LogInController> {
           SizedBox(
             height: Get.height * .03,
           ),
-          ButtonNormal(textChild: AppContents.sendCode, onTap: () {})
+          ButtonWidget(textChild: AppContents.sendCode, onTap: () {})
         ],
       ),
     );

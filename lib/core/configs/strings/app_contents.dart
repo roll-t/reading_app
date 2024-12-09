@@ -4,7 +4,7 @@ class AppContents {
   static const String login = 'Đăng nhập';
   static const String subLogin = 'Vui lòng đăng nhập vào tài khoản hiện tại của bạn';
   static const String email = 'Email';
-  static const String placeholderEmail = 'exsample@gmail.com';
+  static const String placeholderEmail = 'example@gmail.com';
   static const String password = 'Mật Khẩu';
   static const String placeholderPassword = '*********';
   static const String dontHaveAnAccount = 'Không có tài khoản? ';

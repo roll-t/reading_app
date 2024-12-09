@@ -5,16 +5,16 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:reading_app/core/configs/enum.dart';
 import 'package:reading_app/core/configs/strings/messages/app_errors.dart';
 import 'package:reading_app/core/configs/strings/messages/app_success.dart';
-import 'package:reading_app/core/data/database/auth_data.dart';
-import 'package:reading_app/core/data/database/model/authentication_model.dart';
-import 'package:reading_app/core/data/database/model/result.dart';
-import 'package:reading_app/core/data/database/model/user_model.dart';
-import 'package:reading_app/core/data/database/user_data.dart';
-import 'package:reading_app/core/data/domain/user/remember_user_case.dart';
-import 'package:reading_app/core/data/domain/user/save_user_use_case.dart';
-import 'package:reading_app/core/data/dto/request/user_request_model.dart';
-import 'package:reading_app/core/data/prefs/prefs.dart';
 import 'package:reading_app/core/routes/routes.dart';
+import 'package:reading_app/core/service/api/database/auth_service.dart';
+import 'package:reading_app/core/service/api/database/user_service.dart';
+import 'package:reading_app/core/service/api/dto/request/user_request_model.dart';
+import 'package:reading_app/core/service/prefs/prefs.dart';
+import 'package:reading_app/core/service/service/model/authentication_model.dart';
+import 'package:reading_app/core/service/service/model/result.dart';
+import 'package:reading_app/core/service/service/model/user_model.dart';
+import 'package:reading_app/core/storage/use_case/remember_user_case.dart';
+import 'package:reading_app/core/storage/use_case/save_user_use_case.dart';
 import 'package:reading_app/core/ui/snackbar/snackbar.dart';
 
 class LogInController extends GetxController {

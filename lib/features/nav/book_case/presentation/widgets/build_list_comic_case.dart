@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/data/database/model/reading_book_case_model.dart';
+import 'package:reading_app/core/service/service/model/reading_book_case_model.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal_light.dart';
 import 'package:reading_app/core/ui/widgets/card/card_comic_book_case.dart';
 import 'package:reading_app/features/nav/book_case/presentation/controller/book_case_controller.dart';

@@ -1,6 +1,6 @@
 import 'package:reading_app/core/configs/assets/app_images.dart';
-import 'package:reading_app/core/data/database/model/chapter_novel_model.dart';
-import 'package:reading_app/core/data/database/model/novel_model.dart';
+import 'package:reading_app/core/service/service/model/chapter_novel_model.dart';
+import 'package:reading_app/core/service/service/model/novel_model.dart';
 
 class DefaultData {
   static NovelModel defaultNovel = NovelModel(

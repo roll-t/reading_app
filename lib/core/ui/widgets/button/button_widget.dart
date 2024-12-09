@@ -1,57 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:reading_app/core/configs/dimens/text_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 
-// ignore: must_be_immutable
 class ButtonWidget extends StatelessWidget {
-  final double textSize;
-  final VoidCallback ontap;
-  final String text;
+  final double? textSize;
+  final VoidCallback onTap;
+  final String? textChild; // Renamed from `text` for clarity
   final double? width;
-  late Color? backgroundColor;
+  final Color? background; // Renamed from `backgroundColor`
   final Color textColor;
   final FontWeight? fontWeight;
-  final bool? isBorder;
-  late Color? borderColor;
+  final bool rounder; // Added for rounded border support
+  final bool isBorder;
+  final Color? borderColor;
   final SvgPicture? leadingIcon;
-  final double? borderRadius;
   final Widget? child;
-  final EdgeInsetsGeometry padding;
-  ButtonWidget({
+  final EdgeInsetsGeometry padding; // Renamed from `padding`
+  final double? borderRadius; // Will be calculated based on `rounder`
+
+  const ButtonWidget({
     super.key,
-    this.fontWeight = FontWeight.w600,
-    required this.ontap,
-    required this.text,
+    this.textSize = 20,
+    required this.onTap,
+    this.textChild,
     this.width = double.infinity,
+    this.background = AppColors.primary,
+    this.textColor = AppColors.white,
+    this.fontWeight = FontWeight.w600,
+    this.rounder = false, // Default is not rounded
     this.isBorder = false,
     this.borderColor,
-    this.textColor = AppColors.white,
-    this.backgroundColor = AppColors.primary,
     this.leadingIcon,
     this.child,
-    this.borderRadius = 10, 
-    this.padding = const EdgeInsets.symmetric(horizontal: 6.0), 
-    this.textSize = TextDimens.textSize18,
+    this.padding = const EdgeInsets.symmetric(horizontal: 6.0),
+    this.borderRadius, // Optional
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: ontap,
+      onTap: onTap,
       child: Container(
-        padding:padding,
+        padding: padding,
         width: width,
         decoration: BoxDecoration(
-          border: isBorder == true
+          border: isBorder
               ? Border.all(
                   width: 1,
-                  color: borderColor!,
+                  color: borderColor ?? AppColors.primary,
                 )
               : null,
-          color: backgroundColor,
-          borderRadius: BorderRadius.circular(borderRadius!),
+          color: background,
+          borderRadius: BorderRadius.circular(rounder ? 1000 : (borderRadius ?? 10)),
         ),
         child: Center(
           child: Row(
@@ -62,7 +63,7 @@ class ButtonWidget extends StatelessWidget {
               child ??
                   TextWidget(
                     size: textSize,
-                    text: text,
+                    text: textChild ?? "",
                     fontWeight: fontWeight,
                     textAlign: TextAlign.center,
                     color: textColor,

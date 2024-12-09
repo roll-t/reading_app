@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
-import 'package:reading_app/core/data/dto/response/category_response.dart';
 import 'package:reading_app/core/routes/routes.dart';
+import 'package:reading_app/core/service/api/dto/response/category_response.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/custom_backgound/background_gradient.dart';
 import 'package:reading_app/core/ui/widgets/card/card_newest_update.dart';
 import 'package:reading_app/core/ui/widgets/card/card_novel_newest_update.dart';
@@ -10,7 +10,6 @@ import 'package:reading_app/core/ui/widgets/card/novel_card.dart';
 import 'package:reading_app/core/ui/widgets/loading.dart';
 import 'package:reading_app/features/nav/home/presentation/controller/home_controller.dart';
 import 'package:reading_app/features/nav/home/presentation/widgets/build_buttom_to_explore.dart';
-import 'package:reading_app/features/nav/home/presentation/widgets/build_category.dart';
 import 'package:reading_app/features/nav/home/presentation/widgets/build_list_tag_category.dart';
 import 'package:reading_app/features/nav/home/presentation/widgets/build_slider.dart';
 import 'package:reading_app/features/nav/home/presentation/widgets/build_sliver_app_bar.dart';
@@ -36,12 +35,11 @@ class HomePage extends GetView<HomeController> {
             }),
             SliverToBoxAdapter(child: Obx(() {
               return BuildSlider(
-                // ignore: invalid_use_of_protected_member
                 listBook: controller.listSlide.value,
                 currentIndex: controller.currentIndex,
               );
             })),
-            const SliverToBoxAdapter(child: BuildCategory()),
+            // const SliverToBoxAdapter(child: BuildCategory()),
             SliverToBoxAdapter(child: Obx(() {
               return controller.listDataComplete.value.items.isNotEmpty
                   ? BuildWrapGridCard(

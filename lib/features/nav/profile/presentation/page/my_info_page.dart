@@ -33,8 +33,7 @@ class MyInfoPage extends GetView<MyInfoController> {
       ),
       body: GetBuilder<MyInfoController>(
         id: "bodyId",
-        builder: (_)=>
-        Stack(
+        builder: (_) => Stack(
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(
@@ -66,13 +65,14 @@ class MyInfoPage extends GetView<MyInfoController> {
                                   TextButton(
                                     onPressed: () async {
                                       final ImagePicker _picker = ImagePicker();
-                                      final XFile? pickedFile = await _picker
-                                          .pickImage(source: ImageSource.gallery);
-        
+                                      final XFile? pickedFile =
+                                          await _picker.pickImage(
+                                              source: ImageSource.gallery);
+
                                       if (pickedFile != null) {
                                         controller.uploadImage(pickedFile.path);
                                       }
-        
+
                                       Navigator.pop(context);
                                     },
                                     child: const TextNormal(
@@ -86,13 +86,14 @@ class MyInfoPage extends GetView<MyInfoController> {
                                   TextButton(
                                     onPressed: () async {
                                       final ImagePicker _picker = ImagePicker();
-                                      final XFile? pickedFile = await _picker
-                                          .pickImage(source: ImageSource.camera);
-        
+                                      final XFile? pickedFile =
+                                          await _picker.pickImage(
+                                              source: ImageSource.camera);
+
                                       if (pickedFile != null) {
                                         controller.uploadImage(pickedFile.path);
                                       }
-        
+
                                       Navigator.pop(context);
                                     },
                                     child: const TextNormal(
@@ -146,8 +147,8 @@ class MyInfoPage extends GetView<MyInfoController> {
                                     child: Obx(() => TextSmallLight(
                                           textChild:
                                               "${controller.displayName.value.length}/20",
-                                          colorChild: controller
-                                                      .displayName.value.length >=
+                                          colorChild: controller.displayName
+                                                      .value.length >=
                                                   20
                                               ? Colors.red
                                               : Colors.grey,
@@ -198,8 +199,8 @@ class MyInfoPage extends GetView<MyInfoController> {
                       bottom: 0,
                       right: 0,
                       child: Container(
-                        decoration:
-                            BoxDecoration(color: AppColors.gray3.withOpacity(.5)),
+                        decoration: BoxDecoration(
+                            color: AppColors.gray3.withOpacity(.5)),
                         child: const Center(child: CircularProgressIndicator()),
                       ))
                   : const SizedBox.shrink();

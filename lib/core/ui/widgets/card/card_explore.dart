@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
-import 'package:reading_app/core/configs/strings/app_contents.dart';
-import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/data/database/model/list_comic_model.dart';
 import 'package:reading_app/core/routes/routes.dart';
+import 'package:reading_app/core/service/service/model/list_comic_model.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small.dart';
 import 'package:reading_app/core/ui/widgets/images/image_widget.dart';
 
@@ -26,7 +24,9 @@ class CardExplore extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(Routes.comicDetail,arguments: {"slug": bookModel.slug, "comicId": bookModel.id});;
+        Get.toNamed(Routes.comicDetail,
+            arguments: {"slug": bookModel.slug, "comicId": bookModel.id});
+        ;
       },
       child: SizedBox(
         height: heightCard,
@@ -50,11 +50,6 @@ class CardExplore extends StatelessWidget {
                   maxLinesChild: 2,
                 ),
                 const Spacer(),
-                const TextSmall(
-                  textChild: "30 ${AppContents.chapter}",
-                  colorChild: AppColors.gray2,
-                  maxLinesChild: 2,
-                ),
               ],
             ))
           ],

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
-import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/data/dto/response/commentReponse.dart';
+import 'package:reading_app/core/service/api/dto/response/commentReponse.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small.dart';
 import 'package:reading_app/core/ui/widgets/avatar/avatar.dart';
 import 'package:reading_app/core/utils/date_time.dart';
 
+// ignore: must_be_immutable
 class CardComment extends StatelessWidget {
   final CommentResponse commentData;
-  const CardComment({super.key, required this.commentData});
+  CardComment({super.key, required this.commentData});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class CardComment extends StatelessWidget {
       children: [
         Avatar(
           radius: 40,
-          url:commentData.user.photoURL,
+          url: commentData.user.photoURL,
         ),
         const SizedBox(
           width: SpaceDimens.space10,
@@ -101,8 +101,8 @@ class CardComment extends StatelessWidget {
           textChild: commentData.content,
           maxLinesChild: 2,
         ),
-        subtitle: const TextSmall(
-          textChild: "${AppContents.chapter} 5",
+        subtitle: TextSmall(
+          textChild: commentData.chapter?.chapterName ?? "",
           maxLinesChild: 1,
           colorChild: AppColors.gray2,
         ),

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:reading_app/core/configs/dimens/icons_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 
 class IconCircle extends StatelessWidget {
   final IconData iconChild;
-  final double iconSize;
+  final double ? iconSize;
   final Color iconColor;
   final VoidCallback onTap;
   final double radius;
@@ -12,17 +11,16 @@ class IconCircle extends StatelessWidget {
 
   const IconCircle({
     super.key,
-     required this.iconChild, // Make iconChild optional
-    this.iconSize = IconsDimens.iconsSize25,
+    required this.iconChild,
+    this.iconSize,
     this.iconColor = AppColors.black,
-    required this.onTap, 
-    this.radius =35, 
+    required this.onTap,
+    this.radius = 35,
     this.background = AppColors.white,
   });
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       width: radius,
       height: radius,
@@ -32,12 +30,11 @@ class IconCircle extends StatelessWidget {
       ),
       child: Center(
         child: IconButton(
-          padding: const EdgeInsets.all(0),
-          iconSize: iconSize,
-          color: iconColor,
-          onPressed: onTap,
-          icon: Icon(iconChild)
-        ),
+            padding: const EdgeInsets.all(0),
+            iconSize: iconSize,
+            color: iconColor,
+            onPressed: onTap,
+            icon: Icon(iconChild)),
       ),
     );
   }

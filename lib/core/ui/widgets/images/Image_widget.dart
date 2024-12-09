@@ -37,7 +37,7 @@ class ImageWidget extends StatelessWidget {
               imageUrl,
               fit: BoxFit.cover,
               errorBuilder: (context, error, stackTrace) {
-                return const Icon(Icons.error); // Hoặc một hình ảnh placeholder khác
+                return const Icon(Icons.error);
               },
             );
           },

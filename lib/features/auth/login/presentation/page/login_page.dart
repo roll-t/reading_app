@@ -6,11 +6,11 @@ import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/button/button_elevated.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/button/button_normal.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/inputs/input_app_normal.dart';
+import 'package:reading_app/core/ui/customs_widget_theme/input_app_normal.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
 import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal_light.dart';
+import 'package:reading_app/core/ui/widgets/button/button_widget.dart';
+import 'package:reading_app/core/ui/widgets/button/elevated_button_widget.dart';
 import 'package:reading_app/features/auth/login/presentation/controller/login_controller.dart';
 import 'package:reading_app/features/auth/shared/build_share_auth.dart';
 
@@ -83,7 +83,7 @@ class LoginPage extends GetView<LogInController> {
               ),
               Container(
                 margin: const EdgeInsets.only(top: 15),
-                child: ButtonNormal(
+                child: ButtonWidget(
                     textChild: AppContents.login,
                     onTap: () async {
                       await controller.handleLogin();
@@ -124,12 +124,15 @@ class LoginPage extends GetView<LogInController> {
         const SizedBox(
           height: SpaceDimens.space10,
         ),
-        ButtonElevated(
-          iconChild: AppImages.iGoogle,
-          onTap: () async {
+        ElevatedButtonWidget(
+          icon: AppImages.iGoogle,
+          ontap: () async {
             await controller.handleSignInWithGoogle();
           },
-          textChild: AppContents.loginWithGoogle,
+          text: "Sign in with Google",
+          backgroundcolor: AppColors.white,
+          textColor: AppColors.primary,
+          borderRadius: 50.0,
         ),
       ],
     );

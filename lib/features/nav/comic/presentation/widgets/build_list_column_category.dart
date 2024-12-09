@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
-import 'package:reading_app/core/data/database/model/list_comic_model.dart';
+import 'package:reading_app/core/service/service/model/list_comic_model.dart';
 import 'package:reading_app/core/ui/widgets/card/card_comic_full_info_v2.dart';
 import 'package:reading_app/features/nav/comic/presentation/controller/commic_controller.dart';
 import 'package:reading_app/features/nav/comic/presentation/widgets/build_body_list.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class BuildListColumnCategory extends StatelessWidget {
   final List<ItemModel> listBook;
@@ -37,11 +38,11 @@ class BuildListColumnCategory extends StatelessWidget {
             if (listBook.isNotEmpty)
               for (var i = 0; i < 3; i++)
                 CardComicFullInfoV2(
-                  heightImage: 120,
+                  heightImage: 14.h,
                   bookModel: listBook[i],
                   domain: domain ?? "",
                   currentIndex: 0,
-                  widthImage: 90,
+                  widthImage: 25.w,
                 ),
           ],
         ),

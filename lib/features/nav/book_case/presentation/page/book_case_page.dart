@@ -9,6 +9,7 @@ import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart'
 import 'package:reading_app/core/ui/widgets/loading_widgets.dart';
 import 'package:reading_app/features/nav/book_case/presentation/controller/book_case_controller.dart';
 import 'package:reading_app/features/nav/book_case/presentation/widgets/build_list_book_case.dart';
+import 'package:reading_app/features/nav/book_case/presentation/widgets/build_list_book_case_favorite.dart';
 import 'package:reading_app/features/nav/book_case/presentation/widgets/build_list_comic_case.dart';
 
 class BookCasePage extends GetView<BookCaseController> {
@@ -139,7 +140,11 @@ class BookCasePage extends GetView<BookCaseController> {
                                     onRefresh:
                                         controller.reloadListReadingBookCase,
                                     listBook: controller.listReadingBookCase))),
-                    BuildListBookCase(listBook: controller.listReadingBookCase),
+                    GetBuilder<BookCaseController>(
+                      id: "LoadFavoriteBookCase",
+                      builder: (_) => BuildListBookCaseFavorite(
+                          listBook: controller.listFavoriteBooks),
+                    ),
                   ],
                 ),
               ),

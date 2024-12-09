@@ -5,17 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image/image.dart' as img;
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/data/database/model/user_model.dart';
-import 'package:reading_app/core/data/database/user_data.dart';
-import 'package:reading_app/core/data/domain/user/get_user_use_case.dart';
-import 'package:reading_app/core/data/domain/user/save_user_use_case.dart';
-import 'package:reading_app/core/data/service/utils/images_service.dart';
+import 'package:reading_app/core/service/api/database/user_service.dart';
+import 'package:reading_app/core/service/service/model/user_model.dart';
+import 'package:reading_app/core/service/service/utils/images_service.dart';
+import 'package:reading_app/core/storage/use_case/get_user_use_case.dart';
+import 'package:reading_app/core/storage/use_case/save_user_use_case.dart';
 import 'package:reading_app/core/ui/snackbar/snackbar.dart';
 
 class MyInfoController extends GetxController {
   final ImagesService imagesService = ImagesService();
 
   bool isUpdated = false;
+
+  UserModel authArgument = Get.arguments;
 
   Rx<UserModel> userModel = UserModel(email: "").obs;
 
@@ -39,6 +41,7 @@ class MyInfoController extends GetxController {
 
   Future<void> _initializeUserData() async {
     userModel.value = await _getuserUseCase.getUser() ?? UserModel(email: "");
+    userModel.value.uid = authArgument.uid;
     displayName.value = userModel.value.displayName ?? "";
     textController.text = displayName.value;
     textController.addListener(() {
@@ -139,9 +142,8 @@ class MyInfoController extends GetxController {
     await tempFile.writeAsBytes(resizedImageBytes);
 
     if (await tempFile.length() > 50 * 1024) {
-      final furtherResizedImageBytes = Uint8List.fromList(img.encodeJpg(
-          resizedImage,
-          quality: 60));
+      final furtherResizedImageBytes =
+          Uint8List.fromList(img.encodeJpg(resizedImage, quality: 60));
       await tempFile.writeAsBytes(furtherResizedImageBytes);
     }
 

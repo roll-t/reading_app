@@ -7,9 +7,9 @@ import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 class ElevatedButtonWidget extends StatelessWidget {
   final VoidCallback ontap;
   final String text;
-  final String icon;
+  final String? icon; // Made optional
   final double? height;
-  final double ? textSize;
+  final double? textSize;
   final double? width;
   final Color? backgroundcolor;
   final Color? textColor;
@@ -17,19 +17,20 @@ class ElevatedButtonWidget extends StatelessWidget {
   final bool? isBorder;
   final EdgeInsetsGeometry? padding;
   final double borderRadius;
+
   const ElevatedButtonWidget({
     super.key,
-    this.fontWeight = FontWeight.w600,
     required this.ontap,
-    required this.icon,
     required this.text,
+    this.icon,
     this.height = 55.0,
     this.width = double.infinity,
-    this.isBorder = false,
-    this.textColor = AppColors.white,
-    this.backgroundcolor = AppColors.primary, 
-    this.padding, 
     this.textSize = TextDimens.textNormal,
+    this.backgroundcolor = AppColors.primary,
+    this.textColor = AppColors.white,
+    this.fontWeight = FontWeight.w600,
+    this.isBorder = false,
+    this.padding,
     this.borderRadius = RadiusDimens.radiusMedium1,
   });
 
@@ -55,21 +56,18 @@ class ElevatedButtonWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            icon.isNotEmpty
-                ? Image.asset(
-                    icon,
-                    height: 20.0,
-                    width: 20.0,
-                  )
-                : const SizedBox.shrink(),
-            text.isNotEmpty
-                ? const SizedBox(width: 10.0)
-                : const SizedBox.shrink(),
+            if (icon != null && icon!.isNotEmpty) // Show icon only if provided
+              Image.asset(
+                icon!,
+                height: 20.0,
+                width: 20.0,
+              ),
+            if (icon != null && icon!.isNotEmpty) const SizedBox(width: 10.0),
             TextWidget(
               text: text,
               fontWeight: fontWeight,
               color: textColor,
-              size:textSize,
+              size: textSize,
             ),
           ],
         ),
