@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/enum.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/service/api/remote/comic_api.dart';
-import 'package:reading_app/core/service/service/model/authentication_model.dart';
-import 'package:reading_app/core/service/service/model/comic_model.dart';
+import 'package:reading_app/core/service/data/api/remote/comic_service.dart';
+import 'package:reading_app/core/service/data/model/authentication_model.dart';
+import 'package:reading_app/core/service/data/model/comic_model.dart';
 import 'package:reading_app/core/ui/snackbar/snackbar.dart';
 
 class BookDetailController extends GetxController
@@ -26,14 +26,13 @@ class BookDetailController extends GetxController
   List<dynamic> chapters = [];
   List<dynamic> category = [];
 
-
   List<String> listIntroduceSlide = [];
 
   List<dynamic> listComicNewest = [];
 
-  String titleListComplete ="";
+  String titleListComplete = "";
 
-  String domainImage ="";
+  String domainImage = "";
 
   dynamic slugArgument;
 
@@ -43,6 +42,7 @@ class BookDetailController extends GetxController
   void onInit() async {
     super.onInit();
     isLoading.value = true;
+    print(slugArgument);
     if (Get.arguments != null && Get.arguments is Map<String, dynamic>) {
       if (Get.arguments["slug"] != null) {
         slugArgument = Get.arguments["slug"];
@@ -61,7 +61,6 @@ class BookDetailController extends GetxController
       tabIndex.value = tabController.index;
     });
   }
-
 
   Future<void> fetchDataAPI() async {
     try {
@@ -130,5 +129,4 @@ class BookDetailController extends GetxController
     scrollController.dispose();
     super.onClose();
   }
-
 }

@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:reading_app/core/configs/const/prefs_constants.dart';
-import 'package:reading_app/core/service/prefs/prefs.dart';
-import 'package:reading_app/core/service/service/model/user_model.dart';
+import 'package:reading_app/core/service/data/model/user_model.dart';
+import 'package:reading_app/core/storage/prefs/prefs.dart';
 
 
 class RememberUserCase {

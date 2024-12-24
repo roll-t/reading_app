@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:reading_app/core/service/prefs/prefs.dart';
+import 'package:reading_app/core/storage/prefs/prefs.dart';
 import 'package:reading_app/features/main/presentation/controller/main_controller.dart';
 
 class MainBindding extends Bindings {

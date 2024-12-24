@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_normal.dart';
 import 'package:reading_app/features/materials/explores/search_book/presentation/controller/search_book_controller.dart';
 import 'package:reading_app/features/materials/explores/search_book/presentation/page/type/widgets/build_list_comic.dart';
 import 'package:reading_app/features/materials/explores/widgets/build_category_filter.dart';

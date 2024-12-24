@@ -6,13 +6,14 @@ import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/input_app_normal.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal_light.dart';
 import 'package:reading_app/core/ui/widgets/button/button_widget.dart';
 import 'package:reading_app/core/ui/widgets/button/elevated_button_widget.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_normal.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_normal_light.dart';
+import 'package:reading_app/core/ui/widgets/textfield/input_app_normal.dart';
 import 'package:reading_app/features/auth/login/presentation/controller/login_controller.dart';
 import 'package:reading_app/features/auth/shared/build_share_auth.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class LoginPage extends GetView<LogInController> {
   const LoginPage({super.key});
@@ -84,6 +85,8 @@ class LoginPage extends GetView<LogInController> {
               Container(
                 margin: const EdgeInsets.only(top: 15),
                 child: ButtonWidget(
+                  rounder: true,
+                    padding: EdgeInsets.symmetric(vertical: 3.w),
                     textChild: AppContents.login,
                     onTap: () async {
                       await controller.handleLogin();
@@ -129,7 +132,7 @@ class LoginPage extends GetView<LogInController> {
           ontap: () async {
             await controller.handleSignInWithGoogle();
           },
-          text: "Sign in with Google",
+          text: "Đăng nhập với google",
           backgroundcolor: AppColors.white,
           textColor: AppColors.primary,
           borderRadius: 50.0,

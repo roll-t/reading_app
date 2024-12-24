@@ -4,12 +4,12 @@ import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/service/api/database/book_case_service.dart';
-import 'package:reading_app/core/service/api/dto/request/reading_book_case_request.dart';
-import 'package:reading_app/core/service/service/model/chapter_novel_model.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small_light.dart';
-import 'package:reading_app/core/utils/date_time.dart';
+import 'package:reading_app/core/service/data/api/database/book_case_service.dart';
+import 'package:reading_app/core/service/data/dto/request/reading_book_case_request.dart';
+import 'package:reading_app/core/service/data/model/chapter_novel_model.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_normal.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_small_light.dart';
+import 'package:reading_app/core/utils/date_time_utils.dart';
 import 'package:reading_app/features/materials/novel/model/novel_argument_model.dart';
 
 // ignore: must_be_immutable

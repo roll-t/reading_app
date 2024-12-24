@@ -8,9 +8,9 @@ import 'package:reading_app/features/auth/register/di/register_binding.dart';
 import 'package:reading_app/features/auth/register/presentation/page/register_page.dart';
 import 'package:reading_app/features/main/di/main_binding.dart';
 import 'package:reading_app/features/main/presentation/page/main_page.dart';
-import 'package:reading_app/features/materials/category/di/category_binding.dart';
-import 'package:reading_app/features/materials/category/presentation/page/category_novel_page.dart';
-import 'package:reading_app/features/materials/category/presentation/page/category_page.dart';
+import 'package:reading_app/features/materials/categories/di/category_binding.dart';
+import 'package:reading_app/features/materials/categories/presentation/page/category_comic_page.dart';
+import 'package:reading_app/features/materials/categories/presentation/page/category_novel_page.dart';
 import 'package:reading_app/features/materials/comic/di/comic_detail_binding.dart';
 import 'package:reading_app/features/materials/comic/di/read_comic_binding.dart';
 import 'package:reading_app/features/materials/comic/presentation/pages/comic_detail_page.dart';
@@ -59,7 +59,7 @@ class Pages {
       binding: RegisterBindding(),
     ),
     GetPage(
-      name: Routes.findNovelPage,
+      name: Routes.findNovel,
       page: () => const FindNovelPage(),
       binding: FindBinding(),
     ),

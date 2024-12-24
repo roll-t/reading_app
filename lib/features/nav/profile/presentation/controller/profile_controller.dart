@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/service/prefs/prefs.dart';
-import 'package:reading_app/core/service/service/model/authentication_model.dart';
-import 'package:reading_app/core/service/service/model/user_model.dart';
+import 'package:reading_app/core/service/data/model/authentication_model.dart';
+import 'package:reading_app/core/service/data/model/user_model.dart';
+import 'package:reading_app/core/storage/prefs/prefs.dart';
 import 'package:reading_app/core/storage/use_case/auth_use_case.dart';
 import 'package:reading_app/core/storage/use_case/get_user_use_case.dart';
 

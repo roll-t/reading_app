@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:reading_app/core/configs/const/prefs_constants.dart';
-import 'package:reading_app/core/service/prefs/prefs.dart';
-import 'package:reading_app/core/service/service/model/list_category_model.dart';
+import 'package:reading_app/core/service/data/model/list_category_model.dart';
+import 'package:reading_app/core/storage/prefs/prefs.dart';
 class UseCaseCategory {
   static final Prefs prefs = Prefs();
 

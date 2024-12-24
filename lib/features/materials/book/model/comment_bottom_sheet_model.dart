@@ -1,4 +1,4 @@
-import 'package:reading_app/core/service/service/model/user_model.dart';
+import 'package:reading_app/core/service/data/model/user_model.dart';
 
 class CommentBottomSheetModel {
   UserModel? userModel;

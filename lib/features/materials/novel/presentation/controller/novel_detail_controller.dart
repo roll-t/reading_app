@@ -3,14 +3,14 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:reading_app/core/configs/default_data.dart';
 import 'package:reading_app/core/configs/enum.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/service/api/database/category_service.dart';
-import 'package:reading_app/core/service/api/database/chapter_service.dart';
-import 'package:reading_app/core/service/api/database/comment_service.dart';
-import 'package:reading_app/core/service/api/database/novel_service.dart';
-import 'package:reading_app/core/service/api/dto/response/category_response.dart';
-import 'package:reading_app/core/service/api/dto/response/commentReponse.dart';
-import 'package:reading_app/core/service/service/model/chapter_novel_model.dart';
-import 'package:reading_app/core/service/service/model/novel_model.dart';
+import 'package:reading_app/core/service/data/api/database/category_service.dart';
+import 'package:reading_app/core/service/data/api/database/chapter_service.dart';
+import 'package:reading_app/core/service/data/api/database/comment_service.dart';
+import 'package:reading_app/core/service/data/api/database/novel_service.dart';
+import 'package:reading_app/core/service/data/dto/response/category_response.dart';
+import 'package:reading_app/core/service/data/dto/response/commentReponse.dart';
+import 'package:reading_app/core/service/data/model/chapter_novel_model.dart';
+import 'package:reading_app/core/service/data/model/novel_model.dart';
 import 'package:reading_app/core/storage/use_case/auth_use_case.dart';
 
 class NovelDetailController extends GetxController {

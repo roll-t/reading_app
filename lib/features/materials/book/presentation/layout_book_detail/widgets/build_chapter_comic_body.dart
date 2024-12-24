@@ -5,11 +5,11 @@ import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/service/service/model/reading_book_case_model.dart';
+import 'package:reading_app/core/service/data/model/reading_book_case_model.dart';
 import 'package:reading_app/core/storage/sql/data_helper.dart';
 import 'package:reading_app/core/storage/use_case/auth_use_case.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small_light.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_normal.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_small_light.dart';
 import 'package:reading_app/features/materials/comic/model/argument_comic_chapter_model.dart';
 import 'package:reading_app/features/materials/comic/presentation/controllers/comic_detail_controller.dart';
 

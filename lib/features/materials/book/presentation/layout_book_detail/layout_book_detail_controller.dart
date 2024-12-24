@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/service/api/dto/response/reading_book_case_response.dart';
-import 'package:reading_app/core/service/service/model/authentication_model.dart';
-import 'package:reading_app/core/service/service/model/chapter_novel_model.dart';
-import 'package:reading_app/core/service/service/model/reading_book_case_model.dart';
+import 'package:reading_app/core/service/data/dto/response/category_response.dart';
+import 'package:reading_app/core/service/data/dto/response/reading_book_case_response.dart';
+import 'package:reading_app/core/service/data/model/authentication_model.dart';
+import 'package:reading_app/core/service/data/model/chapter_novel_model.dart';
+import 'package:reading_app/core/service/data/model/list_comic_model.dart';
+import 'package:reading_app/core/service/data/model/reading_book_case_model.dart';
 import 'package:reading_app/core/storage/use_case/auth_use_case.dart';
 
 class LayoutBookDetailController extends GetxController
@@ -56,6 +58,14 @@ class LayoutBookDetailController extends GetxController
       tabIndex.value = tabController.index;
     });
   }
+
+  CategoryModel convertToCategoryModel(CategoryResponse response) {
+  return CategoryModel(
+    name: response.name,
+    slug: response.slug, id: '',
+    // Add other properties as needed
+  );
+}
 
   Future<void> handleLogin() async {
     isLoading.value = true;

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:reading_app/core/service/prefs/prefs.dart';
+import 'package:reading_app/core/storage/prefs/prefs.dart';
 import 'package:reading_app/core/storage/use_case/remember_user_case.dart';
 import 'package:reading_app/core/storage/use_case/save_user_use_case.dart';
 import 'package:reading_app/features/auth/login/presentation/controller/login_controller.dart';

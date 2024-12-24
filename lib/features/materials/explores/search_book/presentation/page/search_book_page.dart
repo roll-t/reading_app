@@ -5,7 +5,7 @@ import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_normal.dart';
 import 'package:reading_app/features/materials/explores/search_book/presentation/controller/search_book_controller.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -36,9 +36,11 @@ class SearchBookPage extends GetView<SearchBookController> {
                         title: InkWell(
                             onTap: () {
                               if (controller.currentTypePage.value == 0) {
-                                Get.toNamed(Routes.find,arguments: {"mark":"COMIC"});
+                                Get.toNamed(Routes.find,
+                                    arguments: {"mark": "COMIC"});
                               } else {
-                                Get.toNamed(Routes.findNovelPage,arguments: {"mark":"NOVEL"});
+                                Get.toNamed(Routes.findNovel,
+                                    arguments: {"mark": "NOVEL"});
                               }
                             },
                             child: Container(

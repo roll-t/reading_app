@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/service/api/database/comment_comic_service.dart';
-import 'package:reading_app/core/service/api/dto/response/commentReponse.dart';
-import 'package:reading_app/core/service/api/remote/comic_api.dart';
-import 'package:reading_app/core/service/service/model/comic_model.dart';
-import 'package:reading_app/core/service/service/model/list_comic_model.dart';
+import 'package:reading_app/core/service/data/api/database/comment_comic_service.dart';
+import 'package:reading_app/core/service/data/api/remote/comic_service.dart';
+import 'package:reading_app/core/service/data/dto/response/commentReponse.dart';
+import 'package:reading_app/core/service/data/model/comic_model.dart';
+import 'package:reading_app/core/service/data/model/list_comic_model.dart';
 import 'package:reading_app/core/ui/snackbar/snackbar.dart';
 
 class ComicDetailController extends GetxController
@@ -32,6 +32,8 @@ class ComicDetailController extends GetxController
   List<CommentResponse> listComment = [];
 
   RxBool isComicAvAilable = true.obs;
+
+  ComicApi comicApi = ComicApi();
 
   @override
   void onInit() async {
@@ -69,10 +71,9 @@ class ComicDetailController extends GetxController
 
   Future<void> fetchDataAPI() async {
     try {
-      final result = await ComicApi.getBookDetailDataAPI(slug: slugArgument);
+      final result = await comicApi.fetchBookBySlug(slug: slugArgument);
       if (result.status == Status.success) {
-        comicModel =
-            result.data ?? ComicModel(title: "", description: "", thumb: "");
+        comicModel = result.data ?? ComicModel(title: "", description: "", thumb: "");
         chapters = comicModel.chapters ?? [];
         if (comicModel.category != null) {
           category = (comicModel.category as List<dynamic>)

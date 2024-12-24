@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/service/api/dto/response/novel_response.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal_light.dart';
+import 'package:reading_app/core/service/data/dto/response/novel_response.dart';
 import 'package:reading_app/core/ui/widgets/card/novel_explore.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_normal_light.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class BuildListNovel extends StatelessWidget {

@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/service/api/remote/comic_api.dart';
-import 'package:reading_app/core/service/service/model/chapter_model.dart';
+import 'package:reading_app/core/service/data/api/remote/comic_service.dart';
+import 'package:reading_app/core/service/data/model/chapter_model.dart';
 import 'package:reading_app/features/materials/comic/model/argument_comic_chapter_model.dart';
 
 class ReadComicController extends GetxController {

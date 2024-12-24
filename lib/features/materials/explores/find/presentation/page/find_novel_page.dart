@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_medium_semi_bold.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small.dart';
 import 'package:reading_app/core/ui/widgets/card/card_novel_full_info.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_medium_semi_bold.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_small.dart';
 import 'package:reading_app/core/ui/widgets/textfield/custom_search_field.dart';
 import 'package:reading_app/features/materials/explores/find/presentation/controller/find_controller.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';

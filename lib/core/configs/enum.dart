@@ -25,3 +25,8 @@ enum ListType {
   ongoing,     // tương ứng với "dang-phat-hanh"
   completed,   // tương ứng với "hoan-thanh"
 }
+
+enum ApiSource {
+  local,
+  comic,
+}

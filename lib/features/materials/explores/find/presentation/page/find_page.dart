@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_medium_semi_bold.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small.dart';
-import 'package:reading_app/core/ui/widgets/card/card_full_info_follow_row.dart';
+import 'package:reading_app/core/ui/widgets/card/card_row_widget.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_medium_semi_bold.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_small.dart';
 import 'package:reading_app/core/ui/widgets/textfield/custom_search_field.dart';
 import 'package:reading_app/features/materials/explores/find/presentation/controller/find_controller.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -59,14 +59,13 @@ class FindPage extends GetView<FindController> {
                           controller.listComicSearch.value.items.length) {
                         return const Center(child: CircularProgressIndicator());
                       }
-                      return CardFullInfoFollowRow(
+                      return CardRowWidget(
                         heightImage: 15.h,
                         bookModel:
                             controller.listComicSearch.value.items[index],
                         currentIndex: index,
                         last: index ==
                             controller.listComicSearch.value.items.length - 1,
-                        domain: controller.listComicSearch.value.domainImage,
                       );
                     },
                     childCount: controller.isLoading.value

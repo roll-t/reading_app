@@ -4,13 +4,13 @@ import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/custom_backgound/custom_container.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_medium.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small.dart';
 import 'package:reading_app/core/ui/widgets/avatar/avatar.dart';
+import 'package:reading_app/core/ui/widgets/background/custom_container.dart';
 import 'package:reading_app/core/ui/widgets/button/button_widget.dart';
 import 'package:reading_app/core/ui/widgets/loading.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_medium.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_normal.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_small.dart';
 import 'package:reading_app/features/nav/profile/presentation/controller/profile_controller.dart';
 
 class ProfilePage extends GetView<ProfileController> {

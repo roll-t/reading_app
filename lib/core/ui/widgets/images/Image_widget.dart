@@ -7,59 +7,41 @@ class ImageWidget extends StatelessWidget {
   final String imageUrl;
   final double borderRadius;
   final double borderWidth;
+  final double? height;
 
   const ImageWidget({
     super.key,
     required this.imageUrl,
-    this.borderRadius = 5.0,
-    this.borderWidth = 2.0,
+    this.borderRadius = 3.0,
+    this.borderWidth = 1.0,
+    this.height,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: height,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(borderRadius + borderWidth),
+        borderRadius: BorderRadius.circular(borderRadius),
         border: Border.all(
-            color: AppColors.gray1.withOpacity(.5), width: borderWidth),
+          color: AppColors.gray1.withOpacity(.5),
+          width: borderWidth,
+        ),
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(borderRadius),
         child: CachedNetworkImage(
-          imageUrl: _validateImageUrl(imageUrl),
+          imageUrl: imageUrl,
           fit: BoxFit.cover,
           width: double.infinity,
           placeholder: (context, url) => const Center(
             child: CircularProgressIndicator(),
           ),
-          errorWidget: (context, url, error) {
-            return Image.network(
-              imageUrl,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
-                return const Icon(Icons.error);
-              },
-            );
-          },
+          errorWidget: (context, url, error) => const Center(
+            child: Icon(Icons.error, color: Colors.red),
+          ),
         ),
       ),
     );
-  }
-
-  String _validateImageUrl(String? url) {
-    // Check if URL is null or empty
-    if (url == null || url.isEmpty) {
-      return "https://via.placeholder.com/150"; // Default placeholder URL
-    }
-    // Optionally, validate URL format
-    try {
-      final uri = Uri.parse(url);
-      if (uri.isAbsolute) {
-        return url;
-      }
-    } catch (_) {
-      return "https://via.placeholder.com/150";
-    }
-    return "https://via.placeholder.com/150";
   }
 }

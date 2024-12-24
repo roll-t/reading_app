@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/strings/messages/app_errors.dart';
 import 'package:reading_app/core/configs/strings/messages/app_success.dart';
-import 'package:reading_app/core/service/api/database/user_service.dart';
-import 'package:reading_app/core/service/api/dto/request/user_request_model.dart';
-import 'package:reading_app/core/service/prefs/prefs.dart';
-import 'package:reading_app/core/service/service/model/result.dart';
+import 'package:reading_app/core/service/data/api/database/user_service.dart';
+import 'package:reading_app/core/service/data/dto/request/user_request_model.dart';
+import 'package:reading_app/core/service/data/model/result.dart';
+import 'package:reading_app/core/storage/prefs/prefs.dart';
 import 'package:reading_app/core/ui/snackbar/snackbar.dart';
 import 'package:reading_app/core/utils/validator.dart';
 
@@ -106,7 +106,10 @@ class RegisterController extends GetxController {
         
     var userModel = await userData.signInAPI(userRequest: userRequestModel);
 
-    if (userModel != null) {
+    print(userModel?.data);
+
+
+    if (userModel?.data != null) {
       Get.back(result: userModel);
       SnackbarUtil.showSuccess(AppSuccess.registrationSuccess);
     }

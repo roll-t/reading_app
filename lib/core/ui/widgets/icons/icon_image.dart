@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:reading_app/core/configs/dimens/icons_dimens.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_small.dart';
 
 class IconImage {
   static Widget iconImageSub({

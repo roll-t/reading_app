@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/dimens/text_dimens.dart';
 import 'package:reading_app/core/configs/enum.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/service/service/model/list_category_model.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_large_semi_bold.dart';
-import 'package:reading_app/core/ui/widgets/modal/custom_bottom_sheet.dart';
+import 'package:reading_app/core/service/data/model/list_category_model.dart';
+import 'package:reading_app/core/ui/dialogs/custom_bottom_sheet.dart';
 import 'package:reading_app/core/ui/widgets/tags/tag_category.dart';
+import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class BuildListTagCategory extends StatelessWidget {
@@ -20,13 +21,17 @@ class BuildListTagCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 3.w, top: 4.h),
+      padding: EdgeInsets.symmetric(horizontal: 3.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const TextLargeSemiBold(textChild: "Kho truyện tranh"),
+          TextWidget(
+            text: "Kho Truyện tranh",
+            size: TextDimens.textSize18,
+            fontWeight: FontWeight.w500,
+          ),
           Container(
-            padding: EdgeInsets.only(top: 2.h),
+            padding: EdgeInsets.only(top: 1.h),
             child: Wrap(
               spacing: SpaceDimens.space10,
               runSpacing: SpaceDimens.space10,
@@ -74,14 +79,16 @@ class BuildListTagCategory extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     CustomBottomSheetWidget(
-                      heightSheet: 75.h,
+                      heightSheet: 85.h,
                       context,
                       viewItems: [
                         Padding(
                           padding:
                               EdgeInsets.only(left: 5.w, bottom: 2.h, top: 2.h),
-                          child: const TextLargeSemiBold(
-                            textChild: "Thể loại",
+                          child: TextWidget(
+                            text: "Thể loại",
+                            size: TextDimens.textSize18,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                         Container(
@@ -105,6 +112,9 @@ class BuildListTagCategory extends StatelessWidget {
                             ],
                           ),
                         ),
+                        SizedBox(
+                          height: 5.h,
+                        )
                       ],
                     ).show(context);
                   },

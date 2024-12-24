@@ -6,12 +6,12 @@ import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/extensions/text_format.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_large_semi_bold.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_medium.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small_light.dart';
 import 'package:reading_app/core/ui/widgets/avatar/avatar.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_large_semi_bold.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_medium.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_normal.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_small.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_small_light.dart';
 import 'package:reading_app/features/nav/profile/presentation/controller/my_info_controller.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 

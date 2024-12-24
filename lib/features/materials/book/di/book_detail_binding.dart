@@ -1,15 +1,11 @@
 import 'package:get/get.dart';
-import 'package:reading_app/core/service/api/remote/comic_api.dart';
-import 'package:reading_app/features/materials/book/domain/use_case/book_use_case.dart';
+import 'package:reading_app/core/service/data/api/remote/comic_service.dart';
 import 'package:reading_app/features/materials/book/presentation/controller/book_detail_controller.dart';
-import 'package:reading_app/features/materials/book/presentation/controller/widget_controller.dart';
 
 class BookDetailBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => ComicApi());
-    Get.lazyPut(() => BookUseCase(Get.find()));
-    Get.put(WidgetController());
 
     Get.put<BookDetailController>(
       BookDetailController(),

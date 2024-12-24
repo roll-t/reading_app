@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reading_app/core/configs/dimens/text_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/input_app_normal.dart';
+import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/button/button_widget.dart';
 import 'package:reading_app/core/ui/widgets/icons/leading_icon_app_bar.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
+import 'package:reading_app/core/ui/widgets/textfield/input_app_normal.dart';
 import 'package:reading_app/features/auth/register/presentation/controller/register_controller.dart';
 import 'package:reading_app/features/auth/shared/build_share_auth.dart';
 
@@ -66,14 +68,18 @@ class RegisterPage extends GetView<RegisterController> {
           ),
           ButtonWidget(
             onTap: () {
-              print("Sign Up button clicked!");
+              controller.signUp();
             },
             textSize: 18,
-            background: Colors.blue,
+            background: AppColors.accentColor,
             textColor: Colors.white,
+            rounder: true,
             borderRadius: 20,
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-            child: const TextWidget(text: AppContents.signUp),
+            child: TextWidget(
+                fontWeight: FontWeight.w500,
+                size: TextDimens.textSize18,
+                text: AppContents.signUp),
           ),
         ],
       ),

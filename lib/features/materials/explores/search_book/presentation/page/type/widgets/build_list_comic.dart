@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/service/service/model/list_comic_model.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal_light.dart';
-import 'package:reading_app/core/ui/widgets/card/card_explore.dart';
+import 'package:reading_app/core/service/data/model/list_comic_model.dart';
+import 'package:reading_app/core/ui/widgets/card/comic_card_widget.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_normal_light.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class BuildListComic extends StatelessWidget {
@@ -30,21 +30,23 @@ class BuildListComic extends StatelessWidget {
             padding: const EdgeInsets.symmetric(
                 horizontal: SpaceDimens.space20, vertical: SpaceDimens.space15),
             sliver: SliverGrid(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
+                crossAxisSpacing: 3.w,
+                mainAxisSpacing: 3.w,
                 childAspectRatio: 1.6 / 3,
               ),
               delegate:
                   SliverChildBuilderDelegate((BuildContext context, int index) {
                 return Container(
                     alignment: Alignment.center,
-                    child: CardExplore(
-                      widthCard: 14.h,
-                      heightCard: 27.h,
-                      bookModel: listBookData.items[index],
-                      domainImage: listBookData.domainImage,
+                    child: ComicCardWidget(
+                      width: 14.h,
+                      slug: listBookData.items[index].slug,
+                      comicId: listBookData.items[index].id,
+                      heightImage: 18.h,
+                      thumbUrl: listBookData.items[index].thumbUrl,
+                      comicTitle: listBookData.items[index].name,
                     ));
               }, childCount: listBookData.items.length),
             ),

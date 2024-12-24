@@ -4,10 +4,10 @@ import 'package:reading_app/core/configs/dimens/icons_dimens.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/service/service/model/list_category_model.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_large_semi_bold.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
+import 'package:reading_app/core/service/data/model/list_category_model.dart';
 import 'package:reading_app/core/ui/widgets/button/button_widget.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_large_semi_bold.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_normal.dart';
 import 'package:reading_app/features/materials/explores/search_book/presentation/controller/search_book_controller.dart';
 
 class BuildCategoryFilter extends GetView<SearchBookController> {
