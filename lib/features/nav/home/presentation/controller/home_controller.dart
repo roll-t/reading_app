@@ -1,63 +1,56 @@
 import 'package:get/get.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/data/database/book_case_data.dart';
-import 'package:reading_app/core/data/database/model/list_category_model.dart';
-import 'package:reading_app/core/data/database/model/list_comic_model.dart';
-import 'package:reading_app/core/data/database/model/result.dart';
-import 'package:reading_app/core/data/database/novel_data.dart';
-import 'package:reading_app/core/data/domain/auth_use_case.dart';
-import 'package:reading_app/core/data/dto/response/novel_response.dart';
-import 'package:reading_app/core/data/service/api/comic_api.dart';
 import 'package:reading_app/core/routes/routes.dart';
+import 'package:reading_app/core/service/data/api/database/book_case_service.dart';
+import 'package:reading_app/core/service/data/api/database/novel_service.dart';
+import 'package:reading_app/core/service/data/api/remote/comic_service.dart';
+import 'package:reading_app/core/service/data/dto/response/novel_response.dart';
+import 'package:reading_app/core/service/data/model/list_category_model.dart';
+import 'package:reading_app/core/service/data/model/list_comic_model.dart';
+import 'package:reading_app/core/service/data/model/result.dart';
+import 'package:reading_app/core/service/data/model/user_model.dart';
+import 'package:reading_app/core/storage/use_case/auth_use_case.dart';
+import 'package:reading_app/core/storage/use_case/get_user_use_case.dart';
 
 class HomeController extends GetxController {
   var currentIndex = 0.obs;
+  final GetuserUseCase _getuserUseCase;
+
+  HomeController(this._getuserUseCase);
 
   var currentIndexCategory = 0.obs;
-
   var isLoading = false.obs;
-
   String domainImage = "";
-
   List<dynamic> chapters = [];
-
   NovelData novelData = NovelData();
-
   ComicApi comicApi = ComicApi();
-
   BookCaseData bookCaseData = BookCaseData();
 
   Rx<ListComicModel> listDataComplete = Rx<ListComicModel>(
-    ListComicModel(domainImage: "", titlePage: '', items: []),
-  );
-
+      ListComicModel(domainImage: "", titlePage: '', items: []));
   RxList<NovelResponse> listNovel = <NovelResponse>[].obs;
-
   RxList<NovelResponse> listSlide = <NovelResponse>[].obs;
-
   RxList<ListCategoryModel> categories = <ListCategoryModel>[].obs;
 
   Map<String, dynamic>? auth;
-
   Rx<String> userName = ''.obs;
 
   @override
   void onInit() async {
     super.onInit();
     isLoading.value = true;
-
     await _initializeData();
     isLoading.value = false;
   }
 
+  // Tải dữ liệu song song
   Future<void> _initializeData() async {
     await Future.wait([
       _fetchListSlider(),
       _fetchAuthData(),
-      _setCategoryCache(),
     ]);
-
+    _setCategoryCache();
     _fetchDataListComplete();
     _fetchListNovel();
   }
@@ -65,7 +58,8 @@ class HomeController extends GetxController {
   Future<void> _fetchAuthData() async {
     String? token = await AuthUseCase.getAuthToken();
     auth = JwtDecoder.decode(token);
-    userName.value = auth?["displayName"];
+    UserModel? userModel = await _getuserUseCase.getUser();
+    userName.value = userModel?.displayName ?? "username";
   }
 
   Future<void> _setCategoryCache() async {
@@ -92,7 +86,6 @@ class HomeController extends GetxController {
     final result = await comicApi.fetchListBySlug(page: 1, slug: 'sap-ra-mat');
     if (result.status == Status.success) {
       final apiResponse = result.data;
-
       if (apiResponse != null) {
         listDataComplete.value = apiResponse..titlePage = "Cập nhật mới nhất";
       }
@@ -103,6 +96,7 @@ class HomeController extends GetxController {
     Get.toNamed(Routes.category, arguments: {"slugQuery": slug});
   }
 
+  // Lấy slug từ title của trang
   String getSlugByTitlePage({required String title}) {
     return categories.firstWhere((category) => category.name == title).slug;
   }

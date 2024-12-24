@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:reading_app/core/configs/enum.dart';
 import 'package:reading_app/core/configs/strings/messages/app_errors.dart';
 import 'package:reading_app/core/configs/strings/messages/app_success.dart';
-import 'package:reading_app/core/data/database/auth_data.dart';
-import 'package:reading_app/core/data/database/model/authentication_model.dart';
-import 'package:reading_app/core/data/database/model/result.dart';
-import 'package:reading_app/core/data/database/model/user_model.dart';
-import 'package:reading_app/core/data/database/model/user_request_model.dart';
-import 'package:reading_app/core/data/database/user_data.dart';
-import 'package:reading_app/core/data/domain/user/remember_user_case.dart';
-import 'package:reading_app/core/data/domain/user/save_user_use_case.dart';
-import 'package:reading_app/core/data/prefs/prefs.dart';
 import 'package:reading_app/core/routes/routes.dart';
+import 'package:reading_app/core/service/data/api/database/auth_service.dart';
+import 'package:reading_app/core/service/data/api/database/user_service.dart';
+import 'package:reading_app/core/service/data/dto/request/user_request_model.dart';
+import 'package:reading_app/core/service/data/model/authentication_model.dart';
+import 'package:reading_app/core/service/data/model/result.dart';
+import 'package:reading_app/core/service/data/model/user_model.dart';
+import 'package:reading_app/core/storage/prefs/prefs.dart';
+import 'package:reading_app/core/storage/use_case/remember_user_case.dart';
+import 'package:reading_app/core/storage/use_case/save_user_use_case.dart';
 import 'package:reading_app/core/ui/snackbar/snackbar.dart';
 
 class LogInController extends GetxController {
@@ -90,6 +91,18 @@ class LogInController extends GetxController {
       );
       if (auth != null && auth.status == Status.success) {
         _saveUserUseCase.saveToken(auth.data!);
+        var user = JwtDecoder.decode(auth.data?.token ?? "");
+        _saveUserUseCase.saveUser(UserModel(
+            email: user['sub'],
+            photoURL: user["photoURL"] ?? "",
+            displayName: user["displayName"]));
+
+        print(UserModel(
+                email: user['sub'],
+                photoURL: user["photoURL"] ?? "",
+                displayName: user["displayName"])
+            .toJson());
+
         return auth.data;
       }
       return null;

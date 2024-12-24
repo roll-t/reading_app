@@ -31,10 +31,10 @@ class AppConstants {
       "backgroundColor": AppColors.primaryDarkBg,
     },
     {
-      "id": "readThemePaper", // Chủ đề Giấy
+      "id": "readThemePaper",
       "name":"Giấy",
-      "textColor": Color(0xFF4A4A4A), // Màu chữ đen nhẹ
-      "backgroundColor": Color(0xFFFAF3E0), // Màu nền giống giấy
+      "textColor": Color(0xFF4A4A4A),
+      "backgroundColor": Color(0xFFFAF3E0),
     },
     {
       "id": "readThemeChill", // Chủ đề Êm dịu

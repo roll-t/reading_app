@@ -1,43 +1,44 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/data/database/auth_data.dart';
-import 'package:reading_app/core/data/domain/auth_use_case.dart';
-import 'package:reading_app/core/data/dto/request/introspect_request.dart';
-import 'package:reading_app/core/data/prefs/prefs.dart';
 import 'package:reading_app/core/routes/routes.dart';
+import 'package:reading_app/core/storage/cache/cache_manager.dart';
+import 'package:reading_app/core/storage/use_case/auth_use_case.dart';
 
 class SplashController extends GetxController {
-  final AuthData authApi = AuthData();
-  final Prefs prefs = Prefs();
-
-  var isAuth = false;
-
   @override
   void onInit() {
     super.onInit();
-    initialValue();
+    checkCacheExpiration();
+    checkCacheSize();
   }
 
-  Future<void> initialValue() async {
+  Future<void> checkCacheExpiration() async {
     try {
-      var token = await AuthUseCase.getAuthToken();
-      if (token.isNotEmpty) {
-        var result =
-            await authApi.introspect(request: IntrospectRequest(token: token));
-        if (result.status == Status.success) {
-          isAuth = result.data?.valid ?? false;
-        }
-      }
+      if (await CacheManager.isCacheExpired()) {
+        // await CacheManager.deleteCache();
+        await CacheManager.saveCacheTime();
+      } else {}
+      navigateToNextScreen();
     } catch (e) {
-      print('Error during authentication: $e');
-    } finally {
-      if (isAuth) {
-        Get.offAndToNamed(Routes.main);
-      } else {
-        Get.offNamed(Routes.login);
-      }
+      print("Error during cache expiration check: $e");
+    }
+  }
+
+  Future<void> navigateToNextScreen() async {
+    if (await AuthUseCase.isLogin()) {
+      Get.offAndToNamed(Routes.main);
+    } else {
+      Get.offNamed(Routes.login);
+    }
+  }
+
+  Future<void> checkCacheSize() async {
+    try {
+      int size = await CacheManager.getCacheSize();
+      print('Cache size: ${size / (1024 * 1024)} MB');
+    } catch (e) {
+      print("Error calculating cache size: $e");
     }
   }
 }

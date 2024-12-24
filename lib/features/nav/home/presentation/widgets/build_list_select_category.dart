@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/dimens/text_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/data/database/model/list_category_model.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/custom_backgound/background_gradient.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal_semi_bold.dart';
+import 'package:reading_app/core/service/data/model/list_category_model.dart';
+import 'package:reading_app/core/ui/widgets/background/background_gradient.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_normal_semi_bold.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class BuildListSelectCategory extends StatelessWidget {
   final int currentIndex;
@@ -19,9 +20,7 @@ class BuildListSelectCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(
-          top: SpaceDimens.space40, bottom: SpaceDimens.space20),
+    return SizedBox(
       height: TextDimens.textNormal + ((SpaceDimens.space15 - 2) * 2),
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
@@ -32,7 +31,7 @@ class BuildListSelectCategory extends StatelessWidget {
                 onTap(index);
               },
               child: Container(
-                  margin: const EdgeInsets.only(right: SpaceDimens.space10),
+                  margin: EdgeInsets.only(left: 3.w),
                   padding: const EdgeInsets.symmetric(
                       vertical: SpaceDimens.space10,
                       horizontal: SpaceDimens.space15),

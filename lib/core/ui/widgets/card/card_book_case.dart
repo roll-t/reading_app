@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/data/dto/response/reading_book_case_response.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small_semi_bold.dart';
+import 'package:reading_app/core/service/data/dto/response/reading_book_case_response.dart';
 import 'package:reading_app/core/ui/widgets/images/Image_widget.dart';
-import 'package:reading_app/core/utils/date_time.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_normal.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_small.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_small_semi_bold.dart';
+import 'package:reading_app/core/utils/date_time_utils.dart';
 import 'package:reading_app/features/nav/book_case/presentation/controller/book_case_controller.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -81,7 +81,7 @@ class CardBookCase extends GetView<BookCaseController> {
                           borderRadius: BorderRadius.circular(1000),
                           color: AppColors.accentColor.withOpacity(.4)),
                       child: TextSmall(
-                        textChild: "${bookModel.chapterName}",
+                        textChild: bookModel.chapterName,
                       ),
                     ),
                     const SizedBox(

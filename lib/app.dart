@@ -22,8 +22,8 @@ class App extends StatelessWidget {
         fallbackLocale: LocalizationService.fallbackLocale,
         translations: LocalizationService(),
         theme: Themes.light,
-        darkTheme: Themes.dark, // Apply the dark theme
-        themeMode: ThemeMode.dark, // Use system theme mode (light or dark)
+        darkTheme: Themes.dark,
+        themeMode: ThemeMode.dark,
       );
     });
   }

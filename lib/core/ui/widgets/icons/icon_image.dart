@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:reading_app/core/configs/dimens/icons_dimens.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_small.dart';
 
 class IconImage {
   static Widget iconImageSub({
@@ -12,10 +12,8 @@ class IconImage {
     return InkWell(
       onTap: () {},
       child: Column(
-        mainAxisSize:
-            MainAxisSize.min, // Ensures Column takes up only needed space
-        crossAxisAlignment:
-            CrossAxisAlignment.center, // Centers items horizontally
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Image.asset(
             iconUrl,
@@ -34,12 +32,21 @@ class IconImage {
     );
   }
 
-  static Widget iconImageNormal(
-      {required String iconUrl, double size = IconsDimens.semiSmall}) {
+  static Widget iconImageNormal({
+    required String iconUrl,
+    double size = 20,
+  }) {
     return Image.asset(
       iconUrl,
       width: size,
       height: size,
+      errorBuilder: (context, error, stackTrace) {
+        return Icon(
+          Icons.error,
+          size: size,
+          color: AppColors.gray1,
+        );
+      },
     );
   }
 }

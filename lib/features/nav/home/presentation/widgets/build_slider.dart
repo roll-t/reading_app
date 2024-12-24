@@ -1,8 +1,8 @@
 // Home slider
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/data/dto/response/novel_response.dart';
-import 'package:reading_app/core/ui/widgets/carousel_slider/carousel_slider_utils.dart';
+import 'package:reading_app/core/service/data/dto/response/novel_response.dart';
+import 'package:reading_app/core/ui/widgets/carousel/carousel_utils.dart';
 
 class BuildSlider extends StatelessWidget {
   final List<NovelResponse> listBook;
@@ -22,14 +22,14 @@ class BuildSlider extends StatelessWidget {
         ? Column(
             children: [
               // build slide control
-              CarouselSliderUtils.buildCarouselSlider(
+              CarouselUtils.buildCarousel(
                 indexValue: currentIndex,
                 listBook: listBook,
               ),
 
               // build dots control
               if (showDots)
-                CarouselSliderUtils.buildListDots(
+                CarouselUtils.buildListDots(
                   indexValue: currentIndex,
                   lengthList: listBook.length,
                 ),

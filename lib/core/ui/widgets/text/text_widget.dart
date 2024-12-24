@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:reading_app/core/configs/dimens/text_dimens.dart';
 
 class TextWidget extends StatelessWidget {
   final String text;
@@ -22,7 +21,7 @@ class TextWidget extends StatelessWidget {
     this.maxLines = 1000,
     required this.text,
     this.color,
-    this.size = TextDimens.textSize18,
+    this.size = 18,
     this.fontWeight = FontWeight.normal,
     this.fontStyle = FontStyle.normal,
     this.textDecoration = TextDecoration.none,

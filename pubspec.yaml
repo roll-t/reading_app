@@ -1,7 +1,7 @@
 name: reading_app
 description: "A new Flutter project."
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: 'none'
 
 version: 1.0.0+1
 
@@ -15,19 +15,19 @@ dependencies:
 
 
   cupertino_icons: ^1.0.6
-
-  curved_navigation_bar: ^1.0.3
   uuid: ^4.4.0
-
+  flutter_cache_manager: ^3.4.1
+  stomp_dart_client: ^2.1.0
+  web_socket_channel: ^3.0.1
   http: ^1.2.1
   flutter_svg: ^2.0.10+1
   path: ^1.8.0
   get: ^4.6.6
   sqflite: ^2.0.0+4
-  path_provider: ^2.0.11
   google_fonts: ^5.1.0
   lottie: ^2.7.0
   dio: ^5.5.0+1
+  image: ^4.3.0
   loading_animation_widget: ^1.2.1
   intl: ^0.19.0
   flutter_widget_from_html: ^0.15.2
@@ -39,21 +39,22 @@ dependencies:
   google_sign_in: ^6.2.1
   cached_network_image: ^3.3.1
   shimmer: ^3.0.0
-  firebase_storage: ^11.6.0
   responsive_sizer: ^3.3.1
-  image_picker: ^1.0.8
+  image_picker: ^1.1.2
   flutter_dotenv: ^5.1.0
   dropdown_button2: ^2.3.9
   custom_check_box: ^0.0.4
   flutter_balloon_slider: ^0.1.1
   dropdown_search: ^6.0.1
   flutter_rating_bar: ^4.0.0
-  fluttertoast: ^8.2.6
+  fluttertoast: ^8.2.8
   flutter_xlider: ^3.5.0
   permission_handler: ^11.0.1
   carousel_slider: ^5.0.0
   jwt_decoder: ^2.0.1
   html_unescape: ^2.0.0
+  logger: ^2.5.0
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

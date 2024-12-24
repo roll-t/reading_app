@@ -1,7 +1,6 @@
 // ignore: camel_case_types
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/dimens/icons_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 
 // ignore: camel_case_types
@@ -26,7 +25,7 @@ class leadingIconAppBar extends StatelessWidget {
             },
             icon: const Icon(
               Icons.arrow_back_ios_new_rounded,
-              size: IconsDimens.iconsSize18,
+              size: 18,
             )),
       ),
     );

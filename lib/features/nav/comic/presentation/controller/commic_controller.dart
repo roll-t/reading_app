@@ -1,11 +1,13 @@
+import 'dart:math';
+
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/data/database/model/list_category_model.dart';
-import 'package:reading_app/core/data/database/model/list_comic_model.dart';
-import 'package:reading_app/core/data/database/novel_data.dart';
-import 'package:reading_app/core/data/dto/response/novel_response.dart';
-import 'package:reading_app/core/data/service/api/comic_api.dart';
 import 'package:reading_app/core/routes/routes.dart';
+import 'package:reading_app/core/service/data/api/database/novel_service.dart';
+import 'package:reading_app/core/service/data/api/remote/comic_service.dart';
+import 'package:reading_app/core/service/data/dto/response/novel_response.dart';
+import 'package:reading_app/core/service/data/model/list_category_model.dart';
+import 'package:reading_app/core/service/data/model/list_comic_model.dart';
 
 class CommicController extends GetxController {
   var currentIndex = 0.obs;
@@ -57,36 +59,53 @@ class CommicController extends GetxController {
     var response = await comicApi.fetchHomeData();
     if (response.status == Status.success) {
       homeData.value = response.data ?? listCommitComplete.value;
-      homeData.value.titlePage = "Nổi bật";
     }
   }
 
   List<ItemModel> getFirstNineItemsFromHomeData() {
-    if (homeData.value.items.length >= 13) {
-      return homeData.value.items.sublist(10, 13);
-    } else if (homeData.value.items.length > 10) {
-      return homeData.value.items.sublist(10);
-    } else {
+    const startIndex = 8;
+    const endIndex = 14;
+    if (homeData.value.items.isEmpty ||
+        homeData.value.items.length <= startIndex) {
       return [];
     }
+    return homeData.value.items.sublist(
+      startIndex,
+      homeData.value.items.length >= endIndex
+          ? endIndex
+          : homeData.value.items.length,
+    );
   }
 
   Future<void> setCategoryCache() async {
     await ComicApi.setCategoryCache();
+    // ignore: invalid_use_of_protected_member
     categories.value = await ComicApi.getCategoryCache() ?? categories.value;
   }
 
   Future<void> fetchDataComicCategoryBySlug() async {
-    for (var i = 10; i <= 11; i++) {
+    if (categories.isEmpty) return;
+
+    final random = Random();
+    final selectedIndexes = <int>{};
+    while (selectedIndexes.length < 2 &&
+        selectedIndexes.length < categories.length) {
+      selectedIndexes.add(random.nextInt(categories.length));
+    }
+
+    for (var index in selectedIndexes) {
       final result = await comicApi.fetchComicCategoryBySlug(
-          slug: categories[i].slug, page: 1);
+        slug: categories[index].slug,
+        page: 1,
+      );
+
       if (result.status == Status.success) {
         final apiResponse = result.data;
         if (apiResponse != null) {
-          // ignore: invalid_use_of_protected_member
           listDataComicCategoryBySlug.value = [
+            // ignore: invalid_use_of_protected_member
             ...listDataComicCategoryBySlug.value,
-            apiResponse
+            apiResponse,
           ];
         }
       }

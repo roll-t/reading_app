@@ -10,7 +10,7 @@ class SplashPage extends GetView<SplashController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Image.asset(width: 50.w, AppImages.iLoading)),
+      body: Center(child: Image.asset(width: 40.w, AppImages.iLoading)),
     );
   }
 }

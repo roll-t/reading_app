@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/data/database/model/reading_book_case_model.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_normal.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small.dart';
-import 'package:reading_app/core/ui/customs_widget_theme/texts/text_small_semi_bold.dart';
+import 'package:reading_app/core/service/data/model/reading_book_case_model.dart';
 import 'package:reading_app/core/ui/widgets/images/Image_widget.dart';
-import 'package:reading_app/core/utils/date_time.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_normal.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_small.dart';
+import 'package:reading_app/core/ui/widgets/text/customs/text_small_semi_bold.dart';
+import 'package:reading_app/core/utils/date_time_utils.dart';
 import 'package:reading_app/features/nav/book_case/presentation/controller/book_case_controller.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -29,8 +29,10 @@ class CardComicBookCase extends GetView<BookCaseController> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(Routes.novelDetail,
-            arguments: {"novelId": '', "readContinue": bookModel});
+        Get.toNamed(Routes.comicDetail, arguments: {
+          "slug": bookModel.slug,
+          "readingComicBookCase": bookModel
+        });
       },
       child: Container(
         height: heightCard,
@@ -102,7 +104,9 @@ class CardComicBookCase extends GetView<BookCaseController> {
                       textChild: DatetimeUtil.formatCustom(
                           DateTime.parse(bookModel.readingDate))),
                   InkWell(
-                    onTap: () {},
+                    onTap: () async {
+                      await controller.handleDeleteComic(bookModel: bookModel);
+                    },
                     child: const Icon(
                       Icons.delete,
                       color: AppColors.gray2,
