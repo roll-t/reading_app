@@ -10,34 +10,39 @@ import 'package:reading_app/core/ui/widgets/card/comic_card_row_widget.dart';
 import 'package:reading_app/core/ui/widgets/card/comic_card_widget.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shimmer/shimmer.dart';
 
 class BuildSectionListWidget extends StatelessWidget {
-  final List<ItemModel> books;
+  final List<ItemModel>? books;
   final String? titleList;
   final VoidCallback? seeMore;
-  final bool isHorizontal; // New property to control layout direction
+  final bool isHorizontal;
+  final bool simuler;
 
   const BuildSectionListWidget({
     super.key,
     required this.titleList,
     this.seeMore,
-    required this.books,
-    this.isHorizontal = false, // Default is vertical
+    this.books,
+    this.simuler = false,
+    this.isHorizontal = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    final randomBooks = _getRandomBooks(books);
     return Container(
       padding: const EdgeInsets.all(SpaceDimens.spaceStandard),
       decoration: BoxDecoration(
-          color: AppColors.secondaryDarkBg,
-          borderRadius: BorderRadius.circular(10)),
+        color: AppColors.secondaryDarkBg,
+        borderRadius: BorderRadius.circular(10),
+      ),
       child: Column(
         children: [
           _buildTitleRow(),
           SizedBox(height: 2.w),
-          _buildComicList(randomBooks),
+          (simuler && (books?.isEmpty ?? true))
+              ? _buildShimmerPlaceholder()
+              : _buildComicList(_getRandomBooks(books)),
         ],
       ),
     );
@@ -65,15 +70,14 @@ class BuildSectionListWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildComicList(List<ItemModel> randomBooks) {
-    if (randomBooks.isEmpty) return const SizedBox.shrink();
-
+  Widget _buildComicList(List<ItemModel>? randomBooks) {
+    if (randomBooks?.isEmpty ?? false) return const SizedBox.shrink();
     if (isHorizontal) {
       return SizedBox(
-        height: 20.h,
+        height: 21.h,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: randomBooks.map((book) {
+          children: randomBooks!.map((book) {
             return ComicCardWidget(
               width: 19.w,
               heightImage: 14.h,
@@ -88,7 +92,7 @@ class BuildSectionListWidget extends StatelessWidget {
     }
 
     return Column(
-      children: randomBooks.map((book) {
+      children: randomBooks!.map((book) {
         return ComicCardRowWidget(
           slug: book.slug,
           title: book.name,
@@ -102,8 +106,73 @@ class BuildSectionListWidget extends StatelessWidget {
     );
   }
 
-  List<ItemModel> _getRandomBooks(List<ItemModel> books) {
+  Widget _buildShimmerPlaceholder() {
+    final itemCount = isHorizontal ? 4 : 3;
+    return isHorizontal
+        ? SizedBox(
+            height: 20.h,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: List.generate(itemCount, (index) {
+                return Shimmer.fromColors(
+                  baseColor: AppColors.shimmerBase,
+                  highlightColor: AppColors.shimmerHighlight,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(3),
+                      color: AppColors.shimmerBase,
+                    ),
+                    width: 19.w,
+                    height: 14.h,
+                  ),
+                );
+              }),
+            ),
+          )
+        : Column(
+            children: List.generate(itemCount, (index) {
+              return Shimmer.fromColors(
+                baseColor: AppColors.shimmerBase,
+                highlightColor: AppColors.shimmerHighlight,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 13.h,
+                        width: 25.w,
+                        color: AppColors.shimmerBase,
+                      ),
+                      SizedBox(width: 4.w),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: 14,
+                              width: double.infinity,
+                              color: AppColors.shimmerBase,
+                            ),
+                            const SizedBox(height: 8),
+                            Container(
+                              height: 14,
+                              width: 50.w,
+                              color: AppColors.shimmerBase,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            }),
+          );
+  }
+
+  List<ItemModel>? _getRandomBooks(List<ItemModel>? books) {
     final random = Random();
+    if (books == null) return null;
     return books.length <= 4
         ? books
         : (books.toList()..shuffle(random)).take(4).toList();

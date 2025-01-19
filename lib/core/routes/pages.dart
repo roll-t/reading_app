@@ -1,20 +1,22 @@
 import 'package:get/get.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/features/auth/forgot_password/di/forgot_password_binding.dart';
-import 'package:reading_app/features/auth/forgot_password/presentation/page/forgot_password_page.dart';
 import 'package:reading_app/features/auth/login/di/login_binding.dart';
 import 'package:reading_app/features/auth/login/presentation/page/login_page.dart';
 import 'package:reading_app/features/auth/register/di/register_binding.dart';
 import 'package:reading_app/features/auth/register/presentation/page/register_page.dart';
 import 'package:reading_app/features/main/di/main_binding.dart';
 import 'package:reading_app/features/main/presentation/page/main_page.dart';
+import 'package:reading_app/features/materials/book/comic/comic_detail/di/comic_detail_binding.dart';
+import 'package:reading_app/features/materials/book/comic/comic_detail/presentation/pages/comic_detail_page.dart';
+import 'package:reading_app/features/materials/book/comic/comic_read/di/read_comic_binding.dart';
+import 'package:reading_app/features/materials/book/comic/comic_read/presentation/pages/read_comic_page.dart';
+import 'package:reading_app/features/materials/book/novel/di/novel_binding.dart';
+import 'package:reading_app/features/materials/book/novel/di/read_novel_binding.dart';
+import 'package:reading_app/features/materials/book/novel/presentation/page/novel_detail_page.dart';
+import 'package:reading_app/features/materials/book/novel/presentation/page/read_novel_page.dart';
 import 'package:reading_app/features/materials/categories/di/category_binding.dart';
 import 'package:reading_app/features/materials/categories/presentation/page/category_comic_page.dart';
 import 'package:reading_app/features/materials/categories/presentation/page/category_novel_page.dart';
-import 'package:reading_app/features/materials/comic/di/comic_detail_binding.dart';
-import 'package:reading_app/features/materials/comic/di/read_comic_binding.dart';
-import 'package:reading_app/features/materials/comic/presentation/pages/comic_detail_page.dart';
-import 'package:reading_app/features/materials/comic/presentation/pages/read_comic_page.dart';
 import 'package:reading_app/features/materials/comment/di/comment_binding.dart';
 import 'package:reading_app/features/materials/comment/presentation/page/comment_page.dart';
 import 'package:reading_app/features/materials/explores/find/di/find_binding.dart';
@@ -24,10 +26,6 @@ import 'package:reading_app/features/materials/explores/search_book/di/search_bo
 import 'package:reading_app/features/materials/explores/search_book/presentation/page/search_book_page.dart';
 import 'package:reading_app/features/materials/notification/di/notification_binding.dart';
 import 'package:reading_app/features/materials/notification/presentation/page/notification_page.dart';
-import 'package:reading_app/features/materials/novel/di/novel_binding.dart';
-import 'package:reading_app/features/materials/novel/di/read_novel_binding.dart';
-import 'package:reading_app/features/materials/novel/presentation/page/novel_detail_page.dart';
-import 'package:reading_app/features/materials/novel/presentation/page/read_novel_page.dart';
 import 'package:reading_app/features/nav/profile/di/my_info_binding.dart';
 import 'package:reading_app/features/nav/profile/di/profile_binding.dart';
 import 'package:reading_app/features/nav/profile/presentation/page/my_info_page.dart';
@@ -62,11 +60,6 @@ class Pages {
       name: Routes.findNovel,
       page: () => const FindNovelPage(),
       binding: FindBinding(),
-    ),
-    GetPage(
-      name: Routes.forgotPassword,
-      page: () => const ForgotPasswordPage(),
-      binding: ForgotPasswordBinding(),
     ),
     GetPage(
       name: Routes.main,

@@ -5,30 +5,29 @@ import 'package:reading_app/core/configs/assets/app_images.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/ui/widgets/button/button_widget.dart';
 import 'package:reading_app/core/ui/widgets/button/elevated_button_widget.dart';
 import 'package:reading_app/core/ui/widgets/text/customs/text_normal.dart';
-import 'package:reading_app/core/ui/widgets/text/customs/text_normal_light.dart';
+import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 import 'package:reading_app/core/ui/widgets/textfield/input_app_normal.dart';
 import 'package:reading_app/features/auth/login/presentation/controller/login_controller.dart';
-import 'package:reading_app/features/auth/shared/build_share_auth.dart';
+import 'package:reading_app/features/auth/widgets/build_share_auth.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class LoginPage extends GetView<LogInController> {
+class LoginPage extends GetView<LoginController> {
   const LoginPage({super.key});
   @override
   Widget build(BuildContext context) {
     return BuildShareAuth.buildMainBodyPage(
       body: SafeArea(
-        child: _BuildBody(),
+        child: _buildBody(),
       ),
+      isWaitProcess: controller.isWaitProcess,
       isLoading: controller.isLoading,
     );
   }
 
-  // ignore: non_constant_identifier_names
-  Column _BuildBody() {
+  Column _buildBody() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -37,62 +36,51 @@ class LoginPage extends GetView<LogInController> {
         BuildShareAuth.buildBackgoundForm(
           childContent: Wrap(
             children: [
-              Obx(
-                () => InputAppNormal(
-                  lable: AppContents.email,
-                  placeholder: AppContents.placeholderEmail,
-                  controller: controller.emailController,
-                  errorMess: controller.errorMessageEmail.value,
-                  isBorder: true,
-                ),
+              InputAppNormal(
+                label: AppContents.email,
+                placeholder: AppContents.placeholderEmail,
+                controller: controller.emailController,
+                errorMess: controller.errorMessageEmail.value,
+                isBorder: true,
               ),
-              Obx(
-                () => InputAppNormal(
-                  lable: AppContents.password,
-                  placeholder: AppContents.placeholderPassword,
-                  isPassword: true,
-                  controller: controller.passwordController,
-                  errorMess: controller.errorMessagePassword.value,
-                ),
+              InputAppNormal(
+                label: AppContents.password,
+                placeholder: AppContents.placeholderPassword,
+                isPassword: true,
+                controller: controller.passwordController,
+                errorMess: controller.errorMessagePassword.value,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Obx(
-                    () => CustomCheckBox(
-                      onChanged: (value) {
-                        controller.toggleCheck();
-                      },
-                      value: controller.isCheckRememberAccount.value,
-                      borderColor: AppColors.gray3,
-                      checkBoxSize: SpaceDimens.space25,
-                      checkedFillColor: AppColors.accentColor,
-                    ),
+                  Obx(() => CustomCheckBox(
+                        onChanged: (value) {
+                          controller.isCheckRememberLastLogin.value = value;
+                        },
+                        value: controller.isCheckRememberLastLogin.value,
+                        borderColor: AppColors.gray3,
+                        checkBoxSize: SpaceDimens.space25,
+                        checkedFillColor: AppColors.accentColor,
+                      )),
+                  TextWidget(
+                    text: AppContents.rememberMe,
+                    color: AppColors.textLightActive,
+                    fontWeight: FontWeight.w300,
+                    size: 17.sp,
                   ),
-                  const TextNormalLight(
-                      textChild: AppContents.rememberMe,
-                      colorChild: AppColors.textLightActive),
-                  const Spacer(),
-                  InkWell(
-                      onTap: () {
-                        Get.toNamed(Routes.forgotPassword);
-                      },
-                      child: const TextNormalLight(
-                          textChild: AppContents.forgotPassword,
-                          colorChild: AppColors.accentColor)),
                 ],
               ),
               Container(
                 margin: const EdgeInsets.only(top: 15),
                 child: ButtonWidget(
-                  rounder: true,
+                    rounder: true,
                     padding: EdgeInsets.symmetric(vertical: 3.w),
                     textChild: AppContents.login,
                     onTap: () async {
                       await controller.handleLogin();
                     }),
               ),
-              _BuildLoginMethod()
+              _buildLoginMethod()
             ],
           ),
         )
@@ -100,8 +88,7 @@ class LoginPage extends GetView<LogInController> {
     );
   }
 
-  // ignore: non_constant_identifier_names
-  Column _BuildLoginMethod() {
+  Column _buildLoginMethod() {
     return Column(
       children: [
         const SizedBox(
@@ -112,7 +99,7 @@ class LoginPage extends GetView<LogInController> {
           children: [
             const TextNormal(textChild: AppContents.dontHaveAnAccount),
             InkWell(
-              onTap: controller.toSignUp,
+              onTap: () {},
               child: const TextNormal(
                 textChild: AppContents.createHere,
                 colorChild: AppColors.accentColor,
@@ -130,7 +117,7 @@ class LoginPage extends GetView<LogInController> {
         ElevatedButtonWidget(
           icon: AppImages.iGoogle,
           ontap: () async {
-            await controller.handleSignInWithGoogle();
+            controller.handleLoginWithGoogle();
           },
           text: "Đăng nhập với google",
           backgroundcolor: AppColors.white,

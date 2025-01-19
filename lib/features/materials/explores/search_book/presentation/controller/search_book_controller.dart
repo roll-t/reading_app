@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/service/data/api/database/novel_service.dart';
-import 'package:reading_app/core/service/data/api/remote/comic_service.dart';
+import 'package:reading_app/core/service/api/locals/novel_service.dart';
+import 'package:reading_app/core/service/api/remotes/category_service.dart';
+import 'package:reading_app/core/service/api/remotes/comic_service.dart';
 import 'package:reading_app/core/service/data/dto/response/novel_response.dart';
 import 'package:reading_app/core/service/data/model/list_category_model.dart';
 import 'package:reading_app/core/service/data/model/list_comic_model.dart';
@@ -10,7 +11,8 @@ import 'package:reading_app/features/materials/explores/search_book/presentation
 import 'package:reading_app/features/materials/explores/search_book/presentation/page/type/commic_type_page.dart';
 
 class SearchBookController extends GetxController {
-  NovelData novelData = NovelData();
+  
+  NovelService novelData = Get.find();
 
   var currentTypePage = 0.obs;
 
@@ -30,7 +32,9 @@ class SearchBookController extends GetxController {
 
   var currentPage = 2.obs;
 
-  ComicApi comicApi = ComicApi();
+  ComicApi comicApi = Get.find();
+
+  final CategoryService _categoryService = Get.find();
 
   List<Widget> listPage = [
     const CommicTypePage(),
@@ -105,8 +109,8 @@ class SearchBookController extends GetxController {
   }
 
   Future<void> setCategoryCache() async {
-    await ComicApi.setCategoryCache();
-    categories = await ComicApi.getCategoryCache();
+    await _categoryService.setCategoryCache();
+    categories = await _categoryService.fetchCategoryCache();
   }
 
   Future<void> fetchDataComicCategoryBySlug({required String slug}) async {

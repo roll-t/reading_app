@@ -1,13 +1,15 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:reading_app/core/configs/end_point_config.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/service/configs/end_point_config.dart';
-import 'package:reading_app/core/service/core_service.dart';
+import 'package:reading_app/core/service/api/api_service.dart';
 import 'package:reading_app/core/service/data/model/result.dart';
-import 'package:reading_app/core/storage/use_case/auth_use_case.dart';
+import 'package:reading_app/core/service/storage/use_case/auth_use_case.dart';
 
-class ImagesService extends CoreService {
+class ImagesService extends ApiService {
+  ImagesService(super.dioConfig, super.cacheService);
+
   static Future<bool> doesImageLinkExist(String url) async {
     try {
       final response = await Dio().head(url);

@@ -14,19 +14,11 @@ import 'package:reading_app/features/nav/profile/presentation/page/profile_page.
 class MainController extends GetxController {
   RxInt currentIndex = 0.obs;
 
-  // Opacity for the bottom navigation bar
   var navbarOpacity = 1.0.obs;
 
-  // Route names for bottom navigation
   final List<String> pages = ['/home', '/comic', '/bookCase', '/profile'];
 
   Timer? _timer;
-
-  @override
-  void onInit() {
-    super.onInit();
-    resetOpacityTimer();
-  }
 
   @override
   void onClose() {
@@ -69,16 +61,8 @@ class MainController extends GetxController {
   }
 
   void onChangeItemBottomBar(int index) {
-    if (currentIndex.value == index) return; // Avoid redundant navigation
+    if (currentIndex.value == index) return;
     currentIndex.value = index;
-    Get.offAndToNamed(pages[index], id: 10); // Navigate to the selected page
-  }
-
-  void resetOpacityTimer() {
-    navbarOpacity.value = 1.0;
-    _timer?.cancel();
-    _timer = Timer(const Duration(seconds: 3), () {
-      navbarOpacity.value = 0.5; // Reduce opacity after 3 seconds
-    });
+    Get.offAndToNamed(pages[index], id: 10);
   }
 }

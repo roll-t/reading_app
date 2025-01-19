@@ -2,10 +2,15 @@ import 'dart:async';
 
 import 'package:get/get.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/storage/cache/cache_manager.dart';
-import 'package:reading_app/core/storage/use_case/auth_use_case.dart';
+import 'package:reading_app/core/service/domain/usecase/auths/is_login_usecase.dart';
+import 'package:reading_app/core/service/domain/usecase/categories/set_categories_cache_usecase.dart';
+import 'package:reading_app/core/service/storage/cache/cache_manager.dart';
 
 class SplashController extends GetxController {
+  final IsLoginUseCase _isLoginUseCase;
+  final SetCategoriesCacheUsecase _setCategoriesCacheUsecase;
+  SplashController(this._isLoginUseCase,this._setCategoriesCacheUsecase);
+  
   @override
   void onInit() {
     super.onInit();
@@ -16,7 +21,7 @@ class SplashController extends GetxController {
   Future<void> checkCacheExpiration() async {
     try {
       if (await CacheManager.isCacheExpired()) {
-        // await CacheManager.deleteCache();
+        await CacheManager.deleteCache();
         await CacheManager.saveCacheTime();
       } else {}
       navigateToNextScreen();
@@ -26,7 +31,8 @@ class SplashController extends GetxController {
   }
 
   Future<void> navigateToNextScreen() async {
-    if (await AuthUseCase.isLogin()) {
+    if (await _isLoginUseCase()) {
+      await _setCategoriesCacheUsecase();
       Get.offAndToNamed(Routes.main);
     } else {
       Get.offNamed(Routes.login);

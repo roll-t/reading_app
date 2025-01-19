@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
-import 'package:reading_app/core/service/data/api/database/novel_service.dart';
-import 'package:reading_app/core/service/data/api/remote/comic_service.dart';
+import 'package:reading_app/core/service/api/locals/novel_service.dart';
+import 'package:reading_app/core/service/api/remotes/comic_service.dart';
 import 'package:reading_app/core/service/data/dto/response/novel_response.dart';
 import 'package:reading_app/core/service/data/model/list_comic_model.dart';
 
@@ -13,7 +13,7 @@ class FindController extends GetxController {
   var titlePage = "".obs;
 
   late final ComicApi comicApi;
-  late final NovelData novelData;
+  late final NovelService novelData;
 
   Rx<ListComicModel> listComicSearch = ListComicModel(
     domainImage: "",
@@ -32,8 +32,8 @@ class FindController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    comicApi = ComicApi();
-    novelData = NovelData();
+    comicApi = Get.find();
+    novelData = Get.find();
     fetchDefaultData();
   }
 

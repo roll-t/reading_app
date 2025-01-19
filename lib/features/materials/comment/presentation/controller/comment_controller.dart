@@ -2,12 +2,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/service/data/api/database/comment_comic_service.dart';
-import 'package:reading_app/core/service/data/api/database/comment_service.dart';
+import 'package:reading_app/core/service/api/locals/comment_comic_service.dart';
+import 'package:reading_app/core/service/api/locals/comment_service.dart';
 import 'package:reading_app/core/service/data/dto/request/commentRequest.dart';
 import 'package:reading_app/core/service/data/dto/request/comment_comic_request.dart';
 import 'package:reading_app/core/service/data/dto/response/commentReponse.dart';
-import 'package:reading_app/core/storage/use_case/auth_use_case.dart';
+import 'package:reading_app/core/service/storage/use_case/auth_use_case.dart';
 
 class CommentController extends GetxController {
   dynamic argumentNovelId = Get.arguments["novelId"];
@@ -26,9 +26,9 @@ class CommentController extends GetxController {
 
   String? commentValue;
 
-  final CommentData commentData = CommentData();
+  final CommentService commentData = Get.find();
 
-  final CommentComicData commentComicData = CommentComicData();
+  final CommentComicService commentComicData =Get.find();
 
   @override
   void onInit() {

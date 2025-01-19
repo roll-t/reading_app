@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/service/data/dto/response/novel_response.dart';
 import 'package:reading_app/core/ui/widgets/carousel/carousel_utils.dart';
+import 'package:reading_app/core/ui/widgets/shimmer/shimmer_carousel.dart';
 
 class BuildSlider extends StatelessWidget {
   final List<NovelResponse> listBook;
@@ -32,9 +33,14 @@ class BuildSlider extends StatelessWidget {
                 CarouselUtils.buildListDots(
                   indexValue: currentIndex,
                   lengthList: listBook.length,
-                ),
+                )
             ],
           )
-        : const SizedBox();
+        : Column(
+            children: [
+              ShimmerCarousel.buildShimmerCarousel(5),
+              if (showDots) ShimmerCarousel.buildShimmerDots(5)
+            ],
+          );
   }
 }

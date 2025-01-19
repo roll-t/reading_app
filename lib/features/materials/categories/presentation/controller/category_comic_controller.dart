@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/enum.dart';
 import 'package:reading_app/core/extensions/text_format.dart';
-import 'package:reading_app/core/service/data/api/remote/comic_service.dart';
+import 'package:reading_app/core/service/api/remotes/comic_service.dart';
 import 'package:reading_app/core/service/data/model/list_comic_model.dart';
 import 'package:reading_app/core/service/data/model/result.dart';
 
@@ -13,7 +13,7 @@ class CategoryController extends GetxController {
 
   var isLoading = false.obs;
 
-  ComicApi comicApi = ComicApi();
+  ComicApi comicApi = Get.find();
 
   var hasMore = true.obs;
 

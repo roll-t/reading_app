@@ -63,7 +63,7 @@ class HomePage extends GetView<HomeController> {
   SliverToBoxAdapter _buildSpacingWidthBottom() {
     return SliverToBoxAdapter(
       child: SizedBox(
-        height: 10.h,
+        height: 3.h,
       ),
     );
   }
@@ -111,29 +111,33 @@ class HomePage extends GetView<HomeController> {
     return SliverToBoxAdapter(child: Obx(() {
       // ignore: invalid_use_of_protected_member
       final items = controller.listNovel.value;
-      return items.isNotEmpty
-          ? wrapListWidget(
-              maxLength: 8,
-              titleList: 'Tiểu thuyết mới',
-              seeMore: () {
-                Get.toNamed(Routes.categoryNovel, arguments: {
-                  "slugQuery": CategoryResponse(
-                      name: "Tiểu thuyết mới", slug: "truyen-moi", id: 2)
-                });
-              },
-              maxCol: 4,
-              cardBuilder: (index, widthCard) {
-                return NovelCardWidget(
-                  heightImage: 15.h,
-                  width: widthCard,
-                  novelId: items[index].bookDataId,
-                  slug: items[index].slug,
-                  thumbUrl: items[index].thumbUrl ?? "",
-                  novelTitle: items[index].name ?? "",
-                );
-              },
-            )
-          : const SizedBox();
+      // Kiểm tra items.isNotEmpty một lần, tránh việc kiểm tra nhiều lần
+      final hasItems = items.isNotEmpty;
+      return wrapListWidget(
+        maxLength: 8,
+        titleList: 'Tiểu thuyết mới',
+        seeMore: () {
+          Get.toNamed(Routes.categoryNovel, arguments: {
+            "slugQuery": CategoryResponse(
+                name: "Tiểu thuyết mới", slug: "truyen-moi", id: 2)
+          });
+        },
+        maxCol: 4,
+        cardBuilder: (index, widthCard) {
+          // Lấy item tại index một lần để sử dụng trong cardBuilder
+          final novel = hasItems ? items[index] : null;
+
+          return NovelCardWidget(
+            heightImage: 15.h,
+            width: widthCard,
+            isLoading: !hasItems,
+            novelId: novel?.bookDataId,
+            slug: novel?.slug,
+            thumbUrl: novel?.thumbUrl ?? "",
+            novelTitle: novel?.name ?? "",
+          );
+        },
+      );
     }));
   }
 
@@ -149,53 +153,58 @@ class HomePage extends GetView<HomeController> {
     return SliverToBoxAdapter(child: Obx(() {
       // ignore: invalid_use_of_protected_member
       final items = controller.listNovel.value;
-      return items.isNotEmpty
-          ? wrapListRowWidget(
-              titleList: "Tiểu thuyết",
-              maxLength: items.length,
-              seeMore: () {
-                Get.toNamed(Routes.categoryNovel, arguments: {
-                  "slugQuery": CategoryResponse(
-                      name: "Sắp ra mắt", slug: "truyen-moi", id: 1)
-                });
-              },
-              cardBuilder: (index) {
-                return NovelCardWidget(
-                  novelId: items[index].bookDataId,
-                  thumbUrl: items[index].thumbUrl ?? "",
-                  novelTitle: items[index].name ?? "",
-                );
-              },
-            )
-          : const SizedBox();
+      final hasItems = items.isNotEmpty;
+
+      return wrapListRowWidget(
+        titleList: "Tiểu thuyết",
+        maxLength: hasItems ? items.length : 6,
+        seeMore: () {
+          Get.toNamed(Routes.categoryNovel, arguments: {
+            "slugQuery":
+                CategoryResponse(name: "Sắp ra mắt", slug: "truyen-moi", id: 1)
+          });
+        },
+        cardBuilder: (index) {
+          // Lấy item tại index một lần để sử dụng trong cardBuilder
+          final novel = hasItems ? items[index] : null;
+          return NovelCardWidget(
+            isLoading: !hasItems,
+            novelId: novel?.bookDataId,
+            thumbUrl: novel?.thumbUrl ?? "",
+            novelTitle: novel?.name ?? "",
+          );
+        },
+      );
     }));
   }
 
   SliverToBoxAdapter _buildListComic() {
     return SliverToBoxAdapter(
-      child: Obx(() {
-        final items = controller.listDataComplete.value.items;
-        const lengthList = 9;
-        return items.isNotEmpty
-            ? wrapListWidget(
-                maxLength: lengthList,
-                titleList: 'Cập nhật mới nhất',
-                seeMore: () {
-                  controller.toDetailListBySlug(slug: "sap-ra-mat");
-                },
-                maxCol: 3,
-                cardBuilder: (index, widthCard) {
-                  return ComicCardWidget(
-                    width: widthCard,
-                    slug: items[index].slug,
-                    comicId: items[index].id,
-                    comicTitle: items[index].name,
-                    thumbUrl: items[index].thumbUrl,
-                  );
-                },
-              )
-            : const SizedBox.shrink();
-      }),
+      child: GetBuilder<HomeController>(
+          id: "listComics",
+          builder: (_) {
+            final items = controller.upcomingComics?.value.items;
+            const lengthList = 9;
+            return wrapListWidget(
+              isLoading: controller.isLoading.value,
+              maxLength: lengthList,
+              titleList: 'Cập nhật mới nhất',
+              seeMore: () {
+                controller.toDetailListBySlug(slug: "sap-ra-mat");
+              },
+              maxCol: 3,
+              cardBuilder: (index, widthCard) {
+                return ComicCardWidget(
+                  width: widthCard,
+                  isLoading: !(items?.isNotEmpty ?? false),
+                  slug: items?[index].slug,
+                  comicId: items?[index].id,
+                  comicTitle: items?[index].name ?? "",
+                  thumbUrl: items?[index].thumbUrl ?? "",
+                );
+              },
+            );
+          }),
     );
   }
 
@@ -233,7 +242,7 @@ class HomePage extends GetView<HomeController> {
   Obx _buildAppBar() {
     return Obx(() {
       return BuildSliverAppBar(
-        userName: controller.userName.value,
+        userName: controller.user.value.displayName,
       );
     });
   }

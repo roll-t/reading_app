@@ -12,26 +12,34 @@ class wrapListWidget extends StatelessWidget {
   final String titleList;
   final int? maxCol;
   final Widget Function(int indexCard, double widthCard) cardBuilder;
+  final Widget Function(double widthCard)? loadingCardBuilder;
   final Function? seeMore;
+  final bool isLoading;
+  final double spacingWithBottom;
 
-  const wrapListWidget({
-    super.key,
-    required this.maxLength,
-    required this.titleList,
-    required this.cardBuilder,
-    this.maxCol,
-    this.seeMore,
-  });
+  const wrapListWidget(
+      {super.key,
+      required this.maxLength,
+      required this.titleList,
+      required this.cardBuilder,
+      this.loadingCardBuilder,
+      this.maxCol,
+      this.seeMore,
+      this.isLoading = false,
+      this.spacingWithBottom = 0.0});
 
   @override
   Widget build(BuildContext context) {
     final int columns = maxCol ?? 2;
     final double widthCard = (100.w - (6.w * (columns - 1))) / columns;
+
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 3.w),
+      padding:
+          EdgeInsets.only(left: 3.w, right: 3.w, bottom: spacingWithBottom),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Title row
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -61,7 +69,26 @@ class wrapListWidget extends StatelessWidget {
             ],
           ),
           SizedBox(height: 1.h),
-          if (maxLength > 0)
+          // Content
+          if (isLoading)
+            SizedBox(
+              width: 100.w,
+              child: Wrap(
+                alignment: WrapAlignment.spaceBetween,
+                spacing: 3.w,
+                runSpacing: 3.w,
+                children: List.generate(maxLength, (index) {
+                  return loadingCardBuilder != null
+                      ? loadingCardBuilder!(widthCard)
+                      : Container(
+                          width: widthCard,
+                          height: 20.h,
+                          color: AppColors.grey.withOpacity(0.3),
+                        );
+                }),
+              ),
+            )
+          else if (maxLength > 0)
             SizedBox(
               width: 100.w,
               child: Wrap(

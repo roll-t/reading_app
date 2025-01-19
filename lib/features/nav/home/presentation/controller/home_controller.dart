@@ -1,40 +1,40 @@
 import 'package:get/get.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:reading_app/core/configs/enum.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/service/data/api/database/book_case_service.dart';
-import 'package:reading_app/core/service/data/api/database/novel_service.dart';
-import 'package:reading_app/core/service/data/api/remote/comic_service.dart';
 import 'package:reading_app/core/service/data/dto/response/novel_response.dart';
 import 'package:reading_app/core/service/data/model/list_category_model.dart';
 import 'package:reading_app/core/service/data/model/list_comic_model.dart';
-import 'package:reading_app/core/service/data/model/result.dart';
 import 'package:reading_app/core/service/data/model/user_model.dart';
-import 'package:reading_app/core/storage/use_case/auth_use_case.dart';
-import 'package:reading_app/core/storage/use_case/get_user_use_case.dart';
+import 'package:reading_app/core/service/domain/usecase/categories/fetch_categories_cache_usecase.dart';
+import 'package:reading_app/features/nav/home/domain/usecase/fetch_auth_usecase.dart';
+import 'package:reading_app/features/nav/home/domain/usecase/fetch_novels_usecase.dart';
+import 'package:reading_app/features/nav/home/domain/usecase/fetch_slider_usecase.dart';
+import 'package:reading_app/features/nav/home/domain/usecase/fetch_up_coming_comics_usecase.dart';
 
 class HomeController extends GetxController {
-  var currentIndex = 0.obs;
-  final GetuserUseCase _getuserUseCase;
+  final currentIndex = 0.obs;
+  final FetchAuthUsecase _fetchAuthUsecase;
+  final FetchSliderUsecase _fetchSliderUsecase;
+  final FetchUpComingComicsUsecase _fetchUpComingComicsUsecase;
+  final FetchNovelsUsecase _fetchNovelsUsecase;
+  final FetchCategoriesCacheUsecase _fetchCategoriesCacheUsecase;
 
-  HomeController(this._getuserUseCase);
+  HomeController(
+      this._fetchAuthUsecase,
+      this._fetchSliderUsecase,
+      this._fetchUpComingComicsUsecase,
+      this._fetchNovelsUsecase,
+      this._fetchCategoriesCacheUsecase);
 
-  var currentIndexCategory = 0.obs;
   var isLoading = false.obs;
+  var isLoadMore = false.obs;
+
   String domainImage = "";
   List<dynamic> chapters = [];
-  NovelData novelData = NovelData();
-  ComicApi comicApi = ComicApi();
-  BookCaseData bookCaseData = BookCaseData();
-
-  Rx<ListComicModel> listDataComplete = Rx<ListComicModel>(
-      ListComicModel(domainImage: "", titlePage: '', items: []));
+  Rx<ListComicModel>? upcomingComics;
   RxList<NovelResponse> listNovel = <NovelResponse>[].obs;
   RxList<NovelResponse> listSlide = <NovelResponse>[].obs;
   RxList<ListCategoryModel> categories = <ListCategoryModel>[].obs;
-
-  Map<String, dynamic>? auth;
-  Rx<String> userName = ''.obs;
+  Rx<UserModel> user = UserModel(email: "").obs;
 
   @override
   void onInit() async {
@@ -44,60 +44,36 @@ class HomeController extends GetxController {
     isLoading.value = false;
   }
 
-  // Tải dữ liệu song song
   Future<void> _initializeData() async {
-    await Future.wait([
-      _fetchListSlider(),
-      _fetchAuthData(),
-    ]);
-    _setCategoryCache();
-    _fetchDataListComplete();
+    _fetchListSlider();
+    _fetchAuthData();
+    _fetchUpComingComics();
+    _fetchCategories();
     _fetchListNovel();
   }
 
   Future<void> _fetchAuthData() async {
-    String? token = await AuthUseCase.getAuthToken();
-    auth = JwtDecoder.decode(token);
-    UserModel? userModel = await _getuserUseCase.getUser();
-    userName.value = userModel?.displayName ?? "username";
-  }
-
-  Future<void> _setCategoryCache() async {
-    await ComicApi.setCategoryCache();
-    categories.value = await ComicApi.getCategoryCache() ?? [];
+    user.value = await _fetchAuthUsecase();
   }
 
   Future<void> _fetchListNovel() async {
-    Result result = await novelData.fetchListNovel();
-    if (result.status == Status.success) {
-      listNovel.value = result.data ?? [];
-    }
+    listNovel.value = await _fetchNovelsUsecase() ?? [];
   }
 
   Future<void> _fetchListSlider() async {
-    Result result =
-        await novelData.fetchListNovelByStatus(statusName: "SLIDER");
-    if (result.status == Status.success) {
-      listSlide.value = result.data ?? [];
-    }
+    listSlide.value = await _fetchSliderUsecase() ?? [];
   }
 
-  Future<void> _fetchDataListComplete() async {
-    final result = await comicApi.fetchListBySlug(page: 1, slug: 'sap-ra-mat');
-    if (result.status == Status.success) {
-      final apiResponse = result.data;
-      if (apiResponse != null) {
-        listDataComplete.value = apiResponse..titlePage = "Cập nhật mới nhất";
-      }
-    }
+  Future<void> _fetchUpComingComics() async {
+    upcomingComics = (await _fetchUpComingComicsUsecase())?.obs;
+    update(["listComics"]);
+  }
+
+  Future<void> _fetchCategories() async {
+    categories.value = await _fetchCategoriesCacheUsecase() ?? [];
   }
 
   void toDetailListBySlug({required String slug}) {
     Get.toNamed(Routes.category, arguments: {"slugQuery": slug});
-  }
-
-  // Lấy slug từ title của trang
-  String getSlugByTitlePage({required String title}) {
-    return categories.firstWhere((category) => category.name == title).slug;
   }
 }

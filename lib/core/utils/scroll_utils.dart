@@ -53,6 +53,14 @@ class ScrollUtils {
     });
   }
 
+  static void scrollDown(ScrollController controller,double offset) {
+    controller.animateTo(
+      controller.offset + offset,
+      duration: const Duration(milliseconds: 300), // Thời gian cuộn
+      curve: Curves.easeInOut, // Hiệu ứng cuộn
+    );
+  }
+
   // Cuộn đến phần tử mới nhất trong danh sách khi có dữ liệu mới
   static void scrollToNewItem(ScrollController controller) {
     if (controller.hasClients) {

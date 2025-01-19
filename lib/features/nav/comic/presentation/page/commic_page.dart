@@ -10,25 +10,32 @@ import 'package:reading_app/core/ui/widgets/card/card_row_widget.dart';
 import 'package:reading_app/core/ui/widgets/card/comic_card_widget.dart';
 import 'package:reading_app/core/ui/widgets/carousel/carousel_comic.dart';
 import 'package:reading_app/core/ui/widgets/loading.dart';
+import 'package:reading_app/core/ui/widgets/shimmer/shimmer_carousel.dart';
+import 'package:reading_app/core/ui/widgets/shimmer/simular_card_row_widget.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 import 'package:reading_app/core/ui/widgets/wrap/wrap_list_widget.dart';
-import 'package:reading_app/features/nav/comic/presentation/controller/commic_controller.dart';
+import 'package:reading_app/features/nav/comic/presentation/controller/comic_controller.dart';
 import 'package:reading_app/features/nav/comic/presentation/widgets/build_section_list_widget.dart';
 import 'package:reading_app/features/nav/home/presentation/widgets/build_list_select_category.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class CommicPage extends GetView<CommicController> {
+class CommicPage extends GetView<ComicController> {
   const CommicPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Loading(isLoading: controller.isLoading, bodyBuilder: _buildBody()),
+      body: Loading(
+        isLoading: false.obs,
+        isLoadMore: controller.isLoadMore,
+        bodyBuilder: _buildBody(),
+      ),
     );
   }
 
   CustomScrollView _buildBody() {
     return CustomScrollView(
+      controller: controller.scrollController,
       slivers: [
         _buildAppBar(),
         _buildSlider(),
@@ -39,10 +46,7 @@ class CommicPage extends GetView<CommicController> {
         _buildSpacing(),
         _buildComicCategories(),
         _buildSpacing(),
-        _buildListComic(0),
-        _buildSpacing(),
-        _buildListComic(1),
-        _buildSpaceWithBottom(),
+        _buildListComics(),
       ],
     );
   }
@@ -77,165 +81,186 @@ class CommicPage extends GetView<CommicController> {
   }
 
   SliverToBoxAdapter _buildSlider() {
-    return SliverToBoxAdapter(child: Obx(() {
-      return controller.homeData.value.items.isNotEmpty
-          ? CarouselComic.buildCarouselSlider(
-              indexValue: 0.obs, listBook: controller.homeData.value)
-          : const SizedBox();
-    }));
+    return SliverToBoxAdapter(
+      child: Obx(() {
+        if (controller.isLoading.value) {
+          return Column(
+            children: [
+              ShimmerCarousel.buildShimmerCarousel(5),
+            ],
+          );
+        } else {
+          return Column(
+            children: [
+              CarouselComic.buildCarouselSlider(
+                indexValue: controller.currentIndex,
+                listBook: controller.homeData!.value,
+              ),
+            ],
+          );
+        }
+      }),
+    );
   }
 
   SliverToBoxAdapter _buildListComicComplete() {
     return SliverToBoxAdapter(
-      child: Obx(() {
-        return Padding(
-          padding: EdgeInsets.symmetric(horizontal: 3.w),
-          child: BuildSectionListWidget(
-            titleList: "Hoàn thành",
-            seeMore: () {
-              controller.toDetailListBySlug(slug: "hoan-thanh");
-            },
-            books: controller.listCommitComplete.value.items,
-          ),
-        );
-      }),
+      child: GetBuilder<ComicController>(
+          id: "listCompleteID",
+          builder: (_) {
+            return Padding(
+              padding: EdgeInsets.symmetric(horizontal: 3.w),
+              child: BuildSectionListWidget(
+                simuler: true,
+                titleList: "Hoàn thành",
+                seeMore: () {
+                  controller.navigateToCategoryDetail("hoan-thanh");
+                },
+                books: controller.completedComics?.value.items,
+              ),
+            );
+          }),
     );
   }
 
   SliverToBoxAdapter _buildListComicRecommend() {
     return SliverToBoxAdapter(
-      child: Obx(() {
-        if (controller.isLoading.value) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        final books = controller.getFirstNineItemsFromHomeData();
-        return books.isEmpty
-            ? const Center(child: Text("No data available"))
-            : Padding(
-                padding: EdgeInsets.symmetric(horizontal: 3.w),
-                child: BuildSectionListWidget(
-                  isHorizontal: true,
-                  titleList: "Đề xuất",
-                  seeMore: () {
-                    controller.toDetailListBySlug(slug: "homeData");
-                  },
-                  books: books,
-                ),
-              );
-      }),
-    );
+        child: GetBuilder<ComicController>(
+      id: "listRecommendID",
+      builder: (_) {
+        final books = controller.getFirstNineItemsFromHome();
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: 3.w),
+          child: BuildSectionListWidget(
+            isHorizontal: true,
+            simuler: true,
+            titleList: "Đề xuất",
+            seeMore: () {
+              controller.navigateToCategoryDetail("homeData");
+            },
+            books: books,
+          ),
+        );
+      },
+    ));
   }
 
   SliverToBoxAdapter _buildComicCategories() {
     return SliverToBoxAdapter(
-      child: Column(
-        children: [
-          Obx(() {
-            return BuildListSelectCategory(
-              currentIndex: controller.currentIndexCategory.value,
-              listCategory: controller.categories,
-              onTap: (index) async {
-                controller.currentIndexCategory.value = index;
-                String categorySlug = controller.categories[index].slug;
-                if (categorySlug.isNotEmpty) {
-                  await controller.fetchDataComicCategoryByChange(
-                      slug: categorySlug);
-                }
-              },
-            );
-          }),
-          SizedBox(height: 3.w),
-          Obx(() {
-            final items = controller.listDataChangeCategory.value.items;
-            if (items.isEmpty) {
-              return const SizedBox.shrink();
-            }
-
-            const int countComicDisplay = 5;
-
-            return Padding(
-              padding: EdgeInsets.symmetric(horizontal: 3.w),
-              child: Column(
+      child: GetBuilder<ComicController>(
+        id: "listCategoryID",
+        builder: (_) => (controller.categories?.isEmpty ?? true)
+            ? const SizedBox.shrink()
+            : Column(
                 children: [
-                  ...List.generate(
-                    items.length > countComicDisplay
-                        ? countComicDisplay
-                        : items.length,
-                    (i) => CardRowWidget(
-                      heightImage: 13.h,
-                      bookModel: items[i],
-                      currentIndex: i,
-                      last: i == countComicDisplay - 1,
-                    ),
-                  ),
+                  Obx(() {
+                    return BuildListSelectCategory(
+                      currentIndex: controller.currentIndexCategory.value,
+                      listCategory: controller.categories,
+                      onTap: (index) async {
+                        controller.currentIndexCategory.value = index;
+                        String categorySlug =
+                            controller.categories?[index].slug ?? "";
+                        if (categorySlug.isNotEmpty) {
+                          await controller
+                              .fetchComicsForSelectedCategory(categorySlug);
+                        }
+                      },
+                    );
+                  }),
+                  SizedBox(height: 3.w),
+                  Obx(() {
+                    final items =
+                        controller.selectedCategoryComics?.value.items;
+                    const int countComicDisplay = 5;
+                    return Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 3.w),
+                      child: Column(
+                        children: [
+                          ...List.generate(
+                            countComicDisplay,
+                            (i) =>
+                                (controller.isLoadProcessCategoryComics.value)
+                                    ? SimularCardRowWidget(heightImage: 13.h)
+                                    : CardRowWidget(
+                                        heightImage: 13.h,
+                                        bookModel: items?[i],
+                                        currentIndex: i,
+                                        last: i == countComicDisplay - 1,
+                                      ),
+                          ),
 
-                  // Nút "Xem thêm"
-                  ButtonWidget(
-                    textChild: AppContents.seeMore,
-                    onTap: () {
-                      controller.toDetailListBySlug(
-                        slug: controller.getSlugByTitlePage(
-                          title:
-                              controller.listDataChangeCategory.value.titlePage,
-                        ),
-                      );
-                    },
-                    rounder: true,
-                    padding: const EdgeInsets.symmetric(
-                        vertical: SpaceDimens.space10),
-                  ),
+                          // Nút "Xem thêm"
+                          ButtonWidget(
+                            textChild: AppContents.seeMore,
+                            onTap: () {
+                              controller.navigateToCategoryDetail(
+                                controller.getSlugByTitle(
+                                  controller.selectedCategoryComics?.value
+                                          .titlePage ??
+                                      "",
+                                ),
+                              );
+                            },
+                            rounder: true,
+                            padding: const EdgeInsets.symmetric(
+                                vertical: SpaceDimens.space10),
+                          ),
+                        ],
+                      ),
+                    );
+                  }),
                 ],
               ),
-            );
-          }),
-        ],
       ),
     );
   }
 
-  SliverToBoxAdapter _buildSpaceWithBottom() {
-    return SliverToBoxAdapter(
-      child: SizedBox(height: 10.h),
-    );
-  }
-
-  SliverToBoxAdapter _buildListComic(int index) {
+  SliverToBoxAdapter _buildListComics() {
     return SliverToBoxAdapter(
       child: Obx(() {
         try {
-          if (controller.listDataComicCategoryBySlug.isEmpty) {
+          // Kiểm tra nếu danh sách comicsByCategory rỗng
+          if (controller.comicsByCategory.isEmpty) {
             return const SizedBox.shrink();
           }
 
-          final comicCategory = controller.listDataComicCategoryBySlug[index];
+          // Duyệt qua từng danh mục trong comicsByCategory và tạo widget
+          final widgets = controller.comicsByCategory.map((comicCategory) {
+            if (comicCategory.items.isEmpty) {
+              return const SizedBox.shrink();
+            }
 
-          if (comicCategory.items.isEmpty) {
-            return const SizedBox.shrink();
-          }
+            final items = comicCategory.items;
+            const lengthList = 12;
 
-          final items = comicCategory.items;
-          const lengthList = 12;
+            return wrapListWidget(
+              maxLength: lengthList,
+              titleList: comicCategory.titlePage,
+              spacingWithBottom: 5.w,
+              seeMore: () {
+                controller.navigateToCategoryDetail(
+                    controller.getSlugByTitle(comicCategory.titlePage));
+              },
+              maxCol: 4,
+              cardBuilder: (index, widthCard) {
+                final item = items[index];
+                return ComicCardWidget(
+                  heightImage: 15.h,
+                  width: widthCard,
+                  slug: item.slug,
+                  comicId: item.id,
+                  comicTitle: item.name,
+                  thumbUrl: item.thumbUrl,
+                );
+              },
+            );
+          }).toList();
 
-          return wrapListWidget(
-            maxLength: lengthList,
-            titleList: comicCategory.titlePage,
-            seeMore: () {
-              controller.toDetailListBySlug(
-                  slug: controller.getSlugByTitlePage(
-                      title: comicCategory.titlePage));
-            },
-            maxCol: 4,
-            cardBuilder: (index, widthCard) {
-              final item = items[index];
-              return ComicCardWidget(
-                heightImage: 15.h,
-                width: widthCard,
-                slug: item.slug,
-                comicId: item.id,
-                comicTitle: item.name,
-                thumbUrl: item.thumbUrl,
-              );
-            },
+          // Trả về danh sách các widget dạng Column
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: widgets,
           );
         } catch (e) {
           return Center(child: Text('Lỗi khi tải dữ liệu: $e'));

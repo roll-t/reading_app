@@ -8,7 +8,7 @@ import 'package:reading_app/core/ui/widgets/text/customs/text_normal_light.dart'
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 
 class InputAppNormal extends StatefulWidget {
-  final String lable;
+  final String label;
   final String placeholder;
   final bool isPassword;
   final bool isNumeric; // Thêm thuộc tính để xác định kiểu bàn phím
@@ -19,7 +19,7 @@ class InputAppNormal extends StatefulWidget {
 
   const InputAppNormal({
     super.key,
-    this.lable = "",
+    this.label = "",
     this.placeholder = "",
     this.isPassword = false,
     this.isNumeric = false,
@@ -43,8 +43,8 @@ class _InputAppNormalState extends State<InputAppNormal> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        widget.lable.isNotEmpty
-            ? TextNormalLight(textChild: widget.lable)
+        widget.label.isNotEmpty
+            ? TextNormalLight(textChild: widget.label)
             : const SizedBox(),
         Container(
           padding: const EdgeInsets.all(SpaceDimens.space5),

@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/service/data/api/database/book_case_service.dart';
+import 'package:reading_app/core/service/api/locals/book_case_service.dart';
 import 'package:reading_app/core/service/data/dto/response/favorite_response.dart'; // Import FavoriteResponse
 import 'package:reading_app/core/service/data/dto/response/reading_book_case_response.dart';
 import 'package:reading_app/core/service/data/model/reading_book_case_model.dart';
-import 'package:reading_app/core/storage/sql/data_helper.dart';
-import 'package:reading_app/core/storage/use_case/auth_use_case.dart';
+import 'package:reading_app/core/service/storage/sql/data_helper.dart';
+import 'package:reading_app/core/service/storage/use_case/auth_use_case.dart';
 import 'package:reading_app/features/nav/book_case/model/book_case_model.dart';
 
 class BookCaseController extends GetxController {
   RxString typeSelect = "Tiểu thuyết".obs;
   RxString filterType = "Mới nhất".obs;
   var isLoading = false.obs;
-  BookCaseData bookCaseData = BookCaseData();
+  BookCaseService bookCaseData = Get.find();
   List<ReadingBookCaseResponse> listReadingBookCase = [];
   List<BookCaseModel> listBookData = [];
   List<ReadingComicBookCaseModel> listBookComic = [];
@@ -110,7 +110,7 @@ class BookCaseController extends GetxController {
 
   Future<void> handleDelete({required String readingBookCaseID}) async {
     try {
-      await BookCaseData.handleDeleReadingBookCase(bcId: readingBookCaseID);
+      // await BookCaseData.handleDeleReadingBookCase(bcId: readingBookCaseID);
       listReadingBookCase.removeWhere(
           (item) => item.id == readingBookCaseID); // Remove item from list
       update(["reloadReadingBookCase"]);

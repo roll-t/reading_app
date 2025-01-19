@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/service/data/api/database/novel_service.dart';
+import 'package:reading_app/core/service/api/locals/novel_service.dart';
 import 'package:reading_app/core/service/data/dto/response/category_response.dart';
 import 'package:reading_app/core/service/data/dto/response/novel_response.dart';
 import 'package:reading_app/core/service/data/model/result.dart';
@@ -13,7 +13,7 @@ class CategoryNovelController extends GetxController {
   var currentPage = 1.obs;
   var listDataChangeCategory = <NovelResponse>[].obs;
 
-  final NovelData novelData = NovelData();
+  final NovelService novelData = Get.find();
   final ScrollController scrollController = ScrollController();
   final List<String> typeOfList = [
     "truyen-moi",

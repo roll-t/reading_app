@@ -9,12 +9,12 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class BuildListSelectCategory extends StatelessWidget {
   final int currentIndex;
-  final List<ListCategoryModel> listCategory;
+  final List<ListCategoryModel> ? listCategory;
   final Function(int) onTap;
   const BuildListSelectCategory({
     super.key,
     required this.currentIndex,
-    required this.listCategory,
+    this.listCategory,
     required this.onTap,
   });
 
@@ -24,7 +24,7 @@ class BuildListSelectCategory extends StatelessWidget {
       height: TextDimens.textNormal + ((SpaceDimens.space15 - 2) * 2),
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: listCategory.length,
+          itemCount: listCategory?.length,
           itemBuilder: (context, index) {
             return InkWell(
               onTap: () {
@@ -43,7 +43,7 @@ class BuildListSelectCategory extends StatelessWidget {
                         : null,
                   ),
                   child: TextNormalSemiBold(
-                    textChild: listCategory[index].name,
+                    textChild: listCategory?[index].name??"",
                     colorChild: currentIndex != index
                         ? AppColors.gray2
                         : AppColors.white,

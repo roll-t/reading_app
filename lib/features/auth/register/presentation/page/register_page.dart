@@ -8,7 +8,7 @@ import 'package:reading_app/core/ui/widgets/icons/leading_icon_app_bar.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 import 'package:reading_app/core/ui/widgets/textfield/input_app_normal.dart';
 import 'package:reading_app/features/auth/register/presentation/controller/register_controller.dart';
-import 'package:reading_app/features/auth/shared/build_share_auth.dart';
+import 'package:reading_app/features/auth/widgets/build_share_auth.dart';
 
 class RegisterPage extends GetView<RegisterController> {
   const RegisterPage({super.key});
@@ -40,26 +40,26 @@ class RegisterPage extends GetView<RegisterController> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           InputAppNormal(
-            lable: AppContents.name,
+            label: AppContents.name,
             placeholder: AppContents.placeholderName,
             controller: controller.nameController, // Cung cấp controller
             errorMess: controller.errorMessageName.value,
           ),
           InputAppNormal(
-            lable: AppContents.email,
+            label: AppContents.email,
             placeholder: AppContents.placeholderEmail,
             controller: controller.emailController, // Cung cấp controller
             errorMess: controller.errorMessageEmail.value,
           ),
           InputAppNormal(
-            lable: AppContents.password,
+            label: AppContents.password,
             placeholder: AppContents.placeholderPassword,
             isPassword: true,
             controller: controller.passwordController, // Cung cấp controller
             errorMess: controller.errorMessagePassword.value,
           ),
           InputAppNormal(
-            lable: AppContents.passwordConfirm,
+            label: AppContents.passwordConfirm,
             placeholder: AppContents.placeholderPassword,
             isPassword: true,
             controller:
