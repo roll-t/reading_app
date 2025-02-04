@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/service/api/remotes/comic_service.dart';
-import 'package:reading_app/core/service/data/model/chapter_model.dart';
+import 'package:reading_app/core/services/api/data/entities/models/chapter_model.dart';
+import 'package:reading_app/core/services/api/data/sources/remotes/comic_service.dart';
 import 'package:reading_app/features/materials/book_details/comics/comic_detail/data/model/argument_comic_chapter_model.dart';
 import 'package:reading_app/features/materials/book_details/comics/comic_read/domain/usecase/fetch_chapter_comic_usecase.dart';
 

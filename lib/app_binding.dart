@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
-import 'package:reading_app/core/service/api/api_service.dart';
-import 'package:reading_app/core/service/api/configs/dio_config.dart';
-import 'package:reading_app/core/service/api/remotes/category_service.dart';
-import 'package:reading_app/core/service/data/repositories/category_repository_impl.dart';
-import 'package:reading_app/core/service/domain/repositories/category_repository.dart';
-import 'package:reading_app/core/service/domain/usecase/auths/get_auth_token_usecase.dart';
-import 'package:reading_app/core/service/storage/cache/cache_service.dart';
+import 'package:reading_app/core/services/api/data/repositories/category_repository_impl.dart';
+import 'package:reading_app/core/services/api/data/sources/remotes/category_service.dart';
+import 'package:reading_app/core/services/api/domain/repositories/category_repository.dart';
+import 'package:reading_app/core/services/api/domain/usecase/auths/get_auth_token_usecase.dart';
+import 'package:reading_app/core/services/network/api_service.dart';
+import 'package:reading_app/core/services/network/dio_service.dart';
+import 'package:reading_app/core/storage/cache/cache_service.dart';
 
 class AppBinding extends Bindings {
   @override

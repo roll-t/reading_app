@@ -1,9 +1,9 @@
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/service/api/locals/comment_service.dart';
-import 'package:reading_app/core/service/api/remotes/comic_service.dart';
-import 'package:reading_app/core/service/data/dto/response/commentReponse.dart';
-import 'package:reading_app/core/service/data/model/comic_model.dart';
-import 'package:reading_app/core/service/data/model/result.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/response/commentReponse.dart';
+import 'package:reading_app/core/services/api/data/entities/models/comic_model.dart';
+import 'package:reading_app/core/services/api/data/entities/models/result.dart';
+import 'package:reading_app/core/services/api/data/sources/locals/comment_service.dart';
+import 'package:reading_app/core/services/api/data/sources/remotes/comic_service.dart';
 import 'package:reading_app/features/materials/book_details/comics/comic_detail/domain/repositories/comic_detail_repository.dart';
 
 class ComicDetailRepositoryImpl implements ComicDetailRepository {

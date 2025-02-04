@@ -5,7 +5,7 @@ import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/dimens/text_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/service/data/model/list_comic_model.dart';
+import 'package:reading_app/core/services/api/data/entities/models/list_comic_model.dart';
 import 'package:reading_app/core/ui/widgets/card/comic_card_row_widget.dart';
 import 'package:reading_app/core/ui/widgets/card/comic_card_widget.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';

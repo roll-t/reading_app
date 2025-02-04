@@ -4,7 +4,7 @@ import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/dimens/text_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/service/data/dto/response/commentReponse.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/response/commentReponse.dart';
 import 'package:reading_app/core/ui/widgets/avatar/avatar.dart';
 import 'package:reading_app/core/ui/widgets/card/card_comment.dart';
 import 'package:reading_app/core/ui/widgets/text/customs/text_medium_semi_bold.dart';

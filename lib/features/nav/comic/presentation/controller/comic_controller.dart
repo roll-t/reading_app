@@ -2,10 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/service/data/dto/response/novel_response.dart';
-import 'package:reading_app/core/service/data/model/list_category_model.dart';
-import 'package:reading_app/core/service/data/model/list_comic_model.dart';
-import 'package:reading_app/core/service/domain/usecase/categories/fetch_categories_cache_usecase.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/response/novel_response.dart';
+import 'package:reading_app/core/services/api/data/entities/models/list_category_model.dart';
+import 'package:reading_app/core/services/api/data/entities/models/list_comic_model.dart';
+import 'package:reading_app/core/services/api/domain/usecase/categories/fetch_categories_cache_usecase.dart';
 import 'package:reading_app/core/utils/scroll_utils.dart';
 import 'package:reading_app/features/nav/comic/domain/usecases/fetch_comics_by_category_slug_usecase.dart';
 import 'package:reading_app/features/nav/comic/domain/usecases/fetch_home_data_usecase.dart';

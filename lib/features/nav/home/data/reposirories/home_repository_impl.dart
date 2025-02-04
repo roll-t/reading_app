@@ -1,11 +1,11 @@
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/service/api/locals/novel_service.dart';
-import 'package:reading_app/core/service/api/remotes/comic_service.dart';
-import 'package:reading_app/core/service/data/dto/response/novel_response.dart';
-import 'package:reading_app/core/service/data/model/list_comic_model.dart';
-import 'package:reading_app/core/service/data/model/result.dart';
-import 'package:reading_app/core/service/data/model/user_model.dart';
-import 'package:reading_app/core/service/domain/usecase/users/get_user_usecase.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/response/novel_response.dart';
+import 'package:reading_app/core/services/api/data/entities/models/list_comic_model.dart';
+import 'package:reading_app/core/services/api/data/entities/models/result.dart';
+import 'package:reading_app/core/services/api/data/entities/models/user_model.dart';
+import 'package:reading_app/core/services/api/data/sources/locals/novel_service.dart';
+import 'package:reading_app/core/services/api/data/sources/remotes/comic_service.dart';
+import 'package:reading_app/core/services/api/domain/usecase/users/backup/get_user_usecase.dart';
 import 'package:reading_app/features/nav/home/domain/repositories/home_repository.dart';
 
 class HomeRepositoryImpl implements HomeRepository {

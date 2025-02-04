@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:get/get.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/service/domain/usecase/auths/is_login_usecase.dart';
-import 'package:reading_app/core/service/domain/usecase/categories/set_categories_cache_usecase.dart';
-import 'package:reading_app/core/service/storage/cache/cache_manager.dart';
+import 'package:reading_app/core/services/api/domain/usecase/auths/is_login_usecase.dart';
+import 'package:reading_app/core/services/api/domain/usecase/categories/set_categories_cache_usecase.dart';
+import 'package:reading_app/core/storage/cache/cache_manager.dart';
 
 class SplashController extends GetxController {
   final IsLoginUseCase _isLoginUseCase;

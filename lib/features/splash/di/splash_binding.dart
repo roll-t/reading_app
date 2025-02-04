@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
-import 'package:reading_app/core/service/api/locals/auth_service.dart';
-import 'package:reading_app/core/service/data/repositories/auth_repository_impl.dart';
-import 'package:reading_app/core/service/domain/repositories/auth_repository.dart';
-import 'package:reading_app/core/service/domain/usecase/auths/is_login_usecase.dart';
-import 'package:reading_app/core/service/domain/usecase/categories/check_category_cache_usecase.dart';
-import 'package:reading_app/core/service/domain/usecase/categories/set_categories_cache_usecase.dart';
-import 'package:reading_app/core/service/storage/prefs/prefs.dart';
-import 'package:reading_app/core/service/storage/use_case/get_user_use_case.dart';
+import 'package:reading_app/core/services/api/data/repositories/auth_repository_impl.dart';
+import 'package:reading_app/core/services/api/data/sources/locals/auth_service.dart';
+import 'package:reading_app/core/services/api/domain/repositories/auth_repository.dart';
+import 'package:reading_app/core/services/api/domain/usecase/auths/is_login_usecase.dart';
+import 'package:reading_app/core/services/api/domain/usecase/categories/check_category_cache_usecase.dart';
+import 'package:reading_app/core/services/api/domain/usecase/categories/set_categories_cache_usecase.dart';
+import 'package:reading_app/core/services/api/domain/usecase/users/get_user_use_case.dart';
+import 'package:reading_app/core/storage/prefs/prefs.dart';
 import 'package:reading_app/features/splash/presentation/controller/splash_controller.dart';
 
 class SplashBinding extends Bindings {

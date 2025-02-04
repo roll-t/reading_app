@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/extensions/text_format.dart';
-import 'package:reading_app/core/service/data/model/list_comic_model.dart';
+import 'package:reading_app/core/services/api/data/entities/models/list_comic_model.dart';
 import 'package:reading_app/features/materials/categories/comics/data/models/category_arument_model.dart';
 import 'package:reading_app/features/materials/categories/comics/domain/usecase/fetch_comic_recommend_usecase.dart';
 import 'package:reading_app/features/materials/categories/comics/domain/usecase/fetch_comics_by_slug_category_usecase.dart';

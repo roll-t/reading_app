@@ -2,12 +2,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/service/api/locals/comment_comic_service.dart';
-import 'package:reading_app/core/service/api/locals/comment_service.dart';
-import 'package:reading_app/core/service/data/dto/request/commentRequest.dart';
-import 'package:reading_app/core/service/data/dto/request/comment_comic_request.dart';
-import 'package:reading_app/core/service/data/dto/response/commentReponse.dart';
-import 'package:reading_app/core/service/storage/use_case/auth_use_case.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/request/commentRequest.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/request/comment_comic_request.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/response/commentReponse.dart';
+import 'package:reading_app/core/services/api/data/sources/locals/comment_comic_service.dart';
+import 'package:reading_app/core/services/api/data/sources/locals/comment_service.dart';
+import 'package:reading_app/core/services/api/domain/usecase/auths/auth_use_case.dart';
 
 class CommentController extends GetxController {
   dynamic argumentNovelId = Get.arguments["novelId"];

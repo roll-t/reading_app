@@ -1,9 +1,9 @@
 import 'dart:developer';
 
 import 'package:get/get.dart';
-import 'package:reading_app/core/service/data/dto/response/commentReponse.dart';
-import 'package:reading_app/core/service/data/model/comic_model.dart';
-import 'package:reading_app/core/service/data/model/list_comic_model.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/response/commentReponse.dart';
+import 'package:reading_app/core/services/api/data/entities/models/comic_model.dart';
+import 'package:reading_app/core/services/api/data/entities/models/list_comic_model.dart';
 import 'package:reading_app/core/ui/snackbar/snackbar.dart';
 import 'package:reading_app/features/materials/book_details/comics/comic_detail/data/model/comic_detail_argument.dart';
 import 'package:reading_app/features/materials/book_details/comics/comic_detail/domain/usecase/fetch_comic_by_slug_usecase.dart';

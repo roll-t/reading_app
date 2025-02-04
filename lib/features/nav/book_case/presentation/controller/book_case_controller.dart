@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/service/api/locals/book_case_service.dart';
-import 'package:reading_app/core/service/data/dto/response/favorite_response.dart'; // Import FavoriteResponse
-import 'package:reading_app/core/service/data/dto/response/reading_book_case_response.dart';
-import 'package:reading_app/core/service/data/model/reading_book_case_model.dart';
-import 'package:reading_app/core/service/storage/sql/data_helper.dart';
-import 'package:reading_app/core/service/storage/use_case/auth_use_case.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/response/favorite_response.dart'; // Import FavoriteResponse
+import 'package:reading_app/core/services/api/data/entities/dto/response/reading_book_case_response.dart';
+import 'package:reading_app/core/services/api/data/entities/models/reading_book_case_model.dart';
+import 'package:reading_app/core/services/api/data/sources/locals/book_case_service.dart';
+import 'package:reading_app/core/services/api/domain/usecase/auths/auth_use_case.dart';
+import 'package:reading_app/core/storage/sql/data_helper.dart';
 import 'package:reading_app/features/nav/book_case/model/book_case_model.dart';
 
 class BookCaseController extends GetxController {

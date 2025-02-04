@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/service/data/dto/response/reading_book_case_response.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/response/reading_book_case_response.dart';
 import 'package:reading_app/core/ui/widgets/card/card_book_case.dart';
 import 'package:reading_app/core/ui/widgets/text/customs/text_normal_light.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';

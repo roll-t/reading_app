@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/service/api/locals/novel_service.dart';
-import 'package:reading_app/core/service/data/dto/response/category_response.dart';
-import 'package:reading_app/core/service/data/dto/response/novel_response.dart';
-import 'package:reading_app/core/service/data/model/result.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/response/category_response.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/response/novel_response.dart';
+import 'package:reading_app/core/services/api/data/entities/models/result.dart';
+import 'package:reading_app/core/services/api/data/sources/locals/novel_service.dart';
 
 class CategoryNovelController extends GetxController {
   var title = "".obs;

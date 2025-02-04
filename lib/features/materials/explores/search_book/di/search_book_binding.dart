@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:reading_app/core/service/api/remotes/category_service.dart';
-import 'package:reading_app/core/service/api/remotes/comic_service.dart';
-import 'package:reading_app/core/service/domain/usecase/categories/check_category_cache_usecase.dart';
+import 'package:reading_app/core/services/api/data/sources/remotes/category_service.dart';
+import 'package:reading_app/core/services/api/data/sources/remotes/comic_service.dart';
+import 'package:reading_app/core/services/api/domain/usecase/categories/check_category_cache_usecase.dart';
 import 'package:reading_app/features/materials/explores/search_book/presentation/controller/search_book_controller.dart';
 
 class SearchBookBinding extends Bindings {

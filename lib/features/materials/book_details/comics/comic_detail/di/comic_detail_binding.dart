@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:reading_app/core/service/api/locals/book_case_service.dart';
-import 'package:reading_app/core/service/api/locals/comment_comic_service.dart';
-import 'package:reading_app/core/service/api/locals/comment_service.dart';
-import 'package:reading_app/core/service/api/remotes/comic_service.dart';
+import 'package:reading_app/core/services/api/data/sources/locals/book_case_service.dart';
+import 'package:reading_app/core/services/api/data/sources/locals/comment_comic_service.dart';
+import 'package:reading_app/core/services/api/data/sources/locals/comment_service.dart';
+import 'package:reading_app/core/services/api/data/sources/remotes/comic_service.dart';
 import 'package:reading_app/features/materials/book_details/comics/comic_detail/data/repositories/comic_detail_repository_impl.dart';
 import 'package:reading_app/features/materials/book_details/comics/comic_detail/domain/repositories/comic_detail_repository.dart';
 import 'package:reading_app/features/materials/book_details/comics/comic_detail/domain/usecase/fetch_comic_by_slug_usecase.dart';

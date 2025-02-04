@@ -6,7 +6,7 @@ import 'package:reading_app/core/configs/dimens/text_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/service/data/dto/response/category_response.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/response/category_response.dart';
 import 'package:reading_app/core/ui/widgets/background/background_gradient.dart';
 import 'package:reading_app/core/ui/widgets/card/comic_card_widget.dart';
 import 'package:reading_app/core/ui/widgets/card/novel_card_widget.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/dimens/text_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
-import 'package:reading_app/core/service/data/model/list_category_model.dart';
+import 'package:reading_app/core/services/api/data/entities/models/list_category_model.dart';
 import 'package:reading_app/core/ui/dialogs/custom_bottom_sheet.dart';
 import 'package:reading_app/core/ui/widgets/tags/tag_category.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';

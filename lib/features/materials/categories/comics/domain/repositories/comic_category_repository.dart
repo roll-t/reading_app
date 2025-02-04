@@ -1,4 +1,4 @@
-import 'package:reading_app/core/service/data/model/list_comic_model.dart';
+import 'package:reading_app/core/services/api/data/entities/models/list_comic_model.dart';
 
 abstract class ComicCategoryRepository {
   Future<ListComicModel?> fetchComicRecommend();

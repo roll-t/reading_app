@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/service/data/dto/response/commentReponse.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/response/commentReponse.dart';
 import 'package:reading_app/core/ui/widgets/avatar/avatar.dart';
 import 'package:reading_app/core/ui/widgets/text/customs/text_normal.dart';
 import 'package:reading_app/core/ui/widgets/text/customs/text_small.dart';

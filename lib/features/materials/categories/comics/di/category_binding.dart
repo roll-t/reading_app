@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:reading_app/core/service/api/remotes/comic_service.dart';
+import 'package:reading_app/core/services/api/data/sources/remotes/comic_service.dart';
 import 'package:reading_app/features/materials/categories/comics/data/repositories/comic_category_repository_impl.dart';
 import 'package:reading_app/features/materials/categories/comics/domain/repositories/comic_category_repository.dart';
 import 'package:reading_app/features/materials/categories/comics/domain/usecase/fetch_comic_recommend_usecase.dart';

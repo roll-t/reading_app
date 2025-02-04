@@ -1,14 +1,14 @@
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/service/api/locals/auth_service.dart';
-import 'package:reading_app/core/service/api/locals/user_service.dart';
-import 'package:reading_app/core/service/data/dto/request/user_request_model.dart';
-import 'package:reading_app/core/service/data/model/authentication_model.dart';
-import 'package:reading_app/core/service/data/model/result.dart';
-import 'package:reading_app/core/service/data/model/user_model.dart';
-import 'package:reading_app/core/service/domain/usecase/auths/set_token_usecase.dart';
-import 'package:reading_app/core/service/domain/usecase/users/set_user_usecase.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/request/user_request_model.dart';
+import 'package:reading_app/core/services/api/data/entities/models/authentication_model.dart';
+import 'package:reading_app/core/services/api/data/entities/models/result.dart';
+import 'package:reading_app/core/services/api/data/entities/models/user_model.dart';
+import 'package:reading_app/core/services/api/data/sources/locals/auth_service.dart';
+import 'package:reading_app/core/services/api/data/sources/locals/user_service.dart';
+import 'package:reading_app/core/services/api/domain/usecase/auths/set_token_usecase.dart';
+import 'package:reading_app/core/services/api/domain/usecase/users/set_user_usecase.dart';
 import 'package:reading_app/features/auth/login/domain/repositories/login_repository.dart';
 
 class LoginRepositoryImpl implements LoginRepository {

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:reading_app/core/configs/dimens/icons_dimens.dart';
 import 'package:reading_app/core/configs/dimens/radius_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/service/data/model/reading_book_case_model.dart';
+import 'package:reading_app/core/services/api/data/entities/models/reading_book_case_model.dart';
 import 'package:reading_app/core/ui/widgets/text/customs/text_large_bold.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 import 'package:reading_app/features/materials/book_details/comics/comic_read/presentation/controllers/read_comic_controller.dart';
@@ -24,12 +24,12 @@ class ReadComicPage extends GetView<ReadComicController> {
                   bookDataId: "",
                   slug: "",
                   uid: "",
-                  // ignore: invalid_use_of_protected_member
                   chapterName:
+                      // ignore: invalid_use_of_protected_member
                       controller.currentChapterArguments.value["chapter_name"],
                   chapterApiData: controller
-                      // ignore: invalid_use_of_protected_member
                       .currentChapterArguments
+                      // ignore: invalid_use_of_protected_member
                       .value["chapter_api_data"],
                   readingDate: DateTime.now().toIso8601String(),
                   positionReading: controller.scrollController.position.pixels,

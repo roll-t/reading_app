@@ -1,7 +1,7 @@
 // Home slider
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/service/data/dto/response/novel_response.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/response/novel_response.dart';
 import 'package:reading_app/core/ui/widgets/carousel/carousel_utils.dart';
 import 'package:reading_app/core/ui/widgets/shimmer/shimmer_carousel.dart';
 

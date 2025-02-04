@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/service/data/dto/response/category_response.dart';
-import 'package:reading_app/core/service/data/dto/response/reading_book_case_response.dart';
-import 'package:reading_app/core/service/data/model/authentication_model.dart';
-import 'package:reading_app/core/service/data/model/chapter_novel_model.dart';
-import 'package:reading_app/core/service/data/model/list_comic_model.dart';
-import 'package:reading_app/core/service/data/model/reading_book_case_model.dart';
-import 'package:reading_app/core/service/storage/use_case/auth_use_case.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/response/category_response.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/response/reading_book_case_response.dart';
+import 'package:reading_app/core/services/api/data/entities/models/authentication_model.dart';
+import 'package:reading_app/core/services/api/data/entities/models/chapter_novel_model.dart';
+import 'package:reading_app/core/services/api/data/entities/models/list_comic_model.dart';
+import 'package:reading_app/core/services/api/data/entities/models/reading_book_case_model.dart';
+import 'package:reading_app/core/services/api/domain/usecase/auths/auth_use_case.dart';
 import 'package:reading_app/features/materials/book_details/layout_book_detail/data/entities/arguments/layout_book_detail_argument.dart';
 
 class LayoutBookDetailController extends GetxController

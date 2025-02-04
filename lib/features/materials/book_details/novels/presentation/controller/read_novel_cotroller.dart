@@ -7,14 +7,14 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:reading_app/core/configs/const/app_constants.dart';
 import 'package:reading_app/core/configs/default_data.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/service/api/locals/comment_service.dart';
-import 'package:reading_app/core/service/data/dto/request/commentRequest.dart';
-import 'package:reading_app/core/service/data/dto/request/reading_book_case_request.dart';
-import 'package:reading_app/core/service/data/dto/response/commentReponse.dart';
-import 'package:reading_app/core/service/data/dto/response/reading_book_case_response.dart';
-import 'package:reading_app/core/service/data/model/chapter_novel_model.dart';
-import 'package:reading_app/core/service/storage/use_case/auth_use_case.dart';
-import 'package:reading_app/core/service/storage/use_case/read_theme_use_case.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/request/commentRequest.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/request/reading_book_case_request.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/response/commentReponse.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/response/reading_book_case_response.dart';
+import 'package:reading_app/core/services/api/data/entities/models/chapter_novel_model.dart';
+import 'package:reading_app/core/services/api/data/sources/locals/comment_service.dart';
+import 'package:reading_app/core/services/api/domain/usecase/auths/auth_use_case.dart';
+import 'package:reading_app/core/services/api/domain/usecase/themes/read_theme_use_case.dart';
 import 'package:reading_app/features/materials/book_details/novels/model/novel_argument_model.dart';
 
 class ReadNovelCotroller extends GetxController {
@@ -222,11 +222,9 @@ class ReadNovelCotroller extends GetxController {
     ChapterNovelModel? selectedChapter = listChapter.firstWhere(
       (chapter) => chapter.chapterId == chapterId,
     );
-    if (selectedChapter != null) {
-      chapterNovelModel = selectedChapter;
-      readingBookReturn.chapterName = chapterNovelModel.chapterName;
-      updateChapter();
-    }
+    chapterNovelModel = selectedChapter;
+    readingBookReturn.chapterName = chapterNovelModel.chapterName;
+    updateChapter();
   }
 
   void updateChapter() {

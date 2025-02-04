@@ -10,7 +10,7 @@ import 'package:reading_app/core/configs/dimens/radius_dimens.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/dimens/text_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/service/data/dto/response/commentReponse.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/response/commentReponse.dart';
 import 'package:reading_app/core/ui/dialogs/custom_bottom_sheet.dart';
 import 'package:reading_app/core/ui/widgets/avatar/avatar.dart';
 import 'package:reading_app/core/ui/widgets/text/customs/text_large_bold.dart';

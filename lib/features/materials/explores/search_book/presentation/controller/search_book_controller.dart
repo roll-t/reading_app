@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/service/api/locals/novel_service.dart';
-import 'package:reading_app/core/service/api/remotes/category_service.dart';
-import 'package:reading_app/core/service/api/remotes/comic_service.dart';
-import 'package:reading_app/core/service/data/dto/response/novel_response.dart';
-import 'package:reading_app/core/service/data/model/list_category_model.dart';
-import 'package:reading_app/core/service/data/model/list_comic_model.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/response/novel_response.dart';
+import 'package:reading_app/core/services/api/data/entities/models/list_category_model.dart';
+import 'package:reading_app/core/services/api/data/entities/models/list_comic_model.dart';
+import 'package:reading_app/core/services/api/data/sources/locals/novel_service.dart';
+import 'package:reading_app/core/services/api/data/sources/remotes/category_service.dart';
+import 'package:reading_app/core/services/api/data/sources/remotes/comic_service.dart';
 import 'package:reading_app/features/materials/explores/search_book/presentation/page/type/book_type_page.dart';
 import 'package:reading_app/features/materials/explores/search_book/presentation/page/type/commic_type_page.dart';
 

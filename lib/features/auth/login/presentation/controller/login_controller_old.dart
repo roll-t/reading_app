@@ -6,15 +6,15 @@ import 'package:reading_app/core/configs/enum.dart';
 import 'package:reading_app/core/configs/strings/messages/app_errors.dart';
 import 'package:reading_app/core/configs/strings/messages/app_success.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/service/api/locals/auth_service.dart';
-import 'package:reading_app/core/service/api/locals/user_service.dart';
-import 'package:reading_app/core/service/data/dto/request/user_request_model.dart';
-import 'package:reading_app/core/service/data/model/authentication_model.dart';
-import 'package:reading_app/core/service/data/model/result.dart';
-import 'package:reading_app/core/service/data/model/user_model.dart';
-import 'package:reading_app/core/service/storage/prefs/prefs.dart';
-import 'package:reading_app/core/service/storage/use_case/remember_user_case.dart';
-import 'package:reading_app/core/service/storage/use_case/save_user_use_case.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/request/user_request_model.dart';
+import 'package:reading_app/core/services/api/data/entities/models/authentication_model.dart';
+import 'package:reading_app/core/services/api/data/entities/models/result.dart';
+import 'package:reading_app/core/services/api/data/entities/models/user_model.dart';
+import 'package:reading_app/core/services/api/data/sources/locals/auth_service.dart';
+import 'package:reading_app/core/services/api/data/sources/locals/user_service.dart';
+import 'package:reading_app/core/services/api/domain/usecase/users/remember_user_case.dart';
+import 'package:reading_app/core/services/api/domain/usecase/users/save_user_use_case.dart';
+import 'package:reading_app/core/storage/prefs/prefs.dart';
 import 'package:reading_app/core/ui/snackbar/snackbar.dart';
 
 class LogInController extends GetxController {

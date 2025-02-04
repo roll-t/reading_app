@@ -1,4 +1,4 @@
-import 'package:reading_app/core/service/data/dto/response/commentReponse.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/response/commentReponse.dart';
 import 'package:reading_app/features/materials/book_details/comics/comic_detail/domain/repositories/comic_detail_repository.dart';
 
 class FetchCommentsComicUsecase {

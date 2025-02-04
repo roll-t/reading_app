@@ -1,8 +1,8 @@
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:reading_app/core/service/data/dto/response/category_response.dart';
-import 'package:reading_app/core/service/data/dto/response/commentReponse.dart';
-import 'package:reading_app/core/service/data/model/chapter_novel_model.dart';
-import 'package:reading_app/core/service/data/model/list_comic_model.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/response/category_response.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/response/commentReponse.dart';
+import 'package:reading_app/core/services/api/data/entities/models/chapter_novel_model.dart';
+import 'package:reading_app/core/services/api/data/entities/models/list_comic_model.dart';
 import 'package:reading_app/features/materials/book_details/comics/comic_detail/presentation/controllers/comic_detail_controller.dart';
 import 'package:reading_app/features/materials/book_details/layout_book_detail/data/entities/models/info_book_detail_model.dart';
 import 'package:reading_app/features/materials/book_details/novels/presentation/controller/novel_detail_controller.dart';

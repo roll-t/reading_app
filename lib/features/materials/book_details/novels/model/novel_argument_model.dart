@@ -1,4 +1,4 @@
-import 'package:reading_app/core/service/data/model/chapter_novel_model.dart';
+import 'package:reading_app/core/services/api/data/entities/models/chapter_novel_model.dart';
 
 class NovelArgumentModel {
   final String bookId;

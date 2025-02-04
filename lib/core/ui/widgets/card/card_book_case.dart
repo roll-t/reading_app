@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/service/data/dto/response/reading_book_case_response.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/response/reading_book_case_response.dart';
 import 'package:reading_app/core/ui/widgets/images/Image_widget.dart';
 import 'package:reading_app/core/ui/widgets/text/customs/text_normal.dart';
 import 'package:reading_app/core/ui/widgets/text/customs/text_small.dart';

@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:reading_app/core/service/api/locals/book_case_service.dart';
-import 'package:reading_app/core/service/api/locals/category_service.dart';
-import 'package:reading_app/core/service/api/locals/chapter_service.dart';
-import 'package:reading_app/core/service/api/locals/comment_service.dart';
+import 'package:reading_app/core/services/api/data/sources/locals/book_case_service.dart';
+import 'package:reading_app/core/services/api/data/sources/locals/category_service.dart';
+import 'package:reading_app/core/services/api/data/sources/locals/chapter_service.dart';
+import 'package:reading_app/core/services/api/data/sources/locals/comment_service.dart';
 import 'package:reading_app/features/materials/book_details/layout_book_detail/presentation/controller/layout_book_detail_controller.dart';
 import 'package:reading_app/features/materials/book_details/novels/presentation/controller/novel_detail_controller.dart';
 
