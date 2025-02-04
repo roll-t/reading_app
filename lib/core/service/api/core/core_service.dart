@@ -2,18 +2,13 @@ import 'package:dio/dio.dart';
 import 'package:reading_app/core/configs/enum.dart';
 import 'package:reading_app/core/service/api/configs/dio_config.dart';
 import 'package:reading_app/core/service/data/model/result.dart';
-import 'package:reading_app/core/service/interfaces/i_core_service.dart';
 import 'package:reading_app/core/service/storage/cache/cache_service.dart';
 
-class CoreService implements ICoreService {
-  
+class CoreService {
   final DioConfig dioConfig;
-
   final CacheService cacheService;
-
   CoreService(this.dioConfig, this.cacheService);
 
-  @override
   Future<Result<T>> request<T>({
     required String method,
     required String endpoint,

@@ -1,11 +1,11 @@
 class ListComicModel {
   String titlePage;
-  String domainImage;
+  String? domainImage;
   List<ItemModel> items;
 
   ListComicModel({
     required this.titlePage,
-    required this.domainImage,
+    this.domainImage,
     required this.items,
   });
 
@@ -29,7 +29,7 @@ class ListComicModel {
 }
 
 class ItemModel {
-  String ? id;
+  String? id;
   final String name;
   final String slug;
   final List<String> originName;

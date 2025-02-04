@@ -23,14 +23,12 @@ class SaveUserUseCase {
   }
 
   Future<void> saveToken(AuthenticationModel model) async {
-    if (model != null) {
-      try {
-        final authentication = jsonEncode(model.toJson());
-        await _prefs.set(PrefsConstants.authentication, authentication);
-      } catch (e) {
-        // Handle the error, maybe log it or show an alert
-        print('Failed to save user: $e');
-      }
+    try {
+      final authentication = jsonEncode(model.toJson());
+      await _prefs.set(PrefsConstants.authentication, authentication);
+    } catch (e) {
+      // Handle the error, maybe log it or show an alert
+      print('Failed to save user: $e');
     }
-  }
+    }
 }

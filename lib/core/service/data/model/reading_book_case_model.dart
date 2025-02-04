@@ -1,7 +1,7 @@
 import 'package:uuid/uuid.dart';
 
 class ReadingComicBookCaseModel {
-  String id;  // Change id to String to store UUIDs
+  String id;
   String bookDataId;
   String slug;
   String uid;
@@ -24,9 +24,8 @@ class ReadingComicBookCaseModel {
     required this.positionReading,
     required this.thumbUrl,
     required this.comicName,
-  }) : id = id ?? const Uuid().v4();  // Generate a new UUID if id is not provided
+  }) : id = id ?? const Uuid().v4();
 
-  // Convert the model to a Map for inserting into the database
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -42,7 +41,6 @@ class ReadingComicBookCaseModel {
     };
   }
 
-  // Create a ReadingComicBookCaseModel from a Map
   factory ReadingComicBookCaseModel.fromMap(Map<String, dynamic> map) {
     return ReadingComicBookCaseModel(
       id: map['id'],

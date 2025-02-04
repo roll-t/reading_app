@@ -4,7 +4,6 @@ import 'package:reading_app/core/service/data/model/result.dart';
 
 class ApiService extends CoreService {
   ApiService(super.dioConfig, super.cacheService);
-
   Future<Result<T>> fetchData<T>({
     required String endpoint,
     required T Function(dynamic data) parse,

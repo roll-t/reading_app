@@ -36,6 +36,8 @@ class HomeController extends GetxController {
   RxList<ListCategoryModel> categories = <ListCategoryModel>[].obs;
   Rx<UserModel> user = UserModel(email: "").obs;
 
+  List<String> listType = ["truyen-moi", "sap-ra-mat", "dang-phat-hanh", "hoan-thanh"];
+
   @override
   void onInit() async {
     super.onInit();
@@ -76,4 +78,6 @@ class HomeController extends GetxController {
   void toDetailListBySlug({required String slug}) {
     Get.toNamed(Routes.category, arguments: {"slugQuery": slug});
   }
+
+  void navigatorPage() {}
 }

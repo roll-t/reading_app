@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/service/data/dto/response/novel_response.dart';
 import 'package:reading_app/core/service/data/model/list_category_model.dart';
 import 'package:reading_app/core/service/data/model/list_comic_model.dart';
@@ -79,10 +78,10 @@ class ComicController extends GetxController {
     }
   }
 
-  // Navigation
-  void navigateToCategoryDetail(String slug) {
-    Get.toNamed(Routes.category, arguments: {"slugQuery": slug});
-  }
+  // // Navigation
+  // void navigateToCategoryDetail(String slug) {
+  //   Get.toNamed(Routes.category, arguments: {"slugQuery": slug});
+  // }
 
 // Fetch Comics By Category
   Future<void> fetchComicsByCategory() async {

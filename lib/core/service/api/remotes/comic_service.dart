@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:dio/dio.dart';
 import 'package:reading_app/core/configs/end_point_config.dart';
 import 'package:reading_app/core/configs/enum.dart';
 import 'package:reading_app/core/service/api/api_service.dart';
@@ -89,15 +88,4 @@ class ComicApi extends ApiService {
       return Result.error(ApiError.unknown);
     }
   }
-
-  // Xử lý lỗi API
-  Result<T> _handleApiError<T>(e) {
-    if (e is DioException) {
-      if (e.response?.statusCode == 401) {
-        return Result.error(ApiError.unauthorized);
-      }
-    }
-    return Result.error(ApiError.unknown);
-  }
-
 }

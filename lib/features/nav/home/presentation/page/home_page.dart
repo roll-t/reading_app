@@ -15,7 +15,9 @@ import 'package:reading_app/core/ui/widgets/loading.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 import 'package:reading_app/core/ui/widgets/wrap/wrap_list_row_widget.dart';
 import 'package:reading_app/core/ui/widgets/wrap/wrap_list_widget.dart';
+import 'package:reading_app/features/materials/categories/comics/data/models/category_arument_model.dart';
 import 'package:reading_app/features/nav/home/presentation/controller/home_controller.dart';
+import 'package:reading_app/features/nav/home/presentation/navigators/navigator_home_page.dart';
 import 'package:reading_app/features/nav/home/presentation/widgets/build_list_tag_category.dart';
 import 'package:reading_app/features/nav/home/presentation/widgets/build_slider.dart';
 import 'package:reading_app/features/nav/home/presentation/widgets/build_sliver_app_bar.dart';
@@ -73,9 +75,7 @@ class HomePage extends GetView<HomeController> {
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 10.w),
         child: InkWell(
-          onTap: () {
-            Get.toNamed(Routes.search);
-          },
+          onTap: NavigatorHomePage.toSearchPage,
           child: Container(
             padding: const EdgeInsets.symmetric(
               vertical: SpaceDimens.space10,
@@ -86,8 +86,7 @@ class HomePage extends GetView<HomeController> {
               color: AppColors.secondaryColor,
             ),
             child: const Row(
-              mainAxisSize:
-                  MainAxisSize.min, // Đặt chiều rộng vừa đủ với nội dung
+              mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -144,7 +143,8 @@ class HomePage extends GetView<HomeController> {
   Obx _buildListAllType() {
     return Obx(() {
       return SliverToBoxAdapter(
-        child: BuildListTagCategory(listCategory: controller.categories.value),
+        // ignore: invalid_use_of_protected_member
+        child: BuildListTagCategory(listType: controller.listType,listCategory: controller.categories.value),
       );
     });
   }
@@ -190,7 +190,8 @@ class HomePage extends GetView<HomeController> {
               maxLength: lengthList,
               titleList: 'Cập nhật mới nhất',
               seeMore: () {
-                controller.toDetailListBySlug(slug: "sap-ra-mat");
+                NavigatorHomePage.toCategoryPage(
+                    CategoryArgumentModel(slug: "sap-ra-mat"));
               },
               maxCol: 3,
               cardBuilder: (index, widthCard) {

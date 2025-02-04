@@ -4,7 +4,6 @@ import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/dimens/text_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/extensions/text_format.dart';
-import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/ui/widgets/button/button_widget.dart';
 import 'package:reading_app/core/ui/widgets/card/card_row_widget.dart';
 import 'package:reading_app/core/ui/widgets/card/comic_card_widget.dart';
@@ -14,7 +13,9 @@ import 'package:reading_app/core/ui/widgets/shimmer/shimmer_carousel.dart';
 import 'package:reading_app/core/ui/widgets/shimmer/simular_card_row_widget.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 import 'package:reading_app/core/ui/widgets/wrap/wrap_list_widget.dart';
+import 'package:reading_app/features/materials/categories/comics/data/models/category_arument_model.dart';
 import 'package:reading_app/features/nav/comic/presentation/controller/comic_controller.dart';
+import 'package:reading_app/features/nav/comic/presentation/navigators/navigator_comic_page.dart';
 import 'package:reading_app/features/nav/comic/presentation/widgets/build_section_list_widget.dart';
 import 'package:reading_app/features/nav/home/presentation/widgets/build_list_select_category.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -71,7 +72,7 @@ class CommicPage extends GetView<ComicController> {
       actions: [
         InkWell(
             onTap: () {
-              Get.toNamed(Routes.search);
+              NavigatorComicPage.toSearchPage();
             },
             child: const Icon(Icons.search)),
         const SizedBox(width: SpaceDimens.spaceStandard),
@@ -112,9 +113,11 @@ class CommicPage extends GetView<ComicController> {
               padding: EdgeInsets.symmetric(horizontal: 3.w),
               child: BuildSectionListWidget(
                 simuler: true,
-                titleList: "Hoàn thành",
+                titleList: controller.completedComics?.value.titlePage,
                 seeMore: () {
-                  controller.navigateToCategoryDetail("hoan-thanh");
+                  NavigatorComicPage.toCategoryPage(
+                    CategoryArgumentModel(slug: "hoan-thanh"),
+                  );
                 },
                 books: controller.completedComics?.value.items,
               ),
@@ -136,7 +139,7 @@ class CommicPage extends GetView<ComicController> {
             simuler: true,
             titleList: "Đề xuất",
             seeMore: () {
-              controller.navigateToCategoryDetail("homeData");
+              NavigatorComicPage.toCategoryRecommendPage();
             },
             books: books,
           ),
@@ -194,13 +197,14 @@ class CommicPage extends GetView<ComicController> {
                           ButtonWidget(
                             textChild: AppContents.seeMore,
                             onTap: () {
-                              controller.navigateToCategoryDetail(
-                                controller.getSlugByTitle(
+                              NavigatorComicPage.toCategoryPage(
+                                  CategoryArgumentModel(
+                                slug: controller.getSlugByTitle(
                                   controller.selectedCategoryComics?.value
                                           .titlePage ??
                                       "",
                                 ),
-                              );
+                              ));
                             },
                             rounder: true,
                             padding: const EdgeInsets.symmetric(
@@ -239,8 +243,11 @@ class CommicPage extends GetView<ComicController> {
               titleList: comicCategory.titlePage,
               spacingWithBottom: 5.w,
               seeMore: () {
-                controller.navigateToCategoryDetail(
-                    controller.getSlugByTitle(comicCategory.titlePage));
+                NavigatorComicPage.toCategoryPage(
+                  CategoryArgumentModel(
+                    slug: controller.getSlugByTitle(comicCategory.titlePage),
+                  ),
+                );
               },
               maxCol: 4,
               cardBuilder: (index, widthCard) {

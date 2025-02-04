@@ -26,17 +26,14 @@ class ReadThemeUseCase {
   static Future<Map<String, dynamic>?> getReadTheme() async {
     try {
       var data = await prefs.get(PrefsConstants.readThemeUseCase);
-      if (data != null) {
-        Map<String, dynamic> decodedData = jsonDecode(data);
-        decodedData.update("textColor", (value) => Color(value as int));
-        decodedData.update("backgroundColor", (value) => Color(value as int));
-        return decodedData;
-      }
-    } catch (e) {
+      Map<String, dynamic> decodedData = jsonDecode(data);
+      decodedData.update("textColor", (value) => Color(value as int));
+      decodedData.update("backgroundColor", (value) => Color(value as int));
+      return decodedData;
+        } catch (e) {
       print(e);
       return null;
     }
-    return null;
   }
 
   static Future<void> setTextSizeReadTheme({required double sizeText}) async {

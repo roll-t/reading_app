@@ -2,9 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/service/interfaces/i_cache_service.dart';
 
-class CacheService implements ICacheService {
+class CacheService {
   final CacheManager _cacheManager = CacheManager(
     Config(
       'customCacheKey',
@@ -13,7 +12,6 @@ class CacheService implements ICacheService {
     ),
   );
 
-  @override
   Future<dynamic> getFromCache(String endpoint, ApiSource apiSource) async {
     try {
       String cacheKey = _generateCacheKey(endpoint, apiSource);
@@ -24,12 +22,11 @@ class CacheService implements ICacheService {
       }
       return null;
     } catch (e) {
-      print("Lỗi khi lấy dữ liệu từ cache: $e");
+      print(e);
       return null;
     }
   }
 
-  @override
   Future<void> saveToCache(String endpoint, dynamic data, Duration duration,
       ApiSource apiSource) async {
     try {

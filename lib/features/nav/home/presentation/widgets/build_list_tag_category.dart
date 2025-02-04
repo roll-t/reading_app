@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/dimens/text_dimens.dart';
-import 'package:reading_app/core/configs/enum.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
-import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/service/data/model/list_category_model.dart';
 import 'package:reading_app/core/ui/dialogs/custom_bottom_sheet.dart';
 import 'package:reading_app/core/ui/widgets/tags/tag_category.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
+import 'package:reading_app/core/utils/string_utils.dart';
+import 'package:reading_app/features/materials/categories/comics/data/models/category_arument_model.dart';
+import 'package:reading_app/features/nav/home/presentation/navigators/navigator_home_page.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class BuildListTagCategory extends StatelessWidget {
   final List<ListCategoryModel> listCategory;
+  final List<String> listType;
+  final String? titleSection;
+
   const BuildListTagCategory({
     super.key,
+    this.listType = const [],
+    this.titleSection,
     this.listCategory = const [],
   });
 
@@ -26,107 +31,78 @@ class BuildListTagCategory extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextWidget(
-            text: "Kho Truyện tranh",
+            text: titleSection ?? "Kho Truyện tranh",
             size: TextDimens.textSize18,
             fontWeight: FontWeight.w500,
           ),
-          Container(
-            padding: EdgeInsets.only(top: 1.h),
-            child: Wrap(
-              spacing: SpaceDimens.space10,
-              runSpacing: SpaceDimens.space10,
-              children: [
-                InkWell(
+          SizedBox(height: 1.h),
+          Wrap(
+            spacing: SpaceDimens.space10,
+            runSpacing: SpaceDimens.space10,
+            children: [
+              // Danh sách loại truyện
+              ...listType.map((type) => TagCategory(
+                  typeTag: type,
+                  categoryName: StringUtils.translate(type),
                   onTap: () {
-                    Get.toNamed(Routes.category,
-                        arguments: {"slugQuery": "dang-phat-hanh"});
-                  },
-                  child: const TagCategory(
-                    categoryName: AppContents.newestUpdate,
-                    typeTag: TagMarker.newUpdate,
-                  ),
-                ),
-                InkWell(
+                    NavigatorHomePage.toCategoryPage(
+                        CategoryArgumentModel(slug: type));
+                  })),
+
+              // Danh sách thể loại truyện
+              ...listCategory
+                  .take((listCategory.length / 4).ceil())
+                  .map((category) => TagCategory(
+                      categoryName: category.name,
+                      onTap: () {
+                        NavigatorHomePage.toCategoryPage(
+                            CategoryArgumentModel(slug: category.slug));
+                      })),
+
+              // Nút "Xem thêm"
+              TagCategory(
+                  categoryName: "${AppContents.seeMore} +",
                   onTap: () {
-                    Get.toNamed(Routes.category,
-                        arguments: {"slugQuery": "truyen-moi"});
-                  },
-                  child: const TagCategory(
-                    categoryName: AppContents.justPosted,
-                    typeTag: TagMarker.justPosted,
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    Get.toNamed(Routes.category,
-                        arguments: {"slugQuery": "hoan-thanh"});
-                  },
-                  child: const TagCategory(
-                    categoryName: "Hoàn thành",
-                    typeTag: TagMarker.trending,
-                  ),
-                ),
-                for (var i = 0; i < (listCategory.length / 4).ceil(); i++)
-                  InkWell(
-                    onTap: () {
-                      Get.toNamed(Routes.category,
-                          arguments: {"slugQuery": listCategory[i].slug});
-                    },
-                    child: TagCategory(
-                      categoryName: listCategory[i].name,
-                    ),
-                  ),
-                InkWell(
-                  onTap: () {
-                    CustomBottomSheetWidget(
-                      heightSheet: 85.h,
-                      context,
-                      viewItems: [
-                        Padding(
-                          padding:
-                              EdgeInsets.only(left: 5.w, bottom: 2.h, top: 2.h),
-                          child: TextWidget(
-                            text: "Thể loại",
-                            size: TextDimens.textSize18,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(
-                              bottom: 5.h, left: 5.w, right: 5.w),
-                          child: Wrap(
-                            spacing: 2.h,
-                            runSpacing: 2.h,
-                            children: [
-                              for (var i = 0; i < listCategory.length; i++)
-                                InkWell(
-                                  onTap: () {
-                                    Get.toNamed(Routes.category, arguments: {
-                                      "slugQuery": listCategory[i].slug
-                                    });
-                                  },
-                                  child: TagCategory(
-                                    categoryName: listCategory[i].name,
-                                  ),
-                                ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5.h,
-                        )
-                      ],
-                    ).show(context);
-                  },
-                  child: const TagCategory(
-                    categoryName: "${AppContents.seeMore} +",
-                  ),
-                ),
-              ],
-            ),
+                    _showCategoryBottomSheet(context);
+                  }),
+            ],
           ),
         ],
       ),
     );
+  }
+
+  /// Hiển thị danh sách tất cả thể loại trong BottomSheet
+  void _showCategoryBottomSheet(BuildContext context) {
+    CustomBottomSheetWidget(
+      heightSheet: 85.h,
+      context,
+      viewItems: [
+        Padding(
+          padding: EdgeInsets.only(left: 5.w, bottom: 2.h, top: 2.h),
+          child: TextWidget(
+            text: AppContents.type,
+            size: TextDimens.textSize18,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
+          child: Wrap(
+            spacing: 2.h,
+            runSpacing: 2.h,
+            children: listCategory.map((category) {
+              return TagCategory(
+                  categoryName: category.name,
+                  onTap: () {
+                    NavigatorHomePage.toCategoryPage(
+                        CategoryArgumentModel(slug: category.slug));
+                  });
+            }).toList(),
+          ),
+        ),
+        SizedBox(height: 5.h),
+      ],
+    ).show(context);
   }
 }

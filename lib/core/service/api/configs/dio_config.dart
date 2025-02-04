@@ -12,13 +12,14 @@ class DioConfig extends GetxService {
     if (baseUrl.isEmpty) {
       throw Exception("BASE_URL is not defined in .env file");
     }
-
-    _dio = Dio(BaseOptions(
-      baseUrl: baseUrl,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    ));
+    _dio = Dio(
+      BaseOptions(
+        baseUrl: baseUrl,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      ),
+    );
 
     _dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {
