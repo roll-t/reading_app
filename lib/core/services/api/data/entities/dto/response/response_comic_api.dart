@@ -1,6 +1,6 @@
 import 'package:reading_app/core/configs/enum.dart';
 import 'package:reading_app/core/services/api/data/entities/models/authentication_model.dart';
-import 'package:reading_app/core/services/api/data/entities/models/list_category_model.dart';
+import 'package:reading_app/core/services/api/data/entities/models/category_model.dart';
 import 'package:reading_app/core/services/api/data/entities/models/list_comic_model.dart';
 import 'package:reading_app/core/services/api/data/entities/models/result.dart';
 
@@ -24,8 +24,7 @@ class ResponseComicApi {
     }
   }
 
-  static Result<List<ListCategoryModel>> handleResponseCategories(
-      int statusCode,
+  static Result<List<CategoryModel>> handleResponseCategories(int statusCode,
       {dynamic data}) {
     return handleResponse(statusCode, data: data, parse: (data) {
       try {
@@ -34,11 +33,11 @@ class ResponseComicApi {
         }
 
         List<String> emptyCategory = ["adventure"];
-        List<ListCategoryModel> categories = [];
+        List<CategoryModel> categories = [];
 
         for (var value in data["data"]["items"]) {
           if (!emptyCategory.contains(value["slug"])) {
-            categories.add(ListCategoryModel.fromJson(value));
+            categories.add(CategoryModel.fromJson(value));
           }
         }
         return categories;
@@ -65,7 +64,9 @@ class ResponseComicApi {
       String domainImage = data["APP_DOMAIN_CDN_IMAGE"] ?? "";
       String titlePage = data["titlePage"] ?? "";
       List<dynamic> listImage = data["items"] ?? [];
-      List<Map<String, dynamic>> listImageMap = listImage.cast<Map<String, dynamic>>();
+      List<Map<String, dynamic>> listImageMap =
+          listImage.cast<Map<String, dynamic>>();
+          
       return ListComicModel(
         domainImage: domainImage,
         titlePage: titlePage,

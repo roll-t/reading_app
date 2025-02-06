@@ -6,7 +6,7 @@ import 'package:reading_app/core/configs/enum.dart';
 import 'package:reading_app/core/configs/strings/messages/app_errors.dart';
 import 'package:reading_app/core/configs/strings/messages/app_success.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/services/api/data/entities/dto/request/user_request_model.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/request/user_request.dart';
 import 'package:reading_app/core/services/api/data/entities/models/authentication_model.dart';
 import 'package:reading_app/core/services/api/data/entities/models/result.dart';
 import 'package:reading_app/core/services/api/data/entities/models/user_model.dart';
@@ -171,7 +171,7 @@ await _userService.fetchEmailExist(email: emailController.text.trim());
   }
 
   Map<String, dynamic> _createUserLoginMap(GoogleSignInAccount account) {
-    UserRequestModel userRequestModel = UserRequestModel(
+    UserRequest userRequestModel = UserRequest(
         uid: account.id,
         displayName: account.displayName,
         email: account.email,
@@ -182,7 +182,7 @@ await _userService.fetchEmailExist(email: emailController.text.trim());
   Future<UserModel?> _handleUserSignIn(
       Result? userExists, Map<String, dynamic> userLogin) async {
     if (userExists == null || userExists.status == Status.error) {
-      UserRequestModel userRequestModel = UserRequestModel.fromJson(userLogin);
+      UserRequest userRequestModel = UserRequest.fromJson(userLogin);
       final response =
           await _userService.signInAPI(userRequest: userRequestModel);
       return response?.data;

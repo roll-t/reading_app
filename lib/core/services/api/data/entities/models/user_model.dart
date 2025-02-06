@@ -1,3 +1,5 @@
+import 'package:reading_app/core/services/api/data/entities/models/role_model.dart';
+
 class UserModel {
   String? uid;
   String? displayName;
@@ -48,56 +50,3 @@ class UserModel {
   }
 }
 
-class RoleModel {
-  final String name;
-  final String description;
-  final List<PermissionModel> permissions;
-
-  RoleModel({
-    required this.name,
-    required this.description,
-    required this.permissions,
-  });
-
-  factory RoleModel.fromJson(Map<String, dynamic> json) {
-    return RoleModel(
-      name: json['name'],
-      description: json['description'],
-      permissions: (json['permissions'] as List<dynamic>)
-          .map((item) => PermissionModel.fromJson(item as Map<String, dynamic>))
-          .toList(),
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'name': name,
-      'description': description,
-      'permissions': permissions.map((e) => e.toJson()).toList(),
-    };
-  }
-}
-
-class PermissionModel {
-  final String name;
-  final String description;
-
-  PermissionModel({
-    required this.name,
-    required this.description,
-  });
-
-  factory PermissionModel.fromJson(Map<String, dynamic> json) {
-    return PermissionModel(
-      name: json['name'],
-      description: json['description'],
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'name': name,
-      'description': description,
-    };
-  }
-}

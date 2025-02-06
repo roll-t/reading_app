@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:reading_app/core/services/api/data/entities/dto/request/user_request_model.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/request/user_request.dart';
 import 'package:reading_app/core/services/api/data/entities/models/result.dart';
 import 'package:reading_app/core/services/api/data/entities/models/user_model.dart';
 import 'package:reading_app/core/services/network/api_endpoint.dart';
@@ -24,7 +24,7 @@ class UserService extends ApiService {
   }
 
   Future<Result<UserModel>?> signInAPI(
-      {required UserRequestModel userRequest}) async {
+      {required UserRequest userRequest}) async {
     return await post(
         endpoint: EndPointSetting.signInEndpoint,
         parse: (data) => UserModel.fromJson(data),

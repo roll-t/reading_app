@@ -1,32 +1,31 @@
-import 'dart:convert';
+import 'package:reading_app/core/services/api/data/entities/models/permission_model.dart';
 
 class RoleModel {
-  final String token;
-  final bool authenticated;
+  final String name;
+  final String description;
+  final List<PermissionModel> permissions;
 
   RoleModel({
-    required this.token,
-    required this.authenticated,
+    required this.name,
+    required this.description,
+    required this.permissions,
   });
 
-  // Tạo một đối tượng RoleModel từ một JSON Map
   factory RoleModel.fromJson(Map<String, dynamic> json) {
     return RoleModel(
-      token: json['token'] as String,
-      authenticated: json['authenticated'] as bool,
+      name: json['name'],
+      description: json['description'],
+      permissions: (json['permissions'] as List<dynamic>)
+          .map((item) => PermissionModel.fromJson(item as Map<String, dynamic>))
+          .toList(),
     );
   }
 
-  // Chuyển đổi RoleModel thành JSON Map
   Map<String, dynamic> toJson() {
     return {
-      'token': token,
-      'authenticated': authenticated,
+      'name': name,
+      'description': description,
+      'permissions': permissions.map((e) => e.toJson()).toList(),
     };
-  }
-
-  @override
-  String toString() {
-    return jsonEncode(toJson());
   }
 }

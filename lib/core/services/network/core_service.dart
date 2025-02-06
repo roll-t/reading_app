@@ -33,6 +33,7 @@ class CoreService {
       }
 
       final response = await _makeRequest(method, endpoint, data);
+
       if (method.toUpperCase() == RequestApi.GET.name && useCache) {
         await cacheService.saveToCache(
             endpoint, response.data, cacheDuration, apiSource);

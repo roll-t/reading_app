@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/strings/messages/app_success.dart';
-import 'package:reading_app/core/services/api/data/entities/dto/request/user_request_model.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/request/user_request.dart';
 import 'package:reading_app/core/services/api/data/sources/locals/user_service.dart';
 import 'package:reading_app/core/storage/prefs/prefs.dart';
 import 'package:reading_app/core/ui/snackbar/snackbar.dart';
@@ -96,7 +96,7 @@ class RegisterController extends GetxController {
       return;
     }
 
-    UserRequestModel userRequestModel = UserRequestModel(
+    UserRequest userRequestModel = UserRequest(
         displayName: nameController.text.trim(),
         email: emailController.text.trim(),
         password: passwordController.text.trim());

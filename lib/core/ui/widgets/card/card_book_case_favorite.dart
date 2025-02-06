@@ -10,7 +10,7 @@ import 'package:reading_app/core/ui/widgets/text/customs/text_small.dart';
 import 'package:reading_app/core/ui/widgets/text/customs/text_small_semi_bold.dart';
 import 'package:reading_app/core/utils/date_time_utils.dart';
 import 'package:reading_app/core/utils/string_utils.dart';
-import 'package:reading_app/features/nav/book_case/presentation/controller/book_case_controller.dart';
+import 'package:reading_app/features/dashboard/book_case/presentation/controller/book_case_controller.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class CardBookCaseFavorite extends GetView<BookCaseController> {

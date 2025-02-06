@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:reading_app/core/configs/enum.dart';
 import 'package:reading_app/core/services/api/data/entities/dto/response/response_comic_api.dart';
-import 'package:reading_app/core/services/api/data/entities/models/chapter_model.dart';
+import 'package:reading_app/core/services/api/data/entities/models/chapter_comic%20_model.dart';
 import 'package:reading_app/core/services/api/data/entities/models/comic_model.dart';
 import 'package:reading_app/core/services/api/data/entities/models/list_comic_model.dart';
 import 'package:reading_app/core/services/api/data/entities/models/result.dart';
@@ -35,13 +35,16 @@ class ComicApi extends ApiService {
   // Lấy danh sách theo slug và trang
   Future<Result<ListComicModel>> fetchListBySlug(
       {required String slug, required int page}) async {
-    return await get(
+        
+    var data = await get(
       endpoint: EndPointSetting.listByTypeEndpoint(slug: slug, page: page),
       parse: (data) =>
           ResponseComicApi.handleResponseData(200, data: data).data!,
       apiSource: ApiSource.comic,
       useCache: true,
     );
+    print(data.data);
+    return data;
   }
 
   // Lấy danh sách tìm kiếm theo slug và trang
@@ -70,14 +73,14 @@ class ComicApi extends ApiService {
   }
 
   // Lấy thông tin chapter của comic
-  Future<Result<ChapterModel>> fetchChapterAPI(
+  Future<Result<ChapterComicModel>> fetchChapterAPI(
       {required Map<String, dynamic> chapter}) async {
     try {
       if (chapter["chapter_api_data"] != null) {
         var response = await dioConfig.dio.get(chapter["chapter_api_data"]);
         if (response.statusCode == 200) {
           var data = response.data["data"];
-          ChapterModel chapterModel = ChapterModel.fromJson(data);
+          ChapterComicModel chapterModel = ChapterComicModel.fromJson(data);
           return Result.success(chapterModel);
         } else {
           return Result.error(ApiError.unknown);

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:reading_app/core/configs/const/prefs_constants.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/services/api/data/entities/dto/request/user_request_model.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/request/user_request.dart';
 import 'package:reading_app/core/services/api/data/entities/models/user_model.dart';
 import 'package:reading_app/core/services/api/data/sources/locals/user_service.dart';
 import 'package:reading_app/core/services/api/domain/repositories/user_repository.dart';
@@ -51,7 +51,7 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<UserModel?> signInWithGoogle(UserRequestModel request) {
+  Future<UserModel?> signInWithGoogle(UserRequest request) {
     throw UnimplementedError();
   }
 }

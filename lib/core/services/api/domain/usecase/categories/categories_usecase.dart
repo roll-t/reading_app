@@ -1,14 +1,14 @@
 import 'dart:convert';
 
 import 'package:reading_app/core/configs/const/prefs_constants.dart';
-import 'package:reading_app/core/services/api/data/entities/models/list_category_model.dart';
+import 'package:reading_app/core/services/api/data/entities/models/category_model.dart';
 import 'package:reading_app/core/storage/prefs/prefs.dart';
 
 class CategoriesUsecase {
   static final Prefs prefs = Prefs();
 
   static Future<void> setCategoryCache(
-      {required List<ListCategoryModel> listCategory}) async {
+      {required List<CategoryModel> listCategory}) async {
     try {
       await prefs.set(
           PrefsConstants.categoryCache,
@@ -19,13 +19,13 @@ class CategoriesUsecase {
     }
   }
 
-  static Future<List<ListCategoryModel>?> getCategoryCache() async {
+  static Future<List<CategoryModel>?> getCategoryCache() async {
     try {
       var data = await prefs.get(PrefsConstants.categoryCache);
 
       List<dynamic> decodedData = jsonDecode(data);
-      List<ListCategoryModel> result = decodedData
-          .map((categoryJson) => ListCategoryModel.fromJson(categoryJson))
+      List<CategoryModel> result = decodedData
+          .map((categoryJson) => CategoryModel.fromJson(categoryJson))
           .toList();
       return result;
     } catch (e) {

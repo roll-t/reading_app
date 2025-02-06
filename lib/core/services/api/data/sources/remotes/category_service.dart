@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/enum.dart';
 import 'package:reading_app/core/services/api/data/entities/dto/response/response_comic_api.dart';
-import 'package:reading_app/core/services/api/data/entities/models/list_category_model.dart';
+import 'package:reading_app/core/services/api/data/entities/models/category_model.dart';
 import 'package:reading_app/core/services/api/data/entities/models/result.dart';
 import 'package:reading_app/core/services/api/domain/usecase/categories/categories_usecase.dart';
 import 'package:reading_app/core/services/api/domain/usecase/categories/check_category_cache_usecase.dart';
@@ -14,7 +14,7 @@ class CategoryService extends ApiService {
   CategoryService(super.dioConfig, super.cacheService);
 
   // Lấy danh mục
-  Future<Result<List<ListCategoryModel>>> getListCategories() async {
+  Future<Result<List<CategoryModel>>> getListCategories() async {
     try {
       final response =
           await dioConfig.dio.get(EndPointSetting.categoriesEndpoint());
@@ -43,7 +43,7 @@ class CategoryService extends ApiService {
     final response =
         await dioConfig.dio.get(EndPointSetting.categoriesEndpoint());
     final apiResponse = response.data;
-    Result<List<ListCategoryModel>> listCategories =
+    Result<List<CategoryModel>> listCategories =
         ResponseComicApi.handleResponseCategories(response.statusCode ?? 500,
             data: apiResponse);
     if (listCategories.status == Status.success) {
@@ -52,7 +52,7 @@ class CategoryService extends ApiService {
     }
   }
 
-  Future<List<ListCategoryModel>?> fetchCategoryCache() async {
+  Future<List<CategoryModel>?> fetchCategoryCache() async {
     return await CategoriesUsecase.getCategoryCache();
   }
 }

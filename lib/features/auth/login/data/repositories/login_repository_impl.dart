@@ -1,7 +1,7 @@
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/services/api/data/entities/dto/request/user_request_model.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/request/user_request.dart';
 import 'package:reading_app/core/services/api/data/entities/models/authentication_model.dart';
 import 'package:reading_app/core/services/api/data/entities/models/result.dart';
 import 'package:reading_app/core/services/api/data/entities/models/user_model.dart';
@@ -29,7 +29,7 @@ class LoginRepositoryImpl implements LoginRepository {
     await _googleSignIn.signOut();
     final account = await _googleSignIn.signIn();
     if (account == null) return null;
-    final userLogin = UserRequestModel(
+    final userLogin = UserRequest(
       uid: account.id,
       displayName: account.displayName,
       email: account.email,
