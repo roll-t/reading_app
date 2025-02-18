@@ -4,7 +4,7 @@ import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/dimens/text_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/service/data/model/list_comic_model.dart';
+import 'package:reading_app/core/services/api/data/entities/models/list_comic_model.dart';
 import 'package:reading_app/core/ui/widgets/images/Image_widget.dart';
 import 'package:reading_app/core/ui/widgets/tags/tag_category.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
@@ -13,13 +13,13 @@ import 'package:reading_app/core/utils/string_utils.dart';
 class CardRowWidget extends StatelessWidget {
   final int currentIndex;
   final double heightImage;
-  final ItemModel bookModel;
+  final ItemModel? bookModel;
   final bool last;
 
   const CardRowWidget({
     super.key,
     required this.heightImage,
-    required this.bookModel,
+    this.bookModel,
     required this.currentIndex,
     this.last = false,
   });
@@ -29,7 +29,7 @@ class CardRowWidget extends StatelessWidget {
     return InkWell(
       onTap: () {
         Get.toNamed(Routes.comicDetail,
-            arguments: {"slug": bookModel.slug, "comicId": bookModel.id});
+            arguments: {"slug": bookModel?.slug, "comicId": bookModel?.id});
       },
       child: Container(
         height: heightImage + SpaceDimens.space25,
@@ -49,8 +49,7 @@ class CardRowWidget extends StatelessWidget {
                 width: heightImage,
                 height: heightImage,
                 child: ImageWidget(
-                    imageUrl:
-                        "https://img.otruyenapi.com/uploads/comics/${bookModel.thumbUrl}")),
+                    imageUrl:"https://img.otruyenapi.com/uploads/comics/${bookModel?.thumbUrl}")),
             const SizedBox(
               width: SpaceDimens.space15,
             ),
@@ -59,7 +58,7 @@ class CardRowWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextWidget(
-                    text: bookModel.name,
+                    text: bookModel?.name ?? "",
                     size: TextDimens.textSize16,
                     fontWeight: FontWeight.w400,
                     maxLines: 2,
@@ -67,7 +66,7 @@ class CardRowWidget extends StatelessWidget {
                   const Spacer(),
                   TagCategory(
                       categoryName:
-                          StringUtils.translate(bookModel.status.trim()))
+                          StringUtils.translate(bookModel?.status.trim() ?? ""))
                 ],
               ),
             )

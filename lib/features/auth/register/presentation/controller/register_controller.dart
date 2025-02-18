@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/strings/messages/app_errors.dart';
 import 'package:reading_app/core/configs/strings/messages/app_success.dart';
-import 'package:reading_app/core/service/data/api/database/user_service.dart';
-import 'package:reading_app/core/service/data/dto/request/user_request_model.dart';
-import 'package:reading_app/core/service/data/model/result.dart';
+import 'package:reading_app/core/services/api/data/entities/dto/request/user_request.dart';
+import 'package:reading_app/core/services/api/data/sources/locals/user_service.dart';
 import 'package:reading_app/core/storage/prefs/prefs.dart';
 import 'package:reading_app/core/ui/snackbar/snackbar.dart';
 import 'package:reading_app/core/utils/validator.dart';
@@ -29,7 +27,7 @@ class RegisterController extends GetxController {
   var errorMessagePasswordConfirm = ''.obs;
 
   //
-  UserData userData = UserData();
+  UserService userData = Get.find();
 
   // Phương thức đăng ký
   Future<void> signUp() async {
@@ -81,15 +79,14 @@ class RegisterController extends GetxController {
       }
     }
 
-    Result emailExist =
-        await UserData.emailExist(email: emailController.text.trim());
+    // Result emailExist =await UserData.emailExist(email: emailController.text.trim());
 
-    if (emailExist.data == true) {
-      errorMessageEmail.value = AppErrors.emailExistError;
-      return;
-    } else {
-      errorMessageEmail.value = "";
-    }
+    // if (emailExist.data == true) {
+    //   errorMessageEmail.value = AppErrors.emailExistError;
+    //   return;
+    // } else {
+    //   errorMessageEmail.value = "";
+    // }
 
     // Nếu có lỗi, không thực hiện đăng ký
     if (errorMessageName.value.isNotEmpty ||
@@ -99,7 +96,7 @@ class RegisterController extends GetxController {
       return;
     }
 
-    UserRequestModel userRequestModel = UserRequestModel(
+    UserRequest userRequestModel = UserRequest(
         displayName: nameController.text.trim(),
         email: emailController.text.trim(),
         password: passwordController.text.trim());

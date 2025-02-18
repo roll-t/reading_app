@@ -24,10 +24,10 @@ class CustomNavbar extends GetView<MainController> {
           duration: const Duration(milliseconds: 500),
           child: GestureDetector(
             onTap: () {
-              controller.resetOpacityTimer();
+              // controller.resetOpacityTimer();
             },
             onPanUpdate: (details) {
-              controller.resetOpacityTimer();
+              // controller.resetOpacityTimer();
             },
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 12.sp, vertical: 10.sp),
@@ -90,7 +90,7 @@ class CustomNavbar extends GetView<MainController> {
       child: InkWell(
         onTap: () {
           controller.onChangeItemBottomBar(index);
-          controller.resetOpacityTimer();
+          // controller.resetOpacityTimer();
         },
         child: Column(
           children: [

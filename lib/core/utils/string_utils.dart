@@ -14,6 +14,12 @@ class StringUtils {
     'completed': 'Hoàn thành',
     'on_hold': 'Tạm dừng',
     'slider': 'Quảng cáo',
+    "newRelease": "Truyện mới",
+    "upcoming": "sắp ra mắt",
+    "truyen-moi": "Truyện mới",
+    "sap-ra-mat": "Sắp ra mắt",
+    "dang-phat-hanh": "Đang phát hành",
+    "hoan-thanh": "Hoàn thành",
   };
 
   static String translate(String input) {

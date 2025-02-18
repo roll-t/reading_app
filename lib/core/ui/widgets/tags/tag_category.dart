@@ -2,38 +2,47 @@ import 'package:flutter/material.dart';
 import 'package:reading_app/core/configs/assets/app_icons.dart';
 import 'package:reading_app/core/configs/dimens/icons_dimens.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
-import 'package:reading_app/core/configs/enum.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/text/customs/text_small.dart';
 
 class TagCategory extends StatelessWidget {
   final String categoryName;
-  final TagMarker typeTag;
+  final String typeTag;
   final VoidCallback? onTap;
 
   const TagCategory({
     super.key,
     required this.categoryName,
-    this.typeTag = TagMarker.normal,
+    this.typeTag = "normal",
     this.onTap,
   });
+
+  // "truyen-moi": "Truyện mới",
+  // "sap-ra-mat": "Sắp ra mắt",
+  // "dang-phat-hanh": "Đang phát hành",
+  // "hoan-thanh": "Hoàn thành",
 
   @override
   Widget build(BuildContext context) {
     final displayCategory = categoryName.split(" | ").first;
 
-    final Map<TagMarker, Map<String, dynamic>> tagStyles = {
-      TagMarker.newUpdate: {
+    final Map<String, Map<String, dynamic>> tagStyles = {
+      "truyen-moi": {
         'color': AppColors.tagNewUpdate,
         'image': AppIcons.iFlash,
         'textColor': AppColors.black,
       },
-      TagMarker.justPosted: {
+      "sap-ra-mat": {
         'color': AppColors.tagJustPosted,
         'image': AppIcons.iPeaceSign,
         'textColor': AppColors.black,
       },
-      TagMarker.trending: {
+      "dang-phat-hanh": {
+        'color': AppColors.tagTrending,
+        'image': AppIcons.iFire,
+        'textColor': AppColors.gray1,
+      },
+      "hoan-thanh": {
         'color': AppColors.tagTrending,
         'image': AppIcons.iFire,
         'textColor': AppColors.gray1,

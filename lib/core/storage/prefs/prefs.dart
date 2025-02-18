@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:reading_app/core/configs/const/prefs_constants.dart';
-import 'package:reading_app/core/service/data/model/user_model.dart';
+import 'package:reading_app/core/services/api/data/entities/models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Prefs {
@@ -11,7 +11,7 @@ class Prefs {
   // Initial method String /
   Future<String> get(String key) async {
     final SharedPreferences prefs = await _prefs;
-    return json.decode(prefs.getString(key)!) ?? '';
+    return json.decode(prefs.getString(key) ?? "") ?? '';
   }
 
   Future<String> getObject(String key) async {
@@ -66,12 +66,28 @@ class Prefs {
     final SharedPreferences prefs = await _prefs;
     prefs.setString(PrefsConstants.tmpUid, json.encode(value));
   }
- Future<UserModel?> getTempUser() async {
+
+  Future<UserModel?> getTempUser() async {
     final SharedPreferences prefs = await _prefs;
     final tempUserJson = prefs.getString(PrefsConstants.tmpUid);
     if (tempUserJson == null || tempUserJson.isEmpty) {
       return null;
     }
     return UserModel.fromJson(json.decode(tempUserJson));
+  }
+
+  Future<T?> getDecoded<T>(Prefs prefs, String key,
+      T Function(Map<String, dynamic>) fromJson) async {
+    try {
+      final String jsonString = await prefs.get(key);
+      if (jsonString.isEmpty) {
+        return null;
+      }
+      final Map<String, dynamic> jsonMap = jsonDecode(jsonString);
+      return fromJson(jsonMap);
+    } catch (e) {
+      print('Failed to get and decode JSON for key $key: $e');
+      return null;
+    }
   }
 }

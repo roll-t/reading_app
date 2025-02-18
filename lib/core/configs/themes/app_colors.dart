@@ -70,4 +70,9 @@ class AppColors{
 
   // basic colors
   static const Color yellow =  Color(0xfff1c40f); 
+
+
+  // config shimmer colors
+static const Color shimmerBase = Color(0xFFBDBDBD); // Màu xám cơ bản
+static const Color shimmerHighlight = Color(0xFFF5F5F5); // Màu sáng nổi bật
 }

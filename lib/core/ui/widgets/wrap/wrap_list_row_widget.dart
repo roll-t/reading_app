@@ -1,4 +1,3 @@
-
 // ignore: camel_case_types
 import 'package:flutter/material.dart';
 import 'package:reading_app/core/configs/dimens/text_dimens.dart';
