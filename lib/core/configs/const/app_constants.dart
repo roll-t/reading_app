@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:reading_app/core/configs/themes/app_colors.dart';
+import 'package:reading_app/core/services/api/data/entities/models/read_theme_model.dart';
 
 class AppConstants {
   static const bool isAdmobEnabled = false;
@@ -22,6 +23,34 @@ class AppConstants {
     "Nunito",
     "Merriweather",
   ];
+
+  static List<ReadThemeModel> listReadTheme = [
+    ReadThemeModel(
+      id: "readThemeDefault",
+      name: "Mặc định",
+      textColor: AppColors.white,
+      backgroundColor: AppColors.primaryDarkBg,
+    ),
+    ReadThemeModel(
+      id: "readThemePaper",
+      name: "Giấy",
+      textColor: const Color(0xFF4A4A4A),
+      backgroundColor: const Color(0xFFFAF3E0),
+    ),
+    ReadThemeModel(
+      id: "readThemeChill",
+      name: "Êm diệu",
+      textColor: const Color(0xFF757575),
+      backgroundColor: const Color(0xFFE0F7FA),
+    ),
+    ReadThemeModel(
+      id: "readThemeFocus",
+      name: "Tập chung",
+      textColor: const Color(0xFFE3F2FD),
+      backgroundColor: const Color(0xFF263238),
+    ),
+  ];
+
   static const List<Map<String, dynamic>> readThemeIds = [
     {
       "id": "readThemeDefault",

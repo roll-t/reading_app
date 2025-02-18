@@ -10,7 +10,6 @@ import 'package:reading_app/core/services/network/api_service.dart';
 class BookCaseService extends ApiService {
   BookCaseService(super.dioConfig, super.cacheService);
 
-
   Future<Result<ReadingBookCaseResponse>> postReadingBookCase(
       {required ReadingBookCaseRequest request}) async {
     final body = request.toJson();

@@ -1,8 +1,8 @@
 abstract class Routes {
-  static const home = "/"; // Trang chính
-  static const splash = "/splash"; // Màn hình khởi động
-  static const notFound = "/404"; // Trang không tìm thấy
-  static const main = "/main"; // Trang chính sau khi đăng nhập
+  static const home = "/";
+  static const splash = "/splash";
+  static const notFound = "/404";
+  static const main = "/main";
 
   // Authentication
   static const login = "/auth/login";
@@ -16,9 +16,8 @@ abstract class Routes {
 
   // Categories & Search
   static const category = "/category";
-  static const search = "/search";
+  static const explore = "/explore";
   static const categoryNovel = "/category/novel";
-  static const findNovel = "/search/novels";
 
   // Notifications
   static const notification = "/notifications";
@@ -38,8 +37,8 @@ abstract class Routes {
   static const comment = "/comments";
 
   // Find (general search page)
-  static const find = "/find";
-
+  static const searchComic = "/explore/searchComic";
+  static const searchNovel = "/explore/searchNovels";
   // Login Request
   static const loginRequestSplash = "/auth/login-request-splash";
 }

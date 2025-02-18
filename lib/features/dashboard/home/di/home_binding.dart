@@ -3,7 +3,7 @@ import 'package:reading_app/core/services/api/data/repositories/category_reposit
 import 'package:reading_app/core/services/api/data/repositories/user_repository_impl.dart';
 import 'package:reading_app/core/services/api/data/sources/locals/novel_service.dart';
 import 'package:reading_app/core/services/api/data/sources/locals/user_service.dart';
-import 'package:reading_app/core/services/api/data/sources/remotes/category_service.dart';
+import 'package:reading_app/core/services/api/data/sources/remotes/category_comic_service.dart';
 import 'package:reading_app/core/services/api/data/sources/remotes/comic_service.dart';
 import 'package:reading_app/core/services/api/domain/repositories/category_repository.dart';
 import 'package:reading_app/core/services/api/domain/repositories/user_repository.dart';
@@ -31,7 +31,7 @@ class HomeBinding extends Bindings {
 
     Get.lazyPut(() => CheckCategoryCacheUsecase(Get.find()));
 
-    Get.lazyPut(() => CategoryService(Get.find(), Get.find()), fenix: true);
+    Get.lazyPut(() => CategoryComicService(Get.find(), Get.find()), fenix: true);
 
     Get.lazyPut<CategoryRepository>(() => CategoryRepositoryImpl(Get.find()),
         fenix: true);

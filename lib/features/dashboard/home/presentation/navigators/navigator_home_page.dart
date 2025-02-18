@@ -20,6 +20,6 @@ class NavigatorHomePage {
 
   //to search page function
   static void toSearchPage() {
-    Get.toNamed(Routes.search);
+    Get.toNamed(Routes.explore);
   }
 }

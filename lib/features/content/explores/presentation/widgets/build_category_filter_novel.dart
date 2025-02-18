@@ -8,15 +8,17 @@ import 'package:reading_app/core/services/api/data/entities/models/category_mode
 import 'package:reading_app/core/ui/widgets/button/button_widget.dart';
 import 'package:reading_app/core/ui/widgets/text/customs/text_large_semi_bold.dart';
 import 'package:reading_app/core/ui/widgets/text/customs/text_normal.dart';
-import 'package:reading_app/features/content/explores/presentation/controller/explore_controller.dart';
+import 'package:reading_app/features/content/explores/presentation/controller/explore_novel_type_controller.dart';
 
-class BuildCategoryFilterNovel extends GetView<ExploreController> {
+class BuildCategoryFilterNovel extends GetView<ExploreNovelTypeController> {
   final RxInt currentIndex;
   final List<CategoryModel> categories;
+  final bool? isLoading;
   const BuildCategoryFilterNovel({
     super.key,
     required this.currentIndex,
     required this.categories,
+    this.isLoading = false,
   });
 
   @override
@@ -48,8 +50,7 @@ class BuildCategoryFilterNovel extends GetView<ExploreController> {
                         width: Get.width,
                         padding:
                             const EdgeInsets.all(SpaceDimens.spaceStandard),
-                        height: Get.height *
-                            0.5, // Set the height of the bottom sheet
+                        height: Get.height * 0.5,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,

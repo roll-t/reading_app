@@ -20,7 +20,7 @@ class ScrollUtils {
   }
 
   // Kiểm tra xem có cuộn đến cuối cùng không
-  static bool isAtBottom(ScrollController controller) {
+  static bool isMaxScrollExtent(ScrollController controller) {
     return controller.position.pixels == controller.position.maxScrollExtent;
   }
 
@@ -40,6 +40,16 @@ class ScrollUtils {
     scrollToPosition(controller, position);
   }
 
+  static void scrollToMax(ScrollController scrollController) {
+    if (scrollController.hasClients) {
+      scrollController.animateTo(
+        scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300), // Thời gian cuộn đến cuối
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
   // Lắng nghe sự kiện cuộn khi cuộn đến ngưỡng nhất định (Ví dụ: 80%)
   static void listenToScrollThreshold(
       ScrollController controller, Function onThresholdReached,
@@ -53,7 +63,7 @@ class ScrollUtils {
     });
   }
 
-  static void scrollDown(ScrollController controller,double offset) {
+  static void scrollDown(ScrollController controller, double offset) {
     controller.animateTo(
       controller.offset + offset,
       duration: const Duration(milliseconds: 300), // Thời gian cuộn

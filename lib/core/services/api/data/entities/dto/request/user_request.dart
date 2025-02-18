@@ -1,10 +1,10 @@
-import 'package:reading_app/core/extensions/date_time_custom.dart';
+import 'package:reading_app/core/utils/date_time_utils.dart';
 
 class UserRequest {
   String? uid;
   String? displayName;
   String email;
-  String ? photoURL;
+  String? photoURL;
   String password;
   String creationTime;
   List<String> roles;
@@ -18,7 +18,7 @@ class UserRequest {
     this.roles = const ["USER"],
   }) {
     if (creationTime.isEmpty) {
-      creationTime = DateTimeCustom.currentTime();
+      creationTime = DatetimeUtil.currentTime();
     }
   }
 
@@ -29,7 +29,7 @@ class UserRequest {
       email: json['email'],
       password: json['password'],
       photoURL: json['photoURL'],
-      creationTime: json['creationTime'] ?? DateTimeCustom.currentTime(),
+      creationTime: json['creationTime'] ?? DatetimeUtil.currentTime(),
       roles: List<String>.from(json['roles'] ?? ["USER"]),
     );
   }

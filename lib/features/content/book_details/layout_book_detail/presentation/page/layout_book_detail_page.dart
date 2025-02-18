@@ -129,7 +129,10 @@ class LayoutBookDetailPage extends GetView<LayoutBookDetailController> {
     return RefreshIndicator(
       onRefresh: () async {
         if (layoutBookDetailModel.novelDetailController != null) {
-          await layoutBookDetailModel.novelDetailController!.loadNovelDetails();
+          await layoutBookDetailModel.novelDetailController!.fetchListComment(
+              bookId: layoutBookDetailModel
+                      .novelDetailController?.slugArgumentNovelId ??
+                  '');
         }
         if (layoutBookDetailModel.comicDetailController != null) {
           await layoutBookDetailModel.comicDetailController?.loadComment();
@@ -220,7 +223,7 @@ class LayoutBookDetailPage extends GetView<LayoutBookDetailController> {
     if (layoutBookDetailModel.novelId != null) {
       await Get.toNamed(Routes.comment,
           arguments: {"novelId": layoutBookDetailModel.novelId});
-      await layoutBookDetailModel.novelDetailController?.loadNovelDetails();
+      // await layoutBookDetailModel.novelDetailController?.();
     } else if (layoutBookDetailModel.comicId != null) {
       await Get.toNamed(Routes.comment,
           arguments: {"comicId": layoutBookDetailModel.comicId});

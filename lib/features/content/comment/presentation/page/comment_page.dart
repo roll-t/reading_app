@@ -5,7 +5,6 @@ import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/dimens/text_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/extensions/text_format.dart';
 import 'package:reading_app/core/services/api/data/entities/dto/response/commentReponse.dart';
 import 'package:reading_app/core/ui/widgets/avatar/avatar.dart';
 import 'package:reading_app/core/ui/widgets/icons/leading_icon_app_bar.dart';
@@ -15,6 +14,7 @@ import 'package:reading_app/core/ui/widgets/text/expandable_text.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 import 'package:reading_app/core/ui/widgets/textfield/comment_text_field.dart';
 import 'package:reading_app/core/utils/date_time_utils.dart';
+import 'package:reading_app/core/utils/text_format.dart';
 import 'package:reading_app/features/content/comment/presentation/controller/comment_controller.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 

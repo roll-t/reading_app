@@ -30,7 +30,7 @@ class ReadThemeUseCase {
       decodedData.update("textColor", (value) => Color(value as int));
       decodedData.update("backgroundColor", (value) => Color(value as int));
       return decodedData;
-        } catch (e) {
+    } catch (e) {
       print(e);
       return null;
     }
@@ -57,6 +57,7 @@ class ReadThemeUseCase {
 
   static Future<void> setFontReadTheme({required String font}) async {
     try {
+      print(font);
       await prefs.set(PrefsConstants.fontTheme, font);
     } catch (e) {
       print('Error setting text size: $e');
@@ -67,7 +68,7 @@ class ReadThemeUseCase {
     try {
       var data = await prefs.get(PrefsConstants.fontTheme);
       return data;
-        } catch (e) {
+    } catch (e) {
       await prefs.set(PrefsConstants.fontTheme, AppConstants.fontDefault);
       return AppConstants.fontDefault;
     }

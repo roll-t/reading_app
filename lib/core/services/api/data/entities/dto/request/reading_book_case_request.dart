@@ -6,12 +6,12 @@ class ReadingBookCaseRequest {
   double positionReading;
 
   ReadingBookCaseRequest({
-    required this.bookDataId,
-    required this.uid,
-    required this.chapterName,
-    required this.readingDate,
-    required this.positionReading,
-  });
+    this.bookDataId = "",
+    this.uid = "",
+    this.chapterName = "",
+    DateTime? readingDate,
+    this.positionReading = 0.0,
+  }) : readingDate = readingDate ?? DateTime.now();
 
   factory ReadingBookCaseRequest.fromJson(Map<String, dynamic> json) {
     return ReadingBookCaseRequest(

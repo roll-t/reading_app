@@ -1,21 +1,20 @@
-
 class ChapterNovelModel {
   final String chapterId;
-  final String chapterName;
-  final String chapterTitle;
-  final String chapterContent;
-  final DateTime createAt;
-  final String bookDataId;
+  String chapterName;
+  String chapterTitle;
+  String chapterContent;
+  DateTime createAt;
+  String bookDataId;
 
   // Constructor
   ChapterNovelModel({
-    required this.chapterId,
-    required this.chapterName,
-    required this.chapterTitle,
-    required this.chapterContent,
-    required this.createAt,
-    required this.bookDataId,
-  });
+    this.chapterId = "",
+    this.chapterName = "none",
+    this.chapterTitle = "none",
+    this.chapterContent = "none",
+    DateTime? createAt,
+    this.bookDataId = "",
+  }) : createAt = createAt ?? DateTime.now();
 
   // Factory constructor để chuyển đổi từ JSON
   factory ChapterNovelModel.fromJson(Map<String, dynamic> json) {

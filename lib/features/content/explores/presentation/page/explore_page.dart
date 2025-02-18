@@ -19,86 +19,68 @@ class SearchBookPage extends GetView<ExploreController> {
     );
   }
 
-  DefaultTabController _buildBody() {
-    return DefaultTabController(
-      length: controller.listPage.length,
-      child: NestedScrollView(
-        controller: controller.scrollController,
-        headerSliverBuilder: (
-          context,
-          innerBoxIsScrolled,
-        ) =>
-            [
-          _buildAppBar(),
-        ],
-        body: _buildTabBarBody(),
-      ),
+  // Build Body Explore page
+  Widget _buildBody() {
+    return NestedScrollView(
+      headerSliverBuilder: (context, innerBoxIsScrolled) => [
+        _buildAppBar(),
+      ],
+      body: Obx(() => TabBarView(
+            controller: controller.tabController,
+            // ignore: invalid_use_of_protected_member
+            children: controller.listPage.value,
+          )),
     );
   }
 
-  Builder _buildTabBarBody() {
-    return Builder(
-      builder: (context) {
-        final TabController tabController = DefaultTabController.of(context);
-        tabController.addListener(() {
-          if (!tabController.indexIsChanging) {
-            controller.currentTypePage.value = tabController.index;
-          }
-        });
-        return TabBarView(
-          children: controller.listPage,
-        );
-      },
-    );
-  }
-
+  // build AppBar explore page
   SliverAppBar _buildAppBar() {
     return SliverAppBar(
       floating: true,
       pinned: true,
-      leading: InkWell(
-        onTap: () {
-          Get.back();
-        },
+      leading: GestureDetector(
+        onTap: () => Get.back(),
         child: const Icon(Icons.arrow_back_ios_new_rounded),
       ),
-      title: InkWell(
-          onTap: () {
-            if (controller.currentTypePage.value == 0) {
-              Get.toNamed(Routes.find, arguments: {"mark": "COMIC"});
-            } else {
-              Get.toNamed(Routes.findNovel, arguments: {"mark": "NOVEL"});
-            }
-          },
-          child: Container(
-            padding: const EdgeInsets.only(left: SpaceDimens.space20),
-            decoration: BoxDecoration(
-                color: AppColors.tertiaryDarkBg,
-                borderRadius: BorderRadius.circular(RadiusDimens.radiusFull)),
-            height: 6.5.h,
-            width: 80.w,
-            child: const Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextNormal(
-                  textChild: AppContents.searchPlaceholder,
-                ),
-              ],
-            ),
-          )),
-      bottom: const TabBar(
+      title: GestureDetector(
+        onTap: () {
+          if (controller.currentTypePage.value == 0) {
+            Get.toNamed(Routes.searchComic, arguments: {"mark": "COMIC"});
+          } else {
+            Get.toNamed(Routes.searchNovel, arguments: {"mark": "NOVEL"});
+          }
+        },
+        child: Container(
+          padding: const EdgeInsets.only(left: SpaceDimens.space20),
+          decoration: BoxDecoration(
+              color: AppColors.tertiaryDarkBg,
+              borderRadius: BorderRadius.circular(RadiusDimens.radiusFull)),
+          height: 6.5.h,
+          width: 80.w,
+          child: const Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextNormal(
+                textChild: AppContents.searchPlaceholder,
+              ),
+            ],
+          ),
+        ),
+      ),
+      bottom: TabBar(
+        controller: controller.tabController,
         dividerColor: AppColors.black,
         labelColor: AppColors.accentColor,
-        indicator: UnderlineTabIndicator(
+        indicator: const UnderlineTabIndicator(
           borderSide: BorderSide(
             width: 2,
             color: AppColors.accentColor,
           ),
         ),
-        tabs: [
-          Tab(text: "Truyện tranh"),
-          Tab(text: "Tiểu thuyết"),
+        tabs: const [
+          Tab(text: AppContents.comic),
+          Tab(text: AppContents.novel),
         ],
       ),
     );

@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/text/customs/text_normal.dart';
-import 'package:reading_app/features/content/explores/presentation/controller/explore_controller.dart';
-import 'package:reading_app/features/content/explores/presentation/widgets/build_category_filter.dart';
+import 'package:reading_app/features/content/explores/presentation/controller/explore_comic_type_controller.dart';
+import 'package:reading_app/features/content/explores/presentation/widgets/build_category_filter_comic.dart';
 import 'package:reading_app/features/content/explores/presentation/widgets/build_list_comic.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 
-class ExploreComicTypePage extends GetView<ExploreController> {
+class ExploreComicTypePage extends GetView<ExploreComicTypeController> {
   const ExploreComicTypePage({super.key});
   @override
   Widget build(BuildContext context) {
@@ -35,6 +34,7 @@ class ExploreComicTypePage extends GetView<ExploreController> {
           Obx(
             () {
               return CustomScrollView(
+                controller: controller.scrollController,
                 slivers: [
                   BuildListComic(
                     isLoading: controller.isDataLoading.value,
@@ -53,17 +53,13 @@ class ExploreComicTypePage extends GetView<ExploreController> {
           ),
           CustomScrollView(
             slivers: [
-              controller.isDataLoading.value
-                  ? SliverToBoxAdapter(
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 2.h),
-                        child: const Center(child: CircularProgressIndicator()),
-                      ),
-                    )
-                  : BuildListComic(
-                      listBookData:
-                          controller.dataComicCategoryByTypeAndStatus.value,
-                    ),
+              Obx(
+                () => BuildListComic(
+                  isLoading: controller.isDataLoading.value,
+                  listBookData:
+                      controller.dataComicCategoryByTypeAndStatus.value,
+                ),
+              ),
             ],
           )
         ],
@@ -98,7 +94,7 @@ class ExploreComicTypePage extends GetView<ExploreController> {
   SliverToBoxAdapter _buildFilterByCategory() {
     return SliverToBoxAdapter(
       child: Obx(
-        () => BuildCategoryFilter(
+        () => BuildCategoryFilterComic(
           isLoading: controller.isLoading.value,
           currentIndex: controller.currentIndexCategory,
           categories: controller.categories ?? [],

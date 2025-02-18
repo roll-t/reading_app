@@ -70,7 +70,7 @@ class ComicController extends GetxController {
   }
 
   Future<void> _scrollListening() async {
-    var isAtBottom = ScrollUtils.isAtBottom(scrollController);
+    var isAtBottom = ScrollUtils.isMaxScrollExtent(scrollController);
     if (isAtBottom) {
       if (categories?.isNotEmpty ?? false) {
         await fetchComicsByCategory();
@@ -98,7 +98,7 @@ class ComicController extends GetxController {
     if (result != null) {
       comicsByCategory.add(result);
       update(["loadMoreComicsByCategoryID"]);
-      if (ScrollUtils.isAtBottom(scrollController)) {
+      if (ScrollUtils.isMaxScrollExtent(scrollController)) {
         ScrollUtils.scrollDown(scrollController, 100);
       }
     }

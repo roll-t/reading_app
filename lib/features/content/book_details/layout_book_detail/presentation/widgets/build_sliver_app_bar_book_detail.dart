@@ -5,9 +5,9 @@ import 'package:reading_app/core/configs/assets/app_images.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/dimens/text_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/extensions/text_format.dart';
 import 'package:reading_app/core/ui/widgets/icons/leading_icon_app_bar.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
+import 'package:reading_app/core/utils/text_format.dart';
 import 'package:reading_app/features/content/book_details/layout_book_detail/data/entities/models/info_book_detail_model.dart';
 import 'package:reading_app/features/content/book_details/layout_book_detail/presentation/widgets/build_tag_react.dart';
 

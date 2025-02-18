@@ -9,7 +9,7 @@ import 'package:reading_app/core/services/api/data/entities/models/chapter_novel
 import 'package:reading_app/core/ui/widgets/text/customs/text_normal.dart';
 import 'package:reading_app/core/ui/widgets/text/customs/text_small_light.dart';
 import 'package:reading_app/core/utils/date_time_utils.dart';
-import 'package:reading_app/features/content/book_details/novels/model/novel_argument_model.dart';
+import 'package:reading_app/features/content/book_details/novel_detail/model/novel_argument_model.dart';
 
 // ignore: must_be_immutable
 class BuildChapterNovelBody extends StatelessWidget {

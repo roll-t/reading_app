@@ -35,15 +35,12 @@ class BuildSliverAppBar extends StatelessWidget {
             ),
       actions: [
         InkWell(
-            onTap: () {
-              Get.toNamed(Routes.search);
-            },
-            child: const Icon(Icons.search)),
+          onTap: () {
+            Get.toNamed(Routes.explore);
+          },
+          child: const Icon(Icons.search),
+        ),
         const SizedBox(width: SpaceDimens.spaceStandard),
-        InkWell(
-          onTap: (){Get.toNamed(Routes.notification);},
-          child: const Icon(Icons.notifications)),
-        const SizedBox(width: SpaceDimens.spaceStandard)
       ],
       expandedHeight: 60.0,
     );

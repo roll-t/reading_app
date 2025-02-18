@@ -38,6 +38,11 @@ class Themes {
         ),
         fillColor: WidgetStateProperty.all(AppColors.primary),
       ),
+      progressIndicatorTheme: ProgressIndicatorThemeData(
+        color: AppColors.accentColor, // Màu cho CircularProgressIndicator
+        circularTrackColor:
+            AppColors.accentColor.withOpacity(0.1), // Màu cho vòng tròn nền
+      ),
     );
   }
 

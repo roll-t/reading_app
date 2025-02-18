@@ -1,38 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:reading_app/core/configs/enum.dart';
 import 'package:reading_app/core/services/api/data/entities/dto/response/favorite_response.dart'; // Import FavoriteResponse
 import 'package:reading_app/core/services/api/data/entities/dto/response/reading_book_case_response.dart';
 import 'package:reading_app/core/services/api/data/entities/models/reading_book_case_model.dart';
-import 'package:reading_app/core/services/api/data/sources/locals/book_case_service.dart';
 import 'package:reading_app/core/services/api/domain/usecase/auths/auth_use_case.dart';
 import 'package:reading_app/core/storage/sql/data_helper.dart';
-import 'package:reading_app/features/dashboard/book_case/model/book_case_model.dart';
+import 'package:reading_app/features/dashboard/book_case/data/entities/book_case_model.dart';
+import 'package:reading_app/features/dashboard/book_case/domain/usecase/fetch_novels_bookcase_usecase.dart';
+import 'package:reading_app/features/dashboard/book_case/domain/usecase/fetch_novels_favorite_bookcase_usecase.dart';
+import 'package:reading_app/features/dashboard/book_case/domain/usecase/remove_novel_favorite_usecase.dart';
 
-class BookCaseController extends GetxController {
+class BookCaseController extends GetxController
+    with GetSingleTickerProviderStateMixin {
+  final FetchNovelsBookcaseUsecase _fetchNovelsBookcaseUsecase;
+  final FetchNovelsFavoriteBookcaseUsecase _fetchNovelsFavoriteBookcaseUsecase;
+  final RemoveNovelFavoriteUsecase _removeNovelFavoriteUsecase;
+
+  BookCaseController(
+    this._fetchNovelsBookcaseUsecase,
+    this._fetchNovelsFavoriteBookcaseUsecase,
+    this._removeNovelFavoriteUsecase,
+  );
+
+  late TabController tabController;
+
   RxString typeSelect = "Tiểu thuyết".obs;
   RxString filterType = "Mới nhất".obs;
+
   var isLoading = false.obs;
-  BookCaseService bookCaseData = Get.find();
-  List<ReadingBookCaseResponse> listReadingBookCase = [];
+
+  RxList<ReadingBookCaseResponse> novelsReadingBookcase =
+      <ReadingBookCaseResponse>[].obs;
+
   List<BookCaseModel> listBookData = [];
-  List<ReadingComicBookCaseModel> listBookComic = [];
-  List<FavoriteResponse> listFavoriteBooks = [];
+
+  RxList<ReadingComicBookCaseModel> comicsReadingBookcase =
+      <ReadingComicBookCaseModel>[].obs;
+
+  RxList<FavoriteResponse> novelsFavoriteBookcase = <FavoriteResponse>[].obs;
+
   final dbHelper = DatabaseHelper();
 
   dynamic userId;
 
-  List<PopupMenuItem<String>> selectedValue = [
-    const PopupMenuItem<String>(
-        value: 'Tiểu thuyết', child: Text('Tiểu thuyết')),
-    const PopupMenuItem<String>(
-        value: 'Truyện tranh', child: Text('Truyện tranh')),
-  ];
-
   @override
   onInit() async {
     super.onInit();
+    tabController = TabController(length: 2, vsync: this);
+    tabController.addListener(_handleChangeTab);
     await initial();
   }
 
@@ -43,15 +59,10 @@ class BookCaseController extends GetxController {
     userId = auth != null ? JwtDecoder.decode(auth)["uid"] : "";
 
     if (userId != null) {
-      // Fetch the favorite books and reading book cases
-      await Future.wait([
-        fetchFavoriteBooks(userId),
-        fetchReadingBookCases(userId),
-        fetchComicBookCases(userId)
-      ]);
+      await fetchReadingBookCases(userId);
     }
 
-    if (listReadingBookCase.isEmpty) {
+    if (novelsReadingBookcase.isEmpty) {
       handleChangeTypeRead("Truyện tranh");
     }
 
@@ -59,59 +70,54 @@ class BookCaseController extends GetxController {
     update(["LoadReadingBookCase"]);
   }
 
+  Future<void> _handleChangeTab() async {
+    fetchFavoriteBooks(userId);
+  }
+
   Future<void> fetchFavoriteBooks(String authID) async {
-    final result = await bookCaseData.fetchAllFavoriteBooks(userId: authID);
-    if (result.status == Status.success) {
-      listFavoriteBooks = result.data ?? [];
-    }
-    update(["LoadFavoriteBookCase"]);
+    novelsFavoriteBookcase.value =
+        await _fetchNovelsFavoriteBookcaseUsecase(uid: authID) ?? [];
   }
 
   Future<void> fetchReadingBookCases(String authID) async {
-    final result = await bookCaseData.fetchAllReadingBookCase(uid: authID);
-    if (result.status == Status.success) {
-      listReadingBookCase = result.data ?? [];
-    }
+    novelsReadingBookcase.value =
+        await _fetchNovelsBookcaseUsecase(uid: authID) ?? [];
   }
 
   Future<void> fetchComicBookCases(String authID) async {
-    listBookComic = await dbHelper.getReadingComicBookCasesByUid(authID);
+    comicsReadingBookcase.value =
+        await dbHelper.getReadingComicBookCasesByUid(authID);
   }
 
   void sortBooksByType(String type) {
-    listReadingBookCase.sort((a, b) {
-      DateTime dateA =
-          type == "updatedAt" ? a.bookData.updatedAt : a.readingDate;
-      DateTime dateB =
-          type == "updatedAt" ? b.bookData.updatedAt : b.readingDate;
-      return dateB.compareTo(dateA);
-    });
-    update(["reloadReadingBookCase"]);
-  }
-
-  Future<void> reloadListReadingBookCase() async {
-    isLoading.value = true;
-    await fetchReadingBookCases(userId);
-    isLoading.value = false;
-    update(["LoadReadingBookCase"]);
+    novelsReadingBookcase.sort(
+      (a, b) {
+        DateTime dateA =
+            type == "updatedAt" ? a.bookData.updatedAt : a.readingDate;
+        DateTime dateB =
+            type == "updatedAt" ? b.bookData.updatedAt : b.readingDate;
+        return dateB.compareTo(dateA);
+      },
+    );
   }
 
   Future<void> reloadListBookComic() async {
     isLoading.value = true;
-    listBookComic = await dbHelper.getReadingComicBookCasesByUid(userId);
+    comicsReadingBookcase.value =
+        await dbHelper.getReadingComicBookCasesByUid(userId);
     isLoading.value = false;
     update(["reloadReadingBookCase"]);
   }
 
   void handleChangeTypeRead(String value) {
     typeSelect.value = value;
-    update(["LoadReadingBookCase"]);
+    fetchComicBookCases(userId);
   }
 
   Future<void> handleDelete({required String readingBookCaseID}) async {
     try {
       // await BookCaseData.handleDeleReadingBookCase(bcId: readingBookCaseID);
-      listReadingBookCase.removeWhere(
+      novelsReadingBookcase.removeWhere(
           (item) => item.id == readingBookCaseID); // Remove item from list
       update(["reloadReadingBookCase"]);
     } catch (e) {
@@ -121,9 +127,9 @@ class BookCaseController extends GetxController {
 
   Future<void> handleDeleteFavorite({required String bookId}) async {
     try {
-      await bookCaseData.unlikeBook(bookDataId: bookId, userId: userId);
-      listFavoriteBooks.removeWhere((item) =>
-          item.bookData.bookDataId == bookId); // Remove item from list
+      await _removeNovelFavoriteUsecase(bookId: bookId, uid: userId);
+      novelsFavoriteBookcase
+          .removeWhere((item) => item.bookData.bookDataId == bookId);
       update(["reloadFavoriteBookCase"]);
     } catch (e) {
       print(e);
@@ -134,7 +140,7 @@ class BookCaseController extends GetxController {
       {required ReadingComicBookCaseModel bookModel}) async {
     try {
       await dbHelper.deleteReadingComicBookCase(bookModel);
-      listBookComic.remove(bookModel); // Remove item from list
+      comicsReadingBookcase.remove(bookModel);
       update(["reloadComicBookCase"]);
     } catch (e) {
       print(e);

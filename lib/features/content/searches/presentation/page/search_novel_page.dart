@@ -5,11 +5,11 @@ import 'package:reading_app/core/ui/widgets/card/card_novel_full_info.dart';
 import 'package:reading_app/core/ui/widgets/text/customs/text_medium_semi_bold.dart';
 import 'package:reading_app/core/ui/widgets/text/customs/text_small.dart';
 import 'package:reading_app/core/ui/widgets/textfield/custom_search_field.dart';
-import 'package:reading_app/features/content/searches/presentation/controller/search_controller.dart';
+import 'package:reading_app/features/content/searches/presentation/controller/search_novel_controller.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class FindNovelPage extends GetView<FindController> {
-  const FindNovelPage({super.key});
+class SearchNovelPage extends GetView<SearchNovelController> {
+  const SearchNovelPage({super.key});
 
   @override
   Widget build(BuildContext context) {

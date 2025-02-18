@@ -6,7 +6,7 @@ import 'package:reading_app/core/services/api/data/entities/models/category_mode
 import 'package:reading_app/core/services/api/data/entities/models/chapter_novel_model.dart';
 import 'package:reading_app/features/content/book_details/comics/comic_detail/presentation/controllers/comic_detail_controller.dart';
 import 'package:reading_app/features/content/book_details/layout_book_detail/data/entities/models/info_book_detail_model.dart';
-import 'package:reading_app/features/content/book_details/novels/presentation/controller/novel_detail_controller.dart';
+import 'package:reading_app/features/content/book_details/novel_detail/presentation/controller/novel_detail_controller.dart';
 
 class BookDetailArguments {
   final String? uid;

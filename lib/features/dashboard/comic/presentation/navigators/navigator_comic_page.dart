@@ -5,7 +5,7 @@ import 'package:reading_app/features/content/categories/comics/data/models/categ
 class NavigatorComicPage {
 
   static void toSearchPage(){
-    Get.toNamed(Routes.search);
+    Get.toNamed(Routes.explore);
   }
 
   // to category page function

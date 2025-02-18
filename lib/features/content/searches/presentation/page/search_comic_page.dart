@@ -6,11 +6,11 @@ import 'package:reading_app/core/ui/widgets/card/card_row_widget.dart';
 import 'package:reading_app/core/ui/widgets/text/customs/text_medium_semi_bold.dart';
 import 'package:reading_app/core/ui/widgets/text/customs/text_small.dart';
 import 'package:reading_app/core/ui/widgets/textfield/custom_search_field.dart';
-import 'package:reading_app/features/content/searches/presentation/controller/search_controller.dart';
+import 'package:reading_app/features/content/searches/presentation/controller/search_comic_controller.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class FindPage extends GetView<FindController> {
-  const FindPage({super.key});
+class SearchComicPage extends GetView<SearchComicController> {
+  const SearchComicPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,53 +29,63 @@ class FindPage extends GetView<FindController> {
         ),
       ),
       body: Padding(
-          padding: EdgeInsets.only(
-            left: 3.w,
-            right: 3.w,
-            top: 3.w,
-          ),
-          child: Obx(() {
-            return CustomScrollView(
-              slivers: [
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: SpaceDimens.space20),
-                    child: TextSmall(
-                      textChild: controller.listComicSearch.value.titlePage,
-                      colorChild: AppColors.gray2,
+        padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 3.w),
+        child: Obx(() {
+          final listComics = controller.listComicSearch?.value?.items ?? [];
+          final isLoading = controller.isLoading.value;
+
+          return CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: SpaceDimens.space20),
+                  child: TextSmall(
+                    textChild:
+                        controller.listComicSearch.value?.titlePage ?? "",
+                    colorChild: AppColors.gray2,
+                  ),
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: SpaceDimens.space20),
+                  child: TextMediumSemiBold(textChild: "Truyện"),
+                ),
+              ),
+              if (isLoading)
+                const SliverToBoxAdapter(
+                  child: Center(child: CircularProgressIndicator()),
+                )
+              else if (listComics.isEmpty)
+                const SliverToBoxAdapter(
+                  child: Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(20),
+                      child: TextMediumSemiBold(
+                          textChild: "Không tìm thấy truyện nào."),
                     ),
                   ),
-                ),
-                const SliverToBoxAdapter(
-                  child: Padding(
-                    padding: EdgeInsets.only(bottom: SpaceDimens.space20),
-                    child: TextMediumSemiBold(textChild: "Truyện"),
-                  ),
-                ),
+                )
+              else
                 SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
-                      if (index >=
-                          controller.listComicSearch.value.items.length) {
-                        return const Center(child: CircularProgressIndicator());
-                      }
+                      final isLastItem = index == listComics.length - 1;
+
                       return CardRowWidget(
                         heightImage: 15.h,
-                        bookModel:
-                            controller.listComicSearch.value.items[index],
+                        bookModel: listComics[index],
                         currentIndex: index,
-                        last: index ==
-                            controller.listComicSearch.value.items.length - 1,
+                        last: isLastItem,
                       );
                     },
-                    childCount: controller.isLoading.value
-                        ? controller.listComicSearch.value.items.length + 1
-                        : controller.listComicSearch.value.items.length,
+                    childCount: listComics.length,
                   ),
                 ),
-              ],
-            );
-          })),
+            ],
+          );
+        }),
+      ),
     );
   }
 }

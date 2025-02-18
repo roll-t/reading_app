@@ -11,6 +11,12 @@ class DatetimeUtil {
     return formattedDate;
   }
 
+  static String currentTime() {
+    final now = DateTime.now();
+    final formatter = DateFormat('yyyy-MM-dd');
+    return formatter.format(now);
+  }
+
   static String formatCustom(DateTime? dateTime) {
     if (dateTime != null) {
       DateFormat formatter = DateFormat('dd/MM/yyyy');
