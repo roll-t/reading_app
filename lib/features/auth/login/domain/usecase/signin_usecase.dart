@@ -13,7 +13,6 @@ class SigninUseCase {
   }) async {
     try {
       var result = await _repository.signin(email, password);
-      print(result);
       if (rememberUserLastSignin) {
         _rememberUserUsecase(result ?? UserModel(email: "None"));
       }

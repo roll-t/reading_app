@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
@@ -28,6 +30,7 @@ class DioConfig extends GetxService {
     _dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {
         final token = await _getAuthTokenUseCase();
+        log(token ?? "");
         if (token != null && token.isNotEmpty) {
           options.headers['Authorization'] = 'Bearer $token';
         } else {
@@ -38,6 +41,7 @@ class DioConfig extends GetxService {
       onError: (DioException error, handler) {
         final handledError = ErrorHandler.handleError(error);
         print("API Error: $handledError");
+
         handler.reject(error);
       },
     ));
