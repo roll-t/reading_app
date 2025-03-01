@@ -21,8 +21,13 @@ class LoginRepositoryImpl implements LoginRepository {
   final SetTokenUsecase _setTokenUsecase;
   final SetUserUsecase _setUserUsecase;
 
-  LoginRepositoryImpl(this._googleSignIn, this._authService, this._userService,
-      this._setTokenUsecase, this._setUserUsecase);
+  LoginRepositoryImpl(
+    this._googleSignIn,
+    this._authService,
+    this._userService,
+    this._setTokenUsecase,
+    this._setUserUsecase,
+  );
 
   @override
   Future<UserModel?> googleSignIn() async {
@@ -46,6 +51,7 @@ class LoginRepositoryImpl implements LoginRepository {
             response?.data?.email ?? "", response?.data?.password ?? "0123456");
       }
     }
+    print(userExists?.data?.toJson());
 
     // Nếu người dùng đã tồn tại
     if (userExists?.status == Status.success) {
