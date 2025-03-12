@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/assets/app_icons.dart';
+import 'package:reading_app/core/configs/assets/app_images.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/dimens/text_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
@@ -144,7 +144,9 @@ class HomePage extends GetView<HomeController> {
     return Obx(() {
       return SliverToBoxAdapter(
         // ignore: invalid_use_of_protected_member
-        child: BuildListTagCategory(listType: controller.listType,listCategory: controller.categories.value),
+        child: BuildListTagCategory(
+            listType: controller.listType,
+            listCategory: controller.categories.value),
       );
     });
   }
@@ -217,13 +219,13 @@ class HomePage extends GetView<HomeController> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             IconImage.iconImageSub(
-                iconUrl: AppIcons.iRank, sub: AppContents.rank),
+                iconUrl: AppImages.iRank, sub: AppContents.rank),
             IconImage.iconImageSub(
-                iconUrl: AppIcons.iGold, sub: AppContents.gold),
+                iconUrl: AppImages.iGold, sub: AppContents.gold),
             IconImage.iconImageSub(
-                iconUrl: AppIcons.iStarBadge, sub: AppContents.selection),
+                iconUrl: AppImages.iStarBadge, sub: AppContents.selection),
             IconImage.iconImageSub(
-                iconUrl: AppIcons.iFeatherPen, sub: AppContents.shortStory),
+                iconUrl: AppImages.iFeatherPen, sub: AppContents.shortStory),
           ],
         ),
       ),

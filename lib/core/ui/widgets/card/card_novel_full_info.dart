@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/assets/app_icons.dart';
+import 'package:reading_app/core/configs/assets/app_images.dart';
 import 'package:reading_app/core/configs/dimens/icons_dimens.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
@@ -82,7 +82,7 @@ class CardNovelFullInfo extends StatelessWidget {
                               width: 2,
                             ),
                             IconImage.iconImageNormal(
-                                iconUrl: AppIcons.iStar,
+                                iconUrl: AppImages.iStar,
                                 size: IconsDimens.iconsSize18)
                           ],
                         ),

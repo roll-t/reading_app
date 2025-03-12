@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:reading_app/core/configs/assets/app_icons.dart';
+import 'package:reading_app/core/configs/assets/app_images.dart';
 import 'package:reading_app/core/configs/dimens/icons_dimens.dart';
 import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
@@ -29,22 +29,22 @@ class TagCategory extends StatelessWidget {
     final Map<String, Map<String, dynamic>> tagStyles = {
       "truyen-moi": {
         'color': AppColors.tagNewUpdate,
-        'image': AppIcons.iFlash,
+        'image': AppImages.iFlash,
         'textColor': AppColors.black,
       },
       "sap-ra-mat": {
         'color': AppColors.tagJustPosted,
-        'image': AppIcons.iPeaceSign,
+        'image': AppImages.iPeaceSign,
         'textColor': AppColors.black,
       },
       "dang-phat-hanh": {
         'color': AppColors.tagTrending,
-        'image': AppIcons.iFire,
+        'image': AppImages.iFire,
         'textColor': AppColors.gray1,
       },
       "hoan-thanh": {
         'color': AppColors.tagTrending,
-        'image': AppIcons.iFire,
+        'image': AppImages.iFire,
         'textColor': AppColors.gray1,
       },
     };
