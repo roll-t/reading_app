@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:reading_app/core/configs/dimens/icons_dimens.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
-import 'package:reading_app/core/configs/dimens/text_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/services/api/data/entities/dto/response/commentReponse.dart';
@@ -35,7 +33,7 @@ class BuildWrapListComment extends StatelessWidget {
     this.bookTitle,
     this.novelId,
     required this.widthCard,
-    this.margin = const EdgeInsets.only(top: SpaceDimens.space20),
+    this.margin = const EdgeInsets.only(top: AppDimens.space20),
     this.toDetail,
     this.scrollDirection = Axis.horizontal,
     this.listComment = const [],
@@ -59,7 +57,7 @@ class BuildWrapListComment extends StatelessWidget {
 
   double _calculateHeight() {
     return titleList != null
-        ? heightWrapList + SpaceDimens.space10 + TextDimens.textLarge
+        ? heightWrapList + AppDimens.space10 + AppDimens.textLarge
         : heightWrapList;
   }
 
@@ -69,7 +67,7 @@ class BuildWrapListComment extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(
-              left: SpaceDimens.spaceStandard, bottom: SpaceDimens.space10),
+              left: AppDimens.spaceStandard, bottom: AppDimens.space10),
           child: TextMediumSemiBold(textChild: titleList!),
         ),
         if (toDetail != null) _buildDetailLink(),
@@ -80,7 +78,7 @@ class BuildWrapListComment extends StatelessWidget {
   Padding _buildDetailLink() {
     return Padding(
       padding: const EdgeInsets.only(
-          right: SpaceDimens.spaceStandard, bottom: SpaceDimens.space10),
+          right: AppDimens.spaceStandard, bottom: AppDimens.space10),
       child: InkWell(
         onTap: toDetail,
         child: Row(
@@ -91,7 +89,7 @@ class BuildWrapListComment extends StatelessWidget {
             ),
             Icon(
               Icons.arrow_forward_ios_rounded,
-              size: IconsDimens.iconsSize18,
+              size: AppDimens.iconSize18,
               color: AppColors.gray2,
             ),
           ],
@@ -104,7 +102,7 @@ class BuildWrapListComment extends StatelessWidget {
     return Expanded(
       child: Padding(
         padding:
-            const EdgeInsets.symmetric(horizontal: SpaceDimens.spaceStandard),
+            const EdgeInsets.symmetric(horizontal: AppDimens.spaceStandard),
         child: ListView.builder(
           scrollDirection: scrollDirection,
           itemCount: listComment.length,
@@ -141,7 +139,7 @@ class CommentBottomSheet extends StatelessWidget {
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
-            top: Radius.circular(SpaceDimens.spaceStandard)),
+            top: Radius.circular(AppDimens.spaceStandard)),
       ),
       builder: (context) => CommentBottomSheet(commentBottomSheetModel: model),
     );
@@ -152,7 +150,7 @@ class CommentBottomSheet extends StatelessWidget {
     return FractionallySizedBox(
       heightFactor: 0.9,
       child: Container(
-        padding: const EdgeInsets.all(SpaceDimens.spaceStandard),
+        padding: const EdgeInsets.all(AppDimens.spaceStandard),
         child: Stack(
           children: [
             Column(
@@ -176,7 +174,7 @@ class CommentBottomSheet extends StatelessWidget {
       child: Row(
         children: [
           CommentTextField(placeholder: "Nhập bình luận ...."),
-          SizedBox(width: SpaceDimens.space10),
+          SizedBox(width: AppDimens.space10),
           Icon(Icons.send),
         ],
       ),
@@ -185,7 +183,7 @@ class CommentBottomSheet extends StatelessWidget {
 
   Container _buildContentAuthComment() {
     return Container(
-      padding: const EdgeInsets.only(bottom: SpaceDimens.spaceStandard),
+      padding: const EdgeInsets.only(bottom: AppDimens.spaceStandard),
       decoration: const BoxDecoration(
         border: Border(bottom: BorderSide(color: AppColors.gray3, width: .5)),
       ),
@@ -199,7 +197,7 @@ class CommentBottomSheet extends StatelessWidget {
                 colorText: AppColors.white,
                 text: commentBottomSheetModel?.commentContent ?? ""),
           ),
-          const SizedBox(height: SpaceDimens.space15),
+          const SizedBox(height: AppDimens.space15),
           Row(
             children: [
               TextSmall(
@@ -207,7 +205,7 @@ class CommentBottomSheet extends StatelessWidget {
                     commentBottomSheetModel?.commentTime ?? DateTime.now()),
                 colorChild: AppColors.gray2,
               ),
-              const SizedBox(width: SpaceDimens.space20),
+              const SizedBox(width: AppDimens.space20),
             ],
           ),
         ],
@@ -228,10 +226,10 @@ class CommentBottomSheet extends StatelessWidget {
         ),
         Icon(
           Icons.arrow_forward_ios_rounded,
-          size: IconsDimens.iconsSize20,
+          size: AppDimens.iconSize20,
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: SpaceDimens.space10),
+          padding: const EdgeInsets.symmetric(horizontal: AppDimens.space10),
           child:
               TextNormal(textChild: commentBottomSheetModel?.chapterName ?? ""),
         ),
@@ -248,7 +246,7 @@ class CommentBottomSheet extends StatelessWidget {
     return Row(
       children: [
         Avatar(radius: 40, url: commentBottomSheetModel?.photoUrl),
-        const SizedBox(width: SpaceDimens.space10),
+        const SizedBox(width: AppDimens.space10),
         TextNormal(
           textChild:
               commentBottomSheetModel?.userModel?.displayName ?? "Đọc giả",

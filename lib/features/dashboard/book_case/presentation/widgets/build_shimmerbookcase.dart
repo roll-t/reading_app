@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shimmer/shimmer.dart';
@@ -14,9 +14,9 @@ class BuildShimmerBookcase extends StatelessWidget {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       padding: EdgeInsets.only(
-          top: 0, bottom: SpaceDimens.space60, left: 3.w, right: 3.w),
+          top: 0, bottom: AppDimens.space60, left: 3.w, right: 3.w),
       separatorBuilder: (context, index) =>
-          const SizedBox(height: SpaceDimens.space10),
+          const SizedBox(height: AppDimens.space10),
       itemBuilder: (context, index) {
         return Row(
           crossAxisAlignment: CrossAxisAlignment.start,

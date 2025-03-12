@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/text/customs/text_medium_semi_bold.dart';
@@ -62,8 +62,8 @@ class BookCasePage extends GetView<BookCaseController> {
     return SliverToBoxAdapter(
       child: Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: SpaceDimens.spaceStandard,
-          vertical: SpaceDimens.space20,
+          horizontal: AppDimens.spaceStandard,
+          vertical: AppDimens.space20,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -88,7 +88,7 @@ class BookCasePage extends GetView<BookCaseController> {
                   ),
                 ],
                 child: Container(
-                  padding: const EdgeInsets.only(bottom: SpaceDimens.space5),
+                  padding: const EdgeInsets.only(bottom: AppDimens.space5),
                   decoration: const BoxDecoration(
                     border: Border(
                       bottom: BorderSide(
@@ -100,7 +100,7 @@ class BookCasePage extends GetView<BookCaseController> {
                   child: Row(
                     children: [
                       TextNormal(textChild: controller.typeSelect.value),
-                      const SizedBox(width: SpaceDimens.space15),
+                      const SizedBox(width: AppDimens.space15),
                       const Icon(Icons.arrow_drop_down, color: AppColors.white),
                     ],
                   ),
@@ -119,7 +119,7 @@ class BookCasePage extends GetView<BookCaseController> {
                 controller.filterType.value = newFilterType;
               },
               child: Container(
-                padding: const EdgeInsets.only(bottom: SpaceDimens.space5),
+                padding: const EdgeInsets.only(bottom: AppDimens.space5),
                 decoration: const BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
@@ -131,7 +131,7 @@ class BookCasePage extends GetView<BookCaseController> {
                 child: Row(
                   children: [
                     const Icon(Icons.filter_alt_rounded),
-                    const SizedBox(width: SpaceDimens.space10),
+                    const SizedBox(width: AppDimens.space10),
                     Obx(
                       () => TextNormal(textChild: controller.filterType.value),
                     ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
-import 'package:reading_app/core/configs/dimens/text_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/ui/widgets/button/button_widget.dart';
 import 'package:reading_app/core/ui/widgets/card/card_row_widget.dart';
@@ -66,7 +65,7 @@ class CommicPage extends GetView<ComicController> {
       snap: true,
       title: TextWidget(
         text: TextFormat.capitalizeEachWord(AppContents.commic),
-        size: TextDimens.textSize18,
+        size: AppDimens.textSize18,
         fontWeight: FontWeight.w500,
       ),
       actions: [
@@ -75,7 +74,7 @@ class CommicPage extends GetView<ComicController> {
               NavigatorComicPage.toSearchPage();
             },
             child: const Icon(Icons.search)),
-        const SizedBox(width: SpaceDimens.spaceStandard),
+        const SizedBox(width: AppDimens.spaceStandard),
       ],
       expandedHeight: 60.0,
     );
@@ -208,7 +207,7 @@ class CommicPage extends GetView<ComicController> {
                             },
                             rounder: true,
                             padding: const EdgeInsets.symmetric(
-                                vertical: SpaceDimens.space10),
+                                vertical: AppDimens.space10),
                           ),
                         ],
                       ),

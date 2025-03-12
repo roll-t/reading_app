@@ -1,7 +1,7 @@
 
 import 'dart:ui';
 
-import 'package:reading_app/core/configs/dimens/text_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 
 class TextLargeBold extends TextWidget {
@@ -16,6 +16,6 @@ class TextLargeBold extends TextWidget {
           text: textChild,
           color: colorChild,
           fontWeight: FontWeight.w700,
-          size: TextDimens.textLarge
+          size: AppDimens.textLarge
         );
 }

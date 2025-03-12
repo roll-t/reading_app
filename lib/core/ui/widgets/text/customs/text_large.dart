@@ -2,7 +2,7 @@
 
 import 'dart:ui';
 
-import 'package:reading_app/core/configs/dimens/text_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 
 class TextLarge extends TextWidget {
@@ -17,6 +17,6 @@ class TextLarge extends TextWidget {
   : super(
           text: textChild,
           color: colorChild,
-          size: TextDimens.textLarge
+          size: AppDimens.textLarge
         );
 }

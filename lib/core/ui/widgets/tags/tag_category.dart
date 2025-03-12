@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/assets/app_images.dart';
-import 'package:reading_app/core/configs/dimens/icons_dimens.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/text/customs/text_small.dart';
 
@@ -60,7 +59,7 @@ class TagCategory extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(
-            vertical: SpaceDimens.space5, horizontal: SpaceDimens.space10),
+            vertical: AppDimens.space5, horizontal: AppDimens.space10),
         decoration: BoxDecoration(
             color: tagStyle['color'], borderRadius: BorderRadius.circular(5)),
         child: FittedBox(
@@ -69,11 +68,11 @@ class TagCategory extends StatelessWidget {
               tagStyle['image'] != null
                   ? Image.asset(
                       tagStyle['image']!,
-                      width: IconsDimens.iconsSize18,
-                      height: IconsDimens.iconsSize18,
+                      width: AppDimens.iconSize18,
+                      height: AppDimens.iconSize18,
                     )
                   : const SizedBox(),
-              const SizedBox(width: SpaceDimens.space5),
+              const SizedBox(width: AppDimens.space5),
               TextSmall(
                 textChild: displayCategory,
                 colorChild: tagStyle['textColor'],

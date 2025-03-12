@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/dimens/icons_dimens.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/services/api/data/entities/models/category_model.dart';
@@ -25,9 +24,9 @@ class BuildCategoryFilterNovel extends GetView<ExploreNovelTypeController> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
-        left: SpaceDimens.space30,
-        top: SpaceDimens.space20,
-        bottom: SpaceDimens.space30,
+        left: AppDimens.space30,
+        top: AppDimens.space20,
+        bottom: AppDimens.space30,
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -48,8 +47,7 @@ class BuildCategoryFilterNovel extends GetView<ExploreNovelTypeController> {
                     builder: (BuildContext context) {
                       return Container(
                         width: Get.width,
-                        padding:
-                            const EdgeInsets.all(SpaceDimens.spaceStandard),
+                        padding: const EdgeInsets.all(AppDimens.spaceStandard),
                         height: Get.height * 0.5,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,13 +56,13 @@ class BuildCategoryFilterNovel extends GetView<ExploreNovelTypeController> {
                             const TextLargeSemiBold(
                                 textChild: AppContents.selectCategory),
                             const SizedBox(
-                              height: SpaceDimens.space20,
+                              height: AppDimens.space20,
                             ),
                             Expanded(
                               child: SingleChildScrollView(
                                 child: Wrap(
-                                  spacing: SpaceDimens.space10,
-                                  runSpacing: SpaceDimens.space10,
+                                  spacing: AppDimens.space10,
+                                  runSpacing: AppDimens.space10,
                                   children:
                                       List.generate(categories.length, (index) {
                                     return Obx(
@@ -93,8 +91,8 @@ class BuildCategoryFilterNovel extends GetView<ExploreNovelTypeController> {
                                                   BorderRadius.circular(100),
                                             ),
                                             padding: const EdgeInsets.symmetric(
-                                              horizontal: SpaceDimens.space15,
-                                              vertical: SpaceDimens.space5,
+                                              horizontal: AppDimens.space15,
+                                              vertical: AppDimens.space5,
                                             ),
                                             child: Center(
                                               child: TextNormal(
@@ -112,7 +110,7 @@ class BuildCategoryFilterNovel extends GetView<ExploreNovelTypeController> {
                             ),
                             ButtonWidget(
                               padding: const EdgeInsets.symmetric(
-                                vertical: SpaceDimens.space10,
+                                vertical: AppDimens.space10,
                               ),
                               rounder: true,
                               background: AppColors.accentColor,
@@ -137,10 +135,10 @@ class BuildCategoryFilterNovel extends GetView<ExploreNovelTypeController> {
                 },
                 icon: Icon(
                   Icons.filter_alt_rounded,
-                  size: IconsDimens.iconsSize18,
+                  size: AppDimens.iconSize18,
                 )),
           ),
-          const SizedBox(width: SpaceDimens.space30),
+          const SizedBox(width: AppDimens.space30),
           Expanded(
             child: SizedBox(
               height: 35,
@@ -158,8 +156,7 @@ class BuildCategoryFilterNovel extends GetView<ExploreNovelTypeController> {
                     },
                     child: Obx(
                       () => Container(
-                        margin:
-                            const EdgeInsets.only(right: SpaceDimens.space10),
+                        margin: const EdgeInsets.only(right: AppDimens.space10),
                         decoration: BoxDecoration(
                           // ignore: unrelated_type_equality_checks
                           color: currentIndex == index
@@ -172,8 +169,8 @@ class BuildCategoryFilterNovel extends GetView<ExploreNovelTypeController> {
                           borderRadius: BorderRadius.circular(100),
                         ),
                         padding: const EdgeInsets.symmetric(
-                          horizontal: SpaceDimens.space15,
-                          vertical: SpaceDimens.space5,
+                          horizontal: AppDimens.space15,
+                          vertical: AppDimens.space5,
                         ),
                         child: Center(
                           child: TextNormal(

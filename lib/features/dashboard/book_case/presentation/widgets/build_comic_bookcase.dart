@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/services/api/data/entities/models/reading_book_case_model.dart';
 import 'package:reading_app/core/ui/widgets/card/card_comic_book_case.dart';
@@ -48,9 +48,9 @@ class BuildComicBookCase extends StatelessWidget {
       itemCount: listBook.length,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      padding: const EdgeInsets.only(top: 0, bottom: SpaceDimens.space60),
+      padding: const EdgeInsets.only(top: 0, bottom: AppDimens.space60),
       separatorBuilder: (context, index) =>
-          const SizedBox(height: SpaceDimens.space10),
+          const SizedBox(height: AppDimens.space10),
       itemBuilder: (context, index) {
         return CardComicBookCase(
           type: AppContents.comic,

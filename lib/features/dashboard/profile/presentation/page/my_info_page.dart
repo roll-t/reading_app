@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/assets/app_images.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/avatar/avatar.dart';
@@ -37,7 +37,7 @@ class MyInfoPage extends GetView<MyInfoController> {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(
-                  horizontal: SpaceDimens.spaceStandard),
+                  horizontal: AppDimens.spaceStandard),
               child: Column(
                 children: [
                   Obx(() {
@@ -222,8 +222,7 @@ class MyInfoPage extends GetView<MyInfoController> {
     return InkWell(
       onTap: event,
       child: Container(
-        padding:
-            const EdgeInsets.symmetric(vertical: SpaceDimens.spaceStandard),
+        padding: const EdgeInsets.symmetric(vertical: AppDimens.spaceStandard),
         decoration: const BoxDecoration(
           border: Border(
             bottom: BorderSide(color: AppColors.gray3, width: 1),
@@ -244,7 +243,7 @@ class MyInfoPage extends GetView<MyInfoController> {
                         textChild: info,
                         colorChild: AppColors.gray2,
                       ),
-                const SizedBox(width: SpaceDimens.space10),
+                const SizedBox(width: AppDimens.space10),
                 isEdit
                     ? const Icon(
                         Icons.arrow_forward_ios_rounded,

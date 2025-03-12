@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/services/api/data/entities/dto/response/novel_response.dart';
@@ -11,7 +11,7 @@ class CarouselUtils {
   static Widget buildCarousel(
       {required RxInt indexValue, required List<NovelResponse> listBook}) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: SpaceDimens.space10),
+      padding: const EdgeInsets.symmetric(vertical: AppDimens.space10),
       child: CarouselSlider.builder(
         itemCount: listBook.length,
         itemBuilder: (context, index, realIndex) {

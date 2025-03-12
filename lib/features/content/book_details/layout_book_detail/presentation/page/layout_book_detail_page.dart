@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/routes/routes.dart';
@@ -89,7 +89,7 @@ class LayoutBookDetailPage extends GetView<LayoutBookDetailController> {
   SliverToBoxAdapter _buildSpacing() {
     return const SliverToBoxAdapter(
       child: SizedBox(
-        height: SpaceDimens.space10,
+        height: AppDimens.space10,
       ),
     );
   }
@@ -143,14 +143,14 @@ class LayoutBookDetailPage extends GetView<LayoutBookDetailController> {
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.symmetric(
-                  horizontal: SpaceDimens.spaceStandard),
+                  horizontal: AppDimens.spaceStandard),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: SpaceDimens.space20),
+                  const SizedBox(height: AppDimens.space20),
                   _buildCategoryTags(),
                   const TextMediumSemiBold(textChild: AppContents.description),
-                  const SizedBox(height: SpaceDimens.space10),
+                  const SizedBox(height: AppDimens.space10),
                   ExpandableText(
                       text: layoutBookDetailModel
                               .infoBookDetailModel.description ??
@@ -187,15 +187,15 @@ class LayoutBookDetailPage extends GetView<LayoutBookDetailController> {
         const TextMediumSemiBold(textChild: AppContents.type),
         Container(
           padding: const EdgeInsets.only(
-              bottom: SpaceDimens.space10, top: SpaceDimens.space10),
-          margin: const EdgeInsets.only(bottom: SpaceDimens.space30),
+              bottom: AppDimens.space10, top: AppDimens.space10),
+          margin: const EdgeInsets.only(bottom: AppDimens.space30),
           width: 100.w,
           decoration: const BoxDecoration(
               border: Border(
                   bottom: BorderSide(color: AppColors.gray3, width: .5))),
           child: Wrap(
-            spacing: SpaceDimens.space10,
-            runSpacing: SpaceDimens.space10,
+            spacing: AppDimens.space10,
+            runSpacing: AppDimens.space10,
             children: [
               ...?layoutBookDetailModel.categories
                   ?.map((value) => _buildCategoryTag(value, Routes.category)),
@@ -234,8 +234,8 @@ class LayoutBookDetailPage extends GetView<LayoutBookDetailController> {
   Widget _buildChapterTab() {
     return Container(
       padding: const EdgeInsets.symmetric(
-        horizontal: SpaceDimens.spaceStandard,
-        vertical: SpaceDimens.space15,
+        horizontal: AppDimens.spaceStandard,
+        vertical: AppDimens.space15,
       ),
       child: Column(
         children: [
@@ -280,9 +280,9 @@ class LayoutBookDetailPage extends GetView<LayoutBookDetailController> {
   Widget _buildSortRow() {
     return Container(
       padding: const EdgeInsets.only(
-        top: SpaceDimens.space25,
-        left: SpaceDimens.spaceStandard,
-        right: SpaceDimens.spaceStandard,
+        top: AppDimens.space25,
+        left: AppDimens.spaceStandard,
+        right: AppDimens.spaceStandard,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

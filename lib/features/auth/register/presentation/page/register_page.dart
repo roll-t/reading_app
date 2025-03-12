@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/dimens/text_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/button/button_widget.dart';
@@ -78,7 +78,7 @@ class RegisterPage extends GetView<RegisterController> {
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
             child: TextWidget(
                 fontWeight: FontWeight.w500,
-                size: TextDimens.textSize18,
+                size: AppDimens.textSize18,
                 text: AppContents.signUp),
           ),
         ],

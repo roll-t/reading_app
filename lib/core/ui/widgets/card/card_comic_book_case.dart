@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/services/api/data/entities/models/reading_book_case_model.dart';
@@ -37,7 +37,7 @@ class CardComicBookCase extends GetView<BookCaseController> {
       child: Container(
         height: heightCard,
         margin: EdgeInsets.symmetric(
-            horizontal: 3.w, vertical: SpaceDimens.space10),
+            horizontal: 3.w, vertical: AppDimens.space10),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
             color: AppColors.secondaryDarkBg),
@@ -66,7 +66,7 @@ class CardComicBookCase extends GetView<BookCaseController> {
                       colorChild: AppColors.success,
                     ),
                     const SizedBox(
-                      height: SpaceDimens.space5,
+                      height: AppDimens.space5,
                     ),
                     TextNormal(
                       textChild: bookModel.comicName,
@@ -75,8 +75,8 @@ class CardComicBookCase extends GetView<BookCaseController> {
                     const Spacer(),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: SpaceDimens.space10,
-                          vertical: SpaceDimens.space5),
+                          horizontal: AppDimens.space10,
+                          vertical: AppDimens.space5),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(1000),
                           color: AppColors.accentColor.withOpacity(.4)),
@@ -85,14 +85,14 @@ class CardComicBookCase extends GetView<BookCaseController> {
                       ),
                     ),
                     const SizedBox(
-                      width: SpaceDimens.space10,
+                      width: AppDimens.space10,
                     ),
                   ],
                 ),
               ),
             ),
             const SizedBox(
-              width: SpaceDimens.space10,
+              width: AppDimens.space10,
             ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: .5.h, horizontal: 1.h),

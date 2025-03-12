@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shimmer/shimmer.dart';
@@ -17,10 +17,10 @@ class SimularCardRowWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: heightImage + SpaceDimens.space25,
+      height: heightImage + AppDimens.space25,
       width: double.infinity,
-      margin: const EdgeInsets.only(top: SpaceDimens.space15),
-      padding: const EdgeInsets.only(bottom: SpaceDimens.space15),
+      margin: const EdgeInsets.only(top: AppDimens.space15),
+      padding: const EdgeInsets.only(bottom: AppDimens.space15),
       decoration: BoxDecoration(
         border: !last
             ? const Border(
@@ -30,7 +30,7 @@ class SimularCardRowWidget extends StatelessWidget {
       child: Row(
         children: [
           _buildShimmerBox(width: heightImage, height: heightImage),
-          const SizedBox(width: SpaceDimens.space15),
+          const SizedBox(width: AppDimens.space15),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

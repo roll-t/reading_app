@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:reading_app/core/configs/dimens/text_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 
 class TextNormal extends TextWidget {
@@ -17,7 +17,7 @@ class TextNormal extends TextWidget {
   : super(
           text: textChild,
           color: colorChild,
-          size:TextDimens.textNormal,
+          size:AppDimens.textNormal,
           maxLines: maxLinesChild
         );
 }

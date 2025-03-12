@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/dimens/radius_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
@@ -8,7 +8,7 @@ import 'package:reading_app/features/main/presentation/controller/main_controlle
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class CustomNavbar extends GetView<MainController> {
-  final double radiusFull = RadiusDimens.radiusFull;
+  final double radiusFull = AppDimens.radiusFull;
   final Color primaryColor = AppColors.primary;
   final Color whiteColor = Colors.white;
   const CustomNavbar({super.key});
@@ -37,7 +37,9 @@ class CustomNavbar extends GetView<MainController> {
                 borderRadius: BorderRadius.circular(radiusFull),
                 boxShadow: [
                   BoxShadow(
-                      color: AppColors.gray3.withOpacity(.1), blurRadius: 2),
+                    color: AppColors.gray3.withOpacity(.1),
+                    blurRadius: 2,
+                  ),
                 ],
               ),
               child: Row(
@@ -85,7 +87,7 @@ class CustomNavbar extends GetView<MainController> {
       duration: const Duration(milliseconds: 400),
       decoration: BoxDecoration(
         color: isActive ? AppColors.white : Colors.transparent,
-        borderRadius: BorderRadius.circular(RadiusDimens.radiusFull),
+        borderRadius: BorderRadius.circular(AppDimens.radiusFull),
       ),
       child: InkWell(
         onTap: () {

@@ -1,8 +1,8 @@
 import 'package:custom_check_box/custom_check_box.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/assets/app_images.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/button/button_widget.dart';
@@ -59,7 +59,7 @@ class LoginPage extends GetView<LoginController> {
                         },
                         value: controller.isCheckRememberLastLogin.value,
                         borderColor: AppColors.gray3,
-                        checkBoxSize: SpaceDimens.space25,
+                        checkBoxSize: AppDimens.space25,
                         checkedFillColor: AppColors.accentColor,
                       )),
                   TextWidget(
@@ -108,11 +108,11 @@ class LoginPage extends GetView<LoginController> {
           ],
         ),
         const SizedBox(
-          height: SpaceDimens.space10,
+          height: AppDimens.space10,
         ),
         const TextNormal(textChild: AppContents.or),
         const SizedBox(
-          height: SpaceDimens.space10,
+          height: AppDimens.space10,
         ),
         ElevatedButtonWidget(
           icon: AppImages.iGoogle,

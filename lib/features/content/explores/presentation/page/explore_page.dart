@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/dimens/radius_dimens.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/routes/routes.dart';
@@ -51,10 +50,11 @@ class SearchBookPage extends GetView<ExploreController> {
           }
         },
         child: Container(
-          padding: const EdgeInsets.only(left: SpaceDimens.space20),
+          padding: const EdgeInsets.only(left: AppDimens.space20),
+
           decoration: BoxDecoration(
               color: AppColors.tertiaryDarkBg,
-              borderRadius: BorderRadius.circular(RadiusDimens.radiusFull)),
+              borderRadius: BorderRadius.circular(AppDimens.radiusFull)),
           height: 6.5.h,
           width: 80.w,
           child: const Column(

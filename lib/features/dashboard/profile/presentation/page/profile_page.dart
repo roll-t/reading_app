@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/routes/routes.dart';
@@ -29,7 +29,7 @@ class ProfilePage extends GetView<ProfileController> {
     return Loading(
         isLoading: controller.isLoading,
         bodyBuilder: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: SpaceDimens.space30),
+          padding: const EdgeInsets.symmetric(horizontal: AppDimens.space30),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -51,8 +51,8 @@ class ProfilePage extends GetView<ProfileController> {
         bodyBuilder: GetBuilder<ProfileController>(
           id: "bodyId",
           builder: (_) => Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: SpaceDimens.spaceStandard),
+            padding:
+                const EdgeInsets.symmetric(horizontal: AppDimens.spaceStandard),
             child: CustomScrollView(
               slivers: [
                 _buildSpacer(),
@@ -83,7 +83,7 @@ class ProfilePage extends GetView<ProfileController> {
               radius: 70,
               url: controller.userModel.value.photoURL,
             ),
-            const SizedBox(width: SpaceDimens.spaceStandard),
+            const SizedBox(width: AppDimens.spaceStandard),
             _buildProfileInfo(),
             const Icon(Icons.arrow_forward_ios_rounded, color: AppColors.gray2),
           ],
@@ -148,15 +148,14 @@ class ProfilePage extends GetView<ProfileController> {
         Get.toNamed(Routes.notification);
       },
       child: Container(
-        padding:
-            const EdgeInsets.symmetric(vertical: SpaceDimens.spaceStandard),
+        padding: const EdgeInsets.symmetric(vertical: AppDimens.spaceStandard),
         decoration: const BoxDecoration(
           border: Border(bottom: BorderSide(color: AppColors.gray3, width: 1)),
         ),
         child: Row(
           children: [
             Icon(icon),
-            const SizedBox(width: SpaceDimens.space20),
+            const SizedBox(width: AppDimens.space20),
             Expanded(child: TextNormal(textChild: title)),
             const Icon(Icons.arrow_forward_ios_rounded, color: AppColors.gray2),
           ],
@@ -173,14 +172,14 @@ class ProfilePage extends GetView<ProfileController> {
           await controller.logout();
         },
         rounder: true,
-        padding: const EdgeInsets.symmetric(vertical: SpaceDimens.space10),
+        padding: const EdgeInsets.symmetric(vertical: AppDimens.space10),
       ),
     );
   }
 
   Widget _buildSpacer() {
     return const SliverToBoxAdapter(
-      child: SizedBox(height: SpaceDimens.space20),
+      child: SizedBox(height: AppDimens.space20),
     );
   }
 }

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:reading_app/core/configs/dimens/radius_dimens.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/enum.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
@@ -77,8 +76,8 @@ class BuildBottomNavBookDetail extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: SpaceDimens.space5,
-        horizontal: SpaceDimens.spaceStandard,
+        vertical: AppDimens.space5,
+        horizontal: AppDimens.spaceStandard,
       ),
       child: Row(
         mainAxisAlignment: novelId != null
@@ -87,14 +86,14 @@ class BuildBottomNavBookDetail extends StatelessWidget {
         children: [
           novelId != null
               ? Wrap(
-                  spacing: SpaceDimens.space10,
+                  spacing: AppDimens.space10,
                   children: [
                     Container(
-                      padding: const EdgeInsets.all(SpaceDimens.space5),
+                      padding: const EdgeInsets.all(AppDimens.space5),
                       decoration: BoxDecoration(
                         border: Border.all(width: 1, color: AppColors.gray3),
                         borderRadius:
-                            BorderRadius.circular(RadiusDimens.radiusFull),
+                            BorderRadius.circular(AppDimens.radiusFull),
                       ),
                       child: FutureBuilder<bool>(
                         future: checkIfBookLiked(bookCaseData),
@@ -198,9 +197,9 @@ class BuildBottomNavBookDetail extends StatelessWidget {
               child: Container(
                 margin: EdgeInsets.only(left: novelId != null ? 5.w : 0),
                 padding:
-                    const EdgeInsets.symmetric(horizontal: SpaceDimens.space30),
+                    const EdgeInsets.symmetric(horizontal: AppDimens.space30),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(RadiusDimens.radiusFull),
+                  borderRadius: BorderRadius.circular(AppDimens.radiusFull),
                   color: AppColors.accentColor,
                 ),
                 height: 50,

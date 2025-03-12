@@ -1,9 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/assets/app_images.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
-import 'package:reading_app/core/configs/dimens/text_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/icons/leading_icon_app_bar.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
@@ -33,7 +32,7 @@ class BuildSliverAppBarBookDetail extends StatelessWidget {
             Positioned(
               left: 0,
               right: 0,
-              bottom: Get.width * .1 + SpaceDimens.space20,
+              bottom: Get.width * .1 + AppDimens.space20,
               child: CachedNetworkImage(
                 imageUrl: infoBookDetailModel.thumbImage,
                 fit: BoxFit.fitHeight,
@@ -57,9 +56,9 @@ class BuildSliverAppBarBookDetail extends StatelessWidget {
               ),
             ),
             Positioned(
-                left: SpaceDimens.spaceStandard,
-                right: SpaceDimens.spaceStandard,
-                bottom: SpaceDimens.space20,
+                left: AppDimens.spaceStandard,
+                right: AppDimens.spaceStandard,
+                bottom: AppDimens.space20,
                 child: BuildTagReact(
                   title: infoBookDetailModel.bookTitle,
                   countChapters: infoBookDetailModel.countChapter,
@@ -75,7 +74,7 @@ class BuildSliverAppBarBookDetail extends StatelessWidget {
           opacity: opacityAppBarTitle.value,
           child: TextWidget(
             text: TextFormat.capitalizeEachWord(infoBookDetailModel.bookTitle),
-            size: TextDimens.textMedium,
+            size: AppDimens.textMedium,
             fontWeight: FontWeight.w500,
           ))),
     );

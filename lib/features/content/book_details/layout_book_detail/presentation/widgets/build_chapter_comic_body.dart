@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/routes/routes.dart';
@@ -59,7 +59,7 @@ class BuildChapterComicBody extends StatelessWidget {
                     maxLinesChild: 1,
                   )),
                   const SizedBox(
-                    width: SpaceDimens.space10,
+                    width: AppDimens.space10,
                   ),
                   const TextSmallLight(
                     textChild: "11/02/2024",

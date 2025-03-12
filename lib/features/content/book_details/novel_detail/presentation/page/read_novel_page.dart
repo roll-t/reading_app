@@ -1,11 +1,10 @@
+// import 'package:dropdown_search/dropdown_search.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/assets/app_images.dart';
 import 'package:reading_app/core/configs/const/app_constants.dart';
-import 'package:reading_app/core/configs/dimens/icons_dimens.dart';
-import 'package:reading_app/core/configs/dimens/radius_dimens.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/services/api/data/entities/models/chapter_novel_model.dart';
@@ -224,8 +223,7 @@ class ReadNovelPage extends GetView<ReadNovelController> {
                     width: 1,
                     color: AppColors.white.withOpacity(.4),
                   ),
-                  borderRadius:
-                      BorderRadius.circular(RadiusDimens.radiusSmall2),
+                  borderRadius: BorderRadius.circular(AppDimens.radiusSmall2),
                   color: AppColors.gray3.withOpacity(.9),
                 ),
                 child: Column(
@@ -279,7 +277,7 @@ class ReadNovelPage extends GetView<ReadNovelController> {
 
   CustomBottomSheetWidget _buildBottomSheet(BuildContext context) {
     return CustomBottomSheetWidget(
-      paddingContent: const EdgeInsets.all(SpaceDimens.space20),
+      paddingContent: const EdgeInsets.all(AppDimens.space20),
       heightSheet: 65.h,
       context,
       viewItems: [
@@ -295,14 +293,14 @@ class ReadNovelPage extends GetView<ReadNovelController> {
           ],
         ),
         const SizedBox(
-          height: SpaceDimens.space10,
+          height: AppDimens.space10,
         ),
         Container(
           width: Get.width,
-          padding: const EdgeInsets.all(SpaceDimens.spaceStandard),
+          padding: const EdgeInsets.all(AppDimens.spaceStandard),
           decoration: BoxDecoration(
             color: AppColors.tertiaryDarkBg,
-            borderRadius: BorderRadius.circular(RadiusDimens.radiusSmall2),
+            borderRadius: BorderRadius.circular(AppDimens.radiusSmall2),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -329,10 +327,10 @@ class ReadNovelPage extends GetView<ReadNovelController> {
         ),
         Container(
           width: Get.width,
-          padding: const EdgeInsets.all(SpaceDimens.spaceStandard),
+          padding: const EdgeInsets.all(AppDimens.spaceStandard),
           decoration: BoxDecoration(
             color: AppColors.tertiaryDarkBg,
-            borderRadius: BorderRadius.circular(RadiusDimens.radiusSmall2),
+            borderRadius: BorderRadius.circular(AppDimens.radiusSmall2),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -350,10 +348,10 @@ class ReadNovelPage extends GetView<ReadNovelController> {
         ),
         Container(
           width: 100.w,
-          padding: const EdgeInsets.all(SpaceDimens.spaceStandard),
+          padding: const EdgeInsets.all(AppDimens.spaceStandard),
           decoration: BoxDecoration(
             color: AppColors.tertiaryDarkBg,
-            borderRadius: BorderRadius.circular(RadiusDimens.radiusSmall2),
+            borderRadius: BorderRadius.circular(AppDimens.radiusSmall2),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -400,7 +398,7 @@ class ReadNovelPage extends GetView<ReadNovelController> {
       height: 70,
       decoration: BoxDecoration(
         color: backgroundColor,
-        borderRadius: BorderRadius.circular(RadiusDimens.radiusSmall2),
+        borderRadius: BorderRadius.circular(AppDimens.radiusSmall2),
         border: Border.all(
             color: selected ? AppColors.accentColor : AppColors.secondaryDarkBg,
             width: selected ? 3 : 0),
@@ -533,7 +531,7 @@ class ReadNovelPage extends GetView<ReadNovelController> {
               },
               icon: Icon(
                 Icons.arrow_back_ios_new_rounded,
-                size: IconsDimens.iconsSize18,
+                size: AppDimens.iconSize18,
               ),
             ),
           ),
@@ -700,7 +698,7 @@ class ReadNovelPage extends GetView<ReadNovelController> {
 //                       },
 //                       icon: Icon(
 //                         Icons.arrow_back_ios_new_rounded,
-//                         size: IconsDimens.iconsSize18,
+//                         size: AppDimens.iconsSize18,
 //                       ),
 //                     ),
 //                   ),
@@ -729,7 +727,7 @@ class ReadNovelPage extends GetView<ReadNovelController> {
 //                             color: AppColors.white.withOpacity(.4),
 //                           ),
 //                           borderRadius:
-//                               BorderRadius.circular(RadiusDimens.radiusSmall2),
+//                               BorderRadius.circular(AppDimens.radiusSmall2),
 //                           color: AppColors.gray3.withOpacity(.9),
 //                         ),
 //                         child: Column(
@@ -828,7 +826,7 @@ class ReadNovelPage extends GetView<ReadNovelController> {
 //       height: 70,
 //       decoration: BoxDecoration(
 //           color: backgroundColor,
-//           borderRadius: BorderRadius.circular(RadiusDimens.radiusSmall2),
+//           borderRadius: BorderRadius.circular(AppDimens.radiusSmall2),
 //           border: Border.all(
 //               color:
 //                   selected ? AppColors.accentColor : AppColors.secondaryDarkBg,
@@ -939,7 +937,7 @@ class ReadNovelPage extends GetView<ReadNovelController> {
 //   CustomBottomSheetWidget _buildBottomSheet(BuildContext context) {
 //     Timer? debounce;
 //     return CustomBottomSheetWidget(
-//       paddingContent: const EdgeInsets.all(SpaceDimens.space20),
+//       paddingContent: const EdgeInsets.all(AppDimens.space20),
 //       heightSheet: Get.height * .62,
 //       context,
 //       viewItems: [
@@ -955,14 +953,14 @@ class ReadNovelPage extends GetView<ReadNovelController> {
 //           ],
 //         ),
 //         const SizedBox(
-//           height: SpaceDimens.space10,
+//           height: AppDimens.space10,
 //         ),
 //         Container(
 //           width: Get.width,
-//           padding: const EdgeInsets.all(SpaceDimens.spaceStandard),
+//           padding: const EdgeInsets.all(AppDimens.spaceStandard),
 //           decoration: BoxDecoration(
 //             color: AppColors.tertiaryDarkBg,
-//             borderRadius: BorderRadius.circular(RadiusDimens.radiusSmall2),
+//             borderRadius: BorderRadius.circular(AppDimens.radiusSmall2),
 //           ),
 //           child: Column(
 //             crossAxisAlignment: CrossAxisAlignment.start,
@@ -996,10 +994,10 @@ class ReadNovelPage extends GetView<ReadNovelController> {
 //         ),
 //         Container(
 //           width: Get.width,
-//           padding: const EdgeInsets.all(SpaceDimens.spaceStandard),
+//           padding: const EdgeInsets.all(AppDimens.spaceStandard),
 //           decoration: BoxDecoration(
 //             color: AppColors.tertiaryDarkBg,
-//             borderRadius: BorderRadius.circular(RadiusDimens.radiusSmall2),
+//             borderRadius: BorderRadius.circular(AppDimens.radiusSmall2),
 //           ),
 //           child: Column(
 //             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1017,10 +1015,10 @@ class ReadNovelPage extends GetView<ReadNovelController> {
 //         ),
 //         Container(
 //           width: Get.width,
-//           padding: const EdgeInsets.all(SpaceDimens.spaceStandard),
+//           padding: const EdgeInsets.all(AppDimens.spaceStandard),
 //           decoration: BoxDecoration(
 //             color: AppColors.tertiaryDarkBg,
-//             borderRadius: BorderRadius.circular(RadiusDimens.radiusSmall2),
+//             borderRadius: BorderRadius.circular(AppDimens.radiusSmall2),
 //           ),
 //           child: Column(
 //             crossAxisAlignment: CrossAxisAlignment.start,

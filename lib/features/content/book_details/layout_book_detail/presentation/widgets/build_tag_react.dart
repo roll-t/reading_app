@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:reading_app/core/configs/dimens/radius_dimens.dart';
-import 'package:reading_app/core/configs/dimens/text_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -25,7 +24,8 @@ class BuildTagReact extends StatelessWidget {
       children: [
         Container(
           margin: EdgeInsets.only(bottom: 5.w),
-          padding: EdgeInsets.only(left: 4.w, top: 4.w, right: 4.w, bottom: 8.w),
+          padding:
+              EdgeInsets.only(left: 4.w, top: 4.w, right: 4.w, bottom: 8.w),
           width: 100.w,
           decoration: BoxDecoration(
             boxShadow: [
@@ -52,11 +52,11 @@ class BuildTagReact extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.w),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(RadiusDimens.radiusFull),
+                  borderRadius: BorderRadius.circular(AppDimens.radiusFull),
                   color: AppColors.primary),
               child: TextWidget(
                   color: AppColors.gray1,
-                  size: TextDimens.textSize14,
+                  size: AppDimens.textSize14,
                   text: "$countChapters Chương"),
             ))
       ],
@@ -67,7 +67,7 @@ class BuildTagReact extends StatelessWidget {
     return TextWidget(
       text: title,
       maxLines: 3,
-      size: TextDimens.textSize18,
+      size: AppDimens.textSize18,
       fontWeight: FontWeight.w500,
     );
   }

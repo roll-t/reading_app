@@ -1,7 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/services/api/data/entities/dto/response/commentReponse.dart';
 import 'package:reading_app/features/content/book_details/novel_detail/presentation/controller/read_novel_cotroller.dart';
@@ -21,7 +20,7 @@ class BuildCommentBottomSheet extends GetView<ReadNovelController> {
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
-          top: Radius.circular(SpaceDimens.spaceStandard),
+          top: Radius.circular(AppDimens.spaceStandard),
         ),
       ),
       builder: (context) => BuildCommentBottomSheet(
@@ -43,7 +42,7 @@ class BuildCommentBottomSheet extends GetView<ReadNovelController> {
         child: Padding(
           padding: EdgeInsets.only(bottom: keyboardPadding),
           child: Container(
-            padding: const EdgeInsets.all(SpaceDimens.spaceStandard),
+            padding: const EdgeInsets.all(AppDimens.spaceStandard),
             child: Stack(
               children: [
                 Container(

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:reading_app/core/configs/dimens/radius_dimens.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
-import 'package:reading_app/core/configs/dimens/text_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/services/api/data/entities/dto/response/commentReponse.dart';
 import 'package:reading_app/core/ui/widgets/avatar/avatar.dart';
@@ -25,30 +23,29 @@ class BuildCommentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: SpaceDimens.space20),
+      margin: const EdgeInsets.only(bottom: AppDimens.space20),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.only(
-              top: SpaceDimens.space5,
-              left: SpaceDimens.spaceStandard,
+              top: AppDimens.space5,
+              left: AppDimens.spaceStandard,
             ),
             child: Avatar(
               radius: 35,
               url: comment.user.photoURL,
             ),
           ),
-          const SizedBox(width: SpaceDimens.space5),
+          const SizedBox(width: AppDimens.space5),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 width: 70.w,
-                padding: const EdgeInsets.all(SpaceDimens.spaceStandard),
+                padding: const EdgeInsets.all(AppDimens.spaceStandard),
                 decoration: BoxDecoration(
-                  borderRadius:
-                      BorderRadius.circular(RadiusDimens.radiusSmall2),
+                  borderRadius: BorderRadius.circular(AppDimens.radiusSmall2),
                   color: AppColors.secondaryDarkBg,
                 ),
                 child: Column(
@@ -58,7 +55,7 @@ class BuildCommentCard extends StatelessWidget {
                       textChild: comment.user.displayName ?? "Đọc giả",
                       maxLineChild: 1,
                     ),
-                    const SizedBox(height: SpaceDimens.space10),
+                    const SizedBox(height: AppDimens.space10),
                     ExpandableText(
                       text: comment.content,
                       colorText: AppColors.white,
@@ -73,13 +70,13 @@ class BuildCommentCard extends StatelessWidget {
                   children: [
                     TextWidget(
                       color: AppColors.gray2,
-                      size: TextDimens.textSize12,
+                      size: AppDimens.textSize12,
                       text: DatetimeUtil.timeAgo(comment.createdAt),
                     ),
                     SizedBox(width: 5.w),
                     const TextWidget(
                       color: AppColors.gray2,
-                      size: TextDimens.textSize12,
+                      size: AppDimens.textSize12,
                       text: "Thích",
                     ),
                     SizedBox(width: 5.w),
@@ -90,13 +87,13 @@ class BuildCommentCard extends StatelessWidget {
                             },
                             child: const TextWidget(
                               color: AppColors.primaryLight,
-                              size: TextDimens.textSize12,
+                              size: AppDimens.textSize12,
                               text: "Xóa",
                             ),
                           )
                         : const TextWidget(
                             color: AppColors.gray2,
-                            size: TextDimens.textSize12,
+                            size: AppDimens.textSize12,
                             text: "Phản hồi",
                           ),
                   ],

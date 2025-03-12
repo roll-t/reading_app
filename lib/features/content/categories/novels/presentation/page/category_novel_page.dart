@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/card/card_novel_full_info.dart';
 import 'package:reading_app/core/ui/widgets/icons/leading_icon_app_bar.dart';
@@ -34,20 +34,20 @@ class CategoryNovelPage extends GetView<CategoryNovelController> {
             ),
             const SliverToBoxAdapter(
               child: SizedBox(
-                height: SpaceDimens.space25,
+                height: AppDimens.space25,
               ),
             ),
             Obx(() {
               return SliverPadding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: SpaceDimens.spaceStandard,
+                  horizontal: AppDimens.spaceStandard,
                 ),
                 sliver: SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
                       if (index >=
+                          // ignore: invalid_use_of_protected_member
                           controller.listDataChangeCategory.value.length) {
-                        // Display loading indicator at the end
                         return const Center(child: CircularProgressIndicator());
                       }
                       return CardNovelFullInfo(
@@ -62,7 +62,9 @@ class CategoryNovelPage extends GetView<CategoryNovelController> {
                       );
                     },
                     childCount: controller.isLoading.value
+                        // ignore: invalid_use_of_protected_member
                         ? controller.listDataChangeCategory.value.length + 1
+                        // ignore: invalid_use_of_protected_member
                         : controller.listDataChangeCategory.value.length,
                   ),
                 ),

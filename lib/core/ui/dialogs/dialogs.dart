@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:lottie/lottie.dart';
-import 'package:reading_app/core/configs/dimens/text_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/enum.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
@@ -85,7 +85,7 @@ class DialogsUtils {
                           title.tr,
                           style: const TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize:TextDimens.textMedium,
+                              fontSize: AppDimens.textMedium,
                               color: AppColors.black),
                         )
                       : const SizedBox.shrink(),
@@ -97,7 +97,7 @@ class DialogsUtils {
                       message.tr,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
-                          fontSize:TextDimens.textNormal,
+                          fontSize: AppDimens.textNormal,
                           color: Color(0xFF4B5767)),
                     ),
                   ),
@@ -126,7 +126,7 @@ class DialogsUtils {
                       child: const Text(
                         'OK',
                         style: TextStyle(
-                          fontSize:TextDimens.textMedium,
+                          fontSize: AppDimens.textMedium,
                           color: AppColors.black,
                         ),
                       ),

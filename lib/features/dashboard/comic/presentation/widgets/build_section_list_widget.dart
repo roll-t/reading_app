@@ -1,8 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
-import 'package:reading_app/core/configs/dimens/text_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/services/api/data/entities/models/list_comic_model.dart';
@@ -31,7 +30,7 @@ class BuildSectionListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(SpaceDimens.spaceStandard),
+      padding: const EdgeInsets.all(AppDimens.spaceStandard),
       decoration: BoxDecoration(
         color: AppColors.secondaryDarkBg,
         borderRadius: BorderRadius.circular(10),
@@ -54,14 +53,14 @@ class BuildSectionListWidget extends StatelessWidget {
       children: [
         TextWidget(
           text: titleList ?? "",
-          size: TextDimens.textSize18,
+          size: AppDimens.textSize18,
           fontWeight: FontWeight.w500,
         ),
         if (seeMore != null)
           InkWell(
             onTap: seeMore,
             child: const TextWidget(
-              size: TextDimens.textSize14,
+              size: AppDimens.textSize14,
               text: AppContents.seeMore,
               color: AppColors.accentColor,
             ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/services/api/data/entities/dto/response/novel_response.dart';
 import 'package:reading_app/core/ui/widgets/images/Image_widget.dart';
@@ -28,7 +28,7 @@ class NovelCard extends StatelessWidget {
             arguments: {"novelId": bookModel.bookDataId});
       },
       child: Container(
-        margin: const EdgeInsets.only(right: SpaceDimens.space10),
+        margin: const EdgeInsets.only(right: AppDimens.space10),
         width: widthCard,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

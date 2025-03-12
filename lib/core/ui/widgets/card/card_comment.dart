@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/services/api/data/entities/dto/response/commentReponse.dart';
 import 'package:reading_app/core/ui/widgets/avatar/avatar.dart';
@@ -15,8 +15,8 @@ class CardComment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(SpaceDimens.spaceStandard),
-      margin: const EdgeInsets.only(right: SpaceDimens.space20),
+      padding: const EdgeInsets.all(AppDimens.spaceStandard),
+      margin: const EdgeInsets.only(right: AppDimens.space20),
       decoration: BoxDecoration(
           border: Border.all(color: AppColors.gray2, width: .5),
           color: AppColors.tertiaryDarkBg,
@@ -27,7 +27,7 @@ class CardComment extends StatelessWidget {
         children: [
           _BuildAuthorComment(),
           const SizedBox(
-            height: SpaceDimens.space15,
+            height: AppDimens.space15,
           ),
           _BuildContentComment(),
           const Spacer(),
@@ -46,7 +46,7 @@ class CardComment extends StatelessWidget {
           url: commentData.user.photoURL,
         ),
         const SizedBox(
-          width: SpaceDimens.space10,
+          width: AppDimens.space10,
         ),
         TextNormal(
           textChild: commentData.user.displayName ?? "Đọc giả",
@@ -74,13 +74,13 @@ class CardComment extends StatelessWidget {
               color: AppColors.gray2,
             ),
             const SizedBox(
-              width: SpaceDimens.space10,
+              width: AppDimens.space10,
             ),
             _BuildReactTagComment(
               iconChildData: Icons.thumb_up_outlined,
             ),
             const SizedBox(
-              width: SpaceDimens.space20,
+              width: AppDimens.space20,
             ),
             _BuildReactTagComment(
               iconChildData: Icons.message_sharp,

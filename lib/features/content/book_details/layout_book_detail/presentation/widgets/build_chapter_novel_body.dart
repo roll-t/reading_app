@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/routes/routes.dart';
@@ -50,7 +50,7 @@ class BuildChapterNovelBody extends StatelessWidget {
                     maxLinesChild: 1,
                   )),
                   const SizedBox(
-                    width: SpaceDimens.space10,
+                    width: AppDimens.space10,
                   ),
                   TextSmallLight(
                     textChild: DatetimeUtil.formatCustom(chapter.createAt),

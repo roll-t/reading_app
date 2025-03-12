@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
-import 'package:reading_app/core/configs/dimens/text_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/services/api/data/entities/models/list_comic_model.dart';
@@ -32,12 +31,12 @@ class CardRowWidget extends StatelessWidget {
             arguments: {"slug": bookModel?.slug, "comicId": bookModel?.id});
       },
       child: Container(
-        height: heightImage + SpaceDimens.space25,
+        height: heightImage + AppDimens.space25,
         width: Get.width,
         margin: currentIndex != 0
-            ? const EdgeInsets.only(top: SpaceDimens.space15)
+            ? const EdgeInsets.only(top: AppDimens.space15)
             : null,
-        padding: const EdgeInsets.only(bottom: SpaceDimens.space15),
+        padding: const EdgeInsets.only(bottom: AppDimens.space15),
         decoration: BoxDecoration(
             border: !last
                 ? const Border(
@@ -51,7 +50,7 @@ class CardRowWidget extends StatelessWidget {
                 child: ImageWidget(
                     imageUrl:"https://img.otruyenapi.com/uploads/comics/${bookModel?.thumbUrl}")),
             const SizedBox(
-              width: SpaceDimens.space15,
+              width: AppDimens.space15,
             ),
             Expanded(
               child: Column(
@@ -59,7 +58,7 @@ class CardRowWidget extends StatelessWidget {
                 children: [
                   TextWidget(
                     text: bookModel?.name ?? "",
-                    size: TextDimens.textSize16,
+                    size: AppDimens.textSize16,
                     fontWeight: FontWeight.w400,
                     maxLines: 2,
                   ),

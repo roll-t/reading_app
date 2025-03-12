@@ -1,7 +1,7 @@
 // Home App Bar
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/routes/routes.dart';
@@ -23,7 +23,7 @@ class BuildSliverAppBar extends StatelessWidget {
               children: [
                 const TextMediumBold(textChild: AppContents.hello),
                 const SizedBox(
-                  height: SpaceDimens.space5,
+                  height: AppDimens.space5,
                 ),
                 TextMediumBold(textChild: userName ?? ""),
               ],
@@ -40,7 +40,7 @@ class BuildSliverAppBar extends StatelessWidget {
           },
           child: const Icon(Icons.search),
         ),
-        const SizedBox(width: SpaceDimens.spaceStandard),
+        const SizedBox(width: AppDimens.spaceStandard),
       ],
       expandedHeight: 60.0,
     );

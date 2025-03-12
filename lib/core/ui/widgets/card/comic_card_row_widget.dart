@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
-import 'package:reading_app/core/configs/dimens/text_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/ui/widgets/images/Image_widget.dart';
 import 'package:reading_app/core/ui/widgets/tags/tag_category.dart';
@@ -38,7 +37,7 @@ class ComicCardRowWidget extends StatelessWidget {
         );
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: SpaceDimens.space10),
+        padding: const EdgeInsets.symmetric(vertical: AppDimens.space10),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -50,7 +49,7 @@ class ComicCardRowWidget extends StatelessWidget {
                 imageUrl: "https://img.otruyenapi.com/uploads/comics/$thumbUrl",
               ),
             ),
-            const SizedBox(width: SpaceDimens.space10),
+            const SizedBox(width: AppDimens.space10),
 
             // Text Section
             Expanded(
@@ -62,7 +61,7 @@ class ComicCardRowWidget extends StatelessWidget {
                   children: [
                     TextWidget(
                       text: title,
-                      size: TextDimens.textSize16,
+                      size: AppDimens.textSize16,
                       fontWeight: FontWeight.w500,
                       maxLines: 2,
                     ),

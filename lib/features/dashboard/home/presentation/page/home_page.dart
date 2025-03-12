@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/assets/app_images.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
-import 'package:reading_app/core/configs/dimens/text_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/routes/routes.dart';
@@ -78,8 +77,8 @@ class HomePage extends GetView<HomeController> {
           onTap: NavigatorHomePage.toSearchPage,
           child: Container(
             padding: const EdgeInsets.symmetric(
-              vertical: SpaceDimens.space10,
-              horizontal: SpaceDimens.space10,
+              vertical: AppDimens.space10,
+              horizontal: AppDimens.space10,
             ),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
@@ -92,11 +91,11 @@ class HomePage extends GetView<HomeController> {
               children: [
                 Icon(Icons.menu_book),
                 SizedBox(
-                  width: SpaceDimens.space10,
+                  width: AppDimens.space10,
                 ),
                 TextWidget(
                   text: "Khám phá thêm truyện",
-                  size: TextDimens.textSize16,
+                  size: AppDimens.textSize16,
                 ),
               ],
             ),
@@ -143,9 +142,9 @@ class HomePage extends GetView<HomeController> {
   Obx _buildListAllType() {
     return Obx(() {
       return SliverToBoxAdapter(
-        // ignore: invalid_use_of_protected_member
         child: BuildListTagCategory(
             listType: controller.listType,
+            // ignore: invalid_use_of_protected_member
             listCategory: controller.categories.value),
       );
     });

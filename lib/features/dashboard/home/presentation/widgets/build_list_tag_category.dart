@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
-import 'package:reading_app/core/configs/dimens/text_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/services/api/data/entities/models/category_model.dart';
 import 'package:reading_app/core/ui/dialogs/custom_bottom_sheet.dart';
@@ -32,13 +31,13 @@ class BuildListTagCategory extends StatelessWidget {
         children: [
           TextWidget(
             text: titleSection ?? "Kho Truyện tranh",
-            size: TextDimens.textSize18,
+            size: AppDimens.textSize18,
             fontWeight: FontWeight.w500,
           ),
           SizedBox(height: 1.h),
           Wrap(
-            spacing: SpaceDimens.space10,
-            runSpacing: SpaceDimens.space10,
+            spacing: AppDimens.space10,
+            runSpacing: AppDimens.space10,
             children: [
               // Danh sách loại truyện
               ...listType.map((type) => TagCategory(
@@ -82,7 +81,7 @@ class BuildListTagCategory extends StatelessWidget {
           padding: EdgeInsets.only(left: 5.w, bottom: 2.h, top: 2.h),
           child: TextWidget(
             text: AppContents.type,
-            size: TextDimens.textSize18,
+            size: AppDimens.textSize18,
             fontWeight: FontWeight.w500,
           ),
         ),

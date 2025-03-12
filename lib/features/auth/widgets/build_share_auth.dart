@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/assets/app_images.dart';
-import 'package:reading_app/core/configs/dimens/radius_dimens.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/loading.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
@@ -14,13 +13,13 @@ class BuildShareAuth {
       child: Container(
           height: 72.h,
           padding: EdgeInsets.symmetric(
-              horizontal: SpaceDimens.space25, vertical: 4.h),
+              horizontal: AppDimens.space25, vertical: 4.h),
           width: 100.w,
           decoration: const BoxDecoration(
               color: AppColors.black,
               borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(RadiusDimens.radiusLarge2),
-                  topRight: Radius.circular(RadiusDimens.radiusLarge2))),
+                  topLeft: Radius.circular(AppDimens.radiusLarge2),
+                  topRight: Radius.circular(AppDimens.radiusLarge2))),
           child: childContent),
     );
   }

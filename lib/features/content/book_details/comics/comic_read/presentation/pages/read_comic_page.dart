@@ -1,8 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/dimens/icons_dimens.dart';
-import 'package:reading_app/core/configs/dimens/radius_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/services/api/data/entities/models/reading_book_case_model.dart';
 import 'package:reading_app/core/ui/widgets/text/customs/text_large_bold.dart';
@@ -150,7 +149,8 @@ class ReadComicPage extends GetView<ReadComicController> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(1000),
                       border: Border.all(
-                          color: AppColors.white.withOpacity(.4), width: .6),
+                          color: AppColors.white.withOpacity(.4),
+                          width: .6),
                       color: AppColors.gray2.withOpacity(.2)),
                   child: IconButton(
                       onPressed: () {
@@ -175,7 +175,7 @@ class ReadComicPage extends GetView<ReadComicController> {
                       },
                       icon: Icon(
                         Icons.arrow_back_ios_new_rounded,
-                        size: IconsDimens.iconsSize18,
+                        size: AppDimens.iconSize18,
                       )),
                 ),
               ),
@@ -252,8 +252,7 @@ class ReadComicPage extends GetView<ReadComicController> {
                     width: 1,
                     color: AppColors.white.withOpacity(.4),
                   ),
-                  borderRadius:
-                      BorderRadius.circular(RadiusDimens.radiusSmall2),
+                  borderRadius: BorderRadius.circular(AppDimens.radiusSmall2),
                   color: AppColors.gray3.withOpacity(.9),
                 ),
                 child: Column(
@@ -298,7 +297,8 @@ class ReadComicPage extends GetView<ReadComicController> {
                         IconButton(
                           onPressed: () {
                             controller.nextChapter(
-                                chapterId: controller.currentChapterArguments
+                                chapterId: controller
+                                    .currentChapterArguments
                                     // ignore: invalid_use_of_protected_member
                                     .value["chapter_name"]);
                           },

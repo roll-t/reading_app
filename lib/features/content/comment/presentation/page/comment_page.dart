@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/dimens/radius_dimens.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
-import 'package:reading_app/core/configs/dimens/text_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/services/api/data/entities/dto/response/commentReponse.dart';
@@ -47,7 +45,7 @@ class CommentPage extends GetView<CommentController> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Icon(Icons.comment),
-                            const SizedBox(width: SpaceDimens.space10),
+                            const SizedBox(width: AppDimens.space10),
                             Obx(() {
                               return TextMediumSemiBold(
                                 textChild: TextFormat.capitalizeEachWord(
@@ -60,7 +58,7 @@ class CommentPage extends GetView<CommentController> {
                       ),
                       const SliverToBoxAdapter(
                         child: SizedBox(
-                          height: SpaceDimens.space25,
+                          height: AppDimens.space25,
                         ),
                       ),
                       Obx(() {
@@ -90,8 +88,8 @@ class CommentPage extends GetView<CommentController> {
                       top: BorderSide(color: AppColors.gray3, width: .3)),
                 ),
                 padding: const EdgeInsets.symmetric(
-                  horizontal: SpaceDimens.spaceStandard,
-                  vertical: SpaceDimens.space5,
+                  horizontal: AppDimens.spaceStandard,
+                  vertical: AppDimens.space5,
                 ),
                 child: Row(
                   children: [
@@ -102,7 +100,7 @@ class CommentPage extends GetView<CommentController> {
                         controller.commentValue = value;
                       },
                     ),
-                    const SizedBox(width: SpaceDimens.space10),
+                    const SizedBox(width: AppDimens.space10),
                     InkWell(
                       onTap: () async {
                         if (controller.commentValue?.trim().isNotEmpty ??
@@ -138,14 +136,14 @@ class CommentPage extends GetView<CommentController> {
   // ignore: non_constant_identifier_names
   Container CommentCard(CommentResponse comment) {
     return Container(
-      margin: const EdgeInsets.only(bottom: SpaceDimens.space20),
+      margin: const EdgeInsets.only(bottom: AppDimens.space20),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.only(
-              top: SpaceDimens.space5,
-              left: SpaceDimens.spaceStandard,
+              top: AppDimens.space5,
+              left: AppDimens.spaceStandard,
             ),
             child: Avatar(
               radius: 35,
@@ -153,16 +151,15 @@ class CommentPage extends GetView<CommentController> {
             ),
           ),
           const SizedBox(
-            width: SpaceDimens.space5,
+            width: AppDimens.space5,
           ),
           Column(
             children: [
               Container(
                 width: 80.w,
-                padding: const EdgeInsets.all(SpaceDimens.spaceStandard),
+                padding: const EdgeInsets.all(AppDimens.spaceStandard),
                 decoration: BoxDecoration(
-                  borderRadius:
-                      BorderRadius.circular(RadiusDimens.radiusSmall2),
+                  borderRadius: BorderRadius.circular(AppDimens.radiusSmall2),
                   color: AppColors.secondaryDarkBg,
                 ),
                 child: Column(
@@ -172,7 +169,7 @@ class CommentPage extends GetView<CommentController> {
                       textChild: comment.user.displayName ?? "Đọc giả",
                       maxLineChild: 1,
                     ),
-                    const SizedBox(height: SpaceDimens.space10),
+                    const SizedBox(height: AppDimens.space10),
                     ExpandableText(
                       text: comment.content,
                       colorText: AppColors.white,
@@ -188,7 +185,7 @@ class CommentPage extends GetView<CommentController> {
                   children: [
                     TextWidget(
                       color: AppColors.gray2,
-                      size: TextDimens.textSize12,
+                      size: AppDimens.textSize12,
                       text: DatetimeUtil.timeAgo(comment.createdAt),
                     ),
                     SizedBox(
@@ -196,7 +193,7 @@ class CommentPage extends GetView<CommentController> {
                     ),
                     const TextWidget(
                       color: AppColors.gray2,
-                      size: TextDimens.textSize12,
+                      size: AppDimens.textSize12,
                       text: "Thích",
                     ),
                     SizedBox(
@@ -209,13 +206,13 @@ class CommentPage extends GetView<CommentController> {
                             },
                             child: const TextWidget(
                               color: AppColors.primaryLight,
-                              size: TextDimens.textSize12,
+                              size: AppDimens.textSize12,
                               text: "Xóa",
                             ),
                           )
                         : const TextWidget(
                             color: AppColors.gray2,
-                            size: TextDimens.textSize12,
+                            size: AppDimens.textSize12,
                             text: "Phản hồi",
                           ),
                   ],

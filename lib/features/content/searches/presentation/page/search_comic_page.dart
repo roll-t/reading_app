@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/card/card_row_widget.dart';
 import 'package:reading_app/core/ui/widgets/text/customs/text_medium_semi_bold.dart';
@@ -31,14 +31,14 @@ class SearchComicPage extends GetView<SearchComicController> {
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 3.w),
         child: Obx(() {
-          final listComics = controller.listComicSearch?.value?.items ?? [];
+          final listComics = controller.listComicSearch.value?.items ?? [];
           final isLoading = controller.isLoading.value;
 
           return CustomScrollView(
             slivers: [
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: const EdgeInsets.only(bottom: SpaceDimens.space20),
+                  padding: const EdgeInsets.only(bottom: AppDimens.space20),
                   child: TextSmall(
                     textChild:
                         controller.listComicSearch.value?.titlePage ?? "",
@@ -48,7 +48,7 @@ class SearchComicPage extends GetView<SearchComicController> {
               ),
               const SliverToBoxAdapter(
                 child: Padding(
-                  padding: EdgeInsets.only(bottom: SpaceDimens.space20),
+                  padding: EdgeInsets.only(bottom: AppDimens.space20),
                   child: TextMediumSemiBold(textChild: "Truyện"),
                 ),
               ),

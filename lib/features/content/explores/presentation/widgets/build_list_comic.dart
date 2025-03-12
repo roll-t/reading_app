@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/services/api/data/entities/models/list_comic_model.dart';
 import 'package:reading_app/core/ui/widgets/card/comic_card_widget.dart';
@@ -35,7 +35,7 @@ class BuildListComic extends StatelessWidget {
           )
         : SliverPadding(
             padding: const EdgeInsets.symmetric(
-                horizontal: SpaceDimens.space20, vertical: SpaceDimens.space15),
+                horizontal: AppDimens.space20, vertical: AppDimens.space15),
             sliver: SliverGrid(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
@@ -63,7 +63,7 @@ class BuildListComic extends StatelessWidget {
   Widget _buildShimmerEffect() {
     return SliverPadding(
       padding: const EdgeInsets.symmetric(
-          horizontal: SpaceDimens.space20, vertical: SpaceDimens.space15),
+          horizontal: AppDimens.space20, vertical: AppDimens.space15),
       sliver: SliverGrid(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,

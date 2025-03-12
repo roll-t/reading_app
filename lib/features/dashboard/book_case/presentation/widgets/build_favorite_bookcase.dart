@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/services/api/data/entities/dto/response/favorite_response.dart';
 import 'package:reading_app/core/ui/widgets/card/card_book_case_favorite.dart';
 import 'package:reading_app/features/dashboard/book_case/presentation/widgets/build_empty_sate_bookcase.dart';
@@ -46,9 +46,9 @@ class BuildFavoriteBookCase extends StatelessWidget {
       itemCount: listBook.length,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      padding: const EdgeInsets.only(top: 0, bottom: SpaceDimens.space60),
+      padding: const EdgeInsets.only(top: 0, bottom: AppDimens.space60),
       separatorBuilder: (context, index) =>
-          const SizedBox(height: SpaceDimens.space10),
+          const SizedBox(height: AppDimens.space10),
       itemBuilder: (context, index) {
         return CardBookCaseFavorite(
           type: "Tiểu thuyết",

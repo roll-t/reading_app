@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/card/card_row_widget.dart';
 import 'package:reading_app/core/ui/widgets/icons/leading_icon_app_bar.dart';
@@ -32,15 +32,15 @@ class CategoryPage extends GetView<CategoryController> {
           ),
           const SliverToBoxAdapter(
             child: SizedBox(
-              height: SpaceDimens.space25,
+              height: AppDimens.space25,
             ),
           ),
           SliverPadding(
             padding: const EdgeInsets.symmetric(
-              horizontal: SpaceDimens.spaceStandard,
+              horizontal: AppDimens.spaceStandard,
             ),
             sliver: Obx(
-              ()=> SliverList(
+              () => SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
                     if (index >=
@@ -50,11 +50,12 @@ class CategoryPage extends GetView<CategoryController> {
                     }
                     return CardRowWidget(
                         heightImage: 12.h,
-                        bookModel:
-                            controller.listDataChangeCategory.value.items[index],
+                        bookModel: controller
+                            .listDataChangeCategory.value.items[index],
                         currentIndex: index,
                         last: index ==
-                            controller.listDataChangeCategory.value.items.length -
+                            controller
+                                    .listDataChangeCategory.value.items.length -
                                 1);
                   },
                   childCount: controller.isLoading.value

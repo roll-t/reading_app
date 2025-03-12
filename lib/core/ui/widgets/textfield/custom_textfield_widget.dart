@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:reading_app/core/configs/dimens/text_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 
@@ -99,7 +99,7 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
             }
           },
           style: TextStyle(
-              fontSize: TextDimens.textNormal,
+              fontSize: AppDimens.textNormal,
               color: widget.textColor ?? AppColors.black),
           decoration: InputDecoration(
             border: OutlineInputBorder(
@@ -110,14 +110,14 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
             contentPadding: const EdgeInsets.only(left: 15.0),
             labelText: widget.labelText,
             labelStyle: const TextStyle(
-                color: AppColors.primary, fontSize: TextDimens.textNormal),
+                color: AppColors.primary, fontSize: AppDimens.textNormal),
             suffixIcon: widget.suffixIcon,
             prefixIcon: widget.prefixIcon,
             filled: widget.backgroundColor == null ? false : true,
             fillColor: widget.backgroundColor,
             hintText: widget.hintText,
             hintStyle: TextStyle(
-                fontSize: TextDimens.textNormal, color: widget.hintColor),
+                fontSize: AppDimens.textNormal, color: widget.hintColor),
             enabledBorder: widget.isShowBorder
                 ? OutlineInputBorder(
                     borderSide: BorderSide(
@@ -148,7 +148,7 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
         isError
             ? TextWidget(
                 text: widget.errorText ?? "",
-                size: TextDimens.textSize14,
+                size: AppDimens.textSize14,
                 color: AppColors.error,
               )
             : const SizedBox.shrink()
