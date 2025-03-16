@@ -1,5 +1,4 @@
 // import 'package:dropdown_search/dropdown_search.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/app_dimens.dart';
@@ -332,14 +331,14 @@ class ReadNovelPage extends GetView<ReadNovelController> {
             color: AppColors.tertiaryDarkBg,
             borderRadius: BorderRadius.circular(AppDimens.radiusSmall2),
           ),
-          child: Column(
+          child: const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const TextMediumBold(textChild: "Font chữ"),
               const SizedBox(
                 height: 10,
               ),
-              _buildDropDown(),
+              // _buildDropDown(),
             ],
           ),
         ),
@@ -422,89 +421,89 @@ class ReadNovelPage extends GetView<ReadNovelController> {
     );
   }
 
-  DropdownSearch<(IconData, String)> _buildDropDown() {
-    return DropdownSearch<(IconData, String)>(
-      selectedItem: (Icons.circle, controller.fontReadTheme.value),
-      // ignore: unrelated_type_equality_checks
-      compareFn: (item1, item2) => item1.$1 == item2.$2,
-      items: (f, cs) =>
-          AppConstants.listFont.map((value) => (Icons.circle, value)).toList(),
-      onChanged: (value) {
-        if (value != null) {
-          controller.changeFontText(value.$2);
-        }
-      },
-      decoratorProps: DropDownDecoratorProps(
-        decoration: InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(vertical: 0),
-          filled: true,
-          fillColor: AppColors.secondaryDarkBg,
-          border: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.transparent),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.transparent),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.transparent),
-            borderRadius: BorderRadius.circular(8),
-          ),
-        ),
-      ),
-      dropdownBuilder: (context, selectedItem) {
-        return ListTile(
-          leading: Icon(selectedItem!.$1, color: Colors.white),
-          title: Text(
-            selectedItem.$2,
-            style: const TextStyle(
-                color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-        );
-      },
-      popupProps: PopupProps.menu(
-        itemBuilder: (context, item, isDisabled, isSelected) {
-          return ListTile(
-            contentPadding:
-                const EdgeInsets.symmetric(vertical: 3, horizontal: 12),
-            leading: Icon(item.$1, color: Colors.white),
-            title: Text(
-              item.$2,
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold),
-            ),
-          );
-        },
-        fit: FlexFit.loose,
-        menuProps: const MenuProps(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          margin: EdgeInsets.only(top: 5),
-        ),
-        containerBuilder: (ctx, popupWidget) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Flexible(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.secondaryDarkBg,
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: popupWidget,
-                ),
-              ),
-            ],
-          );
-        },
-      ),
-    );
-  }
+  // DropdownSearch<(IconData, String)> _buildDropDown() {
+  //   return DropdownSearch<(IconData, String)>(
+  //     selectedItem: (Icons.circle, controller.fontReadTheme.value),
+  //     // ignore: unrelated_type_equality_checks
+  //     compareFn: (item1, item2) => item1.$1 == item2.$2,
+  //     items: (f, cs) =>
+  //         AppConstants.listFont.map((value) => (Icons.circle, value)).toList(),
+  //     onChanged: (value) {
+  //       if (value != null) {
+  //         controller.changeFontText(value.$2);
+  //       }
+  //     },
+  //     decoratorProps: DropDownDecoratorProps(
+  //       decoration: InputDecoration(
+  //         contentPadding: const EdgeInsets.symmetric(vertical: 0),
+  //         filled: true,
+  //         fillColor: AppColors.secondaryDarkBg,
+  //         border: OutlineInputBorder(
+  //           borderSide: const BorderSide(color: Colors.transparent),
+  //           borderRadius: BorderRadius.circular(8),
+  //         ),
+  //         focusedBorder: OutlineInputBorder(
+  //           borderSide: const BorderSide(color: Colors.transparent),
+  //           borderRadius: BorderRadius.circular(8),
+  //         ),
+  //         enabledBorder: OutlineInputBorder(
+  //           borderSide: const BorderSide(color: Colors.transparent),
+  //           borderRadius: BorderRadius.circular(8),
+  //         ),
+  //       ),
+  //     ),
+  //     dropdownBuilder: (context, selectedItem) {
+  //       return ListTile(
+  //         leading: Icon(selectedItem!.$1, color: Colors.white),
+  //         title: Text(
+  //           selectedItem.$2,
+  //           style: const TextStyle(
+  //               color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+  //         ),
+  //       );
+  //     },
+  //     popupProps: PopupProps.menu(
+  //       itemBuilder: (context, item, isDisabled, isSelected) {
+  //         return ListTile(
+  //           contentPadding:
+  //               const EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+  //           leading: Icon(item.$1, color: Colors.white),
+  //           title: Text(
+  //             item.$2,
+  //             style: const TextStyle(
+  //                 color: Colors.white,
+  //                 fontSize: 18,
+  //                 fontWeight: FontWeight.bold),
+  //           ),
+  //         );
+  //       },
+  //       fit: FlexFit.loose,
+  //       menuProps: const MenuProps(
+  //         backgroundColor: Colors.transparent,
+  //         elevation: 0,
+  //         margin: EdgeInsets.only(top: 5),
+  //       ),
+  //       containerBuilder: (ctx, popupWidget) {
+  //         return Column(
+  //           mainAxisSize: MainAxisSize.min,
+  //           crossAxisAlignment: CrossAxisAlignment.end,
+  //           children: [
+  //             Flexible(
+  //               child: Container(
+  //                 decoration: BoxDecoration(
+  //                   color: AppColors.secondaryDarkBg,
+  //                   shape: BoxShape.rectangle,
+  //                   borderRadius: BorderRadius.circular(8),
+  //                 ),
+  //                 child: popupWidget,
+  //               ),
+  //             ),
+  //           ],
+  //         );
+  //       },
+  //     ),
+  //   );
+  // }
 
   Positioned _buildLeadingIcon() {
     return Positioned(
