@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/services/api/data/entities/dto/response/novel_response.dart';
-import 'package:reading_app/core/services/api/data/entities/models/category_model.dart';
-import 'package:reading_app/core/services/api/data/entities/models/list_comic_model.dart';
-import 'package:reading_app/core/services/api/data/entities/models/user_model.dart';
-import 'package:reading_app/core/services/api/domain/usecase/categories/fetch_categories_cache_usecase.dart';
+import 'package:reading_app/core/services/entities/dto/response/novel_response.dart';
+import 'package:reading_app/core/services/entities/models/category_model.dart';
+import 'package:reading_app/core/services/entities/models/list_comic_model.dart';
+import 'package:reading_app/core/services/entities/models/user_model.dart';
+import 'package:reading_app/features/category/domain/usecase/fetch_categories_cache_usecase.dart';
 import 'package:reading_app/features/home/domain/usecase/fetch_auth_usecase.dart';
 import 'package:reading_app/features/home/domain/usecase/fetch_novels_usecase.dart';
 import 'package:reading_app/features/home/domain/usecase/fetch_slider_usecase.dart';

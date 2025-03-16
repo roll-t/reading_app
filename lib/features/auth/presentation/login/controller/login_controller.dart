@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/ui/snackbar/snackbar.dart';
-import 'package:reading_app/features/auth/domain/usecase/google_signin_usecase.dart';
-import 'package:reading_app/features/auth/domain/usecase/signin_usecase.dart';
+import 'package:reading_app/features/auth/domain/usecase/login/google_signin_usecase.dart';
+import 'package:reading_app/features/auth/domain/usecase/login/signin_usecase.dart';
 
 class LoginController extends GetxController {
   final SigninUseCase _signinUseCase;

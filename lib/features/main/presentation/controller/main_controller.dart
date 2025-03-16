@@ -6,8 +6,8 @@ import 'package:reading_app/features/auth/di/user_binding.dart';
 import 'package:reading_app/features/auth/presentation/user/pages/profile_page.dart';
 import 'package:reading_app/features/bookcase/di/book_case_binding.dart';
 import 'package:reading_app/features/bookcase/presentation/page/book_case_page.dart';
-import 'package:reading_app/features/comic/di/commic_binding.dart';
-import 'package:reading_app/features/comic/presentation/page/commic_page.dart';
+import 'package:reading_app/features/comic/di/comic_binding.dart';
+import 'package:reading_app/features/comic/presentation/comic_collection/page/commic_collection_page.dart';
 import 'package:reading_app/features/home/di/home_binding.dart';
 import 'package:reading_app/features/home/presentation/page/home_page.dart';
 
@@ -43,8 +43,8 @@ class MainController extends GetxController {
       case '/comic':
         return GetPageRoute(
           settings: settings,
-          page: () => const CommicPage(),
-          binding: CommicBinding(),
+          page: () => const ComicCollectionPage(),
+          binding: ComicBinding(),
           transition: Transition.fadeIn,
         );
       case '/bookCase':

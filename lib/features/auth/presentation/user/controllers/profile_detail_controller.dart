@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image/image.dart' as img;
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/services/api/data/entities/models/user_model.dart';
-import 'package:reading_app/core/services/api/data/sources/locals/user_service.dart';
-import 'package:reading_app/core/services/api/domain/usecase/users/get_user_use_case.dart';
-import 'package:reading_app/core/services/api/domain/usecase/users/save_user_use_case.dart';
+import 'package:reading_app/core/services/entities/models/user_model.dart';
 import 'package:reading_app/core/services/utils/images_service.dart';
 import 'package:reading_app/core/ui/snackbar/snackbar.dart';
+import 'package:reading_app/features/auth/data/sources/user_service.dart';
+import 'package:reading_app/features/auth/domain/usecase/get_user_use_case.dart';
+import 'package:reading_app/features/auth/domain/usecase/save_user_use_case.dart';
 
 class ProfileDetailController extends GetxController {
   

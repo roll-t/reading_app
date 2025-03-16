@@ -1,7 +1,7 @@
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/services/api/data/entities/models/comic_model.dart';
-import 'package:reading_app/core/services/api/data/entities/models/list_comic_model.dart';
-import 'package:reading_app/core/services/api/data/sources/remotes/comic_service.dart';
+import 'package:reading_app/core/services/entities/models/comic_model.dart';
+import 'package:reading_app/core/services/entities/models/list_comic_model.dart';
+import 'package:reading_app/features/comic/data/sources/comic_service.dart';
 import 'package:reading_app/features/comic/domain/repositories/comic_repository.dart';
 
 class ComicRepositoryImpl implements ComicRepository {

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:reading_app/core/services/api/data/entities/dto/response/favorite_response.dart'; // Import FavoriteResponse
-import 'package:reading_app/core/services/api/data/entities/dto/response/reading_book_case_response.dart';
-import 'package:reading_app/core/services/api/data/entities/models/reading_book_case_model.dart';
-import 'package:reading_app/core/services/api/domain/usecase/auths/auth_use_case.dart';
+import 'package:reading_app/core/services/entities/dto/response/favorite_response.dart'; // Import FavoriteResponse
+import 'package:reading_app/core/services/entities/dto/response/reading_book_case_response.dart';
+import 'package:reading_app/core/services/entities/models/reading_book_case_model.dart';
 import 'package:reading_app/core/storage/sql/data_helper.dart';
+import 'package:reading_app/features/auth/domain/usecase/auth_use_case.dart';
 import 'package:reading_app/features/bookcase/data/entities/book_case_model.dart';
 import 'package:reading_app/features/bookcase/domain/usecase/fetch_novels_bookcase_usecase.dart';
 import 'package:reading_app/features/bookcase/domain/usecase/fetch_novels_favorite_bookcase_usecase.dart';

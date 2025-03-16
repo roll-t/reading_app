@@ -1,10 +1,10 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/features/content/explores/di/explore_binding.dart';
-import 'package:reading_app/features/content/explores/presentation/page/explore_page.dart';
-import 'package:reading_app/features/content/searches/di/search_binding.dart';
-import 'package:reading_app/features/content/searches/presentation/page/search_comic_page.dart';
-import 'package:reading_app/features/content/searches/presentation/page/search_novel_page.dart';
+import 'package:reading_app/features/explores/di/explore_binding.dart';
+import 'package:reading_app/features/explores/presentation/page/explore_page.dart';
+import 'package:reading_app/features/searches/di/search_binding.dart';
+import 'package:reading_app/features/searches/presentation/page/search_comic_page.dart';
+import 'package:reading_app/features/searches/presentation/page/search_novel_page.dart';
 
 class ExploreRoutes {
   static final routes = [

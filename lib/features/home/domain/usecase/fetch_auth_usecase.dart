@@ -1,4 +1,4 @@
-import 'package:reading_app/core/services/api/data/entities/models/user_model.dart';
+import 'package:reading_app/core/services/entities/models/user_model.dart';
 import 'package:reading_app/features/home/domain/repositories/home_repository.dart';
 
 class FetchAuthUsecase {

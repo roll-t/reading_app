@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/services/api/data/entities/models/result.dart';
+import 'package:reading_app/core/services/entities/models/result.dart';
 import 'package:reading_app/core/services/network/dio_service.dart';
 import 'package:reading_app/core/storage/cache/cache_service.dart';
 

@@ -1,16 +1,15 @@
 import 'package:get/get.dart';
-import 'package:reading_app/core/services/api/data/repositories/category_repository_impl.dart';
-import 'package:reading_app/core/services/api/data/sources/locals/novel_service.dart';
-import 'package:reading_app/core/services/api/data/sources/locals/user_service.dart';
-import 'package:reading_app/core/services/api/data/sources/remotes/category_comic_service.dart';
-import 'package:reading_app/core/services/api/data/sources/remotes/comic_service.dart';
-import 'package:reading_app/core/services/api/domain/repositories/category_repository.dart';
-import 'package:reading_app/core/services/api/domain/repositories/user_repository.dart';
-import 'package:reading_app/core/services/api/domain/usecase/categories/check_category_cache_usecase.dart';
-import 'package:reading_app/core/services/api/domain/usecase/categories/fetch_categories_cache_usecase.dart';
-import 'package:reading_app/core/services/api/domain/usecase/users/backup/get_user_usecase.dart';
 import 'package:reading_app/core/storage/prefs/prefs.dart';
-import 'package:reading_app/features/auth/data/sources/user_repository_impl.dart';
+import 'package:reading_app/features/auth/data/repositories/user_repository_impl.dart';
+import 'package:reading_app/features/auth/data/sources/user_service.dart';
+import 'package:reading_app/features/auth/domain/repositories/user_repository.dart';
+import 'package:reading_app/features/auth/domain/usecase/backup/get_user_usecase.dart';
+import 'package:reading_app/features/category/data/repositories/category_repository_impl.dart';
+import 'package:reading_app/features/category/data/sources/category_comic_service.dart';
+import 'package:reading_app/features/category/domain/repositories/category_repository.dart';
+import 'package:reading_app/features/category/domain/usecase/check_category_cache_usecase.dart';
+import 'package:reading_app/features/category/domain/usecase/fetch_categories_cache_usecase.dart';
+import 'package:reading_app/features/comic/data/sources/comic_service.dart';
 import 'package:reading_app/features/home/data/reposirories/home_repository_impl.dart';
 import 'package:reading_app/features/home/domain/repositories/home_repository.dart';
 import 'package:reading_app/features/home/domain/usecase/fetch_auth_usecase.dart';
@@ -18,6 +17,7 @@ import 'package:reading_app/features/home/domain/usecase/fetch_novels_usecase.da
 import 'package:reading_app/features/home/domain/usecase/fetch_slider_usecase.dart';
 import 'package:reading_app/features/home/domain/usecase/fetch_up_coming_comics_usecase.dart';
 import 'package:reading_app/features/home/presentation/controller/home_controller.dart';
+import 'package:reading_app/features/novel/data/sources/novel_service.dart';
 
 class HomeBinding extends Bindings {
   @override

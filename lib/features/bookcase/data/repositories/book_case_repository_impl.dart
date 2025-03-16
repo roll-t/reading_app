@@ -1,8 +1,8 @@
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/services/api/data/entities/dto/response/favorite_response.dart';
-import 'package:reading_app/core/services/api/data/entities/dto/response/reading_book_case_response.dart';
-import 'package:reading_app/core/services/api/data/entities/models/reading_book_case_model.dart';
-import 'package:reading_app/core/services/api/data/sources/locals/book_case_service.dart';
+import 'package:reading_app/core/services/entities/dto/response/favorite_response.dart';
+import 'package:reading_app/core/services/entities/dto/response/reading_book_case_response.dart';
+import 'package:reading_app/core/services/entities/models/reading_book_case_model.dart';
+import 'package:reading_app/features/bookcase/data/sources/book_case_service.dart';
 import 'package:reading_app/features/bookcase/domain/repositories/book_case_repository.dart';
 
 class BookCaseRepositoryImpl implements BookCaseRepository {

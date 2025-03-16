@@ -3,8 +3,8 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/services/api/domain/usecase/auths/get_auth_token_usecase.dart';
 import 'package:reading_app/core/services/network/error_handler.dart';
+import 'package:reading_app/features/auth/domain/usecase/get_auth_token_usecase.dart';
 
 class DioConfig extends GetxService {
   late Dio _dio;

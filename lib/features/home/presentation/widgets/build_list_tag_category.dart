@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
-import 'package:reading_app/core/services/api/data/entities/models/category_model.dart';
+import 'package:reading_app/core/services/entities/models/category_model.dart';
 import 'package:reading_app/core/ui/dialogs/custom_bottom_sheet.dart';
 import 'package:reading_app/core/ui/widgets/tags/tag_category.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 import 'package:reading_app/core/utils/string_utils.dart';
-import 'package:reading_app/features/content/categories/comics/data/models/category_arument_model.dart';
+import 'package:reading_app/features/category/data/models/category_arument_model.dart';
 import 'package:reading_app/features/home/presentation/navigators/navigator_home_page.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 

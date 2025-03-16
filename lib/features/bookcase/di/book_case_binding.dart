@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:reading_app/core/services/api/data/sources/locals/book_case_service.dart';
 import 'package:reading_app/core/storage/prefs/prefs.dart';
 import 'package:reading_app/features/bookcase/data/repositories/book_case_repository_impl.dart';
+import 'package:reading_app/features/bookcase/data/sources/book_case_service.dart';
 import 'package:reading_app/features/bookcase/domain/repositories/book_case_repository.dart';
 import 'package:reading_app/features/bookcase/domain/usecase/fetch_novels_bookcase_usecase.dart';
 import 'package:reading_app/features/bookcase/domain/usecase/fetch_novels_favorite_bookcase_usecase.dart';

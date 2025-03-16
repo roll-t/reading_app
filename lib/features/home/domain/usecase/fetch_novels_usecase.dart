@@ -1,4 +1,4 @@
-import 'package:reading_app/core/services/api/data/entities/dto/response/novel_response.dart';
+import 'package:reading_app/core/services/entities/dto/response/novel_response.dart';
 import 'package:reading_app/features/home/domain/repositories/home_repository.dart';
 
 class FetchNovelsUsecase {

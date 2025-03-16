@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/services/api/data/entities/models/result.dart';
-import 'package:reading_app/core/services/api/domain/usecase/auths/auth_use_case.dart';
+import 'package:reading_app/core/services/entities/models/result.dart';
 import 'package:reading_app/core/services/network/api_endpoint.dart';
 import 'package:reading_app/core/services/network/api_service.dart';
+import 'package:reading_app/features/auth/domain/usecase/auth_use_case.dart';
 
 class ImagesService extends ApiService {
   ImagesService(super.dioConfig, super.cacheService);

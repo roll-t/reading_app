@@ -1,12 +1,12 @@
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/services/api/data/entities/dto/response/novel_response.dart';
-import 'package:reading_app/core/services/api/data/entities/models/list_comic_model.dart';
-import 'package:reading_app/core/services/api/data/entities/models/result.dart';
-import 'package:reading_app/core/services/api/data/entities/models/user_model.dart';
-import 'package:reading_app/core/services/api/data/sources/locals/novel_service.dart';
-import 'package:reading_app/core/services/api/data/sources/remotes/comic_service.dart';
-import 'package:reading_app/core/services/api/domain/usecase/users/backup/get_user_usecase.dart';
+import 'package:reading_app/core/services/entities/dto/response/novel_response.dart';
+import 'package:reading_app/core/services/entities/models/list_comic_model.dart';
+import 'package:reading_app/core/services/entities/models/result.dart';
+import 'package:reading_app/core/services/entities/models/user_model.dart';
+import 'package:reading_app/features/auth/domain/usecase/backup/get_user_usecase.dart';
+import 'package:reading_app/features/comic/data/sources/comic_service.dart';
 import 'package:reading_app/features/home/domain/repositories/home_repository.dart';
+import 'package:reading_app/features/novel/data/sources/novel_service.dart';
 
 class HomeRepositoryImpl implements HomeRepository {
   

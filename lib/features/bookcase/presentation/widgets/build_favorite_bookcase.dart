@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/app_dimens.dart';
-import 'package:reading_app/core/services/api/data/entities/dto/response/favorite_response.dart';
+import 'package:reading_app/core/services/entities/dto/response/favorite_response.dart';
 import 'package:reading_app/core/ui/widgets/card/card_book_case_favorite.dart';
 import 'package:reading_app/features/bookcase/presentation/widgets/build_empty_sate_bookcase.dart';
 import 'package:reading_app/features/bookcase/presentation/widgets/build_shimmerbookcase.dart';
