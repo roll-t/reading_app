@@ -11,14 +11,14 @@ class UserService extends ApiService {
 
   Future<Result<UserModel>?> fetchUser({required String uid}) async {
     return await get(
-        endpoint: EndPointSetting.getUserEndpoint(uid: uid),
+        endpoint: APIEndpoint.getUserEndpoint(uid: uid),
         parse: (data) => UserModel.fromJson(data));
   }
 
   Future<Result<UserModel>> updateUser(
       {required String uid, required Map<String, dynamic> request}) async {
     return await put(
-        endpoint: EndPointSetting.getUserEndpoint(uid: uid),
+        endpoint: APIEndpoint.getUserEndpoint(uid: uid),
         parse: (data) => UserModel.fromJson(data),
         data: request);
   }
@@ -26,14 +26,14 @@ class UserService extends ApiService {
   Future<Result<UserModel>?> signInAPI(
       {required UserRequest userRequest}) async {
     return await post(
-        endpoint: EndPointSetting.signInEndpoint,
+        endpoint: APIEndpoint.signInEndpoint,
         parse: (data) => UserModel.fromJson(data),
         data: userRequest.toJson());
   }
 
   Future<Result<bool>> fetchEmailExist({required String email}) async {
     return await get(
-        endpoint: EndPointSetting.emailExistEndpoint(email: email),
+        endpoint: APIEndpoint.emailExistEndpoint(email: email),
         parse: (data) => true);
   }
 }

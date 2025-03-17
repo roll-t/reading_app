@@ -9,21 +9,22 @@ import 'package:reading_app/core/services/network/api_service.dart';
 class AuthService extends ApiService {
   AuthService(super.dioConfig, super.cacheService);
 
-
   Future<Result<AuthenticationModel>?> token(
       {required UserModel userModel}) async {
     final body = userModel.toJson();
     return await post(
-        endpoint: EndPointSetting.tokenEndpoint,
+        endpoint: APIEndpoint.tokenEndpoint,
         parse: (data) => AuthenticationModel.fromJson(data),
         data: body);
   }
 
-  Future<Result<IntrospectResponse>> introspect(
-      {required IntrospectRequest request}) async {
+  Future<Result<IntrospectResponse>> introspect({
+    required IntrospectRequest request,
+  }) async {
     return await post(
-        endpoint: EndPointSetting.introspect,
-        parse: (data) => IntrospectResponse.fromJson(data),
-        data: request.toJson());
+      endpoint: APIEndpoint.introspect,
+      parse: (data) => IntrospectResponse.fromJson(data),
+      data: request.toJson(),
+    );
   }
 }

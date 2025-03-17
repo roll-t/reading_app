@@ -11,7 +11,7 @@ class ChapterService extends ApiService {
   Future<Result<List<ChapterNovelModel>>> fetchListChapterOfBook(
       {required String slug}) async {
     return await get(
-        endpoint: EndPointSetting.getListChapterOfBookEndpoint(slug: slug),
+        endpoint: APIEndpoint.getListChapterOfBookEndpoint(slug: slug),
         parse: (data) => (data as List<dynamic>)
             .map((item) => ChapterNovelModel.fromJson(item))
             .toList());

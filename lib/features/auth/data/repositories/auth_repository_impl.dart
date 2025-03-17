@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:reading_app/core/configs/const/prefs_constants.dart';
 import 'package:reading_app/core/configs/enum.dart';
 import 'package:reading_app/core/services/entities/dto/request/introspect_request.dart';
@@ -22,7 +24,7 @@ class AuthRepositoryImpl implements AuthRepository {
       }
       return token;
     } catch (e) {
-      print('Error fetching auth token: $e');
+      log('Error fetching auth token: $e');
       return null;
     }
   }
@@ -32,7 +34,7 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       await _prefs.set(PrefsConstants.authentication, token);
     } catch (e) {
-      print('Error saving auth token: $e');
+      log('Error saving auth token: $e');
     }
   }
 
@@ -45,7 +47,7 @@ class AuthRepositoryImpl implements AuthRepository {
       }
       return await isTokenValid(token);
     } catch (e) {
-      print('Error checking login status: $e');
+      log('Error checking login status: $e');
       return false;
     }
   }
@@ -61,7 +63,7 @@ class AuthRepositoryImpl implements AuthRepository {
       }
       return false;
     } catch (e) {
-      print('Error validating token: $e');
+      log('Error validating token: $e');
       return false;
     }
   }
@@ -78,7 +80,7 @@ class AuthRepositoryImpl implements AuthRepository {
       }
       return result;
     } catch (e) {
-      print('Error during authentication: $e');
+      log('Error during authentication: $e');
       return Result.error(ApiError.badRequest);
     }
   }

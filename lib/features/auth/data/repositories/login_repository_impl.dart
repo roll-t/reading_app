@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:reading_app/core/configs/enum.dart';
@@ -51,7 +53,7 @@ class LoginRepositoryImpl implements LoginRepository {
             response?.data?.email ?? "", response?.data?.password ?? "0123456");
       }
     }
-    print(userExists?.data?.toJson());
+    log("${userExists?.data?.toJson()}");
 
     // Nếu người dùng đã tồn tại
     if (userExists?.status == Status.success) {

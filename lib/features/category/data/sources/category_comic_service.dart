@@ -18,7 +18,7 @@ class CategoryComicService extends ApiService {
   Future<Result<List<CategoryModel>>> getListCategories() async {
     try {
       final response =
-          await dioConfig.dio.get(EndPointSetting.categoriesEndpoint());
+          await dioConfig.dio.get(APIEndpoint.categoriesEndpoint());
       final apiResponse = response.data;
       return ResponseComicApi.handleResponseCategories(
           response.statusCode ?? 500,
@@ -42,7 +42,7 @@ class CategoryComicService extends ApiService {
     bool checkSetUp = await _checkCategoryCacheUsecase();
     if (checkSetUp) return;
     final response =
-        await dioConfig.dio.get(EndPointSetting.categoriesEndpoint());
+        await dioConfig.dio.get(APIEndpoint.categoriesEndpoint());
     final apiResponse = response.data;
     Result<List<CategoryModel>> listCategories =
         ResponseComicApi.handleResponseCategories(response.statusCode ?? 500,

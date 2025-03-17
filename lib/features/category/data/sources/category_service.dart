@@ -9,7 +9,7 @@ class CategoryService extends ApiService {
 
   Future<Result<List<CategoryResponse>>> fetchAllCategories() async {
     return await get(
-        endpoint: EndPointSetting.getAllCategory,
+        endpoint: APIEndpoint.getAllCategory,
         parse: (data) => (data as List<dynamic>)
             .map((items) => CategoryResponse.fromJson(items))
             .toList());

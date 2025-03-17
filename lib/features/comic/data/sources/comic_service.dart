@@ -14,7 +14,7 @@ class ComicApi extends ApiService {
 
   Future<Result<ComicModel>> fetchBookBySlug({required String slug}) async {
     return await get(
-      endpoint: EndPointSetting.comicDetailEndpoint(slug: slug),
+      endpoint: APIEndpoint.comicDetailEndpoint(slug: slug),
       parse: (data) => ComicModel.fromJson(data),
       apiSource: ApiSource.comic,
       useCache: true,
@@ -24,7 +24,7 @@ class ComicApi extends ApiService {
   // Lấy dữ liệu trang chủ
   Future<Result<ListComicModel>> fetchHomeData() async {
     return await get(
-      endpoint: EndPointSetting.comicHomeEndpoint(),
+      endpoint: APIEndpoint.comicHomeEndpoint(),
       parse: (data) =>
           ResponseComicApi.handleResponseData(200, data: data).data!,
       apiSource: ApiSource.comic,
@@ -37,7 +37,7 @@ class ComicApi extends ApiService {
       {required String slug, required int page}) async {
         
     var data = await get(
-      endpoint: EndPointSetting.listByTypeEndpoint(slug: slug, page: page),
+      endpoint: APIEndpoint.listByTypeEndpoint(slug: slug, page: page),
       parse: (data) =>
           ResponseComicApi.handleResponseData(200, data: data).data!,
       apiSource: ApiSource.comic,
@@ -51,7 +51,7 @@ class ComicApi extends ApiService {
   Future<Result<ListComicModel>> fetchListSearchBySlug(
       {required String slug, required int page}) async {
     return await get(
-      endpoint: EndPointSetting.searchBySlugEndpoint(slug: slug, page: page),
+      endpoint: APIEndpoint.searchBySlugEndpoint(slug: slug, page: page),
       parse: (data) =>
           ResponseComicApi.handleResponseData(200, data: data).data!,
       apiSource: ApiSource.comic,
@@ -64,7 +64,7 @@ class ComicApi extends ApiService {
       {required String slug, required int page}) async {
     return await get(
       endpoint:
-          EndPointSetting.categoriesBySlugEndpoint(slug: slug, page: page),
+          APIEndpoint.categoriesBySlugEndpoint(slug: slug, page: page),
       parse: (data) =>
           ResponseComicApi.handleResponseData(200, data: data).data!,
       apiSource: ApiSource.comic,

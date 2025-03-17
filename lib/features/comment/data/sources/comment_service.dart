@@ -12,7 +12,7 @@ class CommentService extends ApiService {
       {required CommentRequest request, required bookId}) async {
     final body = request.toJson();
     return await post(
-        endpoint: EndPointSetting.addComment(bookId: bookId),
+        endpoint: APIEndpoint.addComment(bookId: bookId),
         parse: (data) => CommentResponse.fromJson(data),
         data: body);
   }
@@ -21,7 +21,7 @@ class CommentService extends ApiService {
       {required String chapterId, int page = 0}) async {
     return await get(
       endpoint:
-          '${EndPointSetting.getAllCommentByChapterId(chapterId: chapterId)}?page=$page',
+          '${APIEndpoint.getAllCommentByChapterId(chapterId: chapterId)}?page=$page',
       parse: (data) => (data as List<dynamic>)
           .map((item) => CommentResponse.fromJson(item))
           .toList(),
@@ -31,7 +31,7 @@ class CommentService extends ApiService {
   Future<Result<List<CommentResponse>>> fetchAllComment(
       {required String bookId}) async {
     return await get(
-        endpoint: EndPointSetting.getAllCommentByBookId(bookId: bookId),
+        endpoint: APIEndpoint.getAllCommentByBookId(bookId: bookId),
         parse: (data) => (data as List<dynamic>)
             .map((items) => CommentResponse.fromJson(items))
             .toList());
@@ -39,7 +39,7 @@ class CommentService extends ApiService {
 
   Future<Result<bool>> deleteReadingComment({required String commentId}) async {
     return await delete(
-        endpoint: EndPointSetting.deleteComment(cmId: commentId),
+        endpoint: APIEndpoint.deleteComment(cmId: commentId),
         parse: (data) => data);
   }
 }

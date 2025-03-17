@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:reading_app/core/services/entities/models/user_model.dart';
 import 'package:reading_app/features/auth/domain/repositories/login_repository.dart';
 
@@ -9,7 +11,7 @@ class GoogleSignInUseCase {
     try {
       return await _repository.googleSignIn();
     } catch (e) {
-      print(e);
+      log("$e");
     }
     return null;
   }

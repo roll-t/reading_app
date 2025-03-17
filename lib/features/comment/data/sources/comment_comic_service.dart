@@ -12,7 +12,7 @@ class CommentComicService extends ApiService {
       {required CommentComicRequest request}) async {
     final body = request.toJson();
     return await post(
-        endpoint: EndPointSetting.addCommentComic,
+        endpoint: APIEndpoint.addCommentComic,
         parse: (data) => CommentResponse.fromJson(data),
         data: body);
   }
@@ -20,7 +20,7 @@ class CommentComicService extends ApiService {
   Future<Result<List<CommentResponse>>> fetchAllComment(
       {required String bookId}) async {
     return await get(
-        endpoint: EndPointSetting.getAllCommentComicByBookId(bookId: bookId),
+        endpoint: APIEndpoint.getAllCommentComicByBookId(bookId: bookId),
         parse: (data) => (data as List<dynamic>)
             .map((items) => CommentResponse.fromJson(items))
             .toList());
@@ -28,7 +28,7 @@ class CommentComicService extends ApiService {
 
   Future<Result<bool>> deleteReadingComment({required String commentId}) async {
     return await delete(
-        endpoint: EndPointSetting.deleteCommentComic(cmId: commentId),
+        endpoint: APIEndpoint.deleteCommentComic(cmId: commentId),
         parse: (data) => data);
   }
 }

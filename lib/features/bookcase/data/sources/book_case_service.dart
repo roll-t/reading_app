@@ -14,7 +14,7 @@ class BookCaseService extends ApiService {
       {required ReadingBookCaseRequest request}) async {
     final body = request.toJson();
     return await post(
-        endpoint: EndPointSetting.addReadingBookCase,
+        endpoint: APIEndpoint.addReadingBookCase,
         parse: (data) => ReadingBookCaseResponse.fromJson(data),
         data: body);
   }
@@ -22,7 +22,7 @@ class BookCaseService extends ApiService {
   Future<Result<List<ReadingBookCaseResponse>>> fetchAllReadingBookCase(
       {required String uid}) async {
     return await get(
-        endpoint: EndPointSetting.getReadingBookCaseWithId(uid: uid),
+        endpoint: APIEndpoint.getReadingBookCaseWithId(uid: uid),
         parse: (data) => (data as List<dynamic>)
             .map((items) => ReadingBookCaseResponse.fromJson(items))
             .toList());
@@ -30,7 +30,7 @@ class BookCaseService extends ApiService {
 
   Future<Result<bool>> deleteReadingBookCase({required String bcId}) async {
     return await delete(
-        endpoint: EndPointSetting.deleteBookCase(bcId: bcId),
+        endpoint: APIEndpoint.deleteBookCase(bcId: bcId),
         parse: (data) => data);
   }
 
@@ -39,8 +39,8 @@ class BookCaseService extends ApiService {
       {required FavoriteRequest request}) async {
     final body = request.toJson();
     return await post(
-        endpoint: EndPointSetting
-            .likeBook, // Assuming endpoint exists in EndPointSetting
+        endpoint: APIEndpoint
+            .likeBook, // Assuming endpoint exists in APIEndpoint
         parse: (data) => FavoriteResponse.fromJson(data),
         data: body);
   }
@@ -50,14 +50,14 @@ class BookCaseService extends ApiService {
       {required String bookDataId, required String userId}) async {
     return await delete(
         endpoint:
-            EndPointSetting.unlikeBook(bookDataId: bookDataId, userId: userId),
+            APIEndpoint.unlikeBook(bookDataId: bookDataId, userId: userId),
         parse: (data) => data);
   }
 
   Future<Result<List<FavoriteResponse>>> fetchAllFavoriteBooks(
       {required String userId}) async {
     return await get(
-        endpoint: EndPointSetting.getAllFavoriteBooks(userId: userId),
+        endpoint: APIEndpoint.getAllFavoriteBooks(userId: userId),
         parse: (data) => (data as List<dynamic>)
             .map((item) => FavoriteResponse.fromJson(item))
             .toList());
@@ -92,7 +92,7 @@ class BookCaseService extends ApiService {
   Future<Result<bool>> checkIfBookLiked(
       {required String bookDataId, required String userId}) async {
     return await get(
-        endpoint: EndPointSetting.checkIfBookLiked(
+        endpoint: APIEndpoint.checkIfBookLiked(
             bookDataId: bookDataId, userId: userId),
         parse: (data) => data); // Assuming the response is a boolean
   }

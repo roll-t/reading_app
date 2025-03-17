@@ -11,7 +11,7 @@ class NovelService extends ApiService {
   Future<Result<List<NovelResponse>>> fetchListNovel() async {
     return await get(
       useCache: true,
-      endpoint: EndPointSetting.getListNovelEnpoint,
+      endpoint: APIEndpoint.getListNovelEnpoint,
       parse: (data) => (data as List<dynamic>)
           .map((item) => NovelResponse.fromJson(item))
           .toList(),
@@ -22,7 +22,7 @@ class NovelService extends ApiService {
       {required String statusName}) async {
     return await get(
       useCache: true,
-      endpoint: EndPointSetting.getNovelByStatus(statusName: statusName),
+      endpoint: APIEndpoint.getNovelByStatus(statusName: statusName),
       parse: (data) => (data as List<dynamic>)
           .map((item) => NovelResponse.fromJson(item))
           .toList(),
@@ -33,7 +33,7 @@ class NovelService extends ApiService {
       {required String text}) async {
     return await get(
       useCache: true,
-      endpoint: EndPointSetting.searchNovelByNameOrSlug(text: text),
+      endpoint: APIEndpoint.searchNovelByNameOrSlug(text: text),
       parse: (data) => (data as List<dynamic>)
           .map((item) => NovelResponse.fromJson(item))
           .toList(),
@@ -44,7 +44,7 @@ class NovelService extends ApiService {
       {required String statusName}) async {
     return await get(
       useCache: true,
-      endpoint: EndPointSetting.getNovelByCategory(categoryName: statusName),
+      endpoint: APIEndpoint.getNovelByCategory(categoryName: statusName),
       parse: (data) => (data as List<dynamic>)
           .map((item) => NovelResponse.fromJson(item))
           .toList(),
@@ -56,7 +56,7 @@ class NovelService extends ApiService {
       {required List<String> listSlug}) async {
     return await get(
       useCache: true,
-      endpoint: EndPointSetting.getNovelByListSlug(listSlug: listSlug),
+      endpoint: APIEndpoint.getNovelByListSlug(listSlug: listSlug),
       parse: (data) => (data as List<dynamic>)
           .map((item) => NovelResponse.fromJson(item))
           .toList(),
@@ -71,7 +71,7 @@ class NovelService extends ApiService {
       int size = 20,
       required String statusName}) async {
     return await get(
-      endpoint: EndPointSetting.getNovelByCategoryAndStatus(
+      endpoint: APIEndpoint.getNovelByCategoryAndStatus(
           categorySlug: categorySlug, status: status, page: page, size: size),
       parse: (data) => (data as List<dynamic>)
           .map((item) => NovelResponse.fromJson(item))
@@ -82,7 +82,7 @@ class NovelService extends ApiService {
   Future<Result<NovelModel>> fetchNovelById({required String id}) async {
     return await get(
       useCache: true,
-      endpoint: EndPointSetting.getNovelByIdEnpoint(id: id),
+      endpoint: APIEndpoint.getNovelByIdEnpoint(id: id),
       parse: (data) => NovelModel.fromJson(data),
     );
   }
