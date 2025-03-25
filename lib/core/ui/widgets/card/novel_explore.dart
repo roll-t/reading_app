@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/services/api/data/entities/dto/response/novel_response.dart';
+import 'package:reading_app/core/services/entities/dto/response/novel_response.dart';
 import 'package:reading_app/core/ui/widgets/images/image_widget.dart';
 import 'package:reading_app/core/ui/widgets/text/customs/text_small.dart';
 
@@ -41,7 +41,7 @@ class NovelExplore extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(
-                  height: SpaceDimens.space5,
+                  height: AppDimens.space5,
                 ),
                 TextSmall(
                   textChild: bookModel.name ?? "",

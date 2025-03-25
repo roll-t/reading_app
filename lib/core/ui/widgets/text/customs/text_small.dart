@@ -1,7 +1,7 @@
 
 import 'dart:ui';
 
-import 'package:reading_app/core/configs/dimens/text_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 
 class TextSmall extends TextWidget {
@@ -17,7 +17,7 @@ class TextSmall extends TextWidget {
   : super(
           text: textChild,
           color: colorChild,
-          size: TextDimens.textSmall,
+          size: AppDimens.textSmall,
           maxLines: maxLinesChild
         );
 }

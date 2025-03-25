@@ -36,7 +36,6 @@ class Themes {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0),
         ),
-        fillColor: WidgetStateProperty.all(AppColors.primary),
       ),
       progressIndicatorTheme: ProgressIndicatorThemeData(
         color: AppColors.accentColor, // Màu cho CircularProgressIndicator
@@ -92,7 +91,6 @@ class Themes {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0),
         ),
-        fillColor: WidgetStateProperty.all(AppColors.primary),
       ),
     );
   }

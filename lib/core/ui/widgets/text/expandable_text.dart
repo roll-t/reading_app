@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/dimens/text_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 
@@ -11,7 +11,7 @@ class ExpandableText extends StatelessWidget {
     this.lineHeight = 1.5,
     required this.text,
     this.trimLines = 3,
-    this.fontSize = TextDimens.textNormal,
+    this.fontSize = AppDimens.textNormal,
     this.fontSizeReadMore = 15,
     this.colorText = AppColors.gray2,
     this.fontWeight = FontWeight.w400,

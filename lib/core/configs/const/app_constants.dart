@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:reading_app/core/configs/themes/app_colors.dart';
-import 'package:reading_app/core/services/api/data/entities/models/read_theme_model.dart';
+import 'package:reading_app/core/services/entities/models/read_theme_model.dart';
 
 class AppConstants {
   static const bool isAdmobEnabled = false;

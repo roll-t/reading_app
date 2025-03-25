@@ -2,7 +2,7 @@
 
 import 'dart:ui';
 
-import 'package:reading_app/core/configs/dimens/text_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 
 class TextMediumSemiBold extends TextWidget {
@@ -20,7 +20,7 @@ class TextMediumSemiBold extends TextWidget {
           text: textChild,
           color: colorChild,
           fontWeight: FontWeight.w500,
-          size: TextDimens.textMedium,
+          size: AppDimens.textMedium,
           maxLines: maxLinesChild
         );
 }

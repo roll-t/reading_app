@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/dimens/text_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/ui/widgets/images/Image_widget.dart';
@@ -89,7 +89,7 @@ class NovelCardWidget extends StatelessWidget {
                   )
                 : TextWidget(
                     text: novelTitle,
-                    size: TextDimens.textSize14,
+                    size: AppDimens.textSize14,
                     maxLines: 2,
                     fontWeight: FontWeight.w500,
                   ),

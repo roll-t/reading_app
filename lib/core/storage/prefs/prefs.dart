@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:reading_app/core/configs/const/prefs_constants.dart';
-import 'package:reading_app/core/services/api/data/entities/models/user_model.dart';
+import 'package:reading_app/core/services/entities/models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Prefs {

@@ -1,16 +1,22 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/services/api/domain/usecase/auths/is_login_usecase.dart';
-import 'package:reading_app/core/services/api/domain/usecase/categories/set_categories_cache_usecase.dart';
 import 'package:reading_app/core/storage/cache/cache_manager.dart';
+import 'package:reading_app/features/auth/domain/usecase/is_login_usecase.dart';
+import 'package:reading_app/features/category/domain/usecase/set_categories_cache_usecase.dart';
 
 class SplashController extends GetxController {
+  
   final IsLoginUseCase _isLoginUseCase;
   final SetCategoriesCacheUsecase _setCategoriesCacheUsecase;
-  SplashController(this._isLoginUseCase,this._setCategoriesCacheUsecase);
-  
+
+  SplashController(
+    this._isLoginUseCase,
+    this._setCategoriesCacheUsecase,
+  );
+
   @override
   void onInit() {
     super.onInit();
@@ -26,7 +32,7 @@ class SplashController extends GetxController {
       } else {}
       navigateToNextScreen();
     } catch (e) {
-      print("Error during cache expiration check: $e");
+      log("Error during cache expiration check: $e");
     }
   }
 
@@ -42,9 +48,9 @@ class SplashController extends GetxController {
   Future<void> checkCacheSize() async {
     try {
       int size = await CacheManager.getCacheSize();
-      print('Cache size: ${size / (1024 * 1024)} MB');
+      log('Cache size: ${size / (1024 * 1024)} MB');
     } catch (e) {
-      print("Error calculating cache size: $e");
+      log("Error calculating cache size: $e");
     }
   }
 }

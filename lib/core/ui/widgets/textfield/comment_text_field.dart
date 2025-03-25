@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:reading_app/core/configs/dimens/radius_dimens.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -19,7 +18,7 @@ class CommentTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        padding: const EdgeInsets.all(SpaceDimens.space10),
+        padding: const EdgeInsets.all(AppDimens.space10),
         child: ConstrainedBox(
           constraints: const BoxConstraints(
             maxHeight: 100.0,
@@ -29,7 +28,7 @@ class CommentTextField extends StatelessWidget {
             reverse: true, // Để cuộn tự động xuống cuối khi nhập văn bản
             child: TextField(
               controller: controller,
-              cursorRadius: const Radius.circular(RadiusDimens.radiusFull),
+              cursorRadius: const Radius.circular(AppDimens.radiusFull),
               maxLines: null, // Cho phép TextField mở rộng chiều cao
               minLines: 1, // Cho phép TextField có ít nhất 1 dòng
               decoration: InputDecoration(
@@ -38,7 +37,7 @@ class CommentTextField extends StatelessWidget {
                 hintText: placeholder,
                 hintStyle: const TextStyle(fontWeight: FontWeight.w400),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(RadiusDimens.radiusFull),
+                  borderRadius: BorderRadius.circular(AppDimens.radiusFull),
                   borderSide: BorderSide.none,
                 ),
                 fillColor: AppColors.tertiaryDarkBg,

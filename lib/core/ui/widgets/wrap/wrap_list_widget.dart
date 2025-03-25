@@ -1,6 +1,6 @@
 // ignore: camel_case_types
 import 'package:flutter/material.dart';
-import 'package:reading_app/core/configs/dimens/text_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
@@ -45,7 +45,7 @@ class wrapListWidget extends StatelessWidget {
             children: [
               TextWidget(
                 text: titleList,
-                size: TextDimens.textSize18,
+                size: AppDimens.textSize18,
                 fontWeight: FontWeight.w500,
               ),
               if (seeMore != null)
@@ -55,12 +55,12 @@ class wrapListWidget extends StatelessWidget {
                     children: [
                       TextWidget(
                         text: AppContents.seeMore,
-                        size: TextDimens.textSize12,
+                        size: AppDimens.textSize12,
                         color: AppColors.accentColor,
                       ),
                       Icon(
                         Icons.arrow_forward_ios_rounded,
-                        size: TextDimens.textSize12,
+                        size: AppDimens.textSize12,
                         color: AppColors.accentColor,
                       )
                     ],
@@ -104,7 +104,7 @@ class wrapListWidget extends StatelessWidget {
             const Center(
               child: TextWidget(
                 text: "No items available",
-                size: TextDimens.textSize16,
+                size: AppDimens.textSize16,
                 color: AppColors.grey,
               ),
             ),

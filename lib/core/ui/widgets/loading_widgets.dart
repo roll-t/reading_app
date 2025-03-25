@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/assets/app_images.dart';
-import 'package:reading_app/core/configs/dimens/text_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -36,7 +36,7 @@ class LoadingWidgets {
         ? const Center(
             child: TextWidget(
               text: "Loading ...",
-              size: TextDimens.textSize12,
+              size: AppDimens.textSize12,
               color: AppColors.gray2,
             ),
           )

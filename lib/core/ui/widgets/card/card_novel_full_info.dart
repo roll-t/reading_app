@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/assets/app_icons.dart';
-import 'package:reading_app/core/configs/dimens/icons_dimens.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
+import 'package:reading_app/core/configs/assets/app_images.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/services/api/data/entities/dto/response/novel_response.dart';
+import 'package:reading_app/core/services/entities/dto/response/novel_response.dart';
 import 'package:reading_app/core/ui/widgets/icons/icon_image.dart';
 import 'package:reading_app/core/ui/widgets/images/Image_widget.dart';
 import 'package:reading_app/core/ui/widgets/text/customs/text_normal.dart';
@@ -34,12 +33,12 @@ class CardNovelFullInfo extends StatelessWidget {
             arguments: {"novelId": bookModel.bookDataId,});
       },
       child: Container(
-        height: heightImage + SpaceDimens.space25,
+        height: heightImage + AppDimens.space25,
         width: Get.width,
         margin: currentIndex != 0
-            ? const EdgeInsets.only(top: SpaceDimens.space25)
+            ? const EdgeInsets.only(top: AppDimens.space25)
             : null,
-        padding: const EdgeInsets.only(bottom: SpaceDimens.space25),
+        padding: const EdgeInsets.only(bottom: AppDimens.space25),
         decoration: BoxDecoration(
             border: !last
                 ? const Border(
@@ -53,7 +52,7 @@ class CardNovelFullInfo extends StatelessWidget {
               child: ImageWidget(imageUrl: bookModel.thumbUrl ?? ""),
             ),
             const SizedBox(
-              width: SpaceDimens.space10,
+              width: AppDimens.space10,
             ),
             Expanded(
               child: Column(
@@ -62,7 +61,7 @@ class CardNovelFullInfo extends StatelessWidget {
                   TextNormal(textChild: bookModel.name ?? ""),
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        vertical: SpaceDimens.space10),
+                        vertical: AppDimens.space10),
                     child: Row(
                       children: [
                         const TextSmall(
@@ -70,7 +69,7 @@ class CardNovelFullInfo extends StatelessWidget {
                           colorChild: AppColors.gray1,
                         ),
                         const SizedBox(
-                          width: SpaceDimens.space40,
+                          width: AppDimens.space40,
                         ),
                         Row(
                           children: [
@@ -82,8 +81,8 @@ class CardNovelFullInfo extends StatelessWidget {
                               width: 2,
                             ),
                             IconImage.iconImageNormal(
-                                iconUrl: AppIcons.iStar,
-                                size: IconsDimens.iconsSize18)
+                                iconUrl: AppImages.iStar,
+                                size: AppDimens.iconSize18)
                           ],
                         ),
                       ],

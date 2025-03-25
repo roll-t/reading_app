@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:reading_app/core/configs/dimens/icons_dimens.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/text/customs/text_small.dart';
 
@@ -17,11 +16,11 @@ class IconImage {
         children: [
           Image.asset(
             iconUrl,
-            width: IconsDimens.semiSmall,
-            height: IconsDimens.semiSmall,
+            width: AppDimens.iconSemiSmall,
+            height: AppDimens.iconSemiSmall,
           ),
           if (sub != null) ...[
-            const SizedBox(height: SpaceDimens.space5),
+            const SizedBox(height: AppDimens.space5),
             TextSmall(
               textChild: sub,
               colorChild: AppColors.gray1,

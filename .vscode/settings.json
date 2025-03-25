@@ -1,6 +1,7 @@
 {
-    "cSpell.words": [
-        "Imagechapter",
-        "Screem"
-    ]
+  "cSpell.words": [
+    "Imagechapter",
+    "Screem"
+  ],
+  "dart.flutterSdkPath": ".fvm/versions/3.19.6"
 }

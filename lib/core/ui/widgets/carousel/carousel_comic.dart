@@ -1,10 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/core/services/api/data/entities/models/list_comic_model.dart';
+import 'package:reading_app/core/services/entities/models/list_comic_model.dart';
 import 'package:reading_app/core/ui/widgets/images/image_widget.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -14,7 +14,7 @@ class CarouselComic {
     required ListComicModel listBook,
   }) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: SpaceDimens.space10),
+      padding: const EdgeInsets.symmetric(vertical: AppDimens.space10),
       child: CarouselSlider.builder(
         itemCount: listBook.items.length,
         itemBuilder: (context, index, realIndex) {
@@ -25,7 +25,7 @@ class CarouselComic {
 
             // Thêm hiệu ứng opacity mượt mà
             final double opacity = isCurrent ? 1 : 0.7;
-            
+
             return AnimatedScale(
               scale: scale,
               duration: const Duration(milliseconds: 300),

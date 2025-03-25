@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/features/content/book_details/novel_detail/di/novel_binding.dart';
-import 'package:reading_app/features/content/book_details/novel_detail/presentation/page/novel_detail_page.dart';
-import 'package:reading_app/features/content/book_details/novel_detail/presentation/page/read_novel_page.dart';
-import 'package:reading_app/features/content/categories/comics/di/category_binding.dart';
-import 'package:reading_app/features/content/categories/novels/presentation/page/category_novel_page.dart';
+import 'package:reading_app/features/category/di/category_binding.dart';
+import 'package:reading_app/features/category/presentation/novel/page/category_novel_page.dart';
+import 'package:reading_app/features/novel/di/novel_binding.dart';
+import 'package:reading_app/features/novel/presentation/novel_detail/pages/novel_detail_page.dart';
+import 'package:reading_app/features/novel/presentation/novel_read/pages/read_novel_page.dart';
 
 class NovelRoutes {
   static final routes = [

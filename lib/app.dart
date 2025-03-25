@@ -12,19 +12,21 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveSizer(builder: (context, orientation, deviceType) {
-      return GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialRoute: Pages.initial,
-        scrollBehavior: MyBehavior(),
-        getPages: Pages.routes,
-        initialBinding: AppBinding(),
-        fallbackLocale: LocalizationService.fallbackLocale,
-        translations: LocalizationService(),
-        theme: Themes.light,
-        darkTheme: Themes.dark,
-        themeMode: ThemeMode.dark,
-      );
-    });
+    return ResponsiveSizer(
+      builder: (context, orientation, deviceType) {
+        return GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          initialRoute: Pages.initial,
+          scrollBehavior: MyBehavior(),
+          getPages: Pages.routes,
+          initialBinding: AppBinding(),
+          fallbackLocale: LocalizationService.fallbackLocale,
+          translations: LocalizationService(),
+          theme: Themes.light,
+          darkTheme: Themes.dark,
+          themeMode: ThemeMode.dark,
+        );
+      },
+    );
   }
 }

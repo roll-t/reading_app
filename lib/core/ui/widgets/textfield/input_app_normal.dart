@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // Thêm import này để sử dụng FilteringTextInputFormatter
-import 'package:reading_app/core/configs/dimens/radius_dimens.dart';
-import 'package:reading_app/core/configs/dimens/space_dimens.dart';
-import 'package:reading_app/core/configs/dimens/text_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 import 'package:reading_app/core/ui/widgets/text/customs/text_normal_light.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
@@ -47,13 +45,13 @@ class _InputAppNormalState extends State<InputAppNormal> {
             ? TextNormalLight(textChild: widget.label)
             : const SizedBox(),
         Container(
-          padding: const EdgeInsets.all(SpaceDimens.space5),
-          margin: const EdgeInsets.only(top: SpaceDimens.space5),
+          padding: const EdgeInsets.all(AppDimens.space5),
+          margin: const EdgeInsets.only(top: AppDimens.space5),
           decoration: BoxDecoration(
               border: widget.isBorderCustom
                   ? Border.all(color: AppColors.white, width: 2)
                   : null,
-              borderRadius: BorderRadius.circular(RadiusDimens.radiusSmall1),
+              borderRadius: BorderRadius.circular(AppDimens.radiusSmall1),
               color: AppColors.black),
           child: TextField(
             controller: widget.controller,
@@ -105,7 +103,7 @@ class _InputAppNormalState extends State<InputAppNormal> {
         ),
         TextWidget(
           text: widget.errorMess,
-          size: TextDimens.textSize12,
+          size: AppDimens.textSize12,
           color: AppColors.error,
           fontWeight: FontWeight.w300,
         )

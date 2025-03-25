@@ -1,7 +1,7 @@
 
 import 'dart:ui';
 
-import 'package:reading_app/core/configs/dimens/text_dimens.dart';
+import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 
 class TextSmallSemiBold extends TextWidget {
@@ -17,6 +17,6 @@ class TextSmallSemiBold extends TextWidget {
           text: textChild,
           color: colorChild,
           fontWeight: FontWeight.w500,
-          size: TextDimens.textSmall
+          size: AppDimens.textSmall
         );
 }

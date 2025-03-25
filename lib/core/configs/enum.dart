@@ -1,4 +1,4 @@
-enum Status { success, error, wating, loading, none }
+enum Status { success, error, waiting, loading, none }
 
 // ignore: camel_case_types
 enum TypeInput { text, number, password }

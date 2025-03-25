@@ -1,14 +1,19 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:reading_app/core/configs/enum.dart';
-import 'package:reading_app/core/services/api/data/entities/models/result.dart';
-import 'package:reading_app/core/services/api/domain/usecase/auths/auth_use_case.dart';
+import 'package:reading_app/core/services/entities/models/result.dart';
 import 'package:reading_app/core/services/network/api_endpoint.dart';
 import 'package:reading_app/core/services/network/api_service.dart';
+import 'package:reading_app/features/auth/domain/usecase/auth_use_case.dart';
 
+// ---> class upload image to cloudNary
 class ImagesService extends ApiService {
-  ImagesService(super.dioConfig, super.cacheService);
+  ImagesService(
+    super.dioConfig,
+    super.cacheService,
+  );
 
   static Future<bool> doesImageLinkExist(String url) async {
     try {
@@ -29,7 +34,7 @@ class ImagesService extends ApiService {
 
     try {
       return await post<Map<String, String>>(
-        endpoint: EndPointSetting.uploadImage,
+        endpoint: APIEndpoint.uploadImage,
         data: formData,
         parse: (data) {
           return data['url'] ?? '';
@@ -50,7 +55,7 @@ class ImagesService extends ApiService {
       });
 
       var response = await dio.post(
-        EndPointSetting.uploadImage,
+        APIEndpoint.uploadImage,
         data: formData,
         options: Options(
           headers: {
@@ -69,7 +74,7 @@ class ImagesService extends ApiService {
         'error': 'Failed to upload image, status: ${response.statusCode}'
       };
     } catch (error) {
-      print("Error uploading image: $error");
+      log("Error uploading image: $error");
       return {'error': 'Error uploading image: $error'};
     }
   }
@@ -87,7 +92,7 @@ class ImagesService extends ApiService {
       var dio = Dio();
       String token = await AuthUseCase.getAuthToken();
       var response = await dio.delete(
-        '${EndPointSetting.deleteImage}/$formatPublicId',
+        '${APIEndpoint.deleteImage}/$formatPublicId',
         options: Options(
           headers: {
             'Authorization': 'Bearer $token',
@@ -110,7 +115,7 @@ class ImagesService extends ApiService {
         'error': 'Failed to delete image, status: ${response.statusCode}'
       };
     } catch (error) {
-      print("Error deleting image: $error");
+      log("Error deleting image: $error");
       return {'error': 'Error deleting image: $error'};
     }
   }
