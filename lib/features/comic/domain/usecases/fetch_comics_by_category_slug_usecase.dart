@@ -6,7 +6,13 @@ class FetchComicsByCategorySlugUsecase {
 
   FetchComicsByCategorySlugUsecase(this._repository);
 
-  Future<ListComicModel?> call(String slug) async {
-    return await _repository.fetchComicsByCategorySlug(slug);
+  Future<ListComicModel?> call({
+    required String slug,
+    int page = 1,
+  }) async {
+    return await _repository.fetchComicsByCategorySlug(
+      slug: slug,
+      page: page,
+    );
   }
 }

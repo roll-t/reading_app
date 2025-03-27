@@ -6,7 +6,8 @@ class FetchListComicByStatusUsecase {
 
   FetchListComicByStatusUsecase(this._repository);
 
-  Future<ListComicModel?> call(String status) async {
-    return _repository.fetchListByStatus(status);
+  Future<ListComicModel?> call({required String status, int page = 1}) async {
+    print("page = $page");
+    return _repository.fetchListByStatus(status: status, page: page);
   }
 }

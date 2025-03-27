@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/assets/app_images.dart';
+import 'package:reading_app/core/ui/layout_shared_builder/book_detail/entities/models/info_book_detail_model.dart';
+import 'package:reading_app/core/ui/layout_shared_builder/book_detail/entities/models/layout_book_detail_model.dart';
+import 'package:reading_app/core/ui/layout_shared_builder/book_detail/presentation/page/layout_book_detail_page.dart';
 import 'package:reading_app/core/ui/widgets/button/elevated_button_widget.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 import 'package:reading_app/features/comic/presentation/comic_detail/controllers/comic_detail_controller.dart';
-import 'package:reading_app/features/layout_book_detail/entities/models/info_book_detail_model.dart';
-import 'package:reading_app/features/layout_book_detail/entities/models/layout_book_detail_model.dart';
-import 'package:reading_app/features/layout_book_detail/presentation/page/layout_book_detail_page.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class ComicDetailPage extends GetView<ComicDetailController> {

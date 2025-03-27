@@ -6,6 +6,16 @@ import 'package:reading_app/features/novel/presentation/novel_read/controllers/m
 import 'package:reading_app/features/novel/presentation/novel_read/controllers/mixin/comment_controller_mixin.dart';
 import 'package:reading_app/features/novel/presentation/novel_read/controllers/mixin/theme_controller_mixin.dart';
 
+///**********************************
+/// EDIT TIME - 21/03/2025
+///
+/// **USED IN:**
+/// - `Novel features`
+///
+/// **EXPLANATION:**
+///  writing description this heres.
+///*********************************/
+
 class ReadNovelController extends GetxController
     with ChapterControllerMixin, ThemeControllerMixin, CommentControllerMixin {
   final TextEditingController commentController = TextEditingController();

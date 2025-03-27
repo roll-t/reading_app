@@ -16,4 +16,6 @@ class AppImages {
   static const String iFlash = "assets/images/i_flash_sale.png";
   static const String iFire = "assets/images/i_flammable.png";
   static const String iStar = "assets/images/i_star.png";
+  static const String iVnFlag = "assets/images/i_vn_flag.png";
+  static const String iUkFlag = "assets/images/i_uk_flag.png";
 }

@@ -1,21 +1,27 @@
 import 'package:get/get.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/features/category/data/models/category_arument_model.dart';
+import 'package:reading_app/features/comic/data/entities/arguments/category_agrument.dart';
 
 class NavigatorComicPage {
-
-  static void toSearchPage(){
+  static void toSearchPage() {
     Get.toNamed(Routes.explore);
   }
 
   // to category page function
   static void toCategoryPage(
-    CategoryArgumentModel arguments,
+    CategoryArgument arguments,
   ) {
     Get.toNamed(Routes.category, arguments: arguments);
   }
 
   static void toCategoryRecommendPage() {
-    Get.toNamed(Routes.category, arguments: CategoryArgumentModel(slug: "de-xuat"));
+    Get.toNamed(Routes.category, arguments: CategoryArgument(slug: "de-xuat"));
+  }
+
+  //to book details page function
+  static void toComicDetailsPage(
+    CategoryArgument arguments,
+  ) {
+    Get.toNamed(Routes.comicDetail);
   }
 }

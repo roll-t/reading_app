@@ -6,9 +6,9 @@ class ListComicModel {
   List<ItemModel> items;
 
   ListComicModel({
-    required this.titlePage,
+    this.titlePage = "",
     this.domainImage,
-    required this.items,
+    this.items = const [],
   });
 
   factory ListComicModel.fromJson(Map<String, dynamic> json) {

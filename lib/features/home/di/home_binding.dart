@@ -4,12 +4,12 @@ import 'package:reading_app/features/auth/data/repositories/user_repository_impl
 import 'package:reading_app/features/auth/data/sources/user_service.dart';
 import 'package:reading_app/features/auth/domain/repositories/user_repository.dart';
 import 'package:reading_app/features/auth/domain/usecase/backup/get_user_usecase.dart';
-import 'package:reading_app/features/category/data/repositories/category_repository_impl.dart';
-import 'package:reading_app/features/category/data/sources/category_comic_service.dart';
-import 'package:reading_app/features/category/domain/repositories/category_repository.dart';
-import 'package:reading_app/features/category/domain/usecase/check_category_cache_usecase.dart';
-import 'package:reading_app/features/category/domain/usecase/fetch_categories_cache_usecase.dart';
+import 'package:reading_app/features/comic/data/repositories/category_repository_impl.dart';
+import 'package:reading_app/features/comic/data/sources/category_comic_service.dart';
 import 'package:reading_app/features/comic/data/sources/comic_service.dart';
+import 'package:reading_app/features/comic/domain/repositories/category_repository.dart';
+import 'package:reading_app/features/comic/domain/usecases/category/check_category_cache_usecase.dart';
+import 'package:reading_app/features/comic/domain/usecases/category/fetch_categories_cache_usecase.dart';
 import 'package:reading_app/features/home/data/reposirories/home_repository_impl.dart';
 import 'package:reading_app/features/home/domain/repositories/home_repository.dart';
 import 'package:reading_app/features/home/domain/usecase/fetch_auth_usecase.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
 
 class ReadThemeModel {
-  String id;
+  String? id;
   String name;
   Color textColor;
   Color backgroundColor;
@@ -17,10 +17,10 @@ class ReadThemeModel {
   // Convert từ Map sang ReadThemeModel
   factory ReadThemeModel.fromMap(Map<String, dynamic> map) {
     return ReadThemeModel(
-      id: map['id'],
-      name: map['name'],
-      textColor: map['textColor'],
-      backgroundColor: map['backgroundColor'],
+      id: map['id'] ?? "readThemeDefault",
+      name: map['name'] ?? "Mặc định",
+      textColor: map['textColor'] ?? AppColors.white,
+      backgroundColor: map['backgroundColor'] ?? AppColors.primaryDarkBg,
     );
   }
 

@@ -50,7 +50,6 @@ class DioConfig extends GetxService {
           // check endpoint use toke
           if (!keepToken) {
             final token = await _getAuthTokenUseCase();
-            log(token ?? "");
             if (token != null && token.isNotEmpty) {
               options.headers['Authorization'] = 'Bearer $token';
             } else {

@@ -10,7 +10,18 @@ import 'package:reading_app/features/novel/domain/usecase/fetch_all_comment_of_n
 import 'package:reading_app/features/novel/domain/usecase/fetch_chapters_of_novel_usecase.dart';
 import 'package:reading_app/features/novel/domain/usecase/fetch_novel_by_id_usecase.dart';
 
+///**********************************
+/// EDIT TIME - 20/03/2035
+///
+/// **USED IN:**
+/// - ` novel features`
+///
+/// **EXPLANATION:**
+///  writing description this heres.
+///*********************************/
+
 class NovelDetailController extends GetxController {
+  //---> Define usecase method
   final FetchAllCategoryUsecase _fetchAllCategoryUsecase;
   final FetchAllCommentOfNovelUsecase _fetchAllCommentOfNovelUsecase;
   final FetchChaptersOfNovelUsecase _fetchChaptersOfNovelUsecase;
@@ -23,24 +34,22 @@ class NovelDetailController extends GetxController {
     this._fetchNovelByIdUsecase,
   );
 
-  final isLoading = false.obs;
-  final isLoadingComment = false.obs;
+  //---> Define Rx variable
+  RxBool isLoading = false.obs;
+  RxBool isLoadingComment = false.obs;
+  RxList<ChapterNovelModel> listChapter = <ChapterNovelModel>[].obs;
+  RxList<CategoryResponse> categories = <CategoryResponse>[].obs;
+  RxList<CommentResponse> listComment = <CommentResponse>[].obs;
 
-  // Define variables
-  NovelModel novelModel = NovelModel(name: "", thumbUrl: "");
-
+  // Define novel variables
+  NovelModel novelModel = NovelModel();
   String slugArgumentNovelId = "";
-
   String authId = "";
-
-  final listChapter = <ChapterNovelModel>[].obs;
-  final categories = <CategoryResponse>[].obs;
-  final listComment = <CommentResponse>[].obs;
 
   @override
   void onInit() async {
     super.onInit();
-    initializeData();
+    await initializeData();
   }
 
   Future<void> initializeData() async {

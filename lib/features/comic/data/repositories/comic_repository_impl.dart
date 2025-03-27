@@ -29,9 +29,12 @@ class ComicRepositoryImpl implements ComicRepository {
   }
 
   @override
-  Future<ListComicModel?> fetchComicsByCategorySlug(String slug) async {
+  Future<ListComicModel?> fetchComicsByCategorySlug({
+    required String slug,
+    int page = 1,
+  }) async {
     final result =
-        await _comicApi.fetchComicCategoryBySlug(slug: slug, page: 1);
+        await _comicApi.fetchComicCategoryBySlug(slug: slug, page: page);
     if (result.status == Status.success) {
       return result.data;
     }
@@ -54,12 +57,14 @@ class ComicRepositoryImpl implements ComicRepository {
   }
 
   @override
-  Future<ListComicModel?> fetchListByStatus(String status) async {
-    final response = await _comicApi.fetchListBySlug(page: 1, slug: status);
+  Future<ListComicModel?> fetchListByStatus({
+    required String status,
+    int page = 1,
+  }) async {
+    final response = await _comicApi.fetchListBySlug(page: page, slug: status);
     if (response.status == Status.success) {
       return response.data;
     }
     return null;
   }
-  
 }

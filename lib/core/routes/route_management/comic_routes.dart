@@ -1,8 +1,7 @@
 import 'package:get/get.dart';
 import 'package:reading_app/core/routes/routes.dart';
-import 'package:reading_app/features/category/di/category_binding.dart';
-import 'package:reading_app/features/category/presentation/comic/pages/category_comic_page.dart';
 import 'package:reading_app/features/comic/di/comic_binding.dart';
+import 'package:reading_app/features/comic/presentation/comic_categories/pages/category_comic_page.dart';
 import 'package:reading_app/features/comic/presentation/comic_detail/pages/comic_detail_page.dart';
 import 'package:reading_app/features/comic/presentation/comic_read/pages/read_comic_page.dart';
 
@@ -22,7 +21,7 @@ class ComicRoutes {
     GetPage(
       name: Routes.category,
       page: () => const CategoryPage(),
-      binding: CategoryBinding(),
+      binding: ComicBinding(),
     ),
   ];
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_protected_member
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/app_dimens.dart';
@@ -27,7 +29,6 @@ class BuildComicBookCase extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Obx(
-              // ignore: invalid_use_of_protected_member
               () => listBook.value.isEmpty
                   ? const BuildShimmerBookcase()
                   : _buildContent(),

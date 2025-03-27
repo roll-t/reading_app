@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
 import 'package:reading_app/core/storage/prefs/prefs.dart';
+import 'package:reading_app/core/ui/layout_shared_builder/book_detail/presentation/controller/layout_book_detail_controller.dart';
 import 'package:reading_app/features/bookcase/data/sources/book_case_service.dart';
-import 'package:reading_app/features/category/data/sources/category_service.dart';
-import 'package:reading_app/features/category/domain/usecase/check_category_cache_usecase.dart';
+import 'package:reading_app/features/comic/domain/usecases/category/check_category_cache_usecase.dart';
 import 'package:reading_app/features/comment/data/sources/comment_service.dart';
-import 'package:reading_app/features/layout_book_detail/presentation/controller/layout_book_detail_controller.dart';
 import 'package:reading_app/features/novel/data/repositories/novel_detail_repository_impl.dart';
+import 'package:reading_app/features/novel/data/sources/category_novel_service.dart';
 import 'package:reading_app/features/novel/data/sources/chapter_service.dart';
 import 'package:reading_app/features/novel/domain/repositories/novel_detail_repository.dart';
 import 'package:reading_app/features/novel/domain/usecase/fetch_all_category_usecase.dart';
@@ -18,7 +18,10 @@ import 'package:reading_app/features/novel/presentation/novel_read/controllers/r
 class NovelBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => Prefs(), fenix: true);
+    Get.lazyPut(
+      () => Prefs(),
+      fenix: true,
+    );
 
     //Service
     Get.lazyPut(
@@ -28,7 +31,7 @@ class NovelBinding extends Bindings {
       ),
     );
     Get.lazyPut(
-      () => CategoryService(
+      () => CategoryNovelService(
         Get.find(),
         Get.find(),
       ),

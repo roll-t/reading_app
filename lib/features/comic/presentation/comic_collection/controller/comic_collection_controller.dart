@@ -6,19 +6,19 @@ import 'package:reading_app/core/services/entities/dto/response/novel_response.d
 import 'package:reading_app/core/services/entities/models/category_model.dart';
 import 'package:reading_app/core/services/entities/models/list_comic_model.dart';
 import 'package:reading_app/core/utils/scroll_utils.dart';
-import 'package:reading_app/features/category/domain/usecase/fetch_categories_cache_usecase.dart';
+import 'package:reading_app/features/comic/domain/usecases/category/fetch_categories_cache_usecase.dart';
 import 'package:reading_app/features/comic/domain/usecases/fetch_comics_by_category_slug_usecase.dart';
-import 'package:reading_app/features/comic/domain/usecases/fetch_home_data_usecase.dart';
 import 'package:reading_app/features/comic/domain/usecases/fetch_list_comic_by_status_usecase.dart';
+import 'package:reading_app/features/comic/domain/usecases/fetch_recomendation_comic_usecase.dart';
 
 class ComicCollectionController extends GetxController {
-  final FetchHomeDataUsecase _fetchHomeDataUsecase;
+  final FetchRecommendationComicUsecase _fetchRecommendComicsUsecase;
   final FetchListComicByStatusUsecase _fetchComicByStatusUsecase;
   final FetchComicsByCategorySlugUsecase _fetchComicsByCategorySlugUsecase;
   final FetchCategoriesCacheUsecase _fetchCategoriesCacheUsecase;
 
   ComicCollectionController(
-    this._fetchHomeDataUsecase,
+    this._fetchRecommendComicsUsecase,
     this._fetchCategoriesCacheUsecase,
     this._fetchComicByStatusUsecase,
     this._fetchComicsByCategorySlugUsecase,
@@ -56,11 +56,11 @@ class ComicCollectionController extends GetxController {
   }
 
   Future<void> _initializeData() async {
-    homeData = (await _fetchHomeDataUsecase())?.obs;
+    homeData = (await _fetchRecommendComicsUsecase())?.obs;
     update(["listRecommendID"]);
     categories = (await _fetchCategoriesCacheUsecase())?.obs;
     completedComics =
-        (await _fetchComicByStatusUsecase.call("hoan-thanh"))?.obs;
+        (await _fetchComicByStatusUsecase.call(status: "hoan-thanh"))?.obs;
     update(["listCompleteID"]);
     if (categories?.isNotEmpty ?? false) {
       await fetchComicsForSelectedCategory(
@@ -93,8 +93,8 @@ class ComicCollectionController extends GetxController {
     }
     isLoadMore.value = true;
     final selectedCategorySlug = categories?[selectedIndex].slug ?? "";
-    final result =
-        await _fetchComicsByCategorySlugUsecase.call(selectedCategorySlug);
+    final result = await _fetchComicsByCategorySlugUsecase.call(
+        slug: selectedCategorySlug);
     if (result != null) {
       comicsByCategory.add(result);
       update(["loadMoreComicsByCategoryID"]);
@@ -109,7 +109,7 @@ class ComicCollectionController extends GetxController {
   Future<void> fetchComicsForSelectedCategory(String slug) async {
     isLoadProcessCategoryComics.value = true;
     selectedCategoryComics =
-        (await _fetchComicsByCategorySlugUsecase.call(slug))?.obs;
+        (await _fetchComicsByCategorySlugUsecase.call(slug: slug))?.obs;
     isLoadProcessCategoryComics.value = false;
   }
 

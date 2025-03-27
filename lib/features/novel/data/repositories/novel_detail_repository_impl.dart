@@ -3,15 +3,15 @@ import 'package:reading_app/core/services/entities/dto/response/category_respons
 import 'package:reading_app/core/services/entities/dto/response/commentReponse.dart';
 import 'package:reading_app/core/services/entities/models/chapter_novel_model.dart';
 import 'package:reading_app/core/services/entities/models/novel_model.dart';
-import 'package:reading_app/features/category/data/sources/category_service.dart';
 import 'package:reading_app/features/comment/data/sources/comment_service.dart';
+import 'package:reading_app/features/novel/data/sources/category_novel_service.dart';
 import 'package:reading_app/features/novel/data/sources/chapter_service.dart';
 import 'package:reading_app/features/novel/data/sources/novel_service.dart';
 import 'package:reading_app/features/novel/domain/repositories/novel_detail_repository.dart';
 
 class NovelDetailRepositoryImpl implements NovelDetailRepository {
   final CommentService _commentService;
-  final CategoryService _categoryService;
+  final CategoryNovelService _categoryService;
   final NovelService _novelService;
   final ChapterService _chapterService;
 

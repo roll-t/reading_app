@@ -88,7 +88,9 @@ class BookCasePage extends GetView<BookCaseController> {
                   ),
                 ],
                 child: Container(
-                  padding: const EdgeInsets.only(bottom: AppDimens.space5),
+                  padding: const EdgeInsets.only(
+                    bottom: AppDimens.space5,
+                  ),
                   decoration: const BoxDecoration(
                     border: Border(
                       bottom: BorderSide(
@@ -101,7 +103,10 @@ class BookCasePage extends GetView<BookCaseController> {
                     children: [
                       TextNormal(textChild: controller.typeSelect.value),
                       const SizedBox(width: AppDimens.space15),
-                      const Icon(Icons.arrow_drop_down, color: AppColors.white),
+                      const Icon(
+                        Icons.arrow_drop_down,
+                        color: AppColors.white,
+                      ),
                     ],
                   ),
                 ),
