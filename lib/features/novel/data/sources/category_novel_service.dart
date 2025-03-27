@@ -1,0 +1,19 @@
+import 'package:reading_app/core/services/entities/dto/response/category_response.dart';
+import 'package:reading_app/core/services/entities/models/result.dart';
+import 'package:reading_app/core/services/network/api_endpoint.dart';
+import 'package:reading_app/core/services/network/api_service.dart';
+
+class CategoryNovelService extends ApiService {
+  CategoryNovelService(
+    super.dioConfig,
+    super.cacheService,
+  );
+
+  Future<Result<List<CategoryResponse>>> fetchAllCategories() async {
+    return await get(
+        endpoint: APIEndpoint.getAllCategory,
+        parse: (data) => (data as List<dynamic>)
+            .map((items) => CategoryResponse.fromJson(items))
+            .toList());
+  }
+}

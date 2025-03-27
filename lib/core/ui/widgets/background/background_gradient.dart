@@ -13,7 +13,12 @@ class BackgroundGradient {
             AppColors.black,
             AppColors.black,
           ],
-          stops: [0.13, 0.3, 0.3, 0.3],
+          stops: [
+            0.13,
+            0.3,
+            0.3,
+            0.3,
+          ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -30,11 +35,12 @@ class BackgroundGradient {
     ], end: Alignment.bottomCenter, begin: Alignment.topCenter);
   }
 
-  static Container backgroundBox({required Widget childBuilder }){
+  static Container backgroundBox({required Widget childBuilder}) {
     return Container(
-      decoration: BoxDecoration(color: AppColors.secondaryDarkBg,borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(
+          color: AppColors.secondaryDarkBg,
+          borderRadius: BorderRadius.circular(10)),
       child: childBuilder,
     );
   }
-
 }

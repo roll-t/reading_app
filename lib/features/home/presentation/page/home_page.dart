@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_protected_member
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/configs/app_dimens.dart';
@@ -14,7 +16,7 @@ import 'package:reading_app/core/ui/widgets/loading.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 import 'package:reading_app/core/ui/widgets/wrap/wrap_list_row_widget.dart';
 import 'package:reading_app/core/ui/widgets/wrap/wrap_list_widget.dart';
-import 'package:reading_app/features/category/data/models/category_arument_model.dart';
+import 'package:reading_app/features/comic/data/entities/arguments/category_agrument.dart';
 import 'package:reading_app/features/home/presentation/controller/home_controller.dart';
 import 'package:reading_app/features/home/presentation/navigators/navigator_home_page.dart';
 import 'package:reading_app/features/home/presentation/widgets/build_list_tag_category.dart';
@@ -106,77 +108,84 @@ class HomePage extends GetView<HomeController> {
   }
 
   SliverToBoxAdapter _buildListNewNovel() {
-    return SliverToBoxAdapter(child: Obx(() {
-      // ignore: invalid_use_of_protected_member
-      final items = controller.listNovel.value;
-      // Kiểm tra items.isNotEmpty một lần, tránh việc kiểm tra nhiều lần
-      final hasItems = items.isNotEmpty;
-      return wrapListWidget(
-        maxLength: 8,
-        titleList: 'Tiểu thuyết mới',
-        seeMore: () {
-          Get.toNamed(Routes.categoryNovel, arguments: {
-            "slugQuery": CategoryResponse(
-                name: "Tiểu thuyết mới", slug: "truyen-moi", id: 2)
-          });
-        },
-        maxCol: 4,
-        cardBuilder: (index, widthCard) {
-          // Lấy item tại index một lần để sử dụng trong cardBuilder
-          final novel = hasItems ? items[index] : null;
+    return SliverToBoxAdapter(
+      child: Obx(
+        () {
+          final items = controller.listNovel.value;
+          // Kiểm tra items.isNotEmpty một lần, tránh việc kiểm tra nhiều lần
+          final hasItems = items.isNotEmpty;
+          return wrapListWidget(
+            maxLength: 8,
+            titleList: 'Tiểu thuyết mới',
+            seeMore: () {
+              Get.toNamed(Routes.categoryNovel, arguments: {
+                "slugQuery": CategoryResponse(
+                    name: "Tiểu thuyết mới", slug: "truyen-moi", id: 2)
+              });
+            },
+            maxCol: 4,
+            cardBuilder: (index, widthCard) {
+              // Lấy item tại index một lần để sử dụng trong cardBuilder
+              final novel = hasItems ? items[index] : null;
 
-          return NovelCardWidget(
-            heightImage: 15.h,
-            width: widthCard,
-            isLoading: !hasItems,
-            novelId: novel?.bookDataId,
-            slug: novel?.slug,
-            thumbUrl: novel?.thumbUrl ?? "",
-            novelTitle: novel?.name ?? "",
+              return NovelCardWidget(
+                heightImage: 15.h,
+                width: widthCard,
+                isLoading: !hasItems,
+                novelId: novel?.bookDataId,
+                slug: novel?.slug,
+                thumbUrl: novel?.thumbUrl ?? "",
+                novelTitle: novel?.name ?? "",
+              );
+            },
           );
         },
-      );
-    }));
+      ),
+    );
   }
 
   Obx _buildListAllType() {
-    return Obx(() {
-      return SliverToBoxAdapter(
-        child: BuildListTagCategory(
-            listType: controller.listType,
-            // ignore: invalid_use_of_protected_member
-            listCategory: controller.categories.value),
-      );
-    });
+    return Obx(
+      () {
+        return SliverToBoxAdapter(
+          child: BuildListTagCategory(
+              listType: controller.listType,
+              listCategory: controller.categories.value),
+        );
+      },
+    );
   }
 
   SliverToBoxAdapter _buildListNovel() {
-    return SliverToBoxAdapter(child: Obx(() {
-      // ignore: invalid_use_of_protected_member
-      final items = controller.listNovel.value;
-      final hasItems = items.isNotEmpty;
+    return SliverToBoxAdapter(
+      child: Obx(
+        () {
+          final items = controller.listNovel.value;
+          final hasItems = items.isNotEmpty;
 
-      return wrapListRowWidget(
-        titleList: "Tiểu thuyết",
-        maxLength: hasItems ? items.length : 6,
-        seeMore: () {
-          Get.toNamed(Routes.categoryNovel, arguments: {
-            "slugQuery":
-                CategoryResponse(name: "Sắp ra mắt", slug: "truyen-moi", id: 1)
-          });
-        },
-        cardBuilder: (index) {
-          // Lấy item tại index một lần để sử dụng trong cardBuilder
-          final novel = hasItems ? items[index] : null;
-          return NovelCardWidget(
-            isLoading: !hasItems,
-            novelId: novel?.bookDataId,
-            thumbUrl: novel?.thumbUrl ?? "",
-            novelTitle: novel?.name ?? "",
+          return wrapListRowWidget(
+            titleList: "Tiểu thuyết",
+            maxLength: hasItems ? items.length : 6,
+            seeMore: () {
+              Get.toNamed(Routes.categoryNovel, arguments: {
+                "slugQuery": CategoryResponse(
+                    name: "Sắp ra mắt", slug: "truyen-moi", id: 1)
+              });
+            },
+            cardBuilder: (index) {
+              // Lấy item tại index một lần để sử dụng trong cardBuilder
+              final novel = hasItems ? items[index] : null;
+              return NovelCardWidget(
+                isLoading: !hasItems,
+                novelId: novel?.bookDataId,
+                thumbUrl: novel?.thumbUrl ?? "",
+                novelTitle: novel?.name ?? "",
+              );
+            },
           );
         },
-      );
-    }));
+      ),
+    );
   }
 
   SliverToBoxAdapter _buildListComic() {
@@ -192,7 +201,7 @@ class HomePage extends GetView<HomeController> {
               titleList: 'Cập nhật mới nhất',
               seeMore: () {
                 NavigatorHomePage.toCategoryPage(
-                    CategoryArgumentModel(slug: "sap-ra-mat"));
+                    CategoryArgument(slug: "sap-ra-mat"));
               },
               maxCol: 3,
               cardBuilder: (index, widthCard) {
@@ -232,20 +241,25 @@ class HomePage extends GetView<HomeController> {
   }
 
   SliverToBoxAdapter _buildSlider() {
-    return SliverToBoxAdapter(child: Obx(() {
-      return BuildSlider(
-        // ignore: invalid_use_of_protected_member
-        listBook: controller.listSlide.value,
-        currentIndex: controller.currentIndex,
-      );
-    }));
+    return SliverToBoxAdapter(
+      child: Obx(
+        () {
+          return BuildSlider(
+            listBook: controller.listSlide.value,
+            currentIndex: controller.currentIndex,
+          );
+        },
+      ),
+    );
   }
 
   Obx _buildAppBar() {
-    return Obx(() {
-      return BuildSliverAppBar(
-        userName: controller.user.value.displayName,
-      );
-    });
+    return Obx(
+      () {
+        return BuildSliverAppBar(
+          userName: controller.user.value.displayName,
+        );
+      },
+    );
   }
 }

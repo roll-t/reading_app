@@ -9,10 +9,12 @@ abstract class ComicRepository {
   Future<ComicModel?> fetchListComplete();
 
   /// get a list comic by status
-  Future<ListComicModel?> fetchListByStatus(String status);
+  Future<ListComicModel?> fetchListByStatus(
+      {required String status, int page = 1});
 
   /// get a list of comics by category slug
-  Future<ListComicModel?> fetchComicsByCategorySlug(String slug);
+  Future<ListComicModel?> fetchComicsByCategorySlug(
+      {required String slug, int page = 1});
 
   /// Lấy danh sách comics khi chuyển danh mục
   Future<ComicModel?> fetchComicsByChangeCategory(String slug);

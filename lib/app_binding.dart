@@ -3,9 +3,9 @@ import 'package:reading_app/core/services/network/api_service.dart';
 import 'package:reading_app/core/services/network/dio_service.dart';
 import 'package:reading_app/core/storage/cache/cache_service.dart';
 import 'package:reading_app/features/auth/domain/usecase/get_auth_token_usecase.dart';
-import 'package:reading_app/features/category/data/repositories/category_repository_impl.dart';
-import 'package:reading_app/features/category/data/sources/category_comic_service.dart';
-import 'package:reading_app/features/category/domain/repositories/category_repository.dart';
+import 'package:reading_app/features/comic/data/repositories/category_repository_impl.dart';
+import 'package:reading_app/features/comic/data/sources/category_comic_service.dart';
+import 'package:reading_app/features/comic/domain/repositories/category_repository.dart';
 
 class AppBinding extends Bindings {
   @override

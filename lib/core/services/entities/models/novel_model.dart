@@ -12,10 +12,10 @@ class NovelModel {
 
   NovelModel({
     this.bookDataId,
-    required this.name,
+    this.name = "",
     this.slug,
     this.status,
-    required this.thumbUrl,
+    this.thumbUrl = "",
     this.subDocQuyen,
     this.categorySlug,
     this.userId,
@@ -34,12 +34,10 @@ class NovelModel {
       subDocQuyen: json['subDocQuyen'],
       categorySlug: List<String>.from(json['categorySlug']),
       userId: json['userId'],
-      createdAt: json['createdAt'] != null
-          ? DateTime.parse(json['createdAt'])
-          : null,
-      updatedAt: json['updatedAt'] != null
-          ? DateTime.parse(json['updatedAt'])
-          : null,
+      createdAt:
+          json['createdAt'] != null ? DateTime.parse(json['createdAt']) : null,
+      updatedAt:
+          json['updatedAt'] != null ? DateTime.parse(json['updatedAt']) : null,
     );
   }
 

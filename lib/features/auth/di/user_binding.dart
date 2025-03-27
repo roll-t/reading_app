@@ -3,8 +3,8 @@ import 'package:reading_app/core/services/utils/images_service.dart';
 import 'package:reading_app/core/storage/prefs/prefs.dart';
 import 'package:reading_app/features/auth/domain/usecase/get_user_use_case.dart';
 import 'package:reading_app/features/auth/domain/usecase/save_user_use_case.dart';
-import 'package:reading_app/features/auth/presentation/user/controllers/profile_controller.dart';
-import 'package:reading_app/features/auth/presentation/user/controllers/profile_detail_controller.dart';
+import 'package:reading_app/features/auth/presentation/profile/controllers/profile_controller.dart';
+import 'package:reading_app/features/auth/presentation/profile_detail/controllers/profile_detail_controller.dart';
 
 class UserBinding extends Bindings {
   @override

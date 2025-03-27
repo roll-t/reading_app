@@ -15,17 +15,18 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback? callbackLeading;
   final Color titleColor;
 
-  const AppBarWidget(
-      {super.key,
-      this.height = 40,
-      this.title,
-      this.actions,
-      this.backgroundColor = AppColors.primary,
-      this.onTapIconAction,
-      this.leading,
-      this.centerTitle = false,
-      this.titleColor = Colors.white,
-      this.callbackLeading});
+  const AppBarWidget({
+    super.key,
+    this.height = 40,
+    this.title,
+    this.actions,
+    this.backgroundColor = AppColors.primary,
+    this.onTapIconAction,
+    this.leading,
+    this.centerTitle = false,
+    this.titleColor = Colors.white,
+    this.callbackLeading,
+  });
 
   @override
   Size get preferredSize => Size.fromHeight(height!);

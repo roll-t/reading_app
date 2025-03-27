@@ -12,7 +12,7 @@ import 'package:reading_app/core/ui/widgets/shimmer/simular_card_row_widget.dart
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 import 'package:reading_app/core/ui/widgets/wrap/wrap_list_widget.dart';
 import 'package:reading_app/core/utils/text_format.dart';
-import 'package:reading_app/features/category/data/models/category_arument_model.dart';
+import 'package:reading_app/features/comic/data/entities/arguments/category_agrument.dart';
 import 'package:reading_app/features/comic/navigator_comic_page.dart';
 import 'package:reading_app/features/comic/presentation/comic_collection/controller/comic_collection_controller.dart';
 import 'package:reading_app/features/comic/presentation/comic_collection/widgets/build_section_list_widget.dart';
@@ -115,7 +115,7 @@ class ComicCollectionPage extends GetView<ComicCollectionController> {
                 titleList: controller.completedComics?.value.titlePage,
                 seeMore: () {
                   NavigatorComicPage.toCategoryPage(
-                    CategoryArgumentModel(slug: "hoan-thanh"),
+                    CategoryArgument(slug: "hoan-thanh"),
                   );
                 },
                 books: controller.completedComics?.value.items,
@@ -197,7 +197,7 @@ class ComicCollectionPage extends GetView<ComicCollectionController> {
                             textChild: AppContents.seeMore,
                             onTap: () {
                               NavigatorComicPage.toCategoryPage(
-                                  CategoryArgumentModel(
+                                  CategoryArgument(
                                 slug: controller.getSlugByTitle(
                                   controller.selectedCategoryComics?.value
                                           .titlePage ??
@@ -243,7 +243,7 @@ class ComicCollectionPage extends GetView<ComicCollectionController> {
               spacingWithBottom: 5.w,
               seeMore: () {
                 NavigatorComicPage.toCategoryPage(
-                  CategoryArgumentModel(
+                  CategoryArgument(
                     slug: controller.getSlugByTitle(comicCategory.titlePage),
                   ),
                 );

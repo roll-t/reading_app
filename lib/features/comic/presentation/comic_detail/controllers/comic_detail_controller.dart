@@ -5,7 +5,7 @@ import 'package:reading_app/core/services/entities/dto/response/commentReponse.d
 import 'package:reading_app/core/services/entities/models/category_model.dart';
 import 'package:reading_app/core/services/entities/models/comic_model.dart';
 import 'package:reading_app/core/ui/snackbar/snackbar.dart';
-import 'package:reading_app/features/comic/data/models/comic_detail_argument.dart';
+import 'package:reading_app/features/comic/data/entities/arguments/comic_detail_argument.dart';
 import 'package:reading_app/features/comic/domain/usecases/fetch_comic_by_slug_usecase.dart';
 import 'package:reading_app/features/comic/domain/usecases/fetch_comments_comic_usecase.dart';
 

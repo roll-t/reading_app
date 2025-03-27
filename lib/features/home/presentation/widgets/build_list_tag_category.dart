@@ -6,7 +6,7 @@ import 'package:reading_app/core/ui/dialogs/custom_bottom_sheet.dart';
 import 'package:reading_app/core/ui/widgets/tags/tag_category.dart';
 import 'package:reading_app/core/ui/widgets/text/text_widget.dart';
 import 'package:reading_app/core/utils/string_utils.dart';
-import 'package:reading_app/features/category/data/models/category_arument_model.dart';
+import 'package:reading_app/features/comic/data/entities/arguments/category_agrument.dart';
 import 'package:reading_app/features/home/presentation/navigators/navigator_home_page.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -45,7 +45,7 @@ class BuildListTagCategory extends StatelessWidget {
                   categoryName: StringUtils.translate(type),
                   onTap: () {
                     NavigatorHomePage.toCategoryPage(
-                        CategoryArgumentModel(slug: type));
+                        CategoryArgument(slug: type));
                   })),
 
               // Danh sách thể loại truyện
@@ -55,7 +55,7 @@ class BuildListTagCategory extends StatelessWidget {
                       categoryName: category.name,
                       onTap: () {
                         NavigatorHomePage.toCategoryPage(
-                            CategoryArgumentModel(slug: category.slug));
+                            CategoryArgument(slug: category.slug));
                       })),
 
               // Nút "Xem thêm"
@@ -95,7 +95,7 @@ class BuildListTagCategory extends StatelessWidget {
                   categoryName: category.name,
                   onTap: () {
                     NavigatorHomePage.toCategoryPage(
-                        CategoryArgumentModel(slug: category.slug));
+                        CategoryArgument(slug: category.slug));
                   });
             }).toList(),
           ),

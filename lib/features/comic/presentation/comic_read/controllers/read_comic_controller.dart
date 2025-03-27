@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/core/services/entities/models/chapter_comic%20_model.dart';
-import 'package:reading_app/features/comic/data/models/argument_comic_chapter_model.dart';
+import 'package:reading_app/features/comic/data/entities/arguments/comic_chapter_argument.dart';
 import 'package:reading_app/features/comic/data/sources/comic_service.dart';
 import 'package:reading_app/features/comic/domain/usecases/fetch_chapter_comic_usecase.dart';
 
@@ -64,8 +64,8 @@ class ReadComicController extends GetxController {
 
   void initial() {
     if (Get.arguments != null) {
-      if (Get.arguments is ArgumentComicChapterModel) {
-        var data = Get.arguments as ArgumentComicChapterModel;
+      if (Get.arguments is ComicChapterArgument) {
+        var data = Get.arguments as ComicChapterArgument;
         currentChapterArguments.value = data.currentChapter;
         listChapterArgument = data.listChapter;
         positionReading = data.positionReading ?? 0;

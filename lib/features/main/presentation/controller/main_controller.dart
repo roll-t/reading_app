@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reading_app/features/auth/di/user_binding.dart';
-import 'package:reading_app/features/auth/presentation/user/pages/profile_page.dart';
+import 'package:reading_app/features/auth/presentation/profile/pages/profile_page.dart';
 import 'package:reading_app/features/bookcase/di/book_case_binding.dart';
 import 'package:reading_app/features/bookcase/presentation/page/book_case_page.dart';
 import 'package:reading_app/features/comic/di/comic_binding.dart';
