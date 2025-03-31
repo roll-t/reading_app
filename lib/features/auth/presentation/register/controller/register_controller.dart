@@ -9,8 +9,8 @@ import 'package:reading_app/features/auth/data/sources/user_service.dart';
 
 class RegisterController extends GetxController {
   final Prefs prefs;
-
   RegisterController(this.prefs);
+
   // Controllers cho các trường nhập liệu
   final nameController = TextEditingController();
   final emailController = TextEditingController();
@@ -26,89 +26,69 @@ class RegisterController extends GetxController {
   var errorMessagePassword = ''.obs;
   var errorMessagePasswordConfirm = ''.obs;
 
-  //
   UserService userData = Get.find();
 
-  // Phương thức đăng ký
-  Future<void> signUp() async {
-    // Reset thông báo lỗi
+  void _resetErrors() {
     errorMessageName.value = '';
     errorMessageEmail.value = '';
     errorMessagePassword.value = '';
     errorMessagePasswordConfirm.value = '';
+  }
 
-    // check user name
-    if (Validators.checkErrorsLength(
-            value: nameController.text, minLenth: 4, maxLength: 50)
-        .isNotEmpty) {
-      errorMessageName.value = Validators.checkErrorsLength(
-          value: nameController.text, minLenth: 4, maxLength: 50);
-    }
+  bool _validateInputs() {
+    _resetErrors();
 
-    // check user name
-    if (Validators.checkErrorsLength(
-            value: emailController.text, minLenth: 8, maxLength: 50)
-        .isNotEmpty) {
-      errorMessageEmail.value = Validators.checkErrorsLength(
-          value: emailController.text, minLenth: 8, maxLength: 20);
-    }
+    errorMessageName.value = Validators.checkErrorsLength(
+        value: nameController.text, minLenth: 4, maxLength: 50);
 
-    // checkpassword
-    if (Validators.checkErrorsLength(
-            value: passwordController.text, minLenth: 6, maxLength: 11)
-        .isNotEmpty) {
-      errorMessagePassword.value = Validators.checkErrorsLength(
-          value: passwordController.text, minLenth: 6, maxLength: 11);
-    }
+    errorMessageEmail.value = Validators.checkErrorsLength(
+        value: emailController.text, minLenth: 8, maxLength: 50);
 
-    // check email format
-    if (Validators.checkErrorEmail(value: emailController.text).isNotEmpty) {
+    if (errorMessageEmail.value.isEmpty) {
       errorMessageEmail.value =
           Validators.checkErrorEmail(value: emailController.text);
     }
 
-    //check match
+    errorMessagePassword.value = Validators.checkErrorsLength(
+        value: passwordController.text, minLenth: 6, maxLength: 11);
+
     if (errorMessagePassword.value.isEmpty) {
-      if (Validators.checkMatch(
-              value_1: passwordController.text,
-              value_2: passwordConfirmController.text)
-          .isNotEmpty) {
-        errorMessagePasswordConfirm.value = Validators.checkMatch(
-            value_1: passwordController.text,
-            value_2: passwordConfirmController.text);
-      }
+      errorMessagePasswordConfirm.value = Validators.checkMatch(
+          value_1: passwordController.text,
+          value_2: passwordConfirmController.text);
     }
 
-    // Result emailExist =await UserData.emailExist(email: emailController.text.trim());
+    return errorMessageName.value.isEmpty &&
+        errorMessageEmail.value.isEmpty &&
+        errorMessagePassword.value.isEmpty &&
+        errorMessagePasswordConfirm.value.isEmpty;
+  }
 
-    // if (emailExist.data == true) {
-    //   errorMessageEmail.value = AppErrors.emailExistError;
-    //   return;
-    // } else {
-    //   errorMessageEmail.value = "";
-    // }
+  Future<void> signUp() async {
+    if (!_validateInputs()) return;
 
-    // Nếu có lỗi, không thực hiện đăng ký
-    if (errorMessageName.value.isNotEmpty ||
-        errorMessageEmail.value.isNotEmpty ||
-        errorMessagePassword.value.isNotEmpty ||
-        errorMessagePasswordConfirm.value.isNotEmpty) {
-      return;
-    }
-
-    UserRequest userRequestModel = UserRequest(
+    isLoading.value = true;
+    
+    try {
+      UserRequest userRequestModel = UserRequest(
         displayName: nameController.text.trim(),
         email: emailController.text.trim(),
-        password: passwordController.text.trim());
-        
-    var userModel = await userData.signInAPI(userRequest: userRequestModel);
+        password: passwordController.text.trim(),
+      );
 
-    print(userModel?.data);
-
-
-    if (userModel?.data != null) {
-      Get.back(result: userModel);
-      SnackbarUtil.showSuccess(AppSuccess.registrationSuccess);
+      var userModel = await userData.signInAPI(userRequest: userRequestModel);
+      if (userModel?.data == null) {
+        errorMessageEmail("Email đã tồn tại");
+        return;
+      }
+      if (userModel?.data != null) {
+        Get.back(result: userModel);
+        SnackbarUtil.showSuccess(AppSuccess.registrationSuccess);
+      }
+    } catch (e) {
+      SnackbarUtil.showError("Đăng ký thất bại: ${e.toString()}");
+    } finally {
+      isLoading.value = false;
     }
   }
 }

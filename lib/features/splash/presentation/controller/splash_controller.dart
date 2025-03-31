@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/storage/cache/cache_manager.dart';
-import 'package:reading_app/features/auth/domain/usecase/is_login_usecase.dart';
+import 'package:reading_app/features/auth/domain/usecase/login/is_login_usecase.dart';
 import 'package:reading_app/features/comic/domain/usecases/category/set_categories_cache_usecase.dart';
 
 class SplashController extends GetxController {

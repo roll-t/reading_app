@@ -5,13 +5,11 @@ import 'package:reading_app/features/auth/domain/repositories/user_repository.da
 class SetUserUsecase {
   final UserRepository _repository;
 
-  SetUserUsecase(this._repository);
+  SetUserUsecase(
+    this._repository,
+  );
 
   Future<void> call(UserModel user) async {
-    try {
-      await _repository.setUser(user);
-    } catch (e) {
-      print("Error setting user: $e");
-    }
+    await _repository.setUser(user);
   }
 }

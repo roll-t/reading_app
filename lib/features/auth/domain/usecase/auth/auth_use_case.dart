@@ -1,10 +1,8 @@
 import 'package:reading_app/core/configs/const/prefs_constants.dart';
 import 'package:reading_app/core/storage/prefs/prefs.dart';
-import 'package:reading_app/features/auth/domain/usecase/get_user_use_case.dart';
 
 class AuthUseCase {
   static final Prefs prefs = Prefs();
-  static final GetuserUseCase getuserUseCase = GetuserUseCase(prefs);
   static Future<String> getAuthToken() async {
     try {
       final String tokenJson = await prefs.get(PrefsConstants.authentication);

@@ -1,7 +1,7 @@
 class AppImages {
   static const String iGoogle = "assets/images/i_google.png";
   static const String iEmailVerify = "assets/images/i_email_verify.png";
-  static const String iAvatarDefault = "assets/images/default/i_avatar.png";
+  static const String iAvatarDefault = "assets/images/i_avatar.png";
   static const String iNoImage = "assets/images/i_no_image.jpg";
   static const String iLogo = "assets/images/i_logo.png";
   static const String isWaiting = "assets/images/i_waiting.png";

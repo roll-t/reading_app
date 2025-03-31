@@ -7,11 +7,6 @@ class GetRememberedUserUsecase {
   GetRememberedUserUsecase(this._repository);
 
   Future<UserModel?> call() async {
-    try {
-      return await _repository.getRememberUser();
-    } catch (e) {
-      print("Error getting remembered user: $e");
-      return null;
-    }
+    return await _repository.getRememberUser();
   }
 }

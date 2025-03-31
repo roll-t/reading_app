@@ -4,7 +4,7 @@ import 'package:reading_app/core/services/entities/dto/response/category_respons
 import 'package:reading_app/core/services/entities/dto/response/commentReponse.dart';
 import 'package:reading_app/core/services/entities/models/chapter_novel_model.dart';
 import 'package:reading_app/core/services/entities/models/novel_model.dart';
-import 'package:reading_app/features/auth/domain/usecase/auth_use_case.dart';
+import 'package:reading_app/features/auth/domain/usecase/auth/auth_use_case.dart';
 import 'package:reading_app/features/novel/domain/usecase/fetch_all_category_usecase.dart';
 import 'package:reading_app/features/novel/domain/usecase/fetch_all_comment_of_novel_usecase.dart';
 import 'package:reading_app/features/novel/domain/usecase/fetch_chapters_of_novel_usecase.dart';

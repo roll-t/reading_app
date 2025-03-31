@@ -3,20 +3,23 @@ import 'package:reading_app/core/services/entities/dto/response/novel_response.d
 import 'package:reading_app/core/services/entities/models/list_comic_model.dart';
 import 'package:reading_app/core/services/entities/models/result.dart';
 import 'package:reading_app/core/services/entities/models/user_model.dart';
-import 'package:reading_app/features/auth/domain/usecase/backup/get_user_usecase.dart';
+import 'package:reading_app/features/auth/domain/usecase/user/get_user_use_case.dart';
 import 'package:reading_app/features/comic/data/sources/comic_service.dart';
 import 'package:reading_app/features/home/domain/repositories/home_repository.dart';
 import 'package:reading_app/features/novel/data/sources/novel_service.dart';
 
 class HomeRepositoryImpl implements HomeRepository {
-  
   final NovelService _novelService;
 
   final ComicApi _comicApi;
 
-  final GetUserUsecase _getuserUseCase;
+  final GetuserUseCase _getuserUseCase;
 
-  HomeRepositoryImpl(this._novelService, this._comicApi, this._getuserUseCase);
+  HomeRepositoryImpl(
+    this._novelService,
+    this._comicApi,
+    this._getuserUseCase,
+  );
 
   @override
   Future<List<NovelResponse>> fetchListNovel() async {
@@ -41,7 +44,8 @@ class HomeRepositoryImpl implements HomeRepository {
 
   @override
   Future<ListComicModel?> fetchUpcomingComics() async {
-    Result result =await _comicApi.fetchListBySlug(page: 1, slug: 'sap-ra-mat');
+    Result result =
+        await _comicApi.fetchListBySlug(page: 1, slug: 'sap-ra-mat');
     if (result.status == Status.success) {
       final apiResponse = result.data;
       if (apiResponse != null) {

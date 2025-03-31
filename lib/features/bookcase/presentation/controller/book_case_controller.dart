@@ -5,7 +5,7 @@ import 'package:reading_app/core/services/entities/dto/response/favorite_respons
 import 'package:reading_app/core/services/entities/dto/response/reading_book_case_response.dart';
 import 'package:reading_app/core/services/entities/models/reading_book_case_model.dart';
 import 'package:reading_app/core/storage/sql/data_helper.dart';
-import 'package:reading_app/features/auth/domain/usecase/auth_use_case.dart';
+import 'package:reading_app/features/auth/domain/usecase/auth/auth_use_case.dart';
 import 'package:reading_app/features/bookcase/data/entities/book_case_model.dart';
 import 'package:reading_app/features/bookcase/domain/usecase/fetch_novels_bookcase_usecase.dart';
 import 'package:reading_app/features/bookcase/domain/usecase/fetch_novels_favorite_bookcase_usecase.dart';

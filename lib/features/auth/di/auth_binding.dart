@@ -9,11 +9,12 @@ import 'package:reading_app/features/auth/data/sources/user_service.dart';
 import 'package:reading_app/features/auth/domain/repositories/auth_repository.dart';
 import 'package:reading_app/features/auth/domain/repositories/login_repository.dart';
 import 'package:reading_app/features/auth/domain/repositories/user_repository.dart';
-import 'package:reading_app/features/auth/domain/usecase/backup/remember_user_usecase.dart';
+import 'package:reading_app/features/auth/domain/usecase/user/set_remember_user_usecase.dart';
+import 'package:reading_app/features/auth/domain/usecase/user/get_remembered_user_usecase.dart';
 import 'package:reading_app/features/auth/domain/usecase/login/google_signin_usecase.dart';
 import 'package:reading_app/features/auth/domain/usecase/login/signin_usecase.dart';
-import 'package:reading_app/features/auth/domain/usecase/set_token_usecase.dart';
-import 'package:reading_app/features/auth/domain/usecase/set_user_usecase.dart';
+import 'package:reading_app/features/auth/domain/usecase/user/set_token_usecase.dart';
+import 'package:reading_app/features/auth/domain/usecase/user/set_user_usecase.dart';
 import 'package:reading_app/features/auth/presentation/login/controller/login_controller.dart';
 import 'package:reading_app/features/auth/presentation/register/controller/register_controller.dart';
 
@@ -56,7 +57,7 @@ class AuthBinding extends Bindings {
       ),
     );
     Get.lazyPut(
-      () => RememberUserUsecase(
+      () => SetRememberUserUsecase(
         Get.find(),
       ),
     );
@@ -90,9 +91,15 @@ class AuthBinding extends Bindings {
         Get.find(),
       ),
     );
+    Get.lazyPut(
+      () => GetRememberedUserUsecase(
+        Get.find(),
+      ),
+    );
 
     Get.lazyPut(
       () => LoginController(
+        Get.find(),
         Get.find(),
         Get.find(),
       ),

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:reading_app/core/configs/const/prefs_constants.dart';
 import 'package:reading_app/core/configs/enum.dart';
@@ -13,7 +14,10 @@ class UserRepositoryImpl implements UserRepository {
   final UserService _userApiService;
   final String _key = PrefsConstants.user;
 
-  UserRepositoryImpl(this._prefs, this._userApiService);
+  UserRepositoryImpl(
+    this._prefs,
+    this._userApiService,
+  );
 
   @override
   Future<UserModel?> getUser() async {
@@ -23,18 +27,32 @@ class UserRepositoryImpl implements UserRepository {
 
   @override
   Future<void> setUser(UserModel user) async {
-    await _prefs.set(PrefsConstants.user, jsonEncode(user.toJson()));
+    try {
+      await _prefs.set(PrefsConstants.user, jsonEncode(user.toJson()));
+    } catch (e) {
+      log("Error setting user: $e");
+    }
   }
 
   @override
   Future<void> rememberUser(UserModel user) async {
-    await _prefs.set(PrefsConstants.rememberAccount, user.toJson());
+    try {
+      await _prefs.set(
+          PrefsConstants.rememberAccount, jsonEncode(user.toJson()));
+    } catch (e) {
+      log("Error remembering user: $e");
+    }
   }
 
   @override
   Future<UserModel?> getRememberUser() async {
-    var value = await _prefs.get(PrefsConstants.rememberAccount);
-    return value.isNotEmpty ? UserModel.fromJson(jsonDecode(value)) : null;
+    try {
+      var value = await _prefs.get(PrefsConstants.rememberAccount);
+      return value.isNotEmpty ? UserModel.fromJson(jsonDecode(value)) : null;
+    } catch (e) {
+      log("Error getting remembered user: $e");
+      return null;
+    }
   }
 
   @override
@@ -45,7 +63,7 @@ class UserRepositoryImpl implements UserRepository {
         return response.data;
       }
     } catch (e) {
-      print('Error fetching user: $e');
+      log('Error fetching user: $e');
     }
     return null;
   }

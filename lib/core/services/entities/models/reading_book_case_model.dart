@@ -15,15 +15,15 @@ class ReadingComicBookCaseModel {
   // Constructor
   ReadingComicBookCaseModel({
     String? id,
-    required this.bookDataId,
-    required this.slug,
-    required this.uid,
+    this.bookDataId = "",
+    this.slug = "",
+    this.uid = "",
     required this.chapterName,
     required this.chapterApiData,
     required this.readingDate,
     required this.positionReading,
-    required this.thumbUrl,
-    required this.comicName,
+    this.thumbUrl = "",
+    this.comicName = "",
   }) : id = id ?? const Uuid().v4();
 
   Map<String, dynamic> toJson() {

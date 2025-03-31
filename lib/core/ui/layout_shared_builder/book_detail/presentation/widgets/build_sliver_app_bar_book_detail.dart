@@ -29,12 +29,14 @@ class BuildSliverAppBarBookDetail extends StatelessWidget {
         background: Stack(
           children: [
             Positioned(
-                left: 0,
-                right: 0,
-                bottom: Get.width * .1 + AppDimens.space20,
-                child: infoBookDetailModel.thumbImage.isNotEmpty
-                    ? Image.network(infoBookDetailModel.thumbImage)
-                    : Image.asset(AppImages.iNoImage)),
+              top:0,
+              left: 0,
+              right: 0,
+              bottom: Get.width * .1 + AppDimens.space20,
+              child: infoBookDetailModel.thumbImage.isNotEmpty
+                  ? Image.network(infoBookDetailModel.thumbImage)
+                  : Image.asset(AppImages.iNoImage),
+            ),
             Positioned(
               bottom: 0,
               left: 0,

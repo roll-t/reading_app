@@ -6,7 +6,7 @@ import 'package:reading_app/core/configs/enum.dart';
 import 'package:reading_app/core/services/entities/models/result.dart';
 import 'package:reading_app/core/services/network/api_endpoint.dart';
 import 'package:reading_app/core/services/network/api_service.dart';
-import 'package:reading_app/features/auth/domain/usecase/auth_use_case.dart';
+import 'package:reading_app/features/auth/domain/usecase/auth/auth_use_case.dart';
 
 // ---> class upload image to cloudNary
 class ImagesService extends ApiService {

@@ -5,6 +5,7 @@ import 'package:reading_app/core/configs/app_dimens.dart';
 import 'package:reading_app/core/configs/assets/app_images.dart';
 import 'package:reading_app/core/configs/strings/app_contents.dart';
 import 'package:reading_app/core/configs/themes/app_colors.dart';
+import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/ui/widgets/button/button_widget.dart';
 import 'package:reading_app/core/ui/widgets/button/elevated_button_widget.dart';
 import 'package:reading_app/core/ui/widgets/text/customs/text_normal.dart';
@@ -99,7 +100,9 @@ class LoginPage extends GetView<LoginController> {
           children: [
             const TextNormal(textChild: AppContents.dontHaveAnAccount),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Get.toNamed(Routes.register);
+              },
               child: const TextNormal(
                 textChild: AppContents.createHere,
                 colorChild: AppColors.accentColor,

@@ -3,7 +3,7 @@ import 'package:reading_app/core/configs/themes/app_colors.dart';
 
 class IconCircle extends StatelessWidget {
   final IconData iconChild;
-  final double ? iconSize;
+  final double? iconSize;
   final Color iconColor;
   final VoidCallback onTap;
   final double radius;
@@ -30,11 +30,12 @@ class IconCircle extends StatelessWidget {
       ),
       child: Center(
         child: IconButton(
-            padding: const EdgeInsets.all(0),
-            iconSize: iconSize,
-            color: iconColor,
-            onPressed: onTap,
-            icon: Icon(iconChild)),
+          padding: const EdgeInsets.all(0),
+          iconSize: iconSize,
+          color: iconColor,
+          onPressed: onTap,
+          icon: Icon(iconChild),
+        ),
       ),
     );
   }
