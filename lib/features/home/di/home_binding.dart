@@ -3,7 +3,7 @@ import 'package:reading_app/core/storage/prefs/prefs.dart';
 import 'package:reading_app/features/auth/data/repositories/user_repository_impl.dart';
 import 'package:reading_app/features/auth/data/sources/user_service.dart';
 import 'package:reading_app/features/auth/domain/repositories/user_repository.dart';
-import 'package:reading_app/features/auth/domain/usecase/backup/get_user_usecase.dart';
+import 'package:reading_app/features/auth/domain/usecase/user/get_user_use_case.dart';
 import 'package:reading_app/features/comic/data/repositories/category_repository_impl.dart';
 import 'package:reading_app/features/comic/data/sources/category_comic_service.dart';
 import 'package:reading_app/features/comic/data/sources/comic_service.dart';
@@ -51,7 +51,7 @@ class HomeBinding extends Bindings {
         Get.find(), Get.find(), Get.find(), Get.find(), Get.find()));
 
     //Usecase
-    Get.lazyPut(() => GetUserUsecase(Get.find()));
+    Get.lazyPut(() => GetuserUseCase(Get.find()));
     Get.lazyPut(() => FetchAuthUsecase(Get.find()));
     Get.lazyPut(() => FetchSliderUsecase(Get.find()));
     Get.lazyPut(() => FetchCategoriesCacheUsecase(Get.find()));

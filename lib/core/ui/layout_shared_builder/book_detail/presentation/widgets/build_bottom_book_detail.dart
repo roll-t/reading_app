@@ -13,7 +13,7 @@ import 'package:reading_app/core/services/entities/models/reading_book_case_mode
 import 'package:reading_app/core/storage/sql/data_helper.dart';
 import 'package:reading_app/core/ui/layout_shared_builder/book_detail/entities/arguments/info_comic_read_now_argument.dart';
 import 'package:reading_app/core/ui/widgets/text/customs/text_medium_semi_bold.dart';
-import 'package:reading_app/features/auth/domain/usecase/auth_use_case.dart';
+import 'package:reading_app/features/auth/domain/usecase/auth/auth_use_case.dart';
 import 'package:reading_app/features/bookcase/data/sources/book_case_service.dart';
 import 'package:reading_app/features/comic/data/entities/arguments/comic_chapter_argument.dart';
 import 'package:reading_app/features/novel/data/models/novel_argument_model.dart';

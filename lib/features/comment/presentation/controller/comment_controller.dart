@@ -5,7 +5,7 @@ import 'package:reading_app/core/configs/enum.dart';
 import 'package:reading_app/core/services/entities/dto/request/commentRequest.dart';
 import 'package:reading_app/core/services/entities/dto/request/comment_comic_request.dart';
 import 'package:reading_app/core/services/entities/dto/response/commentReponse.dart';
-import 'package:reading_app/features/auth/domain/usecase/auth_use_case.dart';
+import 'package:reading_app/features/auth/domain/usecase/auth/auth_use_case.dart';
 import 'package:reading_app/features/comment/data/sources/comment_comic_service.dart';
 import 'package:reading_app/features/comment/data/sources/comment_service.dart';
 

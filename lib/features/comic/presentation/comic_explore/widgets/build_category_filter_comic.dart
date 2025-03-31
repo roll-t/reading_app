@@ -9,12 +9,11 @@ import 'package:reading_app/core/ui/widgets/text/customs/text_large_semi_bold.da
 import 'package:reading_app/core/ui/widgets/text/customs/text_normal.dart';
 import 'package:reading_app/features/comic/presentation/comic_explore/controller/explore_comic_type_controller.dart';
 
-// ignore: must_be_immutable
 class BuildCategoryFilterComic extends GetView<ExploreComicTypeController> {
   final RxInt currentIndex;
-  List<CategoryModel> categories;
+  final List<CategoryModel> categories;
   final bool? isLoading;
-  BuildCategoryFilterComic({
+  const BuildCategoryFilterComic({
     super.key,
     required this.currentIndex,
     this.categories = const [],
@@ -147,7 +146,7 @@ class BuildCategoryFilterComic extends GetView<ExploreComicTypeController> {
                       },
                       icon: Icon(
                         Icons.filter_alt_rounded,
-                        size: AppDimens.iconSize18,
+                        size: AppDimens.iconNormal,
                       )),
                 ),
                 const SizedBox(width: AppDimens.space30),

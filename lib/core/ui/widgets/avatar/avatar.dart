@@ -46,7 +46,8 @@ class Avatar extends StatelessWidget {
           borderRadius: BorderRadius.circular(10000),
           child: FutureBuilder<bool>(
             future: ImagesService.doesImageLinkExist(
-                url ?? AppImages.iAvatarDefault),
+              url ?? AppImages.iAvatarDefault,
+            ),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return SizedBox(

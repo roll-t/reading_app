@@ -9,11 +9,10 @@ import 'package:reading_app/core/services/entities/models/user_model.dart';
 import 'package:reading_app/core/services/utils/images_service.dart';
 import 'package:reading_app/core/ui/snackbar/snackbar.dart';
 import 'package:reading_app/features/auth/data/sources/user_service.dart';
-import 'package:reading_app/features/auth/domain/usecase/get_user_use_case.dart';
-import 'package:reading_app/features/auth/domain/usecase/save_user_use_case.dart';
+import 'package:reading_app/features/auth/domain/usecase/user/get_user_use_case.dart';
+import 'package:reading_app/features/auth/domain/usecase/user/set_user_usecase.dart';
 
 class ProfileDetailController extends GetxController {
-  
   final ImagesService imagesService = Get.find();
 
   bool isUpdated = false;
@@ -22,7 +21,7 @@ class ProfileDetailController extends GetxController {
 
   Rx<UserModel> userModel = UserModel(email: "").obs;
 
-  final SaveUserUseCase _saveUserUseCase;
+  final SetUserUsecase _setUserUseCase;
   final GetuserUseCase _getuserUseCase;
   final textController = TextEditingController();
   RxBool errorDisplayName = false.obs;
@@ -31,7 +30,7 @@ class ProfileDetailController extends GetxController {
   var isLoading = false.obs;
 
   ProfileDetailController(
-    this._saveUserUseCase,
+    this._setUserUseCase,
     this._getuserUseCase,
   );
 
@@ -44,7 +43,7 @@ class ProfileDetailController extends GetxController {
   }
 
   Future<void> _initializeUserData() async {
-    userModel.value = await _getuserUseCase.getUser() ?? UserModel(email: "");
+    userModel.value = await _getuserUseCase() ?? UserModel(email: "");
     userModel.value.uid = authArgument.uid;
     displayName.value = userModel.value.displayName ?? "";
     textController.text = displayName.value;
@@ -100,7 +99,7 @@ class ProfileDetailController extends GetxController {
     if (displayName != null) userModel.value.displayName = displayName;
     if (imageUrl != null) userModel.value.photoURL = imageUrl;
 
-    _saveUserUseCase.saveUser(UserModel(
+    _setUserUseCase(UserModel(
         email: userModel.value.email,
         photoURL: imageUrl ?? userModel.value.photoURL,
         displayName: displayName ?? userModel.value.displayName));

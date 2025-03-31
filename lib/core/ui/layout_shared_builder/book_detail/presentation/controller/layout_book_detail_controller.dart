@@ -8,7 +8,7 @@ import 'package:reading_app/core/services/entities/models/category_model.dart';
 import 'package:reading_app/core/services/entities/models/chapter_novel_model.dart';
 import 'package:reading_app/core/services/entities/models/reading_book_case_model.dart';
 import 'package:reading_app/core/ui/layout_shared_builder/book_detail/entities/arguments/layout_book_detail_argument.dart';
-import 'package:reading_app/features/auth/domain/usecase/auth_use_case.dart';
+import 'package:reading_app/features/auth/domain/usecase/auth/auth_use_case.dart';
 
 class LayoutBookDetailController extends GetxController
     with GetSingleTickerProviderStateMixin {

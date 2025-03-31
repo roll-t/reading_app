@@ -1,11 +1,11 @@
 import 'package:reading_app/core/services/entities/models/user_model.dart';
 import 'package:reading_app/features/auth/domain/repositories/login_repository.dart';
-import 'package:reading_app/features/auth/domain/usecase/backup/remember_user_usecase.dart';
+import 'package:reading_app/features/auth/domain/usecase/user/set_remember_user_usecase.dart';
 
 class SigninUseCase {
   final LoginRepository _repository;
-  final RememberUserUsecase _rememberUserUsecase;
-  SigninUseCase(this._repository, this._rememberUserUsecase);
+  final SetRememberUserUsecase _setRememberUserUsecase;
+  SigninUseCase(this._repository, this._setRememberUserUsecase);
   Future<UserModel?> call({
     required String email,
     required String password,
@@ -14,7 +14,7 @@ class SigninUseCase {
     try {
       var result = await _repository.signin(email, password);
       if (rememberUserLastSignin) {
-        _rememberUserUsecase(result ?? UserModel(email: "None"));
+        _setRememberUserUsecase(result ?? UserModel());
       }
       return result;
     } catch (e) {

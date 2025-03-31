@@ -23,12 +23,14 @@ class UserService extends ApiService {
         data: request);
   }
 
-  Future<Result<UserModel>?> signInAPI(
-      {required UserRequest userRequest}) async {
+  Future<Result<UserModel>?> signInAPI({
+    required UserRequest userRequest,
+  }) async {
     return await post(
-        endpoint: APIEndpoint.signInEndpoint,
-        parse: (data) => UserModel.fromJson(data),
-        data: userRequest.toJson());
+      endpoint: APIEndpoint.signInEndpoint,
+      parse: (data) => UserModel.fromJson(data),
+      data: userRequest.toJson(),
+    );
   }
 
   Future<Result<bool>> fetchEmailExist({required String email}) async {

@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_protected_member
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -75,7 +77,6 @@ class ReadComicController extends GetxController {
 
   Future<void> fetchBookImages() async {
     imageUrls.clear();
-    // ignore: invalid_use_of_protected_member
     final result = await _chapterComicUsecase(currentChapterArguments.value);
     if (result != null) {
       chapterModel = result;
@@ -190,7 +191,6 @@ class ReadComicController extends GetxController {
     currentChapterArguments.value = listChapterArgument[currentIndex + 1];
     updateChapter();
     Fluttertoast.showToast(
-        // ignore: invalid_use_of_protected_member
         msg: "Chương ${currentChapterArguments.value["chapter_name"]}");
     loading.value = false;
   }
@@ -208,7 +208,6 @@ class ReadComicController extends GetxController {
     currentChapterArguments.value = listChapterArgument[currentIndex - 1];
     updateChapter();
     Fluttertoast.showToast(
-        // ignore: invalid_use_of_protected_member
         msg: "Chương ${currentChapterArguments.value["chapter_name"]}");
     loading.value = false;
   }

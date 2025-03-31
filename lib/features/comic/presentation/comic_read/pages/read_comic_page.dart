@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_protected_member, deprecated_member_use
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,26 +16,19 @@ class ReadComicPage extends GetView<ReadComicController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: _SideBar(),
-      // ignore: deprecated_member_use
+      drawer: _sideBar(),
       body: WillPopScope(
         onWillPop: () async {
           Get.back(
-              result: ReadingComicBookCaseModel(
-                  bookDataId: "",
-                  slug: "",
-                  uid: "",
-                  chapterName:
-                      // ignore: invalid_use_of_protected_member
-                      controller.currentChapterArguments.value["chapter_name"],
-                  chapterApiData: controller
-                      .currentChapterArguments
-                      // ignore: invalid_use_of_protected_member
-                      .value["chapter_api_data"],
-                  readingDate: DateTime.now().toIso8601String(),
-                  positionReading: controller.scrollController.position.pixels,
-                  thumbUrl: "",
-                  comicName: ""));
+            result: ReadingComicBookCaseModel(
+              chapterName:
+                  controller.currentChapterArguments.value["chapter_name"],
+              chapterApiData:
+                  controller.currentChapterArguments.value["chapter_api_data"],
+              readingDate: DateTime.now().toIso8601String(),
+              positionReading: controller.scrollController.position.pixels,
+            ),
+          );
           return true;
         },
         child: Obx(
@@ -121,8 +116,8 @@ class ReadComicPage extends GetView<ReadComicController> {
                     ),
                   ),
                 ),
-                _BuildLeadingIcon(),
-                _BuildTagControlChapter()
+                _buildLeadingIcon(),
+                _buildTagControlChapter()
               ],
             );
           },
@@ -131,59 +126,52 @@ class ReadComicPage extends GetView<ReadComicController> {
     );
   }
 
-  // ignore: non_constant_identifier_names
-  Positioned _BuildLeadingIcon() {
+  Positioned _buildLeadingIcon() {
     return Positioned(
-        top: 30,
-        left: 16,
+      top: 30,
+      left: 16,
+      child: InkWell(
+        onTap: () {
+          final chapterArgs = controller.currentChapterArguments.value;
+          Get.back(
+            result: ReadingComicBookCaseModel(
+              chapterName: chapterArgs["chapter_name"],
+              chapterApiData: chapterArgs["chapter_api_data"],
+              readingDate: DateTime.now().toIso8601String(),
+              positionReading: controller.scrollController.hasClients
+                  ? controller.scrollController.position.pixels
+                  : 0.0, // Kiểm tra nếu scrollController chưa sẵn sàng
+            ),
+          );
+        },
         child: Obx(() => AnimatedSlide(
               offset: controller.isControlsVisible.value
                   ? const Offset(0, 0)
                   : const Offset(-1.5, 0),
               curve: Curves.bounceInOut,
               duration: const Duration(milliseconds: 200),
-              child: Center(
-                child: Container(
-                  width: 35,
-                  height: 35,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(1000),
-                      border: Border.all(
-                          color: AppColors.white.withOpacity(.4),
-                          width: .6),
-                      color: AppColors.gray2.withOpacity(.2)),
-                  child: IconButton(
-                      onPressed: () {
-                        Get.back(
-                            result: ReadingComicBookCaseModel(
-                                bookDataId: "",
-                                slug: "",
-                                uid: "",
-                                chapterName: controller
-                                    .currentChapterArguments
-                                    // ignore: invalid_use_of_protected_member
-                                    .value["chapter_name"],
-                                chapterApiData: controller
-                                    .currentChapterArguments
-                                    // ignore: invalid_use_of_protected_member
-                                    .value["chapter_api_data"],
-                                readingDate: DateTime.now().toIso8601String(),
-                                positionReading:
-                                    controller.scrollController.position.pixels,
-                                thumbUrl: "",
-                                comicName: ""));
-                      },
-                      icon: Icon(
-                        Icons.arrow_back_ios_new_rounded,
-                        size: AppDimens.iconSize18,
-                      )),
+              child: Container(
+                width: 35,
+                height: 35,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(1000),
+                  border: Border.all(
+                    color: AppColors.white.withOpacity(.4),
+                    width: .6,
+                  ),
+                  color: AppColors.gray2.withOpacity(.2),
+                ),
+                child: Icon(
+                  Icons.arrow_back_ios_new_rounded,
+                  size: AppDimens.iconSize18,
                 ),
               ),
-            )));
+            )),
+      ),
+    );
   }
 
-  // ignore: non_constant_identifier_names
-  Drawer _SideBar() {
+  Drawer _sideBar() {
     return Drawer(
       child: GetBuilder<ReadComicController>(
         id: "listSelected",
@@ -205,16 +193,16 @@ class ReadComicPage extends GetView<ReadComicController> {
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                      color: controller
-                                  .currentChapterArguments
-                                  // ignore: invalid_use_of_protected_member
+                      color: controller.currentChapterArguments
                                   .value["chapter_name"] ==
                               controller.listChapterArgument[i]["chapter_name"]
                           ? AppColors.accentColor
                           : null,
                     ),
                     padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 20),
+                      vertical: 10,
+                      horizontal: 20,
+                    ),
                     child: TextWidget(
                       maxLines: 2,
                       text:
@@ -229,8 +217,7 @@ class ReadComicPage extends GetView<ReadComicController> {
     );
   }
 
-  // ignore: non_constant_identifier_names
-  Positioned _BuildTagControlChapter() {
+  Positioned _buildTagControlChapter() {
     return Positioned(
       bottom: 20,
       left: 0,
@@ -262,7 +249,6 @@ class ReadComicPage extends GetView<ReadComicController> {
                           vertical: 10, horizontal: 20),
                       child: TextWidget(
                         text:
-                            // ignore: invalid_use_of_protected_member
                             "Chương ${controller.currentChapterArguments.value["chapter_name"]}",
                         maxLines: 1,
                       ),
@@ -273,9 +259,7 @@ class ReadComicPage extends GetView<ReadComicController> {
                         IconButton(
                           onPressed: () {
                             controller.preChapter(
-                                chapterId: controller
-                                    .currentChapterArguments
-                                    // ignore: invalid_use_of_protected_member
+                                chapterId: controller.currentChapterArguments
                                     .value["chapter_name"]);
                           },
                           icon: const Icon(Icons.arrow_back_ios_new_rounded),
@@ -297,9 +281,7 @@ class ReadComicPage extends GetView<ReadComicController> {
                         IconButton(
                           onPressed: () {
                             controller.nextChapter(
-                                chapterId: controller
-                                    .currentChapterArguments
-                                    // ignore: invalid_use_of_protected_member
+                                chapterId: controller.currentChapterArguments
                                     .value["chapter_name"]);
                           },
                           icon: const Icon(Icons.arrow_forward_ios_rounded),

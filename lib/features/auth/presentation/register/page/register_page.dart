@@ -27,7 +27,8 @@ class RegisterPage extends GetView<RegisterController> {
             _BuildBody()
           ],
         ),
-        isLoading: controller.isLoading,
+        isWaitProcess: controller.isLoading,
+        isLoading: false.obs,
       ),
     );
   }
@@ -36,8 +37,8 @@ class RegisterPage extends GetView<RegisterController> {
   Widget _BuildBody() {
     return BuildShareAuth.buildBackgoundForm(
         childContent: Obx(
-      () => Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      () => Wrap(
+        runSpacing: AppDimens.space20,
         children: [
           InputAppNormal(
             label: AppContents.name,

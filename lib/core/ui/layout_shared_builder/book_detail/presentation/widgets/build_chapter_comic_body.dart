@@ -9,7 +9,7 @@ import 'package:reading_app/core/services/entities/models/reading_book_case_mode
 import 'package:reading_app/core/storage/sql/data_helper.dart';
 import 'package:reading_app/core/ui/widgets/text/customs/text_normal.dart';
 import 'package:reading_app/core/ui/widgets/text/customs/text_small_light.dart';
-import 'package:reading_app/features/auth/domain/usecase/auth_use_case.dart';
+import 'package:reading_app/features/auth/domain/usecase/auth/auth_use_case.dart';
 import 'package:reading_app/features/comic/data/entities/arguments/comic_chapter_argument.dart';
 import 'package:reading_app/features/comic/presentation/comic_detail/controllers/comic_detail_controller.dart';
 

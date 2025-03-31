@@ -12,7 +12,7 @@ class UserModel {
   UserModel({
     this.uid,
     this.displayName,
-    required this.email,
+    this.email = "",
     this.password,
     this.photoURL,
     this.creationTime,
@@ -49,4 +49,3 @@ class UserModel {
     };
   }
 }
-

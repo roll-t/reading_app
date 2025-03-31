@@ -32,8 +32,10 @@ class Validators {
     return "";
   }
 
-  static String checkErrorEmail(
-      {required String value, EmailErrors type = EmailErrors.format}) {
+  static String checkErrorEmail({
+    required String value,
+    EmailErrors type = EmailErrors.format,
+  }) {
     if (!validateEmail(value.trim())) return AppErrors.formatEmail;
     if (type == EmailErrors.already) return AppErrors.emailAlready;
     return "";

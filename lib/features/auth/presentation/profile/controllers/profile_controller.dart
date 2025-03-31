@@ -1,11 +1,10 @@
 import 'package:get/get.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:reading_app/core/routes/routes.dart';
 import 'package:reading_app/core/services/entities/models/authentication_model.dart';
 import 'package:reading_app/core/services/entities/models/user_model.dart';
 import 'package:reading_app/core/storage/prefs/prefs.dart';
-import 'package:reading_app/features/auth/domain/usecase/auth_use_case.dart';
-import 'package:reading_app/features/auth/domain/usecase/get_user_use_case.dart';
+import 'package:reading_app/features/auth/domain/usecase/auth/auth_use_case.dart';
+import 'package:reading_app/features/auth/domain/usecase/user/get_user_use_case.dart';
 
 class ProfileController extends GetxController {
   final prefs = Prefs();
@@ -16,10 +15,12 @@ class ProfileController extends GetxController {
 
   var isLogin = false.obs;
   var isLoading = false.obs;
+
   AuthUseCase? authUseCase;
+
   String jwtToken = "";
-  var userModel =
-      UserModel(email: " ", photoURL: "", displayName: "no name").obs;
+
+  var userModel = UserModel().obs;
 
   @override
   onInit() async {
@@ -32,15 +33,11 @@ class ProfileController extends GetxController {
   Future<void> _initializeHeaders() async {
     jwtToken = await AuthUseCase.getAuthToken();
     if (jwtToken.isNotEmpty) {
-      // Decode token once
-      Map<String, dynamic> decodedToken = JwtDecoder.decode(jwtToken);
-
       // Try to load user data from cache (in case of an existing session)
-      UserModel? userCache = await _getuserUseCase.getUser();
+      UserModel? userCache = await _getuserUseCase();
 
-      // Update userModel with decoded token and cache data if available
-      userModel.value.uid = decodedToken["uid"];
-      userModel.value.email = decodedToken["sub"];
+      userModel.value.uid = userCache?.uid ?? "";
+      userModel.value.email = userCache?.email ?? "";
       userModel.value.displayName = userCache?.displayName ?? "";
       userModel.value.photoURL = userCache?.photoURL ?? "";
     }
